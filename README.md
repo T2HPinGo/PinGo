@@ -2,47 +2,46 @@
 
 - * Login:
       - [] User login by Facebook or Google or PinGo.
-      - [] User sign up account (Customer or Worker)
-- * Hamburger menu:
-      - [] Header view: show profile image and name
-      - [] User tap profile image to view User Profile
-      - [] Show list menu:
-      - [] Settings
-      - [] Logout           
+      - [] User sign up account (Customer or Worker)          
 - * Home:
     - + User:
-      - [] Header view of the list have some input text (Title ticket, category ticket, location ,upload image)
-      - [] Show list tickets issues of user  
-      - [] User can tap on a ticket. It will navigate to detail ticket
-      - [] User can edit or update the ticket
+      - [] Show message say Hi to User 
+      - [] Button Create new ticket 
+      - [] Create new ticket (Category, Title , Uploadfile)
+      - [] Show the ticket when the user finished create it 
     - + Worker:
-      - [] Show all list tickets issues of all user in worker’s area (City)
+      - [] Recevie the  ticket of the user 
       - [] Worker can tap on a ticket to view it 
 Search filter ticket on the list
+
 ·     - [] Optional: Real time data tickets (For example: Worker update status in ticket , User can see it without reload app )
-- * Map:
-    - + User:
-      - [] Show all workers  near the user
-      - [] Filter workers by category
-      - [] Tap marker to view detail worker’s information
-    - + Worker:
-      - [] Show all tickets (pending or waiting) of user
-      - [] Filter tickets by category
-      - [] Tap market to view detail ticket
+- * Create new tickets: 
+    - * Slide fill out 
+      - [] Fill out the information for new ticket (Category, title, image upload, description)
+      - [] Optional: Upload video
+    - * Slide List Workers: 
+      - Suggest list workers 
+      - Change list or maps 
+      - Filter workers by "Rating or price ..."
+      - Setting filter
+    - * Slide Detail ticket
+      - [] Show information of the ticket
+      - [] Update ticket (worker update :responsible or status)
+      - [] If worker cancel , screen will go back to Screen List Workers again 
+      - [] If worker accept, screen will go to Screen Payment 
+    - * Slide Payment screen:
+        - + User:
+          - [] Saved credit card information
+          - [] Choose options to pay the worker: Credit card vs Cash
+          - [] If payment finish, it will go back to home screen with table view add new ticket and headerView with Message and button create new ticket
 - * User profile:
     - + User:
       - [] Information (name, profile image, location)
       - [] Payment (history payment for the worker)
       - [] Edit profile
-      - [] Following worker
+      - [] Subscriber worker
+      - [] History tickets
     - + Worker:
       - [] Information (name, profile image, location)
       - [] Edit profile
-- * Detail ticket
-      - [] Show information of the ticket
-      - [] Update ticket (worker update :responsible or status)
-      - [] When update ticket is done ticket should be map to item on list or map
-- * Payment screen:
-    - + User:
-      - [] Saved credit card information
-      - [] Choose options to pay the worker: Credit card vs Cash
+
