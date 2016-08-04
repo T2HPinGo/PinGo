@@ -14,7 +14,7 @@
       - [] Worker can tap on a ticket to view it 
 Search filter ticket on the list
 
-·     - [] Optional: Real time data tickets (For example: Worker update status in ticket , User can see it without reload app )
+      - [] Optional: Real time data tickets (For example: Worker update status in ticket , User can see it without reload app )
 - * Create new tickets: 
     - * Slide fill out 
       - [] Fill out the information for new ticket (Category, title, image upload, description)
