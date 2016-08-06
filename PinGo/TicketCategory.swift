@@ -6,11 +6,9 @@
 //  Copyright © 2016 Hien Tran. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
-
-
-class Category: NSObject {
+class TicketCategory: NSObject {
     var id: String?
     var title: String?
     var iconImage: String?

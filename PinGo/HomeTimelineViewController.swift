@@ -14,17 +14,22 @@ class HomeTimelineViewController: BaseViewController {
     
     @IBOutlet weak var createNewTicketButton: UIButton!
 
-     //MARK: - Fake Data
-    
+    //MARK: - Fake Data
+    let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
+    let worker = Worker(name: "Puppy", id: "qwerty", location: nil, profileImagePath: nil, currentLocation: nil, rating: 4.5)
+    var ticket: Ticket!
     
     //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Create gesture to access UserProfileVC by tapping on the profile image
-//        let ticket = Ticke
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 150.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         
-        
+        //Fake data goes here
+        ticket = Ticket(user: user, worker: worker, id: "1q2w3e4r", category: "Electricity" , title: "Broken Lightbulb", status: Status.Pending, issueImageVideoPath: nil, dateCreated: NSDate())
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,9 +52,17 @@ class HomeTimelineViewController: BaseViewController {
 
 }
 
-/*
+
 //MARK: - EXTENSION UITableViewDataSource, UITableViewDelegate
 extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 15
+    }
     
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
+        cell.ticket = ticket
+        return cell
+    }
 }
- */
+
