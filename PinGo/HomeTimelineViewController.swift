@@ -10,14 +10,20 @@ import UIKit
 
 class HomeTimelineViewController: BaseViewController {
     //MARK: - Outlets and variables
+    @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var createNewTicketButton: UIButton!
 
+     //MARK: - Fake Data
+    
     
     //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Create gesture to access UserProfileVC by tapping on the profile image
+//        let ticket = Ticke
+        
         
     }
 
