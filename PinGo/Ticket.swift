@@ -23,6 +23,7 @@ class Ticket: NSObject {
     var title: String
     var status: Status?
     var issueImageVideoPath: String?
+    var dateCreated: NSDate?
 }
 
 
