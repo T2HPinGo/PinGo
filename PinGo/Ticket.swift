@@ -19,7 +19,7 @@ class Ticket: NSObject {
     var user: User?
     var worker: Worker?
     var id: String?
-    var category: String?//TicketCategory?
+    var category: String? //TicketCategory?
     var title: String?
     var status: Status?
     var issueImageVideoPath: String?
@@ -35,7 +35,6 @@ class Ticket: NSObject {
         self.issueImageVideoPath = issueImageVideoPath
         self.dateCreated = dateCreated
     }
-    
 }
 
 

@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="B7185934-83D8-4C6E-A2A1-8EB67A0D5D68" translatesAutoresizingMaskIntoConstraints="NO" id="zDO-2y-ne6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="6B8F0CDD-2A3C-46A7-9D83-59906FE30FAC" translatesAutoresizingMaskIntoConstraints="NO" id="zDO-2y-ne6">
                                 <rect key="frame" x="130" y="81" width="60" height="60"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mr Puppy Alexander Butt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIM-xF-dLQ">
@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="B7185934-83D8-4C6E-A2A1-8EB67A0D5D68" width="500" height="501">
+        <image name="6B8F0CDD-2A3C-46A7-9D83-59906FE30FAC" width="500" height="501">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

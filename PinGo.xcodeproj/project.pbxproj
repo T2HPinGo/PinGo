@@ -24,6 +24,10 @@
 		219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E71D50B62E006B5ADE /* LaunchScreen.storyboard */; };
 		21B3A1031D561CC700C1CE9E /* AppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1021D561CC700C1CE9E /* AppThemes.swift */; };
 		21B3A1051D562C3800C1CE9E /* CreateTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */; };
+		21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1061D56379C00C1CE9E /* CategoryCell.swift */; };
+		21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */; };
+		21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */; };
+		21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */; };
 		21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */; };
 		6326151595FD7B29E155F761 /* Pods_PinGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +53,10 @@
 		219D49EA1D50B62E006B5ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21B3A1021D561CC700C1CE9E /* AppThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemes.swift; sourceTree = "<group>"; };
 		21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTicketViewController.swift; sourceTree = "<group>"; };
+		21B3A1061D56379C00C1CE9E /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextField.swift; sourceTree = "<group>"; };
+		21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+fixCaretPosition.swift"; sourceTree = "<group>"; };
+		21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TittleAndDescriptionViewController.swift; sourceTree = "<group>"; };
 		21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		46B67295BCB5B178E35CE385 /* Pods-PinGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.release.xcconfig"; sourceTree = "<group>"; };
 		6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +87,7 @@
 		21434C311D559E4C00B31122 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */,
 				2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */,
 				21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */,
 				21434C321D559EAD00B31122 /* BaseViewController.swift */,
@@ -91,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				21434C361D55AA5F00B31122 /* RequestStatusCell.swift */,
+				21B3A1061D56379C00C1CE9E /* CategoryCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -143,6 +153,16 @@
 				21B3A1021D561CC700C1CE9E /* AppThemes.swift */,
 			);
 			path = PinGo;
+			sourceTree = "<group>";
+		};
+		21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */ = {
+			isa = PBXGroup;
+			children = (
+				21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */,
+				21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */,
+				21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */,
+			);
+			name = ToBeUsedLater;
 			sourceTree = "<group>";
 		};
 		D07DBF9DE7222C3D2DDBE867 /* Frameworks */ = {
@@ -284,6 +304,8 @@
 				21434C331D559EAD00B31122 /* BaseViewController.swift in Sources */,
 				21434C3E1D55AC4700B31122 /* Location.swift in Sources */,
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
+				21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */,
+				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
 				21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */,
 				21434C421D55ACE300B31122 /* Worker.swift in Sources */,
 				21434C401D55ACAC00B31122 /* User.swift in Sources */,
@@ -291,6 +313,8 @@
 				21434C391D55AB1B00B31122 /* AppUltility.swift in Sources */,
 				21434C3B1D55AB9C00B31122 /* UserProfile.swift in Sources */,
 				21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */,
+				21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */,
+				21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
