@@ -13,6 +13,8 @@ class CreateTicketViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraints: NSLayoutConstraint!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var chooseCategoryView: UIView!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categoryIconImageView: UIImageView!
@@ -58,6 +60,8 @@ class CreateTicketViewController: UIViewController {
      //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.keyboardDismissMode = .OnDrag
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -154,8 +158,8 @@ class CreateTicketViewController: UIViewController {
         let verticalDistanceBetweenViews: CGFloat = 8
         ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + urgentSwitch.bounds.height + paymentMethodView.bounds.height + findWorkerView.bounds.height
         
-        //set up scrollable area for scrollView
-        //        scrollView.contentSize = CGSize(width: view.bounds.size.width, height:  15 + chooseCategoryView.bounds.height + 12 + collectionView.bounds.height + 12 + ticketDetailViewHeightConstraint.constant + 20)
+        //place holder
+        titleTextField.placeholder = "Enter your title"
     }
 
 }
@@ -277,21 +281,16 @@ extension CreateTicketViewController: UIImagePickerControllerDelegate, UINavigat
             break
         }
     }
-    
-    
-    
-    
 }
 
 extension CreateTicketViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(textField: UITextField) {
-        ticketTitle = titleTextField.text!
     }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        titleTextField.resignFirstResponder()
-        return true
+}
+
+extension CreateTicketViewController: UITextViewDelegate {
+    func textViewDidEndEditing(textView: UITextView) {
     }
 }
 
