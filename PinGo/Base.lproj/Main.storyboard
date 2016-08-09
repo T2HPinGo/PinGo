@@ -200,7 +200,7 @@
                                             <outlet property="statusImageView" destination="Ads-zc-pTY" id="ptM-Uf-17E"/>
                                             <outlet property="workerImageView" destination="2ea-bB-0E7" id="eG5-W9-TQG"/>
                                             <outlet property="workerNameLabel" destination="qL9-ct-Dm5" id="aUv-3t-CGW"/>
-                                            <segue destination="cVb-Pc-pFH" kind="presentation" id="jVi-7R-eXP"/>
+                                            <segue destination="cVb-Pc-pFH" kind="presentation" identifier="ShowTicketDetail" id="768-Ef-eTy"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -821,18 +821,41 @@
             </objects>
             <point key="canvasLocation" x="-117" y="563"/>
         </scene>
-        <!--View Controller-->
+        <!--Ticket Detail View Controller-->
         <scene sceneID="z6p-9f-O3n">
             <objects>
-                <viewController id="cVb-Pc-pFH" sceneMemberID="viewController">
+                <viewController id="cVb-Pc-pFH" customClass="TicketDetailViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rOU-b9-aBY"/>
                         <viewControllerLayoutGuide type="bottom" id="2v7-Dv-doo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iLJ-R1-teb">
+                    <view key="view" alpha="0.5" contentMode="scaleToFill" id="iLJ-R1-teb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VsG-7G-Lu8" userLabel="PopupView">
+                                <rect key="frame" x="40" y="164" width="240" height="240"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pFH-JB-geB" userLabel="Close Button">
+                                        <rect key="frame" x="3" y="0.0" width="15" height="22"/>
+                                        <state key="normal" image="CloseButton"/>
+                                        <connections>
+                                            <action selector="close" destination="cVb-Pc-pFH" eventType="touchUpInside" id="hji-Da-qI2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VsG-7G-Lu8" secondAttribute="height" multiplier="1:1" id="O8m-YB-Oku"/>
+                                    <constraint firstAttribute="height" constant="240" id="Plr-0R-2gO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VsG-7G-Lu8" firstAttribute="centerY" secondItem="iLJ-R1-teb" secondAttribute="centerY" id="PgJ-cn-8re"/>
+                            <constraint firstItem="VsG-7G-Lu8" firstAttribute="centerX" secondItem="iLJ-R1-teb" secondAttribute="centerX" id="oIa-U3-23G"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -852,6 +875,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CloseButton" width="15" height="15"/>
         <image name="camera" width="100" height="100"/>
         <image name="checkmark_filled" width="50" height="50"/>
         <image name="dog" width="500" height="501"/>
