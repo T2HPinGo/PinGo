@@ -36,7 +36,7 @@ class CreateTicketViewController: UIViewController {
     @IBOutlet weak var pickedImageView3HeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var descriptionTextView: T2HTextViewWithPlaceHolder!
     
     @IBOutlet weak var urgentSwitch: UISwitch!
     
@@ -160,6 +160,7 @@ class CreateTicketViewController: UIViewController {
         
         //place holder
         titleTextField.placeholder = "Enter your title"
+        descriptionTextView.placeholder = "Enter description"
     }
 
 }
