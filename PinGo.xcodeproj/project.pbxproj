@@ -42,6 +42,10 @@
 		21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */; };
 		6326151595FD7B29E155F761 /* Pods_PinGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */; };
 		E7EBFA021D5C2CC000C1FEB8 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7EBFA011D5C2CC000C1FEB8 /* UserProfile.storyboard */; };
+		E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */; };
+		E7EBFA061D5C6AE900C1FEB8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */; };
+		E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7EBFA071D5C8F8400C1FEB8 /* MapStoryboard.storyboard */; };
+		E7EBFA0A1D5C8FB500C1FEB8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EBFA091D5C8FB500C1FEB8 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +88,10 @@
 		46B67295BCB5B178E35CE385 /* Pods-PinGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.release.xcconfig"; sourceTree = "<group>"; };
 		6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7EBFA011D5C2CC000C1FEB8 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserProfile.storyboard; path = ../../../Downloads/UserProfile.storyboard; sourceTree = "<group>"; };
+		E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryboard.storyboard; sourceTree = "<group>"; };
+		E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E7EBFA071D5C8F8400C1FEB8 /* MapStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapStoryboard.storyboard; sourceTree = "<group>"; };
+		E7EBFA091D5C8FB500C1FEB8 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		ED68344C6C8996F6D0AE5D86 /* Pods-PinGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +127,8 @@
 				21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */,
 				21F9E6FD1D58F930002D9DF6 /* WorkerHistoryViewController.swift */,
 				21F9E7031D5901F3002D9DF6 /* TicketDetailViewController.swift */,
+				E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */,
+				E7EBFA091D5C8FB500C1FEB8 /* MapViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -174,6 +184,8 @@
 				21434C311D559E4C00B31122 /* ViewControllers */,
 				219D49DE1D50B62E006B5ADE /* AppDelegate.swift */,
 				219D49E21D50B62E006B5ADE /* Main.storyboard */,
+				E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */,
+				E7EBFA071D5C8F8400C1FEB8 /* MapStoryboard.storyboard */,
 				E7EBFA011D5C2CC000C1FEB8 /* UserProfile.storyboard */,
 				219D49E51D50B62E006B5ADE /* Assets.xcassets */,
 				219D49E71D50B62E006B5ADE /* LaunchScreen.storyboard */,
@@ -279,7 +291,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */,
 				219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */,
+				E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */,
 				E7EBFA021D5C2CC000C1FEB8 /* UserProfile.storyboard in Resources */,
 				219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */,
 				219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */,
@@ -354,7 +368,9 @@
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
 				21F9E7041D5901F3002D9DF6 /* TicketDetailViewController.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
+				E7EBFA061D5C6AE900C1FEB8 /* LoginViewController.swift in Sources */,
 				21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */,
+				E7EBFA0A1D5C8FB500C1FEB8 /* MapViewController.swift in Sources */,
 				21F9E6FE1D58F930002D9DF6 /* WorkerHistoryViewController.swift in Sources */,
 				21F9E6F81D58F27B002D9DF6 /* WorkerDetailCell.swift in Sources */,
 				21434C421D55ACE300B31122 /* Worker.swift in Sources */,

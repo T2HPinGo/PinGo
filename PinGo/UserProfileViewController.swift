@@ -18,7 +18,7 @@ class UserProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController!.navigationBar.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.8)
+        self.navigationController!.navigationBar.backgroundColor = UIColor(red: 140/255.0, green: 0/255.0, blue: 40/255.0, alpha: 1.0)
 //        self.view.backgroundColor = UIColor(red: 0.2, green: 0.1, blue: 0.2, alpha: 0.35)
 //        backgroundImage.hidden = true
         // Do any additional setup after loading the view.

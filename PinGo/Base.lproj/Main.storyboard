@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jB1-lF-C6J">
-                                <rect key="frame" x="139" y="282" width="42" height="30"/>
+                                <rect key="frame" x="139" y="280" width="42" height="30"/>
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <segue destination="nJr-qv-QsY" kind="show" id="ZCT-ml-GG2"/>
