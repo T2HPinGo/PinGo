@@ -10,7 +10,6 @@
 		210EF8C51D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */; };
 		210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */; };
 		2130A14E1D51191C00B37C98 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */; };
-		21434C301D559E2D00B31122 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21434C2E1D559E2D00B31122 /* UserProfile.storyboard */; };
 		21434C331D559EAD00B31122 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C321D559EAD00B31122 /* BaseViewController.swift */; };
 		21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C361D55AA5F00B31122 /* RequestStatusCell.swift */; };
 		21434C391D55AB1B00B31122 /* AppUltility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C381D55AB1B00B31122 /* AppUltility.swift */; };
@@ -42,6 +41,7 @@
 		21FC6A7B1D5A6EA900819090 /* T2HRotateOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC6A7A1D5A6EA900819090 /* T2HRotateOutAnimationController.swift */; };
 		21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */; };
 		6326151595FD7B29E155F761 /* Pods_PinGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */; };
+		E7EBFA021D5C2CC000C1FEB8 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7EBFA011D5C2CC000C1FEB8 /* UserProfile.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +49,6 @@
 		210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HGradientUIView.swift; sourceTree = "<group>"; };
 		2130A1451D510C7300B37C98 /* PinGo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PinGo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewController.swift; sourceTree = "<group>"; };
-		21434C2F1D559E2D00B31122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserProfile.storyboard; sourceTree = "<group>"; };
 		21434C321D559EAD00B31122 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		21434C361D55AA5F00B31122 /* RequestStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatusCell.swift; sourceTree = "<group>"; };
 		21434C381D55AB1B00B31122 /* AppUltility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUltility.swift; sourceTree = "<group>"; };
@@ -84,6 +83,7 @@
 		21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		46B67295BCB5B178E35CE385 /* Pods-PinGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.release.xcconfig"; sourceTree = "<group>"; };
 		6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7EBFA011D5C2CC000C1FEB8 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UserProfile.storyboard; path = ../../../Downloads/UserProfile.storyboard; sourceTree = "<group>"; };
 		ED68344C6C8996F6D0AE5D86 /* Pods-PinGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +174,7 @@
 				21434C311D559E4C00B31122 /* ViewControllers */,
 				219D49DE1D50B62E006B5ADE /* AppDelegate.swift */,
 				219D49E21D50B62E006B5ADE /* Main.storyboard */,
-				21434C2E1D559E2D00B31122 /* UserProfile.storyboard */,
+				E7EBFA011D5C2CC000C1FEB8 /* UserProfile.storyboard */,
 				219D49E51D50B62E006B5ADE /* Assets.xcassets */,
 				219D49E71D50B62E006B5ADE /* LaunchScreen.storyboard */,
 				219D49EA1D50B62E006B5ADE /* Info.plist */,
@@ -280,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */,
-				21434C301D559E2D00B31122 /* UserProfile.storyboard in Resources */,
+				E7EBFA021D5C2CC000C1FEB8 /* UserProfile.storyboard in Resources */,
 				219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */,
 				219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */,
 			);
@@ -377,14 +377,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		21434C2E1D559E2D00B31122 /* UserProfile.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				21434C2F1D559E2D00B31122 /* Base */,
-			);
-			name = UserProfile.storyboard;
-			sourceTree = "<group>";
-		};
 		219D49E21D50B62E006B5ADE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -1,5 +1,7 @@
 # Final Demo : PinGo
 
+wireframe: http://i.imgur.com/qsLVvdv.gif
+
 - * Login:
       - [ ] User login by Facebook or Google or PinGo.
       - [ ] User sign up account (Customer or Worker)          
