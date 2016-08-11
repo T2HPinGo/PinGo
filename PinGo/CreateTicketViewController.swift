@@ -110,17 +110,19 @@ class CreateTicketViewController: UIViewController {
         //if the collectionView is currently hidden, then show it. Otherwise, hide it
         if collectionViewHidden {
             collectionView.alpha = 0.0
-            collectionViewHeightConstraints.constant = 90.0
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animateWithDuration(0.3, animations: {
+                self.collectionViewHeightConstraints.constant = 90.0
                 self.collectionView.alpha = 1.0
+                self.view.layoutIfNeeded()
             }) { finished in
                 self.collectionViewHidden = false
             }
         } else {
             collectionView.alpha = 1.0
-            UIView.animateWithDuration(0.5, animations: { 
+            UIView.animateWithDuration(0.3, animations: {
                 self.collectionView.alpha = 0.0
                 self.collectionViewHeightConstraints.constant = 0.0
+                self.view.layoutIfNeeded()
             }, completion: { finished in
                 self.collectionViewHidden = true
                 //if no category has been selected, keep the title as "Choose Category"

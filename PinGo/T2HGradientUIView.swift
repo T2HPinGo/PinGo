@@ -84,13 +84,13 @@ class T2HGradientUIView: UIView {
     override class func layerClass() -> AnyClass {
         return CAGradientLayer.self
     }
-    
-
-    enum GradientDirection {
-        case Horizontal
-        case Vertical
-        case DiagonalUp
-        case DiagonalDown
-    }
-    
 }
+
+enum GradientDirection {
+    case Horizontal
+    case Vertical
+    case DiagonalUp
+    case DiagonalDown
+}
+
+
