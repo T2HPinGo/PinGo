@@ -17,9 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //apply google API key
-        GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+        //GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+        
+        customizeAppearance()
         
         return true
+    }
+    
+    func customizeAppearance() {
+        //customize navigation bar
+        UINavigationBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor() //color of the back button
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        //color of title
+        //customize the status bar
+        //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        //customize the tab bar
+        UITabBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
+        UITabBar.appearance().tintColor = UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {

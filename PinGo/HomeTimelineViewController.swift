@@ -79,7 +79,8 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //
+        tableView.backgroundColor = colors[indexPath.row] //set the tableview background to the same color of selected cell to get rid of that white back ground when the cell expands
+        
         let previousIndexPath = selectedIndexPath
         
         //if the cell is already selected then set the selectedIndexPath to nil
