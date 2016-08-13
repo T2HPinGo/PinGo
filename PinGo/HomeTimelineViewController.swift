@@ -16,13 +16,19 @@ class HomeTimelineViewController: BaseViewController {
     
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
-        let colors = [UIColor(red: 123.0/255.0, green: 222.0/255.0, blue: 171.0/255.0, alpha: 1.0),
-                    UIColor(red: 191.0/255.0, green: 136.0/255.0, blue: 217.0/255.0, alpha: 1.0),
-                    UIColor(red: 162.0/255.0, green: 184.0/255.0, blue: 243.0/255.0, alpha: 1.0),
-                    UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0),
-                    UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 172.0/255.0, alpha: 1.0),
-                    UIColor(red: 128.0/255.0, green: 237.0/255.0, blue: 239.0/255.0, alpha: 1.0),
-                    UIColor(red: 182.0/255.0, green: 222.0/255.0, blue: 123.0/255.0, alpha: 1.0)]
+//        let colors = [UIColor(red: 123.0/255.0, green: 222.0/255.0, blue: 171.0/255.0, alpha: 1.0),
+//                    UIColor(red: 191.0/255.0, green: 136.0/255.0, blue: 217.0/255.0, alpha: 1.0),
+//                    UIColor(red: 162.0/255.0, green: 184.0/255.0, blue: 243.0/255.0, alpha: 1.0),
+//                    UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0),
+//                    UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 172.0/255.0, alpha: 1.0),
+//                    UIColor(red: 128.0/255.0, green: 237.0/255.0, blue: 239.0/255.0, alpha: 1.0),
+//                    UIColor(red: 182.0/255.0, green: 222.0/255.0, blue: 123.0/255.0, alpha: 1.0)]
+    
+    let colors = [UIColor(red: 122.0/255.0, green: 80.0/255.0, blue: 118.0/255.0, alpha: 1.0),
+                  UIColor(red: 146.0/255.0, green: 98.0/255.0, blue: 141.0/255.0, alpha: 1.0),
+                  UIColor(red: 213.0/255.0, green: 117.0/255.0, blue: 144.0/255.0, alpha: 1.0),
+                  UIColor(red: 248.0/255.0, green: 193.0/255.0, blue: 133.0/255.0, alpha: 1.0),
+                  UIColor(red: 88.0/255.0, green: 160.0/255.0, blue: 164.0/255.0, alpha: 1.0)]
 
     //MARK: - Fake Data
     let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
@@ -68,7 +74,7 @@ class HomeTimelineViewController: BaseViewController {
 //MARK: - EXTENSION UITableViewDataSource, UITableViewDelegate
 extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 5
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -119,9 +119,13 @@ class CreateTicketViewController: UIViewController {
             }
         } else {
             collectionView.alpha = 1.0
+            ticketDetailView.alpha = 0.0
             UIView.animateWithDuration(0.3, animations: {
                 self.collectionView.alpha = 0.0
                 self.collectionViewHeightConstraints.constant = 0.0
+                
+                //if user haven't select category, don't show ticketDetail
+                self.ticketDetailView.alpha = self.currentCategoryIndex == -1 ? 0.0 : 1.0
                 self.view.layoutIfNeeded()
             }, completion: { finished in
                 self.collectionViewHidden = true
@@ -163,6 +167,21 @@ class CreateTicketViewController: UIViewController {
         //place holder
         titleTextField.placeholder = "Enter your title"
         descriptionTextView.placeholder = "Enter description"
+        
+        //chooseCategoryView
+        chooseCategoryView.backgroundColor = UIColor(red: 42.0/255.0, green: 58.0/255.0, blue: 74.0/255.0, alpha: 1.0)
+        chooseCategoryView.layer.cornerRadius = 20.0
+        chooseCategoryView.layer.borderColor = UIColor(red: 0.0/255.0, green: 180.0/255.0, blue: 136.0/255.0, alpha: 1.0).CGColor
+        chooseCategoryView.layer.borderWidth = 2.0
+        categoryLabel.textColor = UIColor(red: 0.0/255.0, green: 180.0/255.0, blue: 136.0/255.0, alpha: 1.0)
+
+        
+        //collectionView
+        collectionView.backgroundColor = UIColor.clearColor()
+        
+        //ticketDetailView
+        ticketDetailView.alpha = 0.0
+        ticketDetailView.backgroundColor = UIColor.clearColor()
     }
 
 }
@@ -178,9 +197,7 @@ extension CreateTicketViewController: UICollectionViewDataSource, UICollectionVi
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
         cell.categoryLabel.text = categoryName[indexPath.item]
         
-        //change cell background color if the cell is selected
-        let cellBackgroundColor = indexPath.row == currentCategoryIndex ? UIColor.lightGrayColor() : UIColor.blueColor()
-        cell.backgroundColor = cellBackgroundColor
+        cell.isChosen = indexPath.row == currentCategoryIndex ? true : false
         
         return cell
     }

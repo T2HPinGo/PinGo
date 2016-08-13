@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //apply google API key
         //GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
         
-        customizeAppearance()
+        //customizeAppearance()
         
         return true
     }
