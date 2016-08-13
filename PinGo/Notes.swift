@@ -19,3 +19,55 @@
 //WorkerHistoryVC
 //      divide the tableView in to sections (last week, last month, last 3 months, later)
 //      add popup view to see customer review on each task history
+
+
+//  USing Alamofire
+
+// Example Alamofire register 
+//
+//let parameters = [
+//    "username": usernameTextField.text!,
+//    "password": passwordTextField.text!,
+//    "email" : emailTextField.text!,
+//    "phoneNumber": phoneNumberTextField.text!,
+//    "address": addressTextField.text!,
+//    "city": cityTextField.text!,
+//    "imageUrl": "\((worker?.profileImage?.imageUrl)!)",
+//    "width": "\((worker?.profileImage?.width)!)",
+//    "height": "\((worker?.profileImage?.height)!)",
+//    "isWorker": true
+//    
+//]
+//
+//Alamofire.request(.POST, "http://192.168.1.18:3000/v1/register", parameters: parameters as?[String : AnyObject]).responseJSON { response  in
+//    print(response)
+//    
+//}
+
+
+// Upload file 
+
+//Alamofire.upload(
+//    .POST,
+//    "http://192.168.1.63:3000/v1/images/ticket",
+//    multipartFormData: { multipartFormData in
+//        if let imageData = UIImageJPEGRepresentation(image, 0.5) {
+//            multipartFormData.appendBodyPart(data: imageData, name: "imageTicket", fileName: "fileName.jpg", mimeType: "image/jpeg")
+//        }
+//        
+//    },
+//    encodingCompletion: { encodingResult in
+//        switch encodingResult {
+//        case .Success(let upload, _, _):
+//            upload.responseJSON { response in
+//                print(response)
+//                let JSON = response.result.value as? [String:AnyObject]
+//                //print(JSON!["url"])
+//                imageResource.imageUrl = JSON!["url"] as? String
+//                print(imageResource.imageUrl)
+//            }
+//        case .Failure(let encodingError):
+//            print(encodingError)
+//        }
+//    }
+//)

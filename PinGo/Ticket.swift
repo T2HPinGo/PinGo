@@ -16,26 +16,41 @@ enum Status {
 }
 
 class Ticket: NSObject {
-    var user: User?
-    var worker: Worker?
-    var id: String?
-    var category: String? //TicketCategory?
+    var category: String?
     var title: String?
-    var status: Status?
-    var issueImageVideoPath: String?
-    var dateCreated: NSDate?
+    var workerName: String?
+    var userName: String?
+    var urgent: Bool?
+    var user: UserProfile?
+    var worker: Worker?
+    var status: String?
+    var imageOne: ImageResource?
+    var imageTwo: ImageResource?
+    var imageThree: ImageResource?
+    var location: Location?
     
-    init(user: User, worker: Worker, id: String, category: String, title: String, status: Status, issueImageVideoPath: String?, dateCreated: NSDate) {
-        self.user = user
-        self.worker = worker
-        self.id = id
-        self.category = category
-        self.title = title
-        self.status = status
-        self.issueImageVideoPath = issueImageVideoPath
-        self.dateCreated = dateCreated
+    override init() {
+        category = ""
+        title = ""
+        urgent = true
+        user = UserProfile()
+        worker = Worker()
+        status = ""
+        imageOne = ImageResource()
+        imageTwo =  ImageResource()
+        imageThree = ImageResource()
+        location = Location()
     }
+    init(data: [String: AnyObject]){
+        category = data["category"] as? String
+        title = data["title"] as? String
+        urgent  = data["urgent"] as? Bool
+        let createBy = data["createBy"] as? [String: AnyObject]
+        user = UserProfile(data: createBy!)
+    }
+    
 }
+
 
 
 

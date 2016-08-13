@@ -11,9 +11,20 @@ import UIKit
 class Location: NSObject {
     var address: String?
     var city: String?
-    var subburb: String?
-    var longitute: Double?
-    var latitude: Double?
+    var longitute: NSNumber?
+    var latitude: NSNumber?
+    override init() {
+        address = ""
+        city = ""
+        longitute = 0
+        latitude = 0
+    }
+    init(data: [String : AnyObject]){
+        address = data["address"] as? String
+        city = data["city"] as? String
+        longitute = data["longitute"] as? NSNumber
+        latitude = data["latitude"] as? NSNumber
+    }
 }
 
 

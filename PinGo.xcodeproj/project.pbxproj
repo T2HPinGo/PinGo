@@ -41,6 +41,10 @@
 		21FC6A7B1D5A6EA900819090 /* T2HRotateOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC6A7A1D5A6EA900819090 /* T2HRotateOutAnimationController.swift */; };
 		21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */; };
 		6326151595FD7B29E155F761 /* Pods_PinGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */; };
+		B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */; };
+		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
+		B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A41D5FACAB009A177D /* Constants.swift */; };
+		B0B3A8A71D5FAD26009A177D /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A61D5FAD26009A177D /* Rating.swift */; };
 		E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */; };
 		E7EBFA061D5C6AE900C1FEB8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */; };
 		E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7EBFA071D5C8F8400C1FEB8 /* MapStoryboard.storyboard */; };
@@ -87,6 +91,10 @@
 		21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		46B67295BCB5B178E35CE385 /* Pods-PinGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.release.xcconfig"; sourceTree = "<group>"; };
 		6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
+		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		B0B3A8A41D5FACAB009A177D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B0B3A8A61D5FAD26009A177D /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryboard.storyboard; sourceTree = "<group>"; };
 		E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E7EBFA071D5C8F8400C1FEB8 /* MapStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapStoryboard.storyboard; sourceTree = "<group>"; };
@@ -153,6 +161,8 @@
 				21434C3D1D55AC4700B31122 /* Location.swift */,
 				21434C431D55AEE600B31122 /* Ticket.swift */,
 				21434C451D55AF2F00B31122 /* TicketCategory.swift */,
+				B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */,
+				B0B3A8A61D5FAD26009A177D /* Rating.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -178,6 +188,8 @@
 		219D49DD1D50B62E006B5ADE /* PinGo */ = {
 			isa = PBXGroup;
 			children = (
+				B0B3A8A31D5FAC8E009A177D /* Utils */,
+				B0B3A8A01D5FAA9F009A177D /* SocketIOManager */,
 				21FC6A751D5A3CD800819090 /* Helpers */,
 				21434C351D55AA3400B31122 /* Models */,
 				21434C341D55AA2800B31122 /* Views */,
@@ -219,6 +231,22 @@
 				210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		B0B3A8A01D5FAA9F009A177D /* SocketIOManager */ = {
+			isa = PBXGroup;
+			children = (
+				B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */,
+			);
+			name = SocketIOManager;
+			sourceTree = "<group>";
+		};
+		B0B3A8A31D5FAC8E009A177D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B0B3A8A41D5FACAB009A177D /* Constants.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		D07DBF9DE7222C3D2DDBE867 /* Frameworks */ = {
@@ -363,6 +391,7 @@
 				2130A14E1D51191C00B37C98 /* HomeTimelineViewController.swift in Sources */,
 				21434C331D559EAD00B31122 /* BaseViewController.swift in Sources */,
 				21434C3E1D55AC4700B31122 /* Location.swift in Sources */,
+				B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */,
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
 				21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
@@ -378,8 +407,11 @@
 				21434C401D55ACAC00B31122 /* User.swift in Sources */,
 				219D49DF1D50B62E006B5ADE /* AppDelegate.swift in Sources */,
 				21434C391D55AB1B00B31122 /* AppUltility.swift in Sources */,
+				B0B3A8A71D5FAD26009A177D /* Rating.swift in Sources */,
 				21434C3B1D55AB9C00B31122 /* UserProfile.swift in Sources */,
+				B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */,
 				21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */,
+				B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */,
 				21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */,
 				21FC6A791D5A65E700819090 /* T2HBouceAnimationController.swift in Sources */,
 				21F9E6FA1D58F2B6002D9DF6 /* TicketBiddingViewController.swift in Sources */,
