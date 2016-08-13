@@ -16,6 +16,7 @@
 //TicketBiddingVC
 //      make the filter slide down from top and block a part of the main view OR add a segment to let user tap to filter
 //      discuss if the user is able to edit ticket detail in this step
+
 //WorkerHistoryVC
 //      divide the tableView in to sections (last week, last month, last 3 months, later)
 //      add popup view to see customer review on each task history

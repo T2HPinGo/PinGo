@@ -17,6 +17,10 @@ class UserProfile: NSObject {
     var location: Location?
     var profileImage: ImageResource?
     
+    // Hien code
+    var name: String?
+    var profileImagePath: String?
+    
     override init() {
         super.init()
         username = ""
@@ -37,5 +41,14 @@ class UserProfile: NSObject {
         id = data["_id"] as? String
         location = Location(data: (data["location"] as? [String: AnyObject])!)
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
+    }
+    
+    // Hien Code
+    init(name: String, id: String, location: Location?, profileImagePath: String?) {
+        self.name = name
+        self.id = id
+        self.location = location
+        self.profileImagePath = profileImagePath
+        //self.isWorker = isWorker
     }
 }

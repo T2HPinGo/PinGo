@@ -21,4 +21,13 @@ class Worker: UserProfile {
         averageRating = data["averageRating"] as? Double
     }
     
+    var currentLocation: Location?
+    var rating: Double?
+    
+    
+    init(name: String, id: String, location: Location?, profileImagePath: String?, currentLocation: Location?, rating: Double) {
+        self.currentLocation = currentLocation
+        self.rating = rating
+        super.init(name: name, id: id, location: location, profileImagePath: profileImagePath)
+    }
 }
