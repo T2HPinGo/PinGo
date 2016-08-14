@@ -27,13 +27,13 @@
                                     <constraint firstAttribute="height" constant="30" id="zuo-H0-ImR"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MmJ-ah-igQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MmJ-ah-igQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="74" y="201" width="286" height="43"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Username"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cs9-Ma-tej" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cs9-Ma-tej" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="74" y="151" width="122" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="122" id="DLz-EZ-xVe"/>
@@ -49,31 +49,31 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcM-1r-NfK" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fcM-1r-NfK" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="206" y="151" width="154" height="43"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Last Name"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bod-wd-uAQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bod-wd-uAQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="74" y="252" width="286" height="42"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="E-mail Address"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqw-wP-qE0" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oqw-wP-qE0" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="74" y="301" width="286" height="43"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Phone Number"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9IG-1n-eO7" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9IG-1n-eO7" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="74" y="352" width="286" height="42"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lo-rQ-l0a" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Lo-rQ-l0a" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                 <rect key="frame" x="74" y="402" width="286" height="42"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Confirm Password"/>
