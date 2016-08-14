@@ -15,14 +15,6 @@ class HomeTimelineViewController: BaseViewController {
     @IBOutlet weak var createNewTicketButton: UIButton!
     
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
-    
-        let colors = [UIColor(red: 123.0/255.0, green: 222.0/255.0, blue: 171.0/255.0, alpha: 1.0),
-                    UIColor(red: 191.0/255.0, green: 136.0/255.0, blue: 217.0/255.0, alpha: 1.0),
-                    UIColor(red: 162.0/255.0, green: 184.0/255.0, blue: 243.0/255.0, alpha: 1.0),
-                    UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0),
-                    UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 172.0/255.0, alpha: 1.0),
-                    UIColor(red: 128.0/255.0, green: 237.0/255.0, blue: 239.0/255.0, alpha: 1.0),
-                    UIColor(red: 182.0/255.0, green: 222.0/255.0, blue: 123.0/255.0, alpha: 1.0)]
 
     //MARK: - Fake Data
     let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
@@ -35,18 +27,11 @@ class HomeTimelineViewController: BaseViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.estimatedRowHeight = 150.0
-//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
         //Fake data goes here
         ticket = Ticket(user: user, worker: worker, id: "1q2w3e4r", category: "Electricity" , title: "Broken Lightbulb", status: Status.Pending, issueImageVideoPath: nil, dateCreated: NSDate())
         tableView.backgroundColor = UIColor.clearColor()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - Actions
@@ -68,18 +53,19 @@ class HomeTimelineViewController: BaseViewController {
 //MARK: - EXTENSION UITableViewDataSource, UITableViewDelegate
 extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 5
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
         cell.ticket = ticket
-        cell.backgroundColor = colors[indexPath.row]
+        cell.backgroundColor = AppThemes.cellColors[indexPath.row]
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //
+        tableView.backgroundColor = AppThemes.cellColors[indexPath.row] //set the tableview background to the same color of selected cell to get rid of that white back ground when the cell expands
+        
         let previousIndexPath = selectedIndexPath
         
         //if the cell is already selected then set the selectedIndexPath to nil
