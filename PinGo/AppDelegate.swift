@@ -18,6 +18,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //apply google API key
         //GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+       
+        //get user info
+        if UserProfile.currentUser != nil{
+            print("There is a current user")
+            let storyboard = UIStoryboard( name: "Main", bundle: nil)
+            
+            let vc = storyboard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+            
+            window?.rootViewController = vc
+            
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(UserProfile.userDidLogOutNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) in
+            
+            let storyboard = UIStoryboard( name: "LoginStoryboard", bundle: nil)
+            
+            let vc = storyboard.instantiateInitialViewController()
+            
+            self.window?.rootViewController = vc
+        }
+        
         
         //customizeAppearance()
         

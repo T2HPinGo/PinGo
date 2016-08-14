@@ -20,6 +20,10 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     
     @IBOutlet weak var profileBackgroundView: UIView!
 
+    @IBOutlet weak var firstname: UILabel!
+    @IBOutlet weak var lastname: UILabel!
+    @IBOutlet weak var phonenumber: UILabel!
+    @IBOutlet weak var email: UILabel!
     
     let imagePicker = UIImagePickerController()
     var isPaymentCollapsed = true
@@ -37,6 +41,15 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func logoutAction(sender: AnyObject) {
+        
+        UserProfile.currentUser = nil
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(UserProfile.userDidLogOutNotification, object: nil)
+
+        
+    }
+    
     @IBAction func addProfileImage(sender: AnyObject) {
         print("camera on")
         
