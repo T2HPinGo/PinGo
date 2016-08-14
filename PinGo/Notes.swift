@@ -8,6 +8,7 @@
 
 //HomeTimelineVC
 //      make a popup VC to show ticket detail
+//      make user go back to where they left off if app it terminated
 //CreateTicketVC: 
 //      make the view slide up when the keyboard appears
 //      infinite scrolling for collectionView

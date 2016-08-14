@@ -11,7 +11,7 @@ import SocketIOClientSwift
 class SocketManager: NSObject {
     // 128.199.92.114
     static let sharedInstance = SocketManager()
-    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL(string: "http://192.168.1.63:4000")!)
+    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL(string: "http://192.168.10.53:4000")!)
     
     override init() {
         super.init()
@@ -29,6 +29,17 @@ class SocketManager: NSObject {
     func pushCategory(ticket: [String: AnyObject]){
         socket.emit("CategoryChanel", ticket)
         
+    }
+    
+    func getWorkers(success: (worker: Worker) -> Void) {
+        socket.on("newWorkerForTicket") { (dataArray, socketAck) -> Void in
+            print("dataArray: \(dataArray)")
+            if let item = dataArray[0] as? [String: AnyObject] {
+                let worker = Worker(data: item)
+                print("WorkerSocket: \(worker)")
+                success(worker: worker)
+            }
+        }
     }
 }
 

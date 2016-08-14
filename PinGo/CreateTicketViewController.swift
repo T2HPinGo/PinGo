@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class CreateTicketViewController: UIViewController {
     //MARK: - Outlets and Variables
@@ -51,9 +52,8 @@ class CreateTicketViewController: UIViewController {
     
     var collectionViewHidden = true //store the hidden stage of collectionView, initially hidden
     
-    //MARK: - Fake data
-    let categoryName = ["Electricity", "Cleanning",
-                        "Plumbing", "Auto Repair", "Gardening"]
+    var newTicket: Ticket?
+    
     var ticketTitle = ""
     let descriptionText = ""
     
@@ -62,7 +62,7 @@ class CreateTicketViewController: UIViewController {
         super.viewDidLoad()
         
         scrollView.keyboardDismissMode = .OnDrag
-        
+        newTicket = Ticket()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionViewHeightConstraints.constant = 0
@@ -71,17 +71,12 @@ class CreateTicketViewController: UIViewController {
         
         addGesture()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowWorkerListSegue" {
-            print("title: \(ticketTitle)")
-            print("description: \(descriptionText)")
+            let biddingViewController = segue.destinationViewController as! TicketBiddingViewController
+            biddingViewController.newTicket = self.newTicket
         }
     }
     
@@ -130,7 +125,7 @@ class CreateTicketViewController: UIViewController {
             }, completion: { finished in
                 self.collectionViewHidden = true
                 //if no category has been selected, keep the title as "Choose Category"
-                self.categoryLabel.text = self.currentCategoryIndex == -1 ? "Choose Category" : self.categoryName[self.currentCategoryIndex]
+                self.categoryLabel.text = self.currentCategoryIndex == -1 ? "Choose Category" : TicketCategory.categoryNames[self.currentCategoryIndex]
             })
         }
     }
@@ -147,8 +142,73 @@ class CreateTicketViewController: UIViewController {
     }
     
     func performListWorkerSegue(gestureRecognizer: UIGestureRecognizer) {
-        performSegueWithIdentifier("ShowWorkerListSegue", sender: gestureRecognizer)
+        
+        newTicket?.category = categoryLabel.text!
+        newTicket?.title = titleTextField.text!
+        newTicket?.ticketDescription = descriptionTextView.text
+        newTicket?.user = UserProfile.currentUser
+        newTicket?.status = Status.Pending
+        newTicket?.urgent = urgentSwitch.on
+        newTicket?.worker = Worker()
+        newTicket?.location = Location()
+        
+        let parameters = parametersTicket(newTicket!)
+        
+        
+        Alamofire.request(.POST, "http://192.168.10.53:3000/v1/ticket", parameters: parameters).responseJSON { response  in
+            print("--- Socket Client")
+            let JSON = response.result.value as? [String:AnyObject]
+            //print(JSON)
+            let JSONobj = JSON!["data"]! as! [String : AnyObject]
+            self.newTicket = Ticket(data: JSONobj)
+            //print(JSONobj)
+            SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
+            self.performSegueWithIdentifier("ShowWorkerListSegue", sender: gestureRecognizer)
+        }
+
+       /*
+         let JSONobj = JSON!["data"] as? [String: AnyObject]
+         let user = UserProfile(data: JSONobj!)
+         print(user.email)
+         UserProfile.currentUser = user
+         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        */
     }
+    
+    
+    //_____________________________
+    func parametersTicket(ticket: Ticket) -> [String: AnyObject]{
+        let parameters = [
+            "title": "\((ticket.title)!)",
+            "category": "\((ticket.category)!)",
+            "imageOneUrl": "\((ticket.imageOne?.imageUrl)!)",
+            "imageTwoUrl": "\((ticket.imageTwo?.imageUrl)!)",
+            "imageThreeUrl": "\((ticket.imageThree?.imageUrl)!)",
+            "status" : "\((ticket.status)!)",
+            "idUser": "\((ticket.user!.id)!)",
+            "nameOfUser": "\((ticket.user?.username)!)",
+            "phoneOfUser": "\((ticket.user!.phoneNumber)!)",
+            "imageUserUrl": "\((ticket.user!.profileImage!.imageUrl)!)",
+            "address": "\((ticket.location!.address)!)",
+            "city": "\((ticket.location!.city)!)",
+            "latitude": "\((ticket.location!.latitude)!)",
+            "longtitude": "\((ticket.location!.longitute)!)",
+            "idWorker": "\((ticket.worker?.id)!)",
+            "nameOfWorker": "\((ticket.worker?.username)!)",
+            "phoneOfWorker": "\((ticket.worker?.phoneNumber)!)",
+            "imageWorkerUrl": "\((ticket.worker?.profileImage!.imageUrl)!)",
+            "urgent": "\((ticket.urgent)!)",
+            "width": 400,
+            "height": 300,
+            "widthOfProfile": 60,
+            "heightOfProfile": 60
+        ]
+        return parameters as! [String: AnyObject]
+    }
+    
+    
+    //_______________________________
+    
     
     func setupAppearance() {
         collectionView.backgroundColor = UIColor.greenColor()
@@ -195,7 +255,7 @@ extension CreateTicketViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
-        cell.categoryLabel.text = categoryName[indexPath.item]
+        cell.categoryLabel.text = TicketCategory.categoryNames[indexPath.item]
         
         cell.isChosen = indexPath.row == currentCategoryIndex ? true : false
         
@@ -287,14 +347,17 @@ extension CreateTicketViewController: UIImagePickerControllerDelegate, UINavigat
         switch currentImage {
         case 1:
             pickedImageView1.image = image
+            PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image) ////upload image to server to save it on server
             pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 2:
             pickedImageView2.image = image
+            PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image)  ////upload image to server to save it on server
             pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 3:
             pickedImageView3.image = image
+            PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image) //upload image to server to save it on server
             pickedImageView3HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         default:
@@ -313,11 +376,6 @@ extension CreateTicketViewController: UITextViewDelegate {
     func textViewDidEndEditing(textView: UITextView) {
     }
 }
-
-//ask Tan
-//how to hide keyboard
-//how to deal with currency
-//how to make placeholder for uitextview
 
 
 

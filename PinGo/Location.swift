@@ -19,6 +19,7 @@ class Location: NSObject {
         longitute = 0
         latitude = 0
     }
+    
     init(data: [String : AnyObject]){
         address = data["address"] as? String
         city = data["city"] as? String
