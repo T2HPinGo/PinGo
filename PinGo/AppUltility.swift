@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+
+
+//make repeated patern for the color cell, when the number of cell exceed the AppThemes.cellColors array, it goes to the first color in the array
+func getCorrespnsingColorForCell(index: Int) -> Int {
+    let colorIndex = index % 10 - AppThemes.cellColors.count
+    return colorIndex
+}

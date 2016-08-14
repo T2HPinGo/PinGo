@@ -30,5 +30,16 @@ class SocketManager: NSObject {
         socket.emit("CategoryChanel", ticket)
         
     }
+    
+    func getWorkers(success: (worker: Worker) -> Void) {
+        socket.on("newWorkerForTicket") { (dataArray, socketAck) -> Void in
+            print("dataArray: \(dataArray)")
+            if let item = dataArray[0] as? [String: AnyObject] {
+                let worker = Worker(data: item)
+                print("WorkerSocket: \(worker)")
+                success(worker: worker)
+            }
+        }
+    }
 }
 

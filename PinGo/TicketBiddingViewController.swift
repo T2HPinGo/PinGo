@@ -17,6 +17,10 @@ class TicketBiddingViewController: UIViewController {
     
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
+    var newTicket: Ticket!
+    
+    var workerList: [Worker] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,7 +44,19 @@ class TicketBiddingViewController: UIViewController {
         resetButton.addTarget(self, action: #selector(buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         ticketDetailView.addSubview(resetButton)
         activityIndicatorView.startAnimation()
+        
+        //set up appearance (need to refactor)
+        ticketTitleLabel.text = newTicket.title
+        
+        
+        //load worker list
+        SocketManager.sharedInstance.getWorkers { (worker) in
+            self.workerList.append(worker)
+            self.tableView.reloadData()
+        }
     }
+    
+    
 
     /*
     // MARK: - Navigation
@@ -73,20 +89,16 @@ class TicketBiddingViewController: UIViewController {
 extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return workerList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WorkerHistoryCell", forIndexPath: indexPath) as! WorkerDetailCell
         
-        cell.backgroundColor = AppThemes.cellColors[indexPath.row]
-        
-        //fake data
-        cell.workerNameLabel.text = "Worker Puppy"
-        cell.workerRatingLabel.text = "4.5/5"
-        cell.workerHourlyRateLabel.text = "$100"
-        cell.workerDistanceLabel.text = "100 km"
-        
+        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+        cell.backgroundColor = AppThemes.cellColors[colorIndex]
+        cell.worker = workerList[indexPath.row]
+        cell.ticket = newTicket!
         return cell
     }
     

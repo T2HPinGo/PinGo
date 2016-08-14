@@ -19,7 +19,10 @@ class UserProfile: NSObject {
     var data: [String: AnyObject]?
     
     // Hien code
+    var firstName: String?
+    var lastName: String?
     var name: String?
+    
     var profileImagePath: String?
     
     override init() {
@@ -34,6 +37,16 @@ class UserProfile: NSObject {
         profileImage?.width = 60
         profileImage?.height = 60
     }
+    
+    // Hien Code
+    init(name: String, id: String, location: Location?, profileImagePath: String?) {
+        self.name = name
+        self.id = id
+        self.location = Location()
+        self.profileImagePath = ""
+        //self.isWorker = isWorker
+    }
+    
     init (data: [String:AnyObject]){
          print(data)
         self.data = data
@@ -48,17 +61,16 @@ class UserProfile: NSObject {
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
     }
     
-    // Hien Code
-    init(name: String, id: String, location: Location?, profileImagePath: String?) {
-        self.name = name
-        self.id = id
-        self.location = location
-        self.profileImagePath = profileImagePath
-        //self.isWorker = isWorker
+    func setTempData(data: [String: AnyObject]) {
+        username = data["username"] as? String
+        phoneNumber = data["phoneNumber"] as? String
+        id = data["_id"] as? String
+        profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
     }
     
-    //create currentuser info
+  
     
+    //create currentuser info
     static var _currentUser: UserProfile?
     
     static let userDidLogOutNotification = "UserDidLogout"
