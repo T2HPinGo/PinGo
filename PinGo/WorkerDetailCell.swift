@@ -17,17 +17,19 @@ class WorkerDetailCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        setupAppearance()
+        
     }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
     @IBAction func onPickWorker(sender: AnyObject) {
     }
     
-    
+    //MARK: - Helpers
+    func setupAppearance() {
+        //profile image
+        workerProfileImageView.layer.cornerRadius = workerProfileImageView.frame.width / 2
+        workerProfileImageView.clipsToBounds = true
+    }
 
 }

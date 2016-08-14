@@ -22,17 +22,23 @@ class TicketBiddingViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = .None
         
         //set up loading indicator
-        let x  = ticketDetailView.frame.width / 2 - 50/2
-        let y = ticketDetailView.frame.height / 2 - 50/2
-        let frame = CGRect(x: x, y: y, width: 50, height: 50)
+        let width: CGFloat = 30
+        let height: CGFloat = 30
+        let x  = ticketDetailView.frame.width / 2 - width/2
+        let y = ticketDetailView.frame.height / 2 - height/2
+        let frame = CGRect(x: x, y: y, width: width, height: height)
         
         setupIndicator(withFrame: frame)
-        let button = UIButton(frame: frame)
+        let resetButton = UIButton(frame: frame)
+        resetButton.setImage(UIImage(named: "greentech"), forState: .Normal)
         
-        button.addTarget(self, action: #selector(buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        ticketDetailView.addSubview(button)
+        resetButton.addTarget(self, action: #selector(buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        ticketDetailView.addSubview(resetButton)
         activityIndicatorView.startAnimation()
     }
 
@@ -50,7 +56,7 @@ class TicketBiddingViewController: UIViewController {
     
     //MARK: - Helpers
     func setupIndicator(withFrame frame: CGRect) {
-        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.blueColor(), padding: 50)
+        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.lightGrayColor(), padding: 70)
         ticketDetailView.addSubview(activityIndicatorView)
     }
     
@@ -61,7 +67,6 @@ class TicketBiddingViewController: UIViewController {
             activityIndicatorView.startAnimation()
         }
     }
-
 }
 
 // MARK: - TableView data source and delegate
@@ -80,7 +85,7 @@ extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegat
         cell.workerNameLabel.text = "Worker Puppy"
         cell.workerRatingLabel.text = "4.5/5"
         cell.workerHourlyRateLabel.text = "$100"
-        cell.workerDistanceLabel.text = "100 km from you"
+        cell.workerDistanceLabel.text = "100 km"
         
         return cell
     }
