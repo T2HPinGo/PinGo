@@ -652,21 +652,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Worker Puppy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-lR-tnF">
-                                                    <rect key="frame" x="76" y="17" width="108" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="rDF-2N-1Jn">
+                                                    <rect key="frame" x="15" y="17" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="4ue-zo-vwd"/>
+                                                        <constraint firstAttribute="width" secondItem="rDF-2N-1Jn" secondAttribute="height" multiplier="1:1" id="axI-pb-2X3"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Worker Puppy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-lR-tnF">
+                                                    <rect key="frame" x="83" y="17" width="102" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9.0/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42y-NZ-Ovw">
-                                                    <rect key="frame" x="76" y="56" width="48" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1000 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-TD-dJp">
-                                                    <rect key="frame" x="236" y="8" width="67" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.0/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42y-NZ-Ovw">
+                                                    <rect key="frame" x="83" y="62" width="45" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -677,20 +678,43 @@
                                                         <action selector="onPickWorker:" destination="mAY-vL-6ss" eventType="touchUpInside" id="G9k-fg-G8y"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$80" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hy7-0B-AvP">
-                                                    <rect key="frame" x="152" y="35" width="32" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$80" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hy7-0B-AvP">
+                                                    <rect key="frame" x="83" y="39" width="30" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="rDF-2N-1Jn">
-                                                    <rect key="frame" x="8" y="17" width="60" height="60"/>
-                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 km " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-TD-dJp">
+                                                    <rect key="frame" x="257" y="19.5" width="53" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rDF-2N-1Jn" firstAttribute="leading" secondItem="J0y-Dj-CX4" secondAttribute="leading" constant="20" id="99j-Cq-xby"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rDF-2N-1Jn" secondAttribute="bottom" constant="17" id="1Au-zC-9Ue"/>
+                                                <constraint firstItem="rDF-2N-1Jn" firstAttribute="leading" secondItem="J0y-Dj-CX4" secondAttribute="leading" constant="15" id="99j-Cq-xby"/>
+                                                <constraint firstItem="XWM-TD-dJp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qeL-lR-tnF" secondAttribute="trailing" constant="10" id="EWz-V8-9Xh"/>
+                                                <constraint firstItem="42y-NZ-Ovw" firstAttribute="baseline" secondItem="rDF-2N-1Jn" secondAttribute="baseline" id="Hgx-Np-pEY"/>
+                                                <constraint firstItem="XWM-TD-dJp" firstAttribute="top" secondItem="J0y-Dj-CX4" secondAttribute="top" id="NX1-bX-eE3"/>
+                                                <constraint firstItem="Hy7-0B-AvP" firstAttribute="top" secondItem="qeL-lR-tnF" secondAttribute="bottom" constant="2.5" id="So5-ar-SdO"/>
+                                                <constraint firstItem="qeL-lR-tnF" firstAttribute="leading" secondItem="rDF-2N-1Jn" secondAttribute="trailing" constant="8" id="UJF-M0-QCM"/>
+                                                <constraint firstItem="Hy7-0B-AvP" firstAttribute="leading" secondItem="qeL-lR-tnF" secondAttribute="leading" id="WOy-XH-Vr6"/>
+                                                <constraint firstAttribute="trailing" secondItem="XWM-TD-dJp" secondAttribute="trailing" constant="10" id="ag0-tC-ahY"/>
+                                                <constraint firstItem="Hy7-0B-AvP" firstAttribute="centerY" secondItem="rDF-2N-1Jn" secondAttribute="centerY" id="nlo-uG-NxK"/>
+                                                <constraint firstItem="qeL-lR-tnF" firstAttribute="top" secondItem="rDF-2N-1Jn" secondAttribute="top" id="o97-Pe-7yO"/>
+                                                <constraint firstItem="Hy7-0B-AvP" firstAttribute="top" secondItem="qeL-lR-tnF" secondAttribute="bottom" constant="-0.5" id="ptA-oX-0KH"/>
                                                 <constraint firstItem="rDF-2N-1Jn" firstAttribute="top" secondItem="J0y-Dj-CX4" secondAttribute="top" constant="17" id="qgg-y5-GDt"/>
+                                                <constraint firstItem="42y-NZ-Ovw" firstAttribute="leading" secondItem="qeL-lR-tnF" secondAttribute="leading" id="r4E-w5-mc3"/>
+                                                <constraint firstItem="XWM-TD-dJp" firstAttribute="centerY" secondItem="qeL-lR-tnF" secondAttribute="centerY" id="yN6-2I-eUg"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="nlo-uG-NxK"/>
+                                                    <exclude reference="ptA-oX-0KH"/>
+                                                    <exclude reference="NX1-bX-eE3"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="workerDistanceLabel" destination="XWM-TD-dJp" id="IJE-cW-QO5"/>
