@@ -8,12 +8,13 @@
 
 import UIKit
 
-class UserProfileViewController: BaseViewController {
+class UserProfileViewController: BaseViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
 
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var addProfileImage: UIButton!
     
+    let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,38 @@ class UserProfileViewController: BaseViewController {
     
     @IBAction func femaleCliked(sender: AnyObject) {
         addProfileImage.setImage(UIImage(named: "female"), forState: .Normal)
+    }
+    
+    @IBAction func addProfileImage(sender: AnyObject) {
+        print("camera on")
+        
+        if UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerControllerSourceType.PhotoLibrary){
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .PhotoLibrary
+            
+            presentViewController(imagePicker, animated: true, completion: nil)
+            
+            //        self.performSegueWithIdentifier("tagSegue", sender: nil)
+        }else{
+            imagePicker.sourceType = .PhotoLibrary
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        //        let edittedImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        
+        addProfileImage.setImage(pickedImage, forState: .Normal)
+        self.addProfileImage.layer.cornerRadius = self.addProfileImage.frame.size.width/2
+        self.addProfileImage.clipsToBounds = true
+        
+        self.addProfileImage.layer.borderWidth = 0.2
+        self.addProfileImage.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        dismissViewControllerAnimated(true, completion: nil)
+        
     }
     /*
     // MARK: - Navigation
