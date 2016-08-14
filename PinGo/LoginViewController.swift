@@ -9,18 +9,78 @@
 import UIKit
 import Alamofire
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     
+    @IBOutlet weak var login: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
+    
+    let lightGreyColor = UIColor(red: 197/255, green: 205/255, blue: 205/255, alpha: 1.0)
+    let darkGreyColor = UIColor(red: 52/255, green: 42/255, blue: 61/255, alpha: 1.0)
+    let overcastBlueColor = UIColor(red: 0, green: 187/255, blue: 204/255, alpha: 1.0)
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = AppThemes.cellColors[4]
+        self.login.backgroundColor = AppThemes.cellColors[3]
+        
+        
+        let backgroundImage = UIImage(named: "eco")
+        backgroundView.backgroundColor = UIColor(patternImage: backgroundImage!)
+        
+        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.frame = view.bounds
+        backgroundView.addSubview(blurredEffectView)
+        
+        self.setupThemeColors(usernameTextField)
+        self.setupThemeColors(passwordTextField)
         // Do any additional setup after loading the view.
+        self.errorLabel.textColor = UIColor.redColor()
+        self.errorLabel.hidden = true
+        
     }
     
+    func setupThemeColors(setTextField: SkyFloatingLabelTextField) {
+        
+        if setTextField == usernameTextField {
+        setTextField.placeholder     = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
+        setTextField.selectedTitle   = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+        setTextField.title           = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
+        }else{
+            setTextField.placeholder     = NSLocalizedString("Password", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
+            setTextField.selectedTitle   = NSLocalizedString("Password", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+            setTextField.title           = NSLocalizedString("Password", tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
+        
+        }
+        
+        
+        self.applySkyscannerTheme(setTextField)
+        
+        setTextField.delegate = self
+    }
+    
+    func applySkyscannerTheme(textField: SkyFloatingLabelTextField) {
+        
+        textField.tintColor = AppThemes.cellColors[4]
+        
+        textField.textColor = lightGreyColor
+        textField.lineColor = lightGreyColor
+        
+        textField.selectedTitleColor = AppThemes.cellColors[4]
+        textField.selectedLineColor = AppThemes.cellColors[4]
+        
+        // Set custom fonts for the title, placeholder and textfield labels
+        textField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+        textField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 15)
+        textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -49,7 +109,10 @@ class LoginViewController: UIViewController {
                 
                 self.presentViewController(resultViewController, animated: true, completion: nil)
             }else {
-                print(JSON!["message"] as! String)
+                let errorMessage = JSON!["message"] as! String
+                print(errorMessage)
+                self.errorLabel.hidden = false
+                self.errorLabel.text = errorMessage
             
             }
             
