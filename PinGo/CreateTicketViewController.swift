@@ -217,7 +217,7 @@ class CreateTicketViewController: UIViewController {
         let parameters = parametersTicket(newTicket!)
         
         
-        Alamofire.request(.POST, "http://192.168.10.53:3000/v1/ticket", parameters: parameters).responseJSON { response  in
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticket", parameters: parameters).responseJSON { response  in
             print("--- Socket Client")
             let JSON = response.result.value as? [String:AnyObject]
             //print(JSON)
@@ -265,6 +265,7 @@ class CreateTicketViewController: UIViewController {
             "widthOfProfile": 60,
             "heightOfProfile": 60
         ]
+        
         return parameters as! [String: AnyObject]
     }
     
@@ -374,17 +375,17 @@ extension CreateTicketViewController: UIImagePickerControllerDelegate, UINavigat
         switch currentImage {
         case 1:
             pickedImageView1.image = image
-            PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image) ////upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image, uploadType: "ticket") ////upload image to server to save it on server
             pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 2:
             pickedImageView2.image = image
-            PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image)  ////upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image, uploadType: "ticket")  ////upload image to server to save it on server
             pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 3:
             pickedImageView3.image = image
-            PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image) //upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image, uploadType: "ticket") //upload image to server to save it on server
             pickedImageView3HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         default:

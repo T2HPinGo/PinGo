@@ -131,8 +131,9 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         
         self.addProfileImage.layer.borderWidth = 0.2
         self.addProfileImage.layer.borderColor = UIColor.whiteColor().CGColor
+
         
-        uploadImage((user?.profileImage)!, image: pickedImage!)
+        PinGoClient.uploadImage((user?.profileImage)!, image: pickedImage!, uploadType: "profile")
         dismissViewControllerAnimated(true, completion: nil)
         
     }
@@ -165,7 +166,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
                 self.errorLabel.text = "Password does not match the confirm password"
                 } else {
 
-        Alamofire.request(.POST, "\(API_URL)/v1/register", parameters: parameters as?[String : AnyObject]).responseJSON { response  in
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/register", parameters: parameters as?[String : AnyObject]).responseJSON { response  in
             print(response)
             
             let JSON = response.result.value as? [String:AnyObject]
@@ -191,34 +192,6 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
                     }
             }
         }
-    }
-    
-    func uploadImage(imageResource: ImageResource, image: UIImage){
-        Alamofire.upload(
-            .POST,
-            "\(API_URL)/v1/images/profile",
-            multipartFormData: { multipartFormData in
-                if let imageData = UIImageJPEGRepresentation(image, 0.5) {
-                    multipartFormData.appendBodyPart(data: imageData, name: "profileImage", fileName: "fileName.jpg", mimeType: "image/jpeg")
-                }
-                
-            },
-            encodingCompletion: { encodingResult in
-                switch encodingResult {
-                case .Success(let upload, _, _):
-                    upload.responseJSON { response in
-                        print(response)
-                        let JSON = response.result.value as? [String:AnyObject]
-                        //print(JSON!["url"])
-                        imageResource.imageUrl = JSON!["url"] as? String
-                        print(imageResource.imageUrl)
-                    }
-                case .Failure(let encodingError):
-                    print(encodingError)
-                }
-            }
-        )
-        
     }
     /*
      // MARK: - Navigation
