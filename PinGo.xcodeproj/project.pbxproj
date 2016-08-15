@@ -84,6 +84,10 @@
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
 		B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A41D5FACAB009A177D /* Constants.swift */; };
 		B0B3A8A71D5FAD26009A177D /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A61D5FAD26009A177D /* Rating.swift */; };
+		B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FC11B01D618CBB00F34FDC /* Worker.storyboard */; };
+		B0FC11B31D621B1B00F34FDC /* TicketOfWorkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B21D621B1B00F34FDC /* TicketOfWorkerCell.swift */; };
+		B0FC11B51D621C0600F34FDC /* ListTicketsOfWorkerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */; };
+		B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */; };
 		E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */; };
 		E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */; };
 		E7CB13811D5DEECD00BA5AA4 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */; };
@@ -177,6 +181,10 @@
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		B0B3A8A41D5FACAB009A177D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0B3A8A61D5FAD26009A177D /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		B0FC11B01D618CBB00F34FDC /* Worker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Worker.storyboard; path = ../Worker.storyboard; sourceTree = "<group>"; };
+		B0FC11B21D621B1B00F34FDC /* TicketOfWorkerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketOfWorkerCell.swift; sourceTree = "<group>"; };
+		B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTicketsOfWorkerController.swift; sourceTree = "<group>"; };
+		B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerProfileController.swift; sourceTree = "<group>"; };
 		E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditUserProfile.storyboard; sourceTree = "<group>"; };
 		E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
 		E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
@@ -223,6 +231,8 @@
 				E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */,
 				E7EBFA091D5C8FB500C1FEB8 /* MapViewController.swift */,
 				E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */,
+				B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */,
+				B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -235,6 +245,7 @@
 				21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */,
 				21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */,
 				E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */,
+				B0FC11B21D621B1B00F34FDC /* TicketOfWorkerCell.swift */,
 				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
 			);
 			name = Views;
@@ -284,6 +295,7 @@
 				21434C341D55AA2800B31122 /* Views */,
 				21434C311D559E4C00B31122 /* ViewControllers */,
 				219D49DE1D50B62E006B5ADE /* AppDelegate.swift */,
+				B0FC11B01D618CBB00F34FDC /* Worker.storyboard */,
 				219D49E21D50B62E006B5ADE /* Main.storyboard */,
 				E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */,
 				E7EBFA071D5C8F8400C1FEB8 /* MapStoryboard.storyboard */,
@@ -444,7 +456,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PZ96SBWHN3;
+						DevelopmentTeam = 3CC3C6G767;
 					};
 				};
 			};
@@ -473,6 +485,7 @@
 			files = (
 				E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */,
 				E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */,
+				B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */,
 				219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */,
 				E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */,
 				E7EBFA0F1D5CE97200C1FEB8 /* UserProfile.storyboard in Resources */,
@@ -547,6 +560,7 @@
 				21FAD07D1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
 				21FD0FA41D6046C4005A7421 /* PinGoClient.swift in Sources */,
 				21F9E7001D58F95D002D9DF6 /* WorkerHistoryCell.swift in Sources */,
+				B0FC11B51D621C0600F34FDC /* ListTicketsOfWorkerController.swift in Sources */,
 				21FAD0761D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				21FAD0661D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				21FAD07C1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
@@ -567,6 +581,7 @@
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
 				21F9E7041D5901F3002D9DF6 /* TicketDetailViewController.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
+				B0FC11B31D621B1B00F34FDC /* TicketOfWorkerCell.swift in Sources */,
 				21FAD0671D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				E7EBFA061D5C6AE900C1FEB8 /* LoginViewController.swift in Sources */,
 				E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */,
@@ -581,6 +596,7 @@
 				21FAD06E1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
 				21FAD0801D5EFEFC000ED89F /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				21FAD0681D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
+				B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */,
 				21FACF661D5E9D5C000ED89F /* T2HLoadingWheel.swift in Sources */,
 				21434C421D55ACE300B31122 /* Worker.swift in Sources */,
 				21FAD0771D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
@@ -735,12 +751,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PinGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ballssqueezer.PinGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PinGo/PinGo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -750,11 +770,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PinGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ballssqueezer.PinGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PinGo/PinGo-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

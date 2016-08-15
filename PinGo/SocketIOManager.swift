@@ -41,5 +41,19 @@ class SocketManager: NSObject {
             }
         }
     }
+    
+    func applyTicket(worker: [String: AnyObject], ticketId: String, price: String){
+        print("workerBidTicket")
+        socket.emit("workerBidTicket", worker, ticketId, price)
+    }
+    
+    func getTicket(success: (ticket: Ticket)-> Void) {
+        socket.on("newTicket") { (dataArray, socketAck) -> Void in
+            let item = dataArray[0]
+            print("Item: \(item)")
+            let ticket = Ticket(data: item as! [String : AnyObject])
+            success(ticket: ticket)
+        }
+    }
 }
 
