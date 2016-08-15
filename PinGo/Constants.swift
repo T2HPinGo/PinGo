@@ -9,4 +9,6 @@
 import Foundation
 
 
-let API_URL = "http://192.168.10.53:3000"
+let API_URL = "http://128.199.213.109"
+let PORT_API = ":3000"
+let PORT_SOCKET = ":4000"

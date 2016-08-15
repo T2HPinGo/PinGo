@@ -92,7 +92,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             "password": passwordTextField.text!
         ]
         
-        Alamofire.request(.POST, "\(API_URL)/v1/login", parameters: parameters).responseJSON { response  in
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/login", parameters: parameters).responseJSON { response  in
             
             let JSON = response.result.value as? [String:AnyObject]
             let status = JSON!["status"] as? NSNumber
