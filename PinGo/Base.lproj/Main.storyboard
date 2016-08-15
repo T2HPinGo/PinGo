@@ -429,8 +429,8 @@
                                                                     <constraint firstAttribute="width" secondItem="aDM-b6-2wQ" secondAttribute="height" multiplier="1:1" id="Ey2-LN-Bqe"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay by Cash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-kv-iPK">
-                                                                <rect key="frame" x="73" y="14" width="94" height="21"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-kv-iPK">
+                                                                <rect key="frame" x="55.5" y="14" width="129" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -576,11 +576,11 @@
                         <outlet property="categoryIconImageView" destination="xUO-Ym-6ra" id="rkt-lq-JHD"/>
                         <outlet property="categoryLabel" destination="ftW-ck-slD" id="a2q-QT-d9P"/>
                         <outlet property="chooseCategoryView" destination="rk2-5E-Frb" id="eFS-zu-BID"/>
+                        <outlet property="chooseLocationView" destination="et0-ld-iTT" id="Zx8-fP-aeQ"/>
                         <outlet property="collectionView" destination="w4u-LS-e9h" id="tG9-4h-rlt"/>
                         <outlet property="collectionViewHeightConstraints" destination="9lS-hg-Scf" id="5n1-U7-Rhu"/>
                         <outlet property="descriptionTextView" destination="DmQ-jf-bi5" id="T8g-WI-EVk"/>
                         <outlet property="findWorkerView" destination="TUG-aI-Xje" id="9hS-TL-MeF"/>
-                        <outlet property="paymentMethodView" destination="et0-ld-iTT" id="sOj-3q-ye1"/>
                         <outlet property="pickedImageView1" destination="LDu-ni-Ra0" id="uEt-mu-bdA"/>
                         <outlet property="pickedImageView1HeightConstraint" destination="qMU-NC-OQB" id="7Za-ZV-p6d"/>
                         <outlet property="pickedImageView2" destination="6tH-35-Lks" id="i5S-xM-Tjd"/>
