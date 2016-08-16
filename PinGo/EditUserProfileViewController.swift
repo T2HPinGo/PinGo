@@ -14,7 +14,6 @@ import UIKit
 
 class EditUserProfileViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var profileImage: UIButton!
     

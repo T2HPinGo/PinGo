@@ -16,15 +16,14 @@ class UserProfile: NSObject {
     var id: String?
     var location: Location?
     var profileImage: ImageResource?
-    var data: [String: AnyObject]?
-    
+   
+    var averageRating: Double?
     // Hien code
     var firstName: String?
     var lastName: String?
     var name: String?
-    
     var profileImagePath: String?
-    
+    var dataJson: [String: AnyObject]?
     override init() {
         super.init()
         username = ""
@@ -36,6 +35,7 @@ class UserProfile: NSObject {
         profileImage = ImageResource()
         profileImage?.width = 60
         profileImage?.height = 60
+        averageRating = 0
     }
     
     // Hien Code
@@ -49,7 +49,7 @@ class UserProfile: NSObject {
     
     init (data: [String:AnyObject]){
          print(data)
-        self.data = data
+        self.dataJson = data
         username = data["username"] as? String
         email = data["email"] as? String
         isWorker = data["isWorker"] as? Bool
@@ -57,8 +57,10 @@ class UserProfile: NSObject {
         id = data["_id"] as? String
         print(data["phoneNumber"])
         location = Location(data: (data["location"] as? [String: AnyObject])!)
-
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
+        if let averageRating = data["averageRating"] as? Double {
+            self.averageRating = averageRating
+        }
     }
     
     func setTempData(data: [String: AnyObject]) {
@@ -95,7 +97,7 @@ class UserProfile: NSObject {
             let defaults = NSUserDefaults.standardUserDefaults()
             
             if let user = user {
-                let data = try! NSJSONSerialization.dataWithJSONObject(user.data!,options: [])
+                let data = try! NSJSONSerialization.dataWithJSONObject(user.dataJson!,options: [])
                 
                 defaults.setObject(data, forKey: "currentUserData")
             } else  {

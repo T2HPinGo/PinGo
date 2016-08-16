@@ -28,6 +28,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     @IBOutlet weak var addProfileImage: UIButton!
     
     @IBOutlet weak var signUpTextField: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     let imagePicker = UIImagePickerController()
     var user : UserProfile?
@@ -62,15 +63,56 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         self.errorLabel.hidden = true
         
         user = UserProfile()
+        scrollView.frame.size.height = 369
+        
+        //     self.scrollView.contentSize = CGSizeMake(375,900)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
+        guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else { return }
+        
+        let keyboardFrame =  value.CGRectValue()
+        let adjustmentHeight = CGRectGetHeight(keyboardFrame)
+        print(keyboardFrame)
+        print(adjustmentHeight)
+        print(scrollView.contentInset.bottom)
+        print(scrollView.scrollIndicatorInsets.top)
+        
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField){
+            scrollView.contentInset.bottom = 200
+            scrollView.scrollIndicatorInsets.top = 200
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        adjustInsetForKeyboardShow(true, notification: notification)
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        adjustInsetForKeyboardShow(false, notification: notification)
     }
     
     func setupThemeColors(setTextField: SkyFloatingLabelTextField) {
         
         
-            let placeholderName = setTextField.placeholder!
-            setTextField.placeholder     = NSLocalizedString("* \(placeholderName)", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
-            setTextField.selectedTitle   = NSLocalizedString(placeholderName, tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
-            setTextField.title           = NSLocalizedString(placeholderName, tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
+        let placeholderName = setTextField.placeholder!
+        setTextField.placeholder     = NSLocalizedString("* \(placeholderName)", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
+        setTextField.selectedTitle   = NSLocalizedString(placeholderName, tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+        setTextField.title           = NSLocalizedString(placeholderName, tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
         
         self.applySkyscannerTheme(setTextField)
         setTextField.delegate = self
@@ -79,7 +121,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     func applySkyscannerTheme(textField: SkyFloatingLabelTextField) {
         
         textField.tintColor = UIColor.blueColor() //AppThemes.cellColors[4]
-    
+        
         textField.textColor = lightGreyColor
         textField.lineColor = lightGreyColor
         
@@ -88,7 +130,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         
         
         
-//         Set custom fonts for the title, placeholder and textfield labels
+        //         Set custom fonts for the title, placeholder and textfield labels
         textField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
         textField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 15)
         textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
@@ -131,7 +173,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         
         self.addProfileImage.layer.borderWidth = 0.2
         self.addProfileImage.layer.borderColor = UIColor.whiteColor().CGColor
-
+        
         
         PinGoClient.uploadImage((user?.profileImage)!, image: pickedImage!, uploadType: "profile")
         dismissViewControllerAnimated(true, completion: nil)
@@ -139,7 +181,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     }
     
     @IBAction func signUpAction(sender: AnyObject) {
-    
+        
         let parameters = [
             "username": username.text!,
             "password": password.text!,
@@ -156,40 +198,41 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         
         
         if let firstNameText = fistname.text, let lastNameText = lastname.text, let userNameText = username.text, let emailText = email.text, let phonenumberText = phonenumber.text, let passwordText = password.text, let confirmpasswordText = confirmpassword.text {
-                if firstNameText == "" || lastNameText == "" || userNameText == "" || emailText == "" || phonenumberText == "" || passwordText == "" || confirmpasswordText == "" {
-            print("the string is empty")
-            self.errorLabel.hidden = false
-            self.errorLabel.text = "Please fill in all of the required fields"
+            if firstNameText == "" || lastNameText == "" || userNameText == "" || emailText == "" || phonenumberText == "" || passwordText == "" || confirmpasswordText == "" {
+                print("the string is empty")
+                self.errorLabel.hidden = false
+                self.errorLabel.text = "Please fill in all of the required fields"
             } else if confirmpasswordText != passwordText {
                 print("password not matched")
                 self.errorLabel.hidden = false
                 self.errorLabel.text = "Password does not match the confirm password"
-                } else {
-
-        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/register", parameters: parameters as?[String : AnyObject]).responseJSON { response  in
-            print(response)
-            
-            let JSON = response.result.value as? [String:AnyObject]
-            let status = JSON!["status"] as? NSNumber
-            
-            
-            if status == 200{
-                let popup = UIAlertController(title: "Account Created", message: "Please log in with your new account", preferredStyle: UIAlertControllerStyle.Alert)
-                let action = UIAlertAction(title: "OK", style: .Default, handler: { _ in
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                })
-                self.presentViewController(popup, animated: true, completion: nil)
-               popup.addAction(action)
-                
             } else {
-                let errorMessage = JSON!["message"] as! String
-                print(errorMessage)
-                self.errorLabel.hidden = false
-                self.errorLabel.text = errorMessage
                 
-                }
-            
+                Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/register", parameters: parameters as?[String : AnyObject]).responseJSON { response  in
+                    print(response)
+                    
+                    let JSON = response.result.value as? [String:AnyObject]
+                    
+                    let status = JSON!["status"] as? NSNumber
+                    
+                    
+                    if status == 200{
+                        let popup = UIAlertController(title: "Account Created", message: "Please log in with your new account", preferredStyle: UIAlertControllerStyle.Alert)
+                        let action = UIAlertAction(title: "OK", style: .Default, handler: { _ in
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        })
+                        self.presentViewController(popup, animated: true, completion: nil)
+                        popup.addAction(action)
+                        
+                    } else {
+                        let errorMessage = JSON!["message"] as! String
+                        print(errorMessage)
+                        self.errorLabel.hidden = false
+                        self.errorLabel.text = errorMessage
+                        
                     }
+                    
+                }
             }
         }
     }

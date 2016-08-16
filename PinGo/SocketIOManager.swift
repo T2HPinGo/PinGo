@@ -11,7 +11,10 @@ import SocketIOClientSwift
 class SocketManager: NSObject {
     // 128.199.92.114
     static let sharedInstance = SocketManager()
+
+
     var socket: SocketIOClient = SocketIOClient(socketURL: NSURL(string: "\(API_URL)\(PORT_SOCKET)")!)
+
     
     override init() {
         super.init()
@@ -39,6 +42,20 @@ class SocketManager: NSObject {
                 print("WorkerSocket: \(worker)")
                 success(worker: worker)
             }
+        }
+    }
+    
+    func applyTicket(worker: [String: AnyObject], ticketId: String, price: String){
+        print("workerBidTicket")
+        socket.emit("workerBidTicket", worker, ticketId, price)
+    }
+    
+    func getTicket(success: (ticket: Ticket)-> Void) {
+        socket.on("newTicket") { (dataArray, socketAck) -> Void in
+            let item = dataArray[0]
+            print("Item: \(item)")
+            let ticket = Ticket(data: item as! [String : AnyObject])
+            success(ticket: ticket)
         }
     }
 }

@@ -10,16 +10,13 @@ import UIKit
 
 class Worker: UserProfile {
     
-    var averageRating: Double?
-    
+ 
     override init() {
         super.init()
-        averageRating = 0
     }
     override init(data: [String : AnyObject]) {
         super.init(data: data)
-        averageRating = data["averageRating"] as? Double
-//        isWorker = true
+        
     }
     
     var currentLocation: Location?

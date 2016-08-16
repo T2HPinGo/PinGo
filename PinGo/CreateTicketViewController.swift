@@ -249,33 +249,83 @@ class CreateTicketViewController: UIViewController {
     
     //_____________________________
     func parametersTicket(ticket: Ticket) -> [String: AnyObject]{
-        let parameters = [
-            "title": "\((ticket.title)!)",
-            "category": "\((ticket.category)!)",
-            "imageOneUrl": "\((ticket.imageOne?.imageUrl)!)",
-            "imageTwoUrl": "\((ticket.imageTwo?.imageUrl)!)",
-            "imageThreeUrl": "\((ticket.imageThree?.imageUrl)!)",
-            "status" : "\((ticket.status)!)",
-            "idUser": "\((ticket.user!.id)!)",
-            "nameOfUser": "\((ticket.user?.username)!)",
-            "phoneOfUser": "\((ticket.user!.phoneNumber)!)",
-            "imageUserUrl": "\((ticket.user!.profileImage!.imageUrl)!)",
-            "address": "\((ticket.location!.address)!)",
-            "city": "\((ticket.location!.city)!)",
-            "latitude": "\((ticket.location!.latitude)!)",
-            "longtitude": "\((ticket.location!.longitute)!)",
-            "idWorker": "\((ticket.worker?.id)!)",
-            "nameOfWorker": "\((ticket.worker?.username)!)",
-            "phoneOfWorker": "\((ticket.worker?.phoneNumber)!)",
-            "imageWorkerUrl": "\((ticket.worker?.profileImage!.imageUrl)!)",
-            "urgent": "\((ticket.urgent)!)",
-            "width": 400,
-            "height": 300,
-            "widthOfProfile": 60,
-            "heightOfProfile": 60
-        ]
-        
-        return parameters as! [String: AnyObject]
+//        let parameters = [
+//            "title": "\((ticket.title)!)",
+//            "category": "\((ticket.category)!)",
+//            "imageOneUrl": "\((ticket.imageOne?.imageUrl)!)",
+//            "imageTwoUrl": "\((ticket.imageTwo?.imageUrl)!)",
+//            "imageThreeUrl": "\((ticket.imageThree?.imageUrl)!)",
+//            "status" : "\((ticket.status)!)",
+//            "idUser": "\((ticket.user!.id)!)",
+//            "nameOfUser": "\((ticket.user?.username)!)",
+//            "phoneOfUser": "\((ticket.user!.phoneNumber)!)",
+//            "imageUserUrl": "\((ticket.user!.profileImage!.imageUrl)!)",
+//            "address": "\((ticket.location!.address)!)",
+//            "city": "\((ticket.location!.city)!)",
+//            "latitude": "\((ticket.location!.latitude)!)",
+//            "longtitude": "\((ticket.location!.longitute)!)",
+//            "idWorker": "\((ticket.worker?.id)!)",
+//            "nameOfWorker": "\((ticket.worker?.username)!)",
+//            "phoneOfWorker": "\((ticket.worker?.phoneNumber)!)",
+//            "imageWorkerUrl": "\((ticket.worker?.profileImage!.imageUrl)!)",
+//            "urgent": "\((ticket.urgent)!)",
+//            "width": 400,
+//            "height": 300,
+//            "widthOfProfile": 60,
+//            "heightOfProfile": 60
+//        ]
+        var parameters = [String : AnyObject]()
+        parameters["title"] = (ticket.title)!
+        parameters["category"] = (ticket.category)!
+        parameters["imageOneUrl"] = (ticket.imageOne?.imageUrl)!
+        parameters["imageTwoUrl"] = (ticket.imageTwo?.imageUrl)!
+        parameters["imageThreeUrl"] = (ticket.imageThree?.imageUrl)!
+        parameters["status"] = "\((ticket.status)!)"
+        parameters["idUser"] = (ticket.user!.id)!
+        parameters["nameOfUser"] = (ticket.user?.username)!
+        parameters["phoneOfUser"] =  (ticket.user!.phoneNumber)!
+        parameters["imageUserUrl"] = (ticket.user!.profileImage!.imageUrl)!
+        parameters["address"] =  (ticket.location!.address)!
+        parameters["city"] =  (ticket.location!.city)!
+        parameters["latitude"] =  (ticket.location!.latitude)!
+        parameters["longtitude"] = (ticket.location!.longitute)!
+        parameters["idWorker"] = (ticket.worker?.id)!
+        parameters["nameOfWorker"] = (ticket.worker?.username)!
+        parameters["phoneOfWorker"] = (ticket.worker?.phoneNumber)!
+        parameters["imageWorkerUrl"] = (ticket.worker?.profileImage!.imageUrl)!
+        parameters["urgent"] = (ticket.urgent)!
+        parameters["width"] = 400
+        parameters["height"] = 300
+        parameters["widthOfProfile"] = 60
+        parameters["heightOfProfile"] = 60
+
+//        let parameters = [
+//            "title": (ticket.title)!,
+//            "category": (ticket.category)!,
+//            "imageOneUrl": (ticket.imageOne?.imageUrl)!,
+//            "imageTwoUrl": (ticket.imageTwo?.imageUrl)!,
+//            "imageThreeUrl": (ticket.imageThree?.imageUrl)!,
+//            "status" : (ticket.status)!,
+//            "idUser": (ticket.user!.id)!,
+//            "nameOfUser": (ticket.user?.username)!,
+//            "phoneOfUser": (ticket.user!.phoneNumber)!,
+//            "imageUserUrl": (ticket.user!.profileImage!.imageUrl)!,
+//            "address": (ticket.location!.address)!,
+//            "city": (ticket.location!.city)!,
+//            "latitude": (ticket.location!.latitude)!,
+//            "longtitude": (ticket.location!.longitute)!,
+//            "idWorker": (ticket.worker?.id)!,
+//            "nameOfWorker": (ticket.worker?.username)!,
+//            "phoneOfWorker": (ticket.worker?.phoneNumber)!,
+//            "imageWorkerUrl": (ticket.worker?.profileImage!.imageUrl)!,
+//            "urgent": (ticket.urgent)!,
+//            "width": 400,
+//            "height": 300,
+//            "widthOfProfile": 60,
+//            "heightOfProfile": 60
+//        ]
+
+        return parameters
     }
     
     
