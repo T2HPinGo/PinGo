@@ -235,7 +235,6 @@
 				21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */,
 				21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */,
 				E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */,
-				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -373,6 +372,7 @@
 				210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */,
 				210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */,
 				21FACF651D5E9D5C000ED89F /* T2HLoadingWheel.swift */,
+				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";

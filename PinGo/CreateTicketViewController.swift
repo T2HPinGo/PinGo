@@ -43,8 +43,8 @@ class CreateTicketViewController: UIViewController {
     
     @IBOutlet weak var chooseLocationView: UIView!
     
-    @IBOutlet weak var findWorkerView: UIView!
-    
+    @IBOutlet weak var findWorkerButton: UIButton!
+        
     var image: UIImage?  //store image that picked
     var currentImage: Int! //store the index of current image picker
     
@@ -57,6 +57,8 @@ class CreateTicketViewController: UIViewController {
     var ticketTitle = ""
     let descriptionText = ""
     
+    var activityIndicatorView: NVActivityIndicatorView! = nil
+    
      //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,7 @@ class CreateTicketViewController: UIViewController {
         collectionViewHeightConstraints.constant = 0
 
         setupAppearance()
+        //setupLoadingIndicator()
         
         addGesture()
     }
@@ -93,7 +96,7 @@ class CreateTicketViewController: UIViewController {
         //auto resize ticket detail view depending on screen size
         let topAndBottomMargin: CGFloat = 13
         let verticalDistanceBetweenViews: CGFloat = 8
-        ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + urgentSwitch.bounds.height + chooseLocationView.bounds.height + findWorkerView.bounds.height
+        ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + urgentSwitch.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
         
         //place holder
         titleTextField.placeholder = "Enter your title"
@@ -131,8 +134,8 @@ class CreateTicketViewController: UIViewController {
         takePhotoView3.addGestureRecognizer(thirdPhotoViewGestureRecognizer)
         
         //add gesture that do the push segue to the TicketBiddingViewController
-        let findWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(performListWorkerSegue(_:)))
-        findWorkerView.addGestureRecognizer(findWorkerGestureRecognizer)
+//        let findWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(performListWorkerSegue(_:)))
+//        findWorkerView.addGestureRecognizer(findWorkerGestureRecognizer)
         
         //add gesture that go to the Map
         //let findLocationGestureRecognizer = UITapGestureRecognize
@@ -156,7 +159,7 @@ class CreateTicketViewController: UIViewController {
         }, completion: nil)
     }
     
-        //  MARK: - Gesture actions
+        //  MARK: - Gesture/Actions
     func showCollectionView(gestureRecognizer: UIGestureRecognizer) {
         //if the collectionView is currently hidden, then show it. Otherwise, hide it
         if collectionViewHidden {
@@ -181,8 +184,6 @@ class CreateTicketViewController: UIViewController {
                 }, completion: { finished in
                     self.collectionViewHidden = true
                     //if no category has been selected, keep the title as "Choose Category"
-                    //self.categoryLabel.text = self.currentCategoryIndex == -1 ? "Choose Category" : TicketCategory.categoryNames[self.currentCategoryIndex]
-                    
                     if self.currentCategoryIndex == -1 {
                         self.categoryLabel.text = "Choose Category"
                     } else {
@@ -203,7 +204,9 @@ class CreateTicketViewController: UIViewController {
         pickPhotoTakingMethod()
     }
     
-    func performListWorkerSegue(gestureRecognizer: UIGestureRecognizer) {
+    @IBAction func findWorkerButtonTapped(sender: UIButton) {
+        
+        self.startLoadingAnimation()
         
         newTicket?.category = categoryLabel.text!
         newTicket?.title = titleTextField.text!
@@ -216,27 +219,33 @@ class CreateTicketViewController: UIViewController {
         
         let parameters = parametersTicket(newTicket!)
         
-        
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticket", parameters: parameters).responseJSON { response  in
-            print("--- Socket Client")
-            let JSON = response.result.value as? [String:AnyObject]
-            //print(JSON)
-            let JSONobj = JSON!["data"]! as! [String : AnyObject]
-            self.newTicket = Ticket(data: JSONobj)
-            //print(JSONobj)
-            SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
-            self.performSegueWithIdentifier("ShowWorkerListSegue", sender: gestureRecognizer)
+            
+            if response.result.value != nil {
+                let JSON = response.result.value as? [String:AnyObject]
+                let JSONobj = JSON!["data"]! as! [String : AnyObject]
+                self.newTicket = Ticket(data: JSONobj)
+                SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
+                self.stopActivityAnimating()
+                self.performSegueWithIdentifier("ShowWorkerListSegue", sender: nil)
+            } else {
+                //return an error message if cannot send request to server
+                self.stopActivityAnimating()
+                let alertController = UIAlertController(title: "Error", message: "Cannot push data to server. This could be due to internet connection. Please try again later", preferredStyle: .Alert)
+                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(action)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
         }
-
-       /*
+        
+        /*
          let JSONobj = JSON!["data"] as? [String: AnyObject]
          let user = UserProfile(data: JSONobj!)
          print(user.email)
          UserProfile.currentUser = user
          let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        */
+         */
     }
-    
     
     //_____________________________
     func parametersTicket(ticket: Ticket) -> [String: AnyObject]{
@@ -394,14 +403,15 @@ extension CreateTicketViewController: UIImagePickerControllerDelegate, UINavigat
     }
 }
 
-extension CreateTicketViewController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(textField: UITextField) {
+extension CreateTicketViewController: NVActivityIndicatorViewable {
+    func startLoadingAnimation() {
+        let size = CGSize(width: 30, height:30)
+        
+        startActivityAnimating(size, message: nil, type: .BallTrianglePath)
     }
-}
-
-extension CreateTicketViewController: UITextViewDelegate {
-    func textViewDidEndEditing(textView: UITextView) {
+    
+    func delayedStopActivity() {
+        stopActivityAnimating()
     }
 }
 
