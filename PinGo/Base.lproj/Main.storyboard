@@ -251,8 +251,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L2d-sF-roX">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="exp-q6-85B" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exp-q6-85B" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="702"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blur_1" translatesAutoresizingMaskIntoConstraints="NO" id="yIB-yu-pNV">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="702"/>

@@ -40,7 +40,7 @@ class WorkerDetailCell: UITableViewCell {
             "phoneNumber" : worker.phoneNumber!,
             "imageOfWorker" : (worker.profileImage?.imageUrl)!
         ]
-        let url = "\(API_URL)/v1/ticket/\(ticket!.id!)"
+        let url = "\(API_URL)\(PORT_API)/v1/ticket/\(ticket!.id!)"
         Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
             print(response.result)
             SocketManager.sharedInstance.pushCategory(response.result.value!["data"] as! [String: AnyObject])

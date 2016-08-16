@@ -125,9 +125,62 @@ class CreateTicketViewController: UIViewController {
             }, completion: { finished in
                 self.collectionViewHidden = true
                 //if no category has been selected, keep the title as "Choose Category"
-                self.categoryLabel.text = self.currentCategoryIndex == -1 ? "Choose Category" : TicketCategory.categoryNames[self.currentCategoryIndex]
+                //self.categoryLabel.text = self.currentCategoryIndex == -1 ? "Choose Category" : TicketCategory.categoryNames[self.currentCategoryIndex]
+                
+                if self.currentCategoryIndex == -1 {
+                    self.categoryLabel.text = "Choose Category"
+                } else {
+                    self.presentCategoryUpdateAnimation()
+                }
             })
         }
+    }
+    
+    
+    //make rotation effect for chooseCategoryView when selected
+    func presentCategoryUpdateAnimation() {
+        let offset: CGFloat = chooseCategoryView.frame.height * 2
+//        chooseCategoryView.transform = CGAffineTransformMakeTranslation(1, offset)
+//        chooseCategoryView.transform = CGAffineTransformMakeScale(1, 0.1)
+        self.categoryLabel.alpha = 0
+        
+        UIView.animateKeyframesWithDuration(0.3, delay: 0, options: .CalculationModeCubic, animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: {
+                self.chooseCategoryView.transform = CGAffineTransformMakeTranslation(0, -offset)
+                self.chooseCategoryView.transform = CGAffineTransformMakeScale(1, 0.1)
+                self.categoryLabel.text = TicketCategory.categoryNames[self.currentCategoryIndex]
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+                self.chooseCategoryView.transform = CGAffineTransformIdentity
+                self.categoryLabel.alpha = 1
+            })
+        }, completion: { _ in
+        })
+        
+//        UIView.animateWithDuration(5.0, delay: 0.5, options: .CurveEaseIn, animations: {
+//            self.chooseCategoryView.transform = CGAffineTransformMakeTranslation(0, -offset)
+//            self.chooseCategoryView.transform = CGAffineTransformMakeScale(1, 0.1)
+//            }, completion: nil)
+        
+        
+        
+        
+        
+        
+//        UIView.animateKeyframesWithDuration(duration, delay: 0, options: .CalculationModeCubic, animations: {
+//            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.334, animations: {
+//                toView.transform = CGAffineTransformMakeScale(1.2, 1.2)
+//            })
+//            UIView.addKeyframeWithRelativeStartTime(0.334, relativeDuration: 0.333, animations: {
+//                toView.transform = CGAffineTransformMakeScale(0.9, 0.9)
+//            })
+//            UIView.addKeyframeWithRelativeStartTime(0.667, relativeDuration: 0.333, animations: {
+//                toView.transform = CGAffineTransformMakeScale(1.0, 1.0)
+//            })
+//            }, completion: { finished in
+//                transitionContext.completeTransition(finished)
+//        })
+
     }
     
     func showImagePicker(gestureRecognizer: UIGestureRecognizer) {
@@ -155,7 +208,7 @@ class CreateTicketViewController: UIViewController {
         let parameters = parametersTicket(newTicket!)
         
         
-        Alamofire.request(.POST, "http://192.168.10.53:3000/v1/ticket", parameters: parameters).responseJSON { response  in
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticket", parameters: parameters).responseJSON { response  in
             print("--- Socket Client")
             let JSON = response.result.value as? [String:AnyObject]
             //print(JSON)
@@ -203,6 +256,7 @@ class CreateTicketViewController: UIViewController {
             "widthOfProfile": 60,
             "heightOfProfile": 60
         ]
+        
         return parameters as! [String: AnyObject]
     }
     
@@ -347,17 +401,17 @@ extension CreateTicketViewController: UIImagePickerControllerDelegate, UINavigat
         switch currentImage {
         case 1:
             pickedImageView1.image = image
-            PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image) ////upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image, uploadType: "ticket") ////upload image to server to save it on server
             pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 2:
             pickedImageView2.image = image
-            PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image)  ////upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image, uploadType: "ticket")  ////upload image to server to save it on server
             pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 3:
             pickedImageView3.image = image
-            PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image) //upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image, uploadType: "ticket") //upload image to server to save it on server
             pickedImageView3HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         default:

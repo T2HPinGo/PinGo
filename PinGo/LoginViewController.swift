@@ -22,7 +22,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let lightGreyColor = UIColor(red: 197/255, green: 205/255, blue: 205/255, alpha: 1.0)
     let darkGreyColor = UIColor(red: 52/255, green: 42/255, blue: 61/255, alpha: 1.0)
     let overcastBlueColor = UIColor(red: 0, green: 187/255, blue: 204/255, alpha: 1.0)
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,8 +44,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.errorLabel.textColor = UIColor.redColor()
         self.errorLabel.hidden = true
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
         
     }
     
@@ -60,14 +60,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func setupThemeColors(setTextField: SkyFloatingLabelTextField) {
         
         if setTextField == usernameTextField {
-        setTextField.placeholder     = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
-        setTextField.selectedTitle   = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
-        setTextField.title           = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
+            setTextField.placeholder     = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
+            setTextField.selectedTitle   = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+            setTextField.title           = NSLocalizedString("Username", tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
         }else{
             setTextField.placeholder     = NSLocalizedString("Password", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
             setTextField.selectedTitle   = NSLocalizedString("Password", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
             setTextField.title           = NSLocalizedString("Password", tableName: "SkyFloatingLabelTextField", comment: "title for person title field")
-        
+            
         }
         
         
@@ -91,7 +91,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 15)
         textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -102,29 +102,43 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             "username": usernameTextField.text!,
             "password": passwordTextField.text!
         ]
-        
-        Alamofire.request(.POST, "\(API_URL)/v1/login", parameters: parameters).responseJSON { response  in
+
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/login", parameters: parameters).responseJSON { response  in
+            
 
             let JSON = response.result.value as? [String:AnyObject]
             let status = JSON!["status"] as? NSNumber
             
             if status == 200{
                 let JSONobj = JSON!["data"] as? [String: AnyObject]
-                let user = UserProfile(data: JSONobj!)
-                print(user.email)
-                UserProfile.currentUser = user
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let isWorker = JSONobj!["isWorker"] as! Bool
+                if !isWorker {
+                    let user = UserProfile(data: JSONobj!)
+                    UserProfile.currentUser = user
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    
+                    let resultViewController =
+                        storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                    
+                    self.presentViewController(resultViewController, animated: true, completion: nil)
+                } else {
+                    print("Worker")
+                    let worker = Worker(data: JSONobj!)
+                    Worker.currentUser = worker
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Woker", bundle: nil)
+                    
+                    let resultViewController =
+                        storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                    
+                    self.presentViewController(resultViewController, animated: true, completion:nil)
+                }
                 
-                let resultViewController =
-                storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
-                
-                self.presentViewController(resultViewController, animated: true, completion: nil)
             }else {
                 let errorMessage = JSON!["message"] as! String
                 print(errorMessage)
                 self.errorLabel.hidden = false
                 self.errorLabel.text = errorMessage
-            
+                
             }
             
             
