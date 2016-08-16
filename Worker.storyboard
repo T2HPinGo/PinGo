@@ -21,7 +21,7 @@
                                 <rect key="frame" x="156" y="69" width="48" height="30"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
-                                    <action selector="logoutAction:" destination="ziJ-zO-PZR" eventType="touchUpInside" id="sFn-J0-kPc"/>
+                                    <action selector="logoutAction:" destination="ziJ-zO-PZR" eventType="touchUpInside" id="1Ld-rl-WYB"/>
                                 </connections>
                             </button>
                         </subviews>

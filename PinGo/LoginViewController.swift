@@ -125,7 +125,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     print("Worker")
                     let worker = Worker(data: JSONobj!)
                     Worker.currentUser = worker
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Woker", bundle: nil)
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
                     
                     let resultViewController =
                         storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController

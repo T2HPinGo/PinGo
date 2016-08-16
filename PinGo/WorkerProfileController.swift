@@ -21,6 +21,11 @@ class WorkerProfileController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func logoutAction(sender: AnyObject) {
+        Worker.currentUser = nil
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(Worker.userDidLogOutNotification, object: nil)
+    }
 
     /*
     // MARK: - Navigation
