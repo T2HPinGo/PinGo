@@ -26,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //get user info
         if UserProfile.currentUser != nil{
             print("There is a current user")
-            if ((UserProfile.currentUser?.isWorker)! != nil) {
+            let isWorker = (UserProfile.currentUser?.isWorker)!
+            if isWorker {
                 let storyboard = UIStoryboard( name: "Worker", bundle: nil)
                 let vc = storyboard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
                 
