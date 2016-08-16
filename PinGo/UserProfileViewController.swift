@@ -169,6 +169,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
             print(response)
             
             let JSON = response.result.value as? [String:AnyObject]
+            
             let status = JSON!["status"] as? NSNumber
             
             

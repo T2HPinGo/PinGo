@@ -44,6 +44,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.errorLabel.textColor = UIColor.redColor()
         self.errorLabel.hidden = true
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+        
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -250
+    }
+    
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y = 0
     }
     
     func setupThemeColors(setTextField: SkyFloatingLabelTextField) {
@@ -93,7 +104,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         ]
         
         Alamofire.request(.POST, "\(API_URL)/v1/login", parameters: parameters).responseJSON { response  in
-            
+
             let JSON = response.result.value as? [String:AnyObject]
             let status = JSON!["status"] as? NSNumber
             

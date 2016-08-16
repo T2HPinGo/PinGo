@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //apply google API key
-        //GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+        GMSServices.provideAPIKey("AIzaSyBHieJu7utqSFqenqrAWzDDH7MSUVux-2U")
+        GMSPlacesClient.provideAPIKey("AIzaSyBRpKjVQhiHMETgz1HON1tXYeJD0vnBmLQ")
        
         //get user info
         if UserProfile.currentUser != nil{

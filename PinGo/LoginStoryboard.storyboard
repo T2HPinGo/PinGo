@@ -20,16 +20,32 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcb-8t-F8b">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fib-o6-PBL" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
-                                <rect key="frame" x="55" y="330" width="240" height="43"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7b4-48-PqH">
+                                <rect key="frame" x="123" y="269" width="73" height="30"/>
+                                <state key="normal" title="MAP TEST"/>
+                                <connections>
+                                    <segue destination="fRK-qj-Mxa" kind="presentation" id="cvN-5J-Gl9"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fib-o6-PBL" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                <rect key="frame" x="55" y="330" width="245" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Jkj-6j-4sx"/>
+                                    <constraint firstAttribute="height" constant="43" id="NXc-9x-igj"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Username"/>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Jkj-6j-4sx"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Md-1A-Zph" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
-                                <rect key="frame" x="55" y="380" width="240" height="43"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Md-1A-Zph" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                <rect key="frame" x="55" y="380" width="245" height="43"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
                                 </userDefinedRuntimeAttributes>
@@ -63,7 +79,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHQ-OY-cjr">
-                                <rect key="frame" x="207" y="519" width="61" height="30"/>
+                                <rect key="frame" x="217" y="519" width="61" height="30"/>
                                 <state key="normal" title=" Sign up!">
                                     <color key="titleColor" red="1" green="0.98503661620000005" blue="0.63349163200000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -72,7 +88,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9u-D4-x4k">
-                                <rect key="frame" x="45" y="523" width="152" height="21"/>
+                                <rect key="frame" x="55" y="523" width="152" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Pjz-xT-fCN"/>
                                     <constraint firstAttribute="width" constant="179" id="rdX-9V-ViD"/>
@@ -89,7 +105,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPS-k8-w2c">
                                 <rect key="frame" x="55" y="431" width="36" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -97,26 +113,33 @@
                         <constraints>
                             <constraint firstItem="Dqs-FK-Kc1" firstAttribute="top" secondItem="l9u-D4-x4k" secondAttribute="bottom" constant="24" id="2XY-qZ-Pxd"/>
                             <constraint firstItem="0oj-x2-p6K" firstAttribute="top" secondItem="Dfl-yB-UNx" secondAttribute="bottom" constant="20" id="3Y7-Op-TO3"/>
+                            <constraint firstItem="fib-o6-PBL" firstAttribute="leading" secondItem="Dfl-yB-UNx" secondAttribute="trailing" constant="10" id="8jy-Pp-xJC"/>
                             <constraint firstItem="Dqs-FK-Kc1" firstAttribute="top" secondItem="kxO-ze-4Uh" secondAttribute="bottom" constant="61" id="8tU-DW-p8l"/>
                             <constraint firstAttribute="trailing" secondItem="kxO-ze-4Uh" secondAttribute="trailing" id="BCY-ek-UBr"/>
+                            <constraint firstItem="7b4-48-PqH" firstAttribute="centerX" secondItem="Fmy-6d-CXb" secondAttribute="centerX" id="JEF-O2-6sT"/>
                             <constraint firstItem="kxO-ze-4Uh" firstAttribute="leading" secondItem="Fmy-6d-CXb" secondAttribute="leading" id="JiU-l8-RgT"/>
+                            <constraint firstItem="fib-o6-PBL" firstAttribute="bottom" secondItem="Dfl-yB-UNx" secondAttribute="bottom" id="KVJ-9z-niG"/>
                             <constraint firstItem="lHQ-OY-cjr" firstAttribute="leading" secondItem="l9u-D4-x4k" secondAttribute="trailing" constant="10" id="MDR-ik-WAA"/>
                             <constraint firstItem="0oj-x2-p6K" firstAttribute="bottom" secondItem="2Md-1A-Zph" secondAttribute="bottom" id="MWR-8Z-bwV"/>
+                            <constraint firstItem="l9u-D4-x4k" firstAttribute="leading" secondItem="ZPS-k8-w2c" secondAttribute="leading" id="MeD-G2-KTU"/>
                             <constraint firstItem="0oj-x2-p6K" firstAttribute="leading" secondItem="Fmy-6d-CXb" secondAttribute="leadingMargin" constant="-1" id="V4T-n6-Oyk"/>
                             <constraint firstItem="hcb-8t-F8b" firstAttribute="bottom" secondItem="Dqs-FK-Kc1" secondAttribute="top" id="XtR-sD-N6J"/>
                             <constraint firstItem="hcb-8t-F8b" firstAttribute="top" secondItem="Fmy-6d-CXb" secondAttribute="top" id="cwQ-Hl-n9K"/>
+                            <constraint firstItem="2Md-1A-Zph" firstAttribute="trailing" secondItem="fib-o6-PBL" secondAttribute="trailing" id="dUr-Uc-pGc"/>
                             <constraint firstItem="lHQ-OY-cjr" firstAttribute="leading" secondItem="l9u-D4-x4k" secondAttribute="trailing" constant="-4" id="eQD-b3-tQf"/>
                             <constraint firstItem="hcb-8t-F8b" firstAttribute="leading" secondItem="Fmy-6d-CXb" secondAttribute="leading" id="ekf-wK-hZo"/>
+                            <constraint firstAttribute="trailing" secondItem="fib-o6-PBL" secondAttribute="trailing" constant="20" id="f9C-bA-UgQ"/>
                             <constraint firstItem="l9u-D4-x4k" firstAttribute="top" secondItem="kxO-ze-4Uh" secondAttribute="bottom" constant="16" id="fAA-ye-qJ1"/>
                             <constraint firstItem="ZPS-k8-w2c" firstAttribute="top" secondItem="2Md-1A-Zph" secondAttribute="bottom" constant="8" id="gMG-45-l2O"/>
                             <constraint firstItem="hcb-8t-F8b" firstAttribute="top" secondItem="Fmy-6d-CXb" secondAttribute="top" id="hBs-Ht-1tB"/>
                             <constraint firstItem="2Md-1A-Zph" firstAttribute="leading" secondItem="0oj-x2-p6K" secondAttribute="trailing" constant="10" id="hjT-7r-avq"/>
-                            <constraint firstItem="l9u-D4-x4k" firstAttribute="leading" secondItem="Fmy-6d-CXb" secondAttribute="leading" constant="45" id="i8G-hm-UiG"/>
+                            <constraint firstItem="7b4-48-PqH" firstAttribute="centerY" secondItem="Fmy-6d-CXb" secondAttribute="centerY" id="lM8-5i-fEo"/>
                             <constraint firstItem="Dqs-FK-Kc1" firstAttribute="top" secondItem="hcb-8t-F8b" secondAttribute="bottom" id="m1S-mN-Ueh"/>
                             <constraint firstAttribute="trailing" secondItem="hcb-8t-F8b" secondAttribute="trailing" id="noB-XD-1Wt"/>
                             <constraint firstItem="kxO-ze-4Uh" firstAttribute="top" secondItem="0oj-x2-p6K" secondAttribute="bottom" constant="34" id="rTr-Pz-wku"/>
                             <constraint firstItem="0oj-x2-p6K" firstAttribute="leading" secondItem="Dfl-yB-UNx" secondAttribute="leading" id="sFG-JR-ffq"/>
                             <constraint firstItem="lHQ-OY-cjr" firstAttribute="centerY" secondItem="l9u-D4-x4k" secondAttribute="centerY" id="wiB-WW-nv9"/>
+                            <constraint firstItem="2Md-1A-Zph" firstAttribute="top" secondItem="fib-o6-PBL" secondAttribute="bottom" constant="7" id="xBe-J2-3hn"/>
                             <constraint firstItem="ZPS-k8-w2c" firstAttribute="leading" secondItem="2Md-1A-Zph" secondAttribute="leading" id="xQW-gd-w9R"/>
                             <constraint firstItem="0oj-x2-p6K" firstAttribute="trailing" secondItem="Dfl-yB-UNx" secondAttribute="trailing" id="ypy-kW-5tv"/>
                         </constraints>
@@ -139,10 +162,12 @@
             </objects>
             <point key="canvasLocation" x="356" y="383"/>
         </scene>
-        <!--EditUserProfileNavigationController-->
+        <!--MapStoryboard-->
         <scene sceneID="wTx-Gy-tPf">
             <objects>
-                <viewControllerPlaceholder storyboardName="EditUserProfile" referencedIdentifier="EditUserProfileNavigationController" id="fRK-qj-Mxa" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="MapStoryboard" id="fRK-qj-Mxa" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="qwV-eB-uAR"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o9H-no-ize" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="758.5" y="197"/>
@@ -150,8 +175,8 @@
         <!--Main-->
         <scene sceneID="yJa-MX-7rs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5xT-13-TuY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="Main" id="LD5-R1-Qf2" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5xT-13-TuY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="756.5" y="348"/>
         </scene>
