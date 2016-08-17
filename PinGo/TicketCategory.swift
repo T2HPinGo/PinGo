@@ -12,7 +12,6 @@ class TicketCategory: NSObject {
     var id: String?
     var title: String?
     var iconImage: String?
-    
     static let categoryNames = ["Electricity", "Cleanning",
                         "Plumbing", "Auto Repair", "Gardening"]
 }

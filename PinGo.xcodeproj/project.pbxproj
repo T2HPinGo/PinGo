@@ -385,7 +385,6 @@
 				210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */,
 				210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */,
 				21FACF651D5E9D5C000ED89F /* T2HLoadingWheel.swift */,
-				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -460,7 +459,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 58YA7YLU96;
+						DevelopmentTeam = 3CC3C6G767;
 					};
 				};
 			};
@@ -804,7 +803,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PinGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ballsqueezer.PinGo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thangcao.PinGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PinGo/PinGo-Bridging-Header.h";
@@ -823,7 +822,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PinGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ballsqueezer.PinGo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thangcao.PinGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PinGo/PinGo-Bridging-Header.h";

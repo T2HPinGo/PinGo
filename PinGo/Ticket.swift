@@ -30,13 +30,14 @@ class Ticket: NSObject {
     var imageThree: ImageResource?
     var location: Location?
     var id: String?
-    
+    var descriptions: String?
     // Hien Code 
     var issueImageVideoPath: String?
     var dateCreated: NSDate?
     override init() {
         category = ""
         title = ""
+        descriptions = ""
         urgent = true
         user = UserProfile()
         worker = Worker()
@@ -88,7 +89,7 @@ class Ticket: NSObject {
         }
         
         if let status = data["status"] as? String{
-            
+
             switch status {
             case Status.Cancel.rawValue:
                 self.status = Status.Cancel
@@ -107,7 +108,9 @@ class Ticket: NSObject {
             self.imageThree = ImageResource(data: ticketImage[2])
         }
         
-        
+        if let descriptions  = data["description"] as? String {
+            self.descriptions = descriptions
+        }
     }
     
 }

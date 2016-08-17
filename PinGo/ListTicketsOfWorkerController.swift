@@ -57,8 +57,26 @@ extension ListTicketsOfWorkerController: UITableViewDataSource, UITableViewDeleg
 extension ListTicketsOfWorkerController {
     func initSocket() {
         SocketManager.sharedInstance.getTicket { (ticket) in
-            self.tickets.append(ticket)
-            self.tableView.reloadData()
+            // Check category of ticket
+            if ticket.category != Worker.currentUser?.category {
+                return
+            } else {
+                var isNewTicket :Bool = true
+                if self.tickets.count > 0 {
+                    for itemTicket in self.tickets {
+                        if itemTicket.id == ticket.id {
+                            itemTicket.status = ticket.status
+                            isNewTicket = false
+                            break
+                        }
+                    }
+                }
+                if isNewTicket {
+                    self.tickets.append(ticket)
+                }
+                self.tableView.reloadData()
+            }
+            
         }
         
     }
