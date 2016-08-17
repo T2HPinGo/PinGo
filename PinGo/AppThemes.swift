@@ -12,12 +12,12 @@ struct AppThemes {
     
     
     //MARKs: - Fonts
-    static let helveticaNeueRegular17 = UIFont(name: "Helvetica Neue", size: 17.0)
-    static let helveticaNeueRegular16 = UIFont(name: "Helvetica Neue", size: 16.0)
-    static let helveticaNeueRegular15 = UIFont(name: "Helvetica Neue", size: 15.0)
-    static let helveticaNeueRegular14 = UIFont(name: "Helvetica Neue", size: 14.0)
-    static let helveticaNeueRegular13 = UIFont(name: "Helvetica Neue", size: 13.0)
-    static let helveticaNeueRegular12 = UIFont(name: "Helvetica Neue", size: 12.0)
+    static let helveticaNeueRegular17 = UIFont.init(name: "Helvetica Neue", size: 17.0)
+    static let helveticaNeueRegular16 = UIFont.init(name: "Helvetica Neue", size: 16.0)
+    static let helveticaNeueRegular15 = UIFont.init(name: "Helvetica Neue", size: 15.0)
+    static let helveticaNeueRegular14 = UIFont.init(name: "Helvetica Neue", size: 14.0)
+    static let helveticaNeueRegular13 = UIFont.init(name: "Helvetica Neue", size: 13.0)
+    static let helveticaNeueRegular12 = UIFont.init(name: "Helvetica Neue", size: 12.0)
     
     
     //MARK: Colors

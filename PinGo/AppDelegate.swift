@@ -20,9 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //apply google API key
 
-        GMSServices.provideAPIKey("AIzaSyCekcwkLifZabdphxRQkQs-4wtX2H560SA")
-        GMSPlacesClient.provideAPIKey("AIzaSyBRpKjVQhiHMETgz1HON1tXYeJD0vnBmLQ")
-//        GMSPlacesClient.sharedClient()
+
+        GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+//        GMSPlacesClient.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+
        
         //get user info
         if UserProfile.currentUser != nil{

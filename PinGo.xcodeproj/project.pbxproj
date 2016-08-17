@@ -385,6 +385,7 @@
 				210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */,
 				210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */,
 				21FACF651D5E9D5C000ED89F /* T2HLoadingWheel.swift */,
+				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
