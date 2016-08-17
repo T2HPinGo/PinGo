@@ -35,8 +35,7 @@
 		21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6FB1D58F2D2002D9DF6 /* Notes.swift */; };
 		21F9E6FE1D58F930002D9DF6 /* WorkerHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6FD1D58F930002D9DF6 /* WorkerHistoryViewController.swift */; };
 		21F9E7001D58F95D002D9DF6 /* WorkerHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */; };
-		21F9E7041D5901F3002D9DF6 /* TicketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E7031D5901F3002D9DF6 /* TicketDetailViewController.swift */; };
-		21FACF661D5E9D5C000ED89F /* T2HLoadingWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FACF651D5E9D5C000ED89F /* T2HLoadingWheel.swift */; };
+		21F9E7041D5901F3002D9DF6 /* TicketRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E7031D5901F3002D9DF6 /* TicketRatingViewController.swift */; };
 		21FAD0651D5EFEFC000ED89F /* NVActivityIndicatorAnimationAudioEqualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FAD03F1D5EFEFC000ED89F /* NVActivityIndicatorAnimationAudioEqualizer.swift */; };
 		21FAD0661D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FAD0401D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift */; };
 		21FAD0671D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FAD0411D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift */; };
@@ -130,8 +129,7 @@
 		21F9E6FB1D58F2D2002D9DF6 /* Notes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		21F9E6FD1D58F930002D9DF6 /* WorkerHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerHistoryViewController.swift; sourceTree = "<group>"; };
 		21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerHistoryCell.swift; sourceTree = "<group>"; };
-		21F9E7031D5901F3002D9DF6 /* TicketDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailViewController.swift; sourceTree = "<group>"; };
-		21FACF651D5E9D5C000ED89F /* T2HLoadingWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HLoadingWheel.swift; sourceTree = "<group>"; };
+		21F9E7031D5901F3002D9DF6 /* TicketRatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketRatingViewController.swift; sourceTree = "<group>"; };
 		21FAD03F1D5EFEFC000ED89F /* NVActivityIndicatorAnimationAudioEqualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationAudioEqualizer.swift; sourceTree = "<group>"; };
 		21FAD0401D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallBeat.swift; sourceTree = "<group>"; };
 		21FAD0411D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
@@ -217,6 +215,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		21250A751D648E62009C9A78 /* SkyFloatingLabelTextField */ = {
+			isa = PBXGroup;
+			children = (
+				21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */,
+				21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */,
+			);
+			name = SkyFloatingLabelTextField;
+			sourceTree = "<group>";
+		};
 		21434C311D559E4C00B31122 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,7 +234,7 @@
 				21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */,
 				21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */,
 				21F9E6FD1D58F930002D9DF6 /* WorkerHistoryViewController.swift */,
-				21F9E7031D5901F3002D9DF6 /* TicketDetailViewController.swift */,
+				21F9E7031D5901F3002D9DF6 /* TicketRatingViewController.swift */,
 				E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */,
 				E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */,
 				E7120D331D61C19100193061 /* MapViewController.swift */,
@@ -246,7 +253,6 @@
 				21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */,
 				E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */,
 				B0FC11B21D621B1B00F34FDC /* TicketOfWorkerCell.swift */,
-				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -315,8 +321,6 @@
 		21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */ = {
 			isa = PBXGroup;
 			children = (
-				21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */,
-				21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */,
 				21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */,
 			);
 			name = ToBeUsedLater;
@@ -378,6 +382,8 @@
 		21FC6A751D5A3CD800819090 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */,
+				21250A751D648E62009C9A78 /* SkyFloatingLabelTextField */,
 				21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */,
 				21FC6A761D5A5C5700819090 /* T2HGradientView.swift */,
 				21FC6A781D5A65E700819090 /* T2HBouceAnimationController.swift */,
@@ -628,7 +634,7 @@
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
 				21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
-				21F9E7041D5901F3002D9DF6 /* TicketDetailViewController.swift in Sources */,
+				21F9E7041D5901F3002D9DF6 /* TicketRatingViewController.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
 				B0FC11B31D621B1B00F34FDC /* TicketOfWorkerCell.swift in Sources */,
 				21FAD0671D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
@@ -645,7 +651,6 @@
 				21FAD0801D5EFEFC000ED89F /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				21FAD0681D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
 				B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */,
-				21FACF661D5E9D5C000ED89F /* T2HLoadingWheel.swift in Sources */,
 				21434C421D55ACE300B31122 /* Worker.swift in Sources */,
 				21FAD0771D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
 				21F8FE571D5A0E8600DD150D /* DimmingPresentationController.swift in Sources */,
