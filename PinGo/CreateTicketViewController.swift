@@ -36,7 +36,8 @@ class CreateTicketViewController: UIViewController {
     @IBOutlet weak var pickedImageView3: UIImageView!
     @IBOutlet weak var pickedImageView3HeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var titleTextField: UITextField!
+    
+    @IBOutlet weak var titleTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionTextView: T2HTextViewWithPlaceHolder!
     
     @IBOutlet weak var urgentSwitch: UISwitch!
@@ -58,6 +59,15 @@ class CreateTicketViewController: UIViewController {
     let descriptionText = ""
     
     var activityIndicatorView: NVActivityIndicatorView! = nil
+    
+    struct TextFieldColorThemes {
+        static let textFieldTintColor = UIColor.purpleColor()
+        static let placeholderColor = UIColor.redColor()
+        static let textColor = UIColor.darkGrayColor()
+        static let floatingLabelColor = UIColor.yellowColor()
+        static let bottomLineColor = UIColor.blueColor()
+        static let selectedBottomLineColor = UIColor.greenColor()
+    }
     
      //MARK: - Load view
     override func viewDidLoad() {
@@ -98,9 +108,26 @@ class CreateTicketViewController: UIViewController {
         let verticalDistanceBetweenViews: CGFloat = 8
         ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + urgentSwitch.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
         
-        //place holder
-        titleTextField.placeholder = "Enter your title"
+        //titleTextField
+        titleTextField.placeholder = NSLocalizedString("Enter Title For Your Ticket", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
+        titleTextField.selectedTitle   = NSLocalizedString("Title", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+        titleTextField.placeholderColor = TextFieldColorThemes.placeholderColor
+        titleTextField.tintColor = TextFieldColorThemes.textFieldTintColor
+        titleTextField.textColor = TextFieldColorThemes.textColor
+        
+        titleTextField.lineColor = TextFieldColorThemes.bottomLineColor
+        titleTextField.selectedLineColor = TextFieldColorThemes.selectedBottomLineColor
+        
+        titleTextField.selectedTitleColor = TextFieldColorThemes.floatingLabelColor
+        
+        titleTextField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 13)
+        titleTextField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 16)
+        titleTextField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
+        
+        
+        //descriptionTextField
         descriptionTextView.placeholder = "Enter description"
+        descriptionTextView.backgroundColor = UIColor.clearColor()
         
         //chooseCategoryView
         chooseCategoryView.backgroundColor = UIColor(red: 42.0/255.0, green: 58.0/255.0, blue: 74.0/255.0, alpha: 1.0)
@@ -109,6 +136,12 @@ class CreateTicketViewController: UIViewController {
         chooseCategoryView.layer.borderWidth = 2.0
         categoryLabel.textColor = UIColor(red: 0.0/255.0, green: 180.0/255.0, blue: 136.0/255.0, alpha: 1.0)
         
+        //takePhotoView1/2/3
+        setupPhotoView(takePhotoView1)
+        setupPhotoView(takePhotoView2)
+        setupPhotoView(takePhotoView3)
+        takePhotoView2.hidden = true
+        takePhotoView3.hidden = true
         
         //collectionView
         collectionView.backgroundColor = UIColor.clearColor()
@@ -116,6 +149,11 @@ class CreateTicketViewController: UIViewController {
         //ticketDetailView
         ticketDetailView.alpha = 0.0
         ticketDetailView.backgroundColor = UIColor.clearColor()
+    }
+    
+    func setupPhotoView(view: UIView) {
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
     }
     
     func addGesture() {
@@ -133,15 +171,11 @@ class CreateTicketViewController: UIViewController {
         let thirdPhotoViewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showImagePicker(_:)))
         takePhotoView3.addGestureRecognizer(thirdPhotoViewGestureRecognizer)
         
-        //add gesture that do the push segue to the TicketBiddingViewController
-//        let findWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(performListWorkerSegue(_:)))
-//        findWorkerView.addGestureRecognizer(findWorkerGestureRecognizer)
-        
         //add gesture that go to the Map
         //let findLocationGestureRecognizer = UITapGestureRecognize
     }
     
-    //make rotation effect for chooseCategoryView when selected
+    //make flipping effect for chooseCategoryView when selected
     func presentCategoryUpdateAnimation() {
         let offset: CGFloat = chooseCategoryView.frame.height * 2
         self.categoryLabel.alpha = 0
@@ -436,10 +470,12 @@ extension CreateTicketViewController: UIImagePickerControllerDelegate, UINavigat
             pickedImageView1.image = image
             PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image, uploadType: "ticket") ////upload image to server to save it on server
             pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
+            takePhotoView2.hidden = false //make the second photo picker visible when the first one is already picked
             break
         case 2:
             pickedImageView2.image = image
             PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image, uploadType: "ticket")  ////upload image to server to save it on server
+            takePhotoView3.hidden = false //make the third photo picker visible when the second one is already picked
             pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 3:

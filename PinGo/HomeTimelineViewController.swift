@@ -15,6 +15,8 @@ class HomeTimelineViewController: BaseViewController {
     @IBOutlet weak var createNewTicketButton: UIButton!
     
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
+    
+    var rating: String!
 
     //MARK: - Fake Data
     let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
@@ -35,7 +37,16 @@ class HomeTimelineViewController: BaseViewController {
     }
     
     //MARK: - Actions
-
+    //this is the unwind segue from TicketRatingVC
+    @IBAction func close(segue:UIStoryboardSegue) {
+        if let ticketRatingViewController = segue.sourceViewController as? TicketRatingViewController {
+            if let imageName = ticketRatingViewController.rating {
+                rating = imageName
+                print(rating)
+                tableView.reloadData()
+            }
+        }
+    }
 
     
     //MARK: - Navigation
@@ -59,7 +70,13 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
         cell.ticket = ticket
+        
+        if rating != nil {
+        cell.ratingButton.setImage(UIImage(named: rating), forState: .Normal)
+        }
+        
         cell.backgroundColor = AppThemes.cellColors[indexPath.row]
+        
         return cell
     }
     
@@ -106,10 +123,7 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         return indexPath == selectedIndexPath ? RequestStatusCell.expandedHeight : RequestStatusCell.defaultHeight
     }
     
-//    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        //
-//        (cell as! RequestStatusCell).ignoreFrameChanges()
-//    }
-    
 }
+
+
 

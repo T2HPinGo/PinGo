@@ -19,6 +19,8 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var requestTitleLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var ratingButton: UIButton!
+    
     
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var detailViewHeightConstraint: NSLayoutConstraint!
@@ -27,6 +29,20 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var workerImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
+    
+//    var rating: String! {
+//        didSet {
+//            if rating != nil {
+//                ratingButton.setImage(UIImage(named: rating), forState: .Normal)
+//                ratingButton.tintColor = UIColor.whiteColor()
+//                ratingButton.backgroundColor = UIColor(red: 255.0/255.0, green: 217.0/255.0, blue: 25.0/255.0, alpha: 1.0)
+//            } else {
+//                ratingButton.setImage(UIImage(named: "rating"), forState: .Normal)
+//                ratingButton.tintColor = UIColor.lightGrayColor()
+//                ratingButton.backgroundColor = UIColor.clearColor()
+//            }
+//        }
+//    }
     
     class var defaultHeight: CGFloat{
         get {
@@ -85,7 +101,7 @@ class RequestStatusCell: UITableViewCell {
         workerNameLabel.textColor = UIColor.whiteColor()
         dateCreatedLabel.textColor = UIColor.whiteColor()
         
-        detailView.backgroundColor = UIColor.clearColor()
+        detailView.backgroundColor = UIColor.clearColor()   
     }
     
     func setHeight() {
@@ -97,15 +113,14 @@ class RequestStatusCell: UITableViewCell {
         self.addObserver(self, forKeyPath: "frame", options: .New, context: nil)
     }
     
-//    func ignoreFrameChanges() {
-//        self.removeObserver(self, forKeyPath: "frame")
-//    }
-    
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "frame" {
             setHeight()
         }
     }
+    
+    //MARK: - Navigations
+    
     
     
 
