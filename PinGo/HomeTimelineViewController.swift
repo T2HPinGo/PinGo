@@ -71,8 +71,9 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
         cell.ticket = ticket
         
+        //fake
         if rating != nil {
-        cell.ratingButton.setImage(UIImage(named: rating), forState: .Normal)
+            cell.ratingButton.setImage(UIImage(named: rating), forState: .Normal)
         }
         
         cell.backgroundColor = AppThemes.cellColors[indexPath.row]
@@ -121,6 +122,28 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         
         //if user tap on a cell, change the height
         return indexPath == selectedIndexPath ? RequestStatusCell.expandedHeight : RequestStatusCell.defaultHeight
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        //Social sharing button
+        let shareAction = UITableViewRowAction(style: .Default, title: "Share", handler: { (action, indexPath) -> Void in
+            let defaultText = "Just checking in at "
+            if let imageToShare = UIImage(named: "dog") {
+                let activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
+                self.presentViewController(activityController, animated: true, completion: nil)
+            }
+        })
+        
+        //Delete button
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) -> Void in
+        })
+        
+        //customize background color for social action and delete action
+        shareAction.backgroundColor = UIColor(red: 28.0/255.0, green: 165.0/255.0, blue: 253.0/255.0, alpha: 1)
+        deleteAction.backgroundColor = UIColor(red: 202.0/255.0, green: 202.0/255.0, blue: 203.0/255.0, alpha: 1)
+        
+        return [deleteAction, shareAction]
     }
     
 }

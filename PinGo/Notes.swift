@@ -6,9 +6,14 @@
 //  Copyright © 2016 Hien Tran. All rights reserved.
 //
 
+
+//Walkthru Screen
+//Loading Screen
+//random message when loading
 //HomeTimelineVC
 //      make a popup VC to show ticket detail
 //      make user go back to where they left off if app it terminated
+//      make a swipe to delete kinda thing
 //CreateTicketVC: 
 //      make the view slide up when the keyboard appears
 //      infinite scrolling for collectionView
@@ -17,6 +22,7 @@
 //TicketBiddingVC
 //      make the filter slide down from top and block a part of the main view OR add a segment to let user tap to filter
 //      discuss if the user is able to edit ticket detail in this step
+//      add a timer that check if the system can found any workers
 
 //WorkerHistoryVC
 //      divide the tableView in to sections (last week, last month, last 3 months, later)

@@ -495,10 +495,6 @@ extension CreateTicketViewController: NVActivityIndicatorViewable {
         
         startActivityAnimating(size, message: nil, type: .BallTrianglePath)
     }
-    
-    func delayedStopActivity() {
-        stopActivityAnimating()
-    }
 }
 
 

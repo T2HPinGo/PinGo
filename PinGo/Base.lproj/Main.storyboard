@@ -432,13 +432,13 @@
                                                             <constraint firstItem="Bgt-R6-2h0" firstAttribute="centerY" secondItem="EIE-ez-yIW" secondAttribute="centerY" id="gv4-VD-jzu"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H3m-sy-GjH" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H3m-sy-GjH" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                                         <rect key="frame" x="13" y="111" width="294" height="39"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                     </textField>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DmQ-jf-bi5" customClass="T2HTextViewWithPlaceHolder" customModule="PinGo" customModuleProvider="target">
-                                                        <rect key="frame" x="13" y="149" width="294" height="100"/>
+                                                        <rect key="frame" x="13" y="158" width="294" height="100"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="ch1-HI-3TB"/>
@@ -447,10 +447,10 @@
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXR-li-MnU">
-                                                        <rect key="frame" x="258" y="257" width="51" height="31"/>
+                                                        <rect key="frame" x="258" y="266" width="51" height="31"/>
                                                     </switch>
                                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="et0-ld-iTT">
-                                                        <rect key="frame" x="40" y="296" width="240" height="49"/>
+                                                        <rect key="frame" x="40" y="305" width="240" height="49"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aDM-b6-2wQ">
                                                                 <rect key="frame" x="15" y="15" width="20" height="20"/>
@@ -460,7 +460,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-kv-iPK">
-                                                                <rect key="frame" x="55.5" y="14" width="129" height="21"/>
+                                                                <rect key="frame" x="55" y="14" width="129" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -483,13 +483,13 @@
                                                         </variation>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Urgent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eN-Sc-zom">
-                                                        <rect key="frame" x="13" y="262" width="53" height="21"/>
+                                                        <rect key="frame" x="13" y="271" width="53" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-55-dLz">
-                                                        <rect key="frame" x="40" y="353" width="240" height="49"/>
+                                                        <rect key="frame" x="40" y="362" width="240" height="49"/>
                                                         <color key="backgroundColor" red="1" green="0.93333333330000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="49" id="Nv7-4g-ngY"/>
@@ -651,15 +651,10 @@
                                             <rect key="frame" x="8" y="88" width="90" height="30"/>
                                             <state key="normal" title="Cancel ticket"/>
                                             <connections>
+                                                <action selector="cancelTapped:" destination="ZeO-Id-CS6" eventType="touchUpInside" id="hZS-WT-Lxt"/>
                                                 <action selector="cancelTicketTapped:" destination="ZeO-Id-CS6" eventType="touchUpInside" id="34m-Hg-fVr"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxh-4q-st1">
-                                            <rect key="frame" x="141" y="97" width="39" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
@@ -766,7 +761,6 @@
                     <connections>
                         <outlet property="tableView" destination="jDr-sN-Ssq" id="wEm-DW-0u1"/>
                         <outlet property="ticketDetailView" destination="ka7-ei-GKH" id="awC-lR-OPb"/>
-                        <outlet property="ticketPaymentLabel" destination="wxh-4q-st1" id="2F5-3J-bnJ"/>
                         <outlet property="ticketTitleLabel" destination="ibD-Oj-lND" id="hcO-OK-SBr"/>
                     </connections>
                 </viewController>

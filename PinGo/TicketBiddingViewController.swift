@@ -30,6 +30,9 @@ class TicketBiddingViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
+        let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
+        
         //set up loading indicator
         let width: CGFloat = 30
         let height: CGFloat = 30
@@ -76,6 +79,7 @@ class TicketBiddingViewController: UIViewController {
         ticketDetailView.addSubview(activityIndicatorView)
     }
     
+    
     func buttonTapped(sender: UIButton) {
         if activityIndicatorView.animating {
             activityIndicatorView.stopAnimation()
@@ -83,7 +87,22 @@ class TicketBiddingViewController: UIViewController {
             activityIndicatorView.startAnimation()
         }
     }
+    
+    //MARK: - Actions
+    @IBAction func cancelTapped(sender: UIButton) {
+        let alert = UIAlertController(title: "Cancel Request", message: "This process can no be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
+        let okACtion = UIAlertAction(title: "OK", style: .Default) { _ in
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(okACtion)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
 }
+
+
 
 // MARK: - TableView data source and delegate
 extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegate {

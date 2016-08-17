@@ -10,6 +10,7 @@
 		210EF8C51D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */; };
 		210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */; };
 		2130A14E1D51191C00B37C98 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */; };
+		213D284B1D64D941009A06D8 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 213D284A1D64D941009A06D8 /* NothingFoundCell.xib */; };
 		21434C331D559EAD00B31122 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C321D559EAD00B31122 /* BaseViewController.swift */; };
 		21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C361D55AA5F00B31122 /* RequestStatusCell.swift */; };
 		21434C391D55AB1B00B31122 /* AppUltility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C381D55AB1B00B31122 /* AppUltility.swift */; };
@@ -102,6 +103,7 @@
 		210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HGradientUIView.swift; sourceTree = "<group>"; };
 		2130A1451D510C7300B37C98 /* PinGo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PinGo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewController.swift; sourceTree = "<group>"; };
+		213D284A1D64D941009A06D8 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		21434C321D559EAD00B31122 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		21434C361D55AA5F00B31122 /* RequestStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatusCell.swift; sourceTree = "<group>"; };
 		21434C381D55AB1B00B31122 /* AppUltility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUltility.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				21434C381D55AB1B00B31122 /* AppUltility.swift */,
 				21B3A1021D561CC700C1CE9E /* AppThemes.swift */,
 				21F9E6FB1D58F2D2002D9DF6 /* Notes.swift */,
+				213D284A1D64D941009A06D8 /* NothingFoundCell.xib */,
 			);
 			path = PinGo;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				E7EBFA0F1D5CE97200C1FEB8 /* UserProfile.storyboard in Resources */,
 				219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */,
 				219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */,
+				213D284B1D64D941009A06D8 /* NothingFoundCell.xib in Resources */,
 				21FAD0851D5EFEFC000ED89F /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
