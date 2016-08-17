@@ -24,6 +24,7 @@ class UserProfile: NSObject {
     var name: String?
     var profileImagePath: String?
     var dataJson: [String: AnyObject]?
+    var category: String = ""
     override init() {
         super.init()
         username = ""
@@ -60,6 +61,9 @@ class UserProfile: NSObject {
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
         if let averageRating = data["averageRating"] as? Double {
             self.averageRating = averageRating
+        }
+        if let category = data["category"] as? String{
+            self.category = category
         }
     }
     

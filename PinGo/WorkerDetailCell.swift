@@ -34,6 +34,7 @@ class WorkerDetailCell: UITableViewCell {
     @IBAction func onPickWorker(sender: AnyObject) {
         ticket?.worker = worker
         print("Pick WOrker: \(worker)")
+        
         let parameters: [String: AnyObject] = [
             "idWorker" : worker.id!,
             "nameOfWorker" : worker.username!,

@@ -16,11 +16,21 @@ class TicketOfWorkerCell: UITableViewCell {
     
     @IBOutlet weak var createByLabel: UILabel!
     
+    @IBOutlet weak var imageProfileCreateBy: UIImageView!
+    
+    @IBOutlet weak var timeBegin: UILabel!
+    
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var statusLabel: UILabel!
     var ticket: Ticket? {
         didSet {
             titleTicketLabel.text = ticket?.title!
             categoryTicketLabel.text = ticket?.category!
             createByLabel.text = ticket?.user?.username!
+            descriptionLabel.text = ""
+            print("TicketOfWorkerCell: \((ticket?.status?.rawValue)!)" )
+            statusLabel.text = ticket?.status?.rawValue
         }
     }
     override func awakeFromNib() {
@@ -34,9 +44,15 @@ class TicketOfWorkerCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func seeLocationAction(sender: AnyObject) {
+    }
+    
     @IBAction func pidAction(sender: AnyObject) {
         let jsonData = Worker.currentUser?.dataJson
         SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.title!, price: "150.000")
     }
 
+    @IBAction func doneAction(sender: AnyObject) {
+        
+    }
 }
