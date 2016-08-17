@@ -84,14 +84,11 @@
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
 		B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A41D5FACAB009A177D /* Constants.swift */; };
 		B0B3A8A71D5FAD26009A177D /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A61D5FAD26009A177D /* Rating.swift */; };
-
-		E7120D341D61C19100193061 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7120D331D61C19100193061 /* MapViewController.swift */; };
-
 		B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FC11B01D618CBB00F34FDC /* Worker.storyboard */; };
 		B0FC11B31D621B1B00F34FDC /* TicketOfWorkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B21D621B1B00F34FDC /* TicketOfWorkerCell.swift */; };
 		B0FC11B51D621C0600F34FDC /* ListTicketsOfWorkerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */; };
 		B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */; };
-
+		E7120D341D61C19100193061 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7120D331D61C19100193061 /* MapViewController.swift */; };
 		E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */; };
 		E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */; };
 		E7CB13811D5DEECD00BA5AA4 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */; };
@@ -184,14 +181,11 @@
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		B0B3A8A41D5FACAB009A177D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0B3A8A61D5FAD26009A177D /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
-
-		E7120D331D61C19100193061 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-
 		B0FC11B01D618CBB00F34FDC /* Worker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Worker.storyboard; path = ../Worker.storyboard; sourceTree = "<group>"; };
 		B0FC11B21D621B1B00F34FDC /* TicketOfWorkerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketOfWorkerCell.swift; sourceTree = "<group>"; };
 		B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTicketsOfWorkerController.swift; sourceTree = "<group>"; };
 		B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerProfileController.swift; sourceTree = "<group>"; };
-
+		E7120D331D61C19100193061 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditUserProfile.storyboard; sourceTree = "<group>"; };
 		E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
 		E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
@@ -236,9 +230,7 @@
 				21F9E7031D5901F3002D9DF6 /* TicketDetailViewController.swift */,
 				E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */,
 				E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */,
-
 				E7120D331D61C19100193061 /* MapViewController.swift */,
-
 				B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */,
 				B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */,
 			);
@@ -467,7 +459,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 3CC3C6G767;
+						DevelopmentTeam = 58YA7YLU96;
 					};
 				};
 			};
@@ -811,7 +803,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PinGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ballssqueezer.PinGo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ballsqueezer.PinGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PinGo/PinGo-Bridging-Header.h";
@@ -830,7 +822,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PinGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ballssqueezer.PinGo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ballsqueezer.PinGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PinGo/PinGo-Bridging-Header.h";

@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class UserProfileViewController: BaseViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class UserProfileViewController: BaseViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var fistname: SkyFloatingLabelTextField!
@@ -21,6 +21,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     
     @IBOutlet weak var isFemale: UISwitch!
     @IBOutlet weak var password: SkyFloatingLabelTextField!
+    @IBOutlet weak var textView: UITextView!
     
     @IBOutlet weak var confirmpassword: SkyFloatingLabelTextField!
     
@@ -29,6 +30,8 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     
     @IBOutlet weak var signUpTextField: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+
     
     let imagePicker = UIImagePickerController()
     var user : UserProfile?
@@ -44,11 +47,15 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         //        self.view.backgroundColor = UIColor(red: 0.2, green: 0.1, blue: 0.2, alpha: 0.35)
         //        backgroundImage.hidden = true
         
+//        
+//        let blurEffect = UIBlurEffect(style: .Dark)
+//        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurredEffectView.frame = view.bounds
+//        backgroundImage.addSubview(blurredEffectView)
+        phonenumber.keyboardType = UIKeyboardType.PhonePad
+        password.secureTextEntry = true
+        confirmpassword.secureTextEntry = true
         
-        let blurEffect = UIBlurEffect(style: .Dark)
-        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
-        blurredEffectView.frame = view.bounds
-        backgroundImage.addSubview(blurredEffectView)
         
         self.setupThemeColors(fistname)
         self.setupThemeColors(lastname)
@@ -70,23 +77,53 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
         
+        let UITextViewTextDidEndEditingNotification: String
+        
+        
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.colors = [UIColor.blackColor().CGColor, UIColor.clearColor().CGColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
+        
     }
+    
+//    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+//        if textView.text == "introduce yourself"{
+//            textView.text = ""
+//            scrollView.contentInset.bottom = 300
+//            scrollView.scrollIndicatorInsets.top = 300
+//        }
+//        textView.becomeFirstResponder()
+//        return true
+//    }
+//
+//    func textViewDidBeginEditing(textView: UITextView) {
+//        if textView.text == "introduce yourself"{
+//            textView.text = ""
+//            scrollView.contentInset.bottom = 300
+//            scrollView.scrollIndicatorInsets.top = 300
+//        }
+//        textView.becomeFirstResponder()
+//    }
+//    
+//    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+//        return true
+//    }
+//    func textViewDidEndEditing(textView: UITextView) {
+//        scrollView.contentInset.bottom = 200
+//        scrollView.scrollIndicatorInsets.top = 200
+//    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
-        guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else { return }
-        
-        let keyboardFrame =  value.CGRectValue()
-        let adjustmentHeight = CGRectGetHeight(keyboardFrame)
-        print(keyboardFrame)
-        print(adjustmentHeight)
-        print(scrollView.contentInset.bottom)
-        print(scrollView.scrollIndicatorInsets.top)
-        
-        
-    }
+
+
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -99,16 +136,12 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        adjustInsetForKeyboardShow(true, notification: notification)
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        adjustInsetForKeyboardShow(false, notification: notification)
     }
     
     func setupThemeColors(setTextField: SkyFloatingLabelTextField) {
-        
-        
         let placeholderName = setTextField.placeholder!
         setTextField.placeholder     = NSLocalizedString("* \(placeholderName)", tableName: "SkyFloatingLabelTextField", comment: "placeholder for person title field")
         setTextField.selectedTitle   = NSLocalizedString(placeholderName, tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")

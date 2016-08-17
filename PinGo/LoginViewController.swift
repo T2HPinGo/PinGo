@@ -26,17 +26,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = AppThemes.cellColors[4]
+
         self.login.backgroundColor = AppThemes.cellColors[3]
+        passwordTextField.secureTextEntry = true
         
-        
-        let backgroundImage = UIImage(named: "eco")
-        backgroundView.backgroundColor = UIColor(patternImage: backgroundImage!)
-        
-        let blurEffect = UIBlurEffect(style: .Dark)
-        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
-        blurredEffectView.frame = view.bounds
-        backgroundView.addSubview(blurredEffectView)
+//        let backgroundImage = UIImage(named: "eco")
+//        backgroundView.backgroundColor = UIColor(patternImage: backgroundImage!)
+//        
+//        let blurEffect = UIBlurEffect(style: .Dark)
+//        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurredEffectView.frame = view.bounds
+//        backgroundView.addSubview(blurredEffectView)
         
         self.setupThemeColors(usernameTextField)
         self.setupThemeColors(passwordTextField)
@@ -47,6 +47,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
         
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.colors = [UIColor.blackColor().CGColor, UIColor.clearColor().CGColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
+        
+
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func keyboardWillShow(sender: NSNotification) {
