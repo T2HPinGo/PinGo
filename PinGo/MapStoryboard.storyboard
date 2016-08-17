@@ -34,10 +34,21 @@
                                     <action selector="okAction:" destination="NYf-HS-S9A" eventType="touchUpInside" id="KCn-w1-Nr6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Db4-00-hjU">
+                                <rect key="frame" x="0.0" y="74" width="320" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.75685388639999995" blue="0.57661084149999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Current Location"/>
+                                <connections>
+                                    <action selector="currentLocationAction:" destination="NYf-HS-S9A" eventType="touchUpInside" id="kJU-0u-afI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Db4-00-hjU" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="2e5-Th-iql"/>
                             <constraint firstAttribute="trailing" secondItem="Mht-kz-XR1" secondAttribute="trailing" constant="20" id="62H-hs-o2g"/>
+                            <constraint firstItem="Db4-00-hjU" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="10" id="E5W-FH-Klk"/>
+                            <constraint firstAttribute="trailing" secondItem="Db4-00-hjU" secondAttribute="trailing" id="bFF-1u-cku"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" id="jbS-uj-iym"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Xbk-z3-E2M" secondAttribute="bottom" id="kj1-bj-cmt"/>
                             <constraint firstAttribute="trailing" secondItem="Xbk-z3-E2M" secondAttribute="trailing" id="nGX-NF-z2h"/>

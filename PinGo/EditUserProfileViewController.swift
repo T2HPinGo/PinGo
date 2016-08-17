@@ -24,6 +24,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     @IBOutlet weak var phonenumber: UILabel!
     @IBOutlet weak var email: UILabel!
     
+    @IBOutlet weak var logoutButton: UIButton!
     let imagePicker = UIImagePickerController()
     var isPaymentCollapsed = true
     var isHistoryCollapsed = true
@@ -36,7 +37,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
 //        tableView.delegate = self
 //        tableView.dataSource = self
         
-        
+        logoutButton.backgroundColor = AppThemes.cellColors[2]
         // Do any additional setup after loading the view.
     }
 
@@ -45,7 +46,6 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         UserProfile.currentUser = nil
         
         NSNotificationCenter.defaultCenter().postNotificationName(UserProfile.userDidLogOutNotification, object: nil)
-
         
     }
     
@@ -106,154 +106,3 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     */
 
 }
-
-//extension EditUserProfileViewController:UITableViewDataSource, UITableViewDelegate{
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 4
-//    }
-//    
-//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        switch section {
-//        case 0: return 1
-//        case 1: return 2
-//        case 2: return 3
-////        case 3: return categories.count + 1
-//        default: return 0
-//        }
-//    }
-//    
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        switch indexPath.section {
-//        case 0:
-//            // payment
-//            let cell = tableView.dequeueReusableCellWithIdentifier("PaymentCell", forIndexPath: indexPath) as! PaymentCell
-//            
-//            cell.delegate = self
-//            
-//            return cell
-//            
-//        case 1:
-//            // Radius area
-//            let cell = tableView.dequeueReusableCellWithIdentifier("DropDownCell", forIndexPath: indexPath) as! DropDownCell
-//            cell.delegate = self
-//            
-//            // Set label for each cell
-//            if indexPath.row == 0 {
-//                cell.itemLabel.text = "Auto"
-//            } else {
-//                if distances[indexPath.row] == 1 {
-//                    cell.itemLabel.text = "\(distances[indexPath.row]!) mile"
-//                } else {
-//                    cell.itemLabel.text = "\(distances[indexPath.row]!) miles"
-//                }
-//            }
-//            
-//            let radiusValue = filters["distances"] as! Float?
-//            let compareRadiusValue = distances[indexPath.row]
-//            DropDownCell.setRadiusIcon(indexPath.row, iconView: cell.itemIcon, radiusValue: radiusValue, compareRadiusValue: compareRadiusValue, isRadiusCollapsed: isRadiusCollapsed)
-//            DropDownCell.setRadiusCellVisible(indexPath.row, cell: cell, radiusValue: radiusValue, compareRadiusValue: compareRadiusValue, isRadiusCollapsed: isRadiusCollapsed)
-//            
-//            return cell
-//            
-//        case 2:
-//            // Sort area
-//            let cell = tableView.dequeueReusableCellWithIdentifier("DropDownCell", forIndexPath: indexPath) as! DropDownCell
-//            cell.delegate = self
-//            
-//            switch indexPath.row {
-//            case 0:
-//                cell.itemLabel.text = "Best Match"
-//            case 1:
-//                cell.itemLabel.text = "Distance"
-//            case 2:
-//                cell.itemLabel.text = "Rating"
-//            default:
-//                break
-//            }
-//            DropDownCell.setSortIcon(indexPath.row, iconView: cell.itemIcon, sortValue: getSortValue(), isSortCollapsed: isSortCollapsed)
-//            DropDownCell.setSortCellVisible(indexPath.row, cell: cell, sortValue: getSortValue(), isSortCollapsed: isSortCollapsed)
-//            return cell
-//            
-//        case 3:
-//            // Category area
-//            print("IndexPaath Row: \(indexPath.row)")
-//            if indexPath.row != categories.count {
-//                let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-//                cell.switchItemLabel.text = categories[indexPath.row]["name"]
-//                cell.delegate = self
-//                cell.switchItemUISwitch.on = switchStates[indexPath.row] ?? false
-//                SwitchCell.setCategoryCellVisible(indexPath.row, cell: cell, isCategoryCollapsed: isCategoryCollapsed, categoriesCount: categories.count)
-//                return cell
-//            } else {
-//                // Last Cell
-//                
-//                let cell = tableView.dequeueReusableCellWithIdentifier("LoadAllCell", forIndexPath: indexPath) as! LoadAllCell
-//                
-//                let seeAllCell = UITapGestureRecognizer(target: self, action: #selector(FilterViewController.clickSeeAll(_:)))
-//                cell.addGestureRecognizer(seeAllCell)
-//                
-//                return cell
-//            }
-//        default:
-//            let cell = UITableViewCell()
-//            return cell
-//        }
-//    }
-//    
-//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-//        headerView.backgroundColor = UIColor(red: 232/255, green: 232/255, blue: 232/255, alpha: 1)
-//        
-//        let titleLabel = UILabel(frame: CGRect(x: 15, y: 15, width: 320, height: 30))
-//        titleLabel.font = UIFont(name: "Helvetica", size: 15)
-//        
-//        switch section {
-//        case 0:
-//            titleLabel.text = TITLE_DEAL
-//        case 1:
-//            titleLabel.text =  TITLE_DISTANCE
-//        case 2:
-//            titleLabel.text = TITLE_SORT_BY
-//        case 3:
-//            titleLabel.text = TITLE_CATEGORY
-//        default:
-//            return nil
-//        }
-//        headerView.addSubview(titleLabel)
-//        return headerView
-//    }
-//    
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 45
-//    }
-//    
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        switch indexPath.section {
-//        case 1:
-//            if isRadiusCollapsed {
-//                let radiusValue = filters["distances"] as! Float?
-//                if radiusValue != distances[indexPath.row] {
-//                    return 0
-//                }
-//            }
-//        case 2:
-//            if isSortCollapsed {
-//                let sortValue = getSortValue()
-//                if sortValue != indexPath.row {
-//                    return 0
-//                }
-//            }
-//        case 3:
-//            if isCategoryCollapsed {
-//                if indexPath.row > 2 && indexPath.row != categories.count {
-//                    return 0
-//                }
-//            }
-//        default:
-//            break
-//        }
-//        
-//        return HEIGHT_FOR_ROW
-//    }
-//}
-//

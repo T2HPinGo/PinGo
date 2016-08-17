@@ -22,6 +22,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate{
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var placesClient = GMSPlacesClient()
+    var currentlocation_long = NSNumber()
+    var currentlocation_latitude = NSNumber()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,129 +45,138 @@ class MapViewController: UIViewController, UISearchDisplayDelegate{
         
         self.okButton.layer.borderWidth = 0.2
         self.okButton.layer.borderColor = UIColor.whiteColor().CGColor
-    }
-    
-    @IBAction func okAction(sender: AnyObject) {
-        performSegueWithIdentifier("mapviewchange", sender: self)
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if !didFindMyLocation {
-            let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
-            testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
-            testView.settings.myLocationButton = true
-            
-            didFindMyLocation = true
-        }
         
+        placesClient = GMSPlacesClient.sharedClient()
     }
     
-    
-    //    func next (){
-    //        performSegueWithIdentifier("mapviewchange", sender: self)
-    //    }
-    
-    //    override func viewDidAppear(animated: Bool) {
-    ////        self.testView = GMSMapView(frame: view.frame)
-    ////        self.testview.addSubview(self.mapView)
-    //    }
-    
-    //    func viewMap() {
-    //        let camera = GMSCameraPosition.cameraWithLatitude(37.7749, longitude: -122.4194, zoom: 12)
-    //        mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
-    //        view = mapView
-    //
-    //        let currentLocation = CLLocationCoordinate2DMake(37.7749, -122.4194)
-    //        let marker = GMSMarker(position: currentLocation)
-    //        marker.title = "home"
-    //        marker.snippet = "need help on .."
-    //        marker.map = mapView
-    //    }
-    
-    func currentLocation(){
+    @IBAction func currentLocationAction(sender: AnyObject) {
+        self.locatewithCoordinate(currentlocation_long as Double, Latitude: currentlocation_latitude as Double, Title: "current location")
+    }
+
+@IBAction func okAction(sender: AnyObject) {
+    performSegueWithIdentifier("mapviewchange", sender: self)
+}
+
+override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    if !didFindMyLocation {
+        let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
+        testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
+        testView.settings.myLocationButton = true
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        didFindMyLocation = true
+    }
+    
+}
+
+
+//    func next (){
+//        performSegueWithIdentifier("mapviewchange", sender: self)
+//    }
+
+//    override func viewDidAppear(animated: Bool) {
+////        self.testView = GMSMapView(frame: view.frame)
+////        self.testview.addSubview(self.mapView)
+//    }
+
+//    func viewMap() {
+//        let camera = GMSCameraPosition.cameraWithLatitude(37.7749, longitude: -122.4194, zoom: 12)
+//        mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
+//        view = mapView
+//
+//        let currentLocation = CLLocationCoordinate2DMake(37.7749, -122.4194)
+//        let marker = GMSMarker(position: currentLocation)
+//        marker.title = "home"
+//        marker.snippet = "need help on .."
+//        marker.map = mapView
+//    }
+
+func currentLocation(){
+    
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    if locationManager.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)){
         locationManager.requestWhenInUseAuthorization()
+    }
+    else{
         locationManager.startUpdatingLocation()
-        
-        
-        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-            guard error == nil else {
-                print("Current Place error: \(error!.localizedDescription)")
-                return
-            }
-            
-            if let placeLikelihoods = placeLikelihoods {
-                for likelihood in placeLikelihoods.likelihoods {
-                    let place = likelihood.place
-//                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
-//                    print("Current Place address \(place.formattedAddress)")
-//                    print("Current Place attributions \(place.attributions)")
-//                    print("Current PlaceID \(place.placeID)")
-                }
-            }
-        })
-        
     }
     
-    
-    func searchBar(){
-        
-        //SearchBar: Add an autocomplete UI control
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        
-        // Put the search bar in the navigation bar.
-        searchController?.searchBar.sizeToFit()
-        self.navigationItem.titleView = searchController?.searchBar
-        
-        // When UISearchController presents the results view, present it in
-        // this view controller, not one further up the chain.
-        self.definesPresentationContext = true
-        
-        // Prevent the navigation bar from being hidden when searching.
-        
-        self.navigationController!.navigationBar.translucent = false
-        searchController!.hidesNavigationBarDuringPresentation = false
-        
-        // This makes the view area include the nav bar even though it is opaque.
-        // Adjust the view placement down.
-        self.extendedLayoutIncludesOpaqueBars = true
-        self.edgesForExtendedLayout = UIRectEdge.Top
-        
-    }
-    
-    
-    func locatewithCoordinate (long: Double, Latitude lat: Double, Title title:String ){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let position = CLLocationCoordinate2DMake(lat, long)
-            let marker = GMSMarker(position: position)
-            
-            let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 16)
-            self.testView.camera = camera
-            
-            marker.title = "Service name"
-            marker.snippet = "Address: \(title)"
-            marker.map = self.testView
-            marker.tracksInfoWindowChanges = false
-            
+    placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+        guard error == nil else {
+            print("Current Place error: \(error!.localizedDescription)")
+            return
         }
+        
+        if let placeLikelihoods = placeLikelihoods {
+            for likelihood in placeLikelihoods.likelihoods {
+                let place = likelihood.place
+                //                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
+                //                    print("Current Place address \(place.formattedAddress)")
+                //                    print("Current Place attributions \(place.attributions)")
+                //                    print("Current PlaceID \(place.placeID)")
+            }
+        }
+    })
+    
+}
+
+
+func searchBar(){
+    
+    //SearchBar: Add an autocomplete UI control
+    resultsViewController = GMSAutocompleteResultsViewController()
+    resultsViewController?.delegate = self
+    
+    searchController = UISearchController(searchResultsController: resultsViewController)
+    searchController?.searchResultsUpdater = resultsViewController
+    
+    // Put the search bar in the navigation bar.
+    searchController?.searchBar.sizeToFit()
+    self.navigationItem.titleView = searchController?.searchBar
+    
+    // When UISearchController presents the results view, present it in
+    // this view controller, not one further up the chain.
+    self.definesPresentationContext = true
+    
+    // Prevent the navigation bar from being hidden when searching.
+    
+    self.navigationController!.navigationBar.translucent = false
+    searchController!.hidesNavigationBarDuringPresentation = false
+    
+    // This makes the view area include the nav bar even though it is opaque.
+    // Adjust the view placement down.
+    self.extendedLayoutIncludesOpaqueBars = true
+    self.edgesForExtendedLayout = UIRectEdge.Top
+    
+}
+
+
+func locatewithCoordinate (long: Double, Latitude lat: Double, Title title:String ){
+    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        let position = CLLocationCoordinate2DMake(lat, long)
+        let marker = GMSMarker(position: position)
+        
+        let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 16)
+        self.testView.camera = camera
+        
+        marker.title = "Service name"
+        marker.snippet = "Address: \(title)"
+        marker.map = self.testView
+        marker.tracksInfoWindowChanges = false
+        
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+}
+
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+ // Get the new view controller using segue.destinationViewController.
+ // Pass the selected object to the new view controller.
+ }
+ */
+
 }
 
 //SearchBar: Add an autocomplete UI control
@@ -172,6 +184,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate{
 extension MapViewController:GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWithPlace place: GMSPlace) {
+        
+        
+        if place.coordinate.longitude == currentlocation_long && place.coordinate.latitude == currentlocation_latitude{
+            print("current location")
+        }
+        
+        
         searchController?.active = false
         // Do something with the selected place.
         print("Place name: ", place.name)
@@ -203,24 +222,26 @@ extension MapViewController:GMSAutocompleteResultsViewControllerDelegate {
 // MARK: - CLLocationManagerDelegate
 
 extension MapViewController: CLLocationManagerDelegate {
-
-func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-    if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-        testView.myLocationEnabled = true
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            testView.myLocationEnabled = true
+        }
     }
-}
-
-func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
-    print("error")
-}
-
-func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    var userLocation = locations[0]
     
-    locationManager.stopUpdatingLocation()
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
+        print("error")
+    }
     
-    let location = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-    
-    print(location)
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        var userLocation = locations[0]
+        
+        locationManager.stopUpdatingLocation()
+        
+        let location = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        currentlocation_latitude = location.latitude
+        currentlocation_long = location.longitude
+        
+        print(location)
     }
 }

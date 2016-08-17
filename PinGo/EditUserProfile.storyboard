@@ -21,6 +21,22 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fm3-8l-5c4">
+                                <rect key="frame" x="0.0" y="597" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="328" id="YG6-F1-jMb"/>
+                                    <constraint firstAttribute="height" constant="50" id="xnV-0B-g0y"/>
+                                </constraints>
+                                <state key="normal" title="Log Out"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="YG6-F1-jMb"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="logoutAction:" destination="M7P-cA-y0S" eventType="touchUpInside" id="Xyr-U6-KrN"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rZ-8j-74L">
                                 <rect key="frame" x="153" y="81" width="70" height="70"/>
                                 <constraints>
@@ -73,22 +89,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fm3-8l-5c4">
-                                <rect key="frame" x="0.0" y="597" width="375" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="328" id="YG6-F1-jMb"/>
-                                    <constraint firstAttribute="height" constant="50" id="xnV-0B-g0y"/>
-                                </constraints>
-                                <state key="normal" title="Log Out"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="YG6-F1-jMb"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="logoutAction:" destination="M7P-cA-y0S" eventType="touchUpInside" id="Xyr-U6-KrN"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -132,6 +132,7 @@
                         <outlet property="email" destination="yaD-Ty-Uri" id="PZe-VI-081"/>
                         <outlet property="firstname" destination="QKE-Uu-VyK" id="vOY-D5-dIo"/>
                         <outlet property="lastname" destination="FOl-73-3oT" id="qwq-Hl-p1m"/>
+                        <outlet property="logoutButton" destination="fm3-8l-5c4" id="vV3-Va-Hwo"/>
                         <outlet property="phonenumber" destination="oqK-up-BCt" id="NCA-ck-Rfk"/>
                         <outlet property="profileBackgroundView" destination="Q1D-Ty-kDM" id="xhn-Fe-QjI"/>
                         <outlet property="profileImage" destination="0rZ-8j-74L" id="hsF-Bf-vba"/>
