@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //apply google API key
 
 
-        GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
-//        GMSPlacesClient.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
+        GMSServices.provideAPIKey("AIzaSyA2Q4hFrqFvAqCvbJve9YjBIG716U5jQS8")
+        GMSPlacesClient.provideAPIKey("AIzaSyD26Ic4Z40PACvHfEsdTheOpPRrdKl78zc")
 
        
         //get user info
