@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -682,6 +681,7 @@
                                                     <state key="normal" title="Pick"/>
                                                     <connections>
                                                         <action selector="onPickWorker:" destination="mAY-vL-6ss" eventType="touchUpInside" id="G9k-fg-G8y"/>
+                                                        <segue destination="9vA-Vj-VeY" kind="unwind" identifier="UnwindToHomeTimelineAfterCreatingTicket" unwindAction="quitAfterPickWorker:" id="tpZ-5O-ck9"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$80" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hy7-0B-AvP">
@@ -757,6 +757,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zx-yB-Ghf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="9vA-Vj-VeY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-117" y="-135"/>
         </scene>

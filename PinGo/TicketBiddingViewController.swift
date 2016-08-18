@@ -77,8 +77,7 @@ class TicketBiddingViewController: UIViewController {
     func setupIndicator(withFrame frame: CGRect) {
         activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.lightGrayColor(), padding: 70)
         ticketDetailView.addSubview(activityIndicatorView)
-    }
-    
+    }    
     
     func buttonTapped(sender: UIButton) {
         if activityIndicatorView.animating {

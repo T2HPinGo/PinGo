@@ -17,11 +17,12 @@ class HomeTimelineViewController: BaseViewController {
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
+    
+    var ticketList: [Ticket] = []
 
-    //MARK: - Fake Data
-    let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
-    let worker = Worker(name: "Puppy", id: "qwerty", location: nil, profileImagePath: nil, currentLocation: nil, rating: 4.5)
-    var ticket: Ticket!
+//    //MARK: - Fake Data
+//    let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
+//    let worker = Worker(name: "Puppy", id: "qwerty", location: nil, profileImagePath: nil, currentLocation: nil, rating: 4.5)
     
     //MARK: - Load view
     override func viewDidLoad() {
@@ -32,8 +33,9 @@ class HomeTimelineViewController: BaseViewController {
         tableView.separatorStyle = .None
         
         //Fake data goes here
-        ticket = Ticket(user: user, worker: worker, id: "1q2w3e4r", category: "Electricity" , title: "Broken Lightbulb", status: Status.Pending, issueImageVideoPath: nil, dateCreated: NSDate())
-        tableView.backgroundColor = UIColor.clearColor()
+//        ticket = Ticket(user: user, worker: worker, id: "1q2w3e4r", category: "Electricity" , title: "Broken Lightbulb", status: Status.Pending, issueImageVideoPath: nil, dateCreated: NSDate())
+//        tableView.backgroundColor = UIColor.clearColor()
+        
     }
     
     //MARK: - Actions
@@ -43,6 +45,17 @@ class HomeTimelineViewController: BaseViewController {
             if let imageName = ticketRatingViewController.rating {
                 rating = imageName
                 print(rating)
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func quitAfterPickWorker(segue: UIStoryboardSegue) {
+        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
+            
+            if let newTicket = workerBiddingCell.ticket {
+                ticketList.insert(newTicket, atIndex: 0)
+                print(newTicket.category)
                 tableView.reloadData()
             }
         }
@@ -64,12 +77,12 @@ class HomeTimelineViewController: BaseViewController {
 //MARK: - EXTENSION UITableViewDataSource, UITableViewDelegate
 extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return ticketList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
-        cell.ticket = ticket
+        cell.ticket = ticketList[indexPath.row]
         
         //fake
         if rating != nil {

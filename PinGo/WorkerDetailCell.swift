@@ -28,10 +28,15 @@ class WorkerDetailCell: UITableViewCell {
         super.awakeFromNib()
         
         setupAppearance()
-        
     }
     
     @IBAction func onPickWorker(sender: AnyObject) {
+        
+        
+        
+        
+        
+        
         ticket?.worker = worker
         print("Pick WOrker: \(worker)")
         
@@ -44,8 +49,12 @@ class WorkerDetailCell: UITableViewCell {
         let url = "\(API_URL)\(PORT_API)/v1/ticket/\(ticket!.id!)"
         Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
             print(response.result)
-            SocketManager.sharedInstance.pushCategory(response.result.value!["data"] as! [String: AnyObject])
+            let JSON = response.result.value!["data"] as! [String: AnyObject]
+            self.ticket = Ticket(data: JSON)
+            SocketManager.sharedInstance.pushCategory(JSON)
         }
+        
+        
     }
     
     //MARK: - Helpers
