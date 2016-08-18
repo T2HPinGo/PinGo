@@ -113,6 +113,11 @@ class RequestStatusCell: UITableViewCell {
         self.addObserver(self, forKeyPath: "frame", options: .New, context: nil)
     }
     
+    func removeFrameChanges() {
+        self.removeObserver(self, forKeyPath: "frame")
+        //self.removeObserver(<#T##observer: NSObject##NSObject#>, forKeyPath: <#T##String#>)
+    }
+    
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "frame" {
             setHeight()

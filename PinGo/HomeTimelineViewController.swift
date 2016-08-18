@@ -118,6 +118,11 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         (cell as! RequestStatusCell).watchFrameChanges()
     }
     
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        //
+        (cell as! RequestStatusCell).removeFrameChanges()
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         //if user tap on a cell, change the height
