@@ -83,6 +83,7 @@ class CreateTicketViewController: UIViewController {
         //setupLoadingIndicator()
         
         addGesture()
+        initChooseAction()
     }
     
     // MARK: - Navigation
@@ -283,31 +284,7 @@ class CreateTicketViewController: UIViewController {
     
     //_____________________________
     func parametersTicket(ticket: Ticket) -> [String: AnyObject]{
-//        let parameters = [
-//            "title": "\((ticket.title)!)",
-//            "category": "\((ticket.category)!)",
-//            "imageOneUrl": "\((ticket.imageOne?.imageUrl)!)",
-//            "imageTwoUrl": "\((ticket.imageTwo?.imageUrl)!)",
-//            "imageThreeUrl": "\((ticket.imageThree?.imageUrl)!)",
-//            "status" : "\((ticket.status)!)",
-//            "idUser": "\((ticket.user!.id)!)",
-//            "nameOfUser": "\((ticket.user?.username)!)",
-//            "phoneOfUser": "\((ticket.user!.phoneNumber)!)",
-//            "imageUserUrl": "\((ticket.user!.profileImage!.imageUrl)!)",
-//            "address": "\((ticket.location!.address)!)",
-//            "city": "\((ticket.location!.city)!)",
-//            "latitude": "\((ticket.location!.latitude)!)",
-//            "longtitude": "\((ticket.location!.longitute)!)",
-//            "idWorker": "\((ticket.worker?.id)!)",
-//            "nameOfWorker": "\((ticket.worker?.username)!)",
-//            "phoneOfWorker": "\((ticket.worker?.phoneNumber)!)",
-//            "imageWorkerUrl": "\((ticket.worker?.profileImage!.imageUrl)!)",
-//            "urgent": "\((ticket.urgent)!)",
-//            "width": 400,
-//            "height": 300,
-//            "widthOfProfile": 60,
-//            "heightOfProfile": 60
-//        ]
+        
         var parameters = [String : AnyObject]()
         parameters["title"] = (ticket.title)!
         parameters["category"] = (ticket.category)!
@@ -333,31 +310,6 @@ class CreateTicketViewController: UIViewController {
         parameters["widthOfProfile"] = 60
         parameters["heightOfProfile"] = 60
 
-//        let parameters = [
-//            "title": (ticket.title)!,
-//            "category": (ticket.category)!,
-//            "imageOneUrl": (ticket.imageOne?.imageUrl)!,
-//            "imageTwoUrl": (ticket.imageTwo?.imageUrl)!,
-//            "imageThreeUrl": (ticket.imageThree?.imageUrl)!,
-//            "status" : (ticket.status)!,
-//            "idUser": (ticket.user!.id)!,
-//            "nameOfUser": (ticket.user?.username)!,
-//            "phoneOfUser": (ticket.user!.phoneNumber)!,
-//            "imageUserUrl": (ticket.user!.profileImage!.imageUrl)!,
-//            "address": (ticket.location!.address)!,
-//            "city": (ticket.location!.city)!,
-//            "latitude": (ticket.location!.latitude)!,
-//            "longtitude": (ticket.location!.longitute)!,
-//            "idWorker": (ticket.worker?.id)!,
-//            "nameOfWorker": (ticket.worker?.username)!,
-//            "phoneOfWorker": (ticket.worker?.phoneNumber)!,
-//            "imageWorkerUrl": (ticket.worker?.profileImage!.imageUrl)!,
-//            "urgent": (ticket.urgent)!,
-//            "width": 400,
-//            "height": 300,
-//            "widthOfProfile": 60,
-//            "heightOfProfile": 60
-//        ]
 
         return parameters
     }
@@ -497,5 +449,22 @@ extension CreateTicketViewController: NVActivityIndicatorViewable {
     }
 }
 
+//action for choose locaation - Haena
+extension CreateTicketViewController {
+    
+    func chooseLocation (sender: AnyObject){
+        print("choose location")
+        let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
+        let mapViewController = storyboard.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        self.navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    
+    func initChooseAction(){
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(chooseLocation(_:)))
+        chooseLocationView.addGestureRecognizer(gesture)
+        
+    }
+    
+}
 
 

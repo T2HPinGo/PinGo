@@ -19,42 +19,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //apply google API key
-
-
-        GMSServices.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
-//        GMSPlacesClient.provideAPIKey("AIzaSyAGchBkxmMWBnbPvLRY3jUbnZeyjZWxknI")
-
-       
+        
+        
+        GMSServices.provideAPIKey("AIzaSyA2Q4hFrqFvAqCvbJve9YjBIG716U5jQS8")
+        GMSPlacesClient.provideAPIKey("AIzaSyD26Ic4Z40PACvHfEsdTheOpPRrdKl78zc")
+        
+        
         //get user info
+        
         if UserProfile.currentUser != nil{
             print("There is a current user")
             let isWorker = (UserProfile.currentUser?.isWorker)!
             if isWorker {
-                let storyboard = UIStoryboard( name: "Worker", bundle: nil)
-                let vc = storyboard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
                 
-                window?.rootViewController = vc
+                let resultViewController =
+                    storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                
+                window?.rootViewController = resultViewController
+                 window?.makeKeyAndVisible()
                 
                 
             } else {
-                let storyboard = UIStoryboard( name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
-                window?.rootViewController = vc
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 
+                let resultViewController =
+                    storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                window?.rootViewController = resultViewController
+                 window?.makeKeyAndVisible()
             }
             
             
         }
-        
-        NSNotificationCenter.defaultCenter().addObserverForName(UserProfile.userDidLogOutNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) in
-            
-            let storyboard = UIStoryboard( name: "LoginStoryboard", bundle: nil)
-            
-            let vc = storyboard.instantiateInitialViewController()
-            
-            self.window?.rootViewController = vc
-        }
-        
         
         //customizeAppearance()
         
@@ -99,7 +95,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+    func logout(){
+        
+        let storyboard = UIStoryboard( name: "LoginStoryboard", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        
+        
+        self.window?.rootViewController = vc
+    }
     
 }
 

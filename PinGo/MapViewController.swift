@@ -9,33 +9,46 @@
 import UIKit
 import GooglePlaces
 import GoogleMaps
+import Alamofire
 
-class MapViewController: UIViewController, UISearchDisplayDelegate{
+class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate{
     
     @IBOutlet weak var testView: GMSMapView!
     
     @IBOutlet weak var okButton: UIButton!
     
+
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var placesClient = GMSPlacesClient()
-    var currentlocation_long = NSNumber()
-    var currentlocation_latitude = NSNumber()
+    var currentlocation_long = Double()
+    var currentlocation_latitude = Double()
+    var userMarker: GMSMarker?
+    var isFirstTimeUseMap: Bool = true
+    var flagCount: Int = 0
+
+    @IBOutlet weak var locationView: UIView!
+    @IBOutlet weak var labelAddress: UILabel!
     
+    
+        let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
+        let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
+    
+    var address: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //current locatioN
         currentLocation()
-        
+        testView.delegate = self
         //        viewMap()
         
         testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
         
-        searchBar()
+        //        searchBar()
         //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .Plain, target: self, action: #selector(MapViewController.next))
         
         
@@ -47,177 +60,203 @@ class MapViewController: UIViewController, UISearchDisplayDelegate{
         self.okButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         placesClient = GMSPlacesClient.sharedClient()
-    }
-    
-    @IBAction func currentLocationAction(sender: AnyObject) {
-        self.locatewithCoordinate(currentlocation_long as Double, Latitude: currentlocation_latitude as Double, Title: "current location")
-    }
-
-@IBAction func okAction(sender: AnyObject) {
-    performSegueWithIdentifier("mapviewchange", sender: self)
-}
-
-override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-    if !didFindMyLocation {
-        let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
-        testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
-        testView.settings.myLocationButton = true
         
-        didFindMyLocation = true
+        //        let gesture = UITapGestureRecognizer(target: self, action: #selector(panGestureMap(_:)))
+        //        testView.addGestureRecognizer(gesture)
+        //        testView.gestureRecognizerShouldBegin(gesture)
+         initSearchAction()
+        
     }
     
-}
-
-
-//    func next (){
-//        performSegueWithIdentifier("mapviewchange", sender: self)
-//    }
-
-//    override func viewDidAppear(animated: Bool) {
-////        self.testView = GMSMapView(frame: view.frame)
-////        self.testview.addSubview(self.mapView)
-//    }
-
-//    func viewMap() {
-//        let camera = GMSCameraPosition.cameraWithLatitude(37.7749, longitude: -122.4194, zoom: 12)
-//        mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
-//        view = mapView
-//
-//        let currentLocation = CLLocationCoordinate2DMake(37.7749, -122.4194)
-//        let marker = GMSMarker(position: currentLocation)
-//        marker.title = "home"
-//        marker.snippet = "need help on .."
-//        marker.map = mapView
-//    }
-
-func currentLocation(){
-    
-    locationManager.delegate = self
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    if locationManager.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)){
-        locationManager.requestWhenInUseAuthorization()
-    }
-    else{
-        locationManager.startUpdatingLocation()
+    override func viewDidDisappear(animated: Bool) {
+        testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
-    placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-        guard error == nil else {
-            print("Current Place error: \(error!.localizedDescription)")
-            return
+    
+    
+    func searchAction(sender: AnyObject) {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        self.presentViewController(autocompleteController, animated: true, completion: nil)
+    }
+    
+    @IBAction func okAction(sender: AnyObject) {
+        performSegueWithIdentifier("mapviewchange", sender: self)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if !didFindMyLocation {
+            let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
+            testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
+            testView.settings.myLocationButton = true
+            
+            didFindMyLocation = true
         }
         
-        if let placeLikelihoods = placeLikelihoods {
-            for likelihood in placeLikelihoods.likelihoods {
-                let place = likelihood.place
-                //                    print("Current Place name \(place.name) at likelihood \(likelihood.likelihood)")
-                //                    print("Current Place address \(place.formattedAddress)")
-                //                    print("Current Place attributions \(place.attributions)")
-                //                    print("Current PlaceID \(place.placeID)")
+    }
+    
+    
+    //---------------Google Map AP
+    
+    func currentLocation(){
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if locationManager.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)){
+            locationManager.requestWhenInUseAuthorization()
+        }
+        else{
+            locationManager.startUpdatingLocation()
+        }
+        
+        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            guard error == nil else {
+                print("Current Place error: \(error!.localizedDescription)")
+                return
             }
-        }
-    })
-    
-}
-
-
-func searchBar(){
-    
-    //SearchBar: Add an autocomplete UI control
-    resultsViewController = GMSAutocompleteResultsViewController()
-    resultsViewController?.delegate = self
-    
-    searchController = UISearchController(searchResultsController: resultsViewController)
-    searchController?.searchResultsUpdater = resultsViewController
-    
-    // Put the search bar in the navigation bar.
-    searchController?.searchBar.sizeToFit()
-    self.navigationItem.titleView = searchController?.searchBar
-    
-    // When UISearchController presents the results view, present it in
-    // this view controller, not one further up the chain.
-    self.definesPresentationContext = true
-    
-    // Prevent the navigation bar from being hidden when searching.
-    
-    self.navigationController!.navigationBar.translucent = false
-    searchController!.hidesNavigationBarDuringPresentation = false
-    
-    // This makes the view area include the nav bar even though it is opaque.
-    // Adjust the view placement down.
-    self.extendedLayoutIncludesOpaqueBars = true
-    self.edgesForExtendedLayout = UIRectEdge.Top
-    
-}
-
-
-func locatewithCoordinate (long: Double, Latitude lat: Double, Title title:String ){
-    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-        let position = CLLocationCoordinate2DMake(lat, long)
-        let marker = GMSMarker(position: position)
+            
+            self.currentlocation_long = (self.locationManager.location?.coordinate.longitude)!
+            self.currentlocation_latitude = (self.locationManager.location?.coordinate.latitude)!
+            self.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
+            
+            // Set up Marker:
+            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
+            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
+            self.userMarker = GMSMarker(position: position)
+            self.userMarker!.title = "Setup Location"
+            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+            self.userMarker!.tracksInfoWindowChanges = true
+            self.userMarker!.map = self.testView
+            self.testView.selectedMarker = self.userMarker
+            
+            self.labelAddress.text = self.address
+            
+            self.flagCount = 0
+            
+        })
         
-        let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 16)
-        self.testView.camera = camera
-        
-        marker.title = "Service name"
-        marker.snippet = "Address: \(title)"
-        marker.map = self.testView
-        marker.tracksInfoWindowChanges = false
         
     }
-}
-
-/*
- // MARK: - Navigation
+    
  
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
-}
-
-//SearchBar: Add an autocomplete UI control
-
-extension MapViewController:GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(resultsController: GMSAutocompleteResultsViewController,
-                           didAutocompleteWithPlace place: GMSPlace) {
+    
+    @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
+        // Absolute (x,y) coordinates in parent view (parentView should be
+        // the parent view of the tray)
+        let point = sender.locationInView(testView)
         
+        if sender.state == UIGestureRecognizerState.Began {
+            print("Gesture began at: \(point)")
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            print("Gesture changed at: \(point)")
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            print("Gesture ended at: \(point)")
+        }
+    }
+    
+    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
+        if (userMarker != nil && flagCount > 1) {
+            print("hei")
+            flagCount = 1
+            let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
+            Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
+                let json = response.result.value as! NSDictionary
+                if let result = json["results"] as? NSArray {
+                     self.userMarker!.map = nil
+                    if let address = result[0]["address_components"] as? NSArray {
+                        let number = address[0]["short_name"] as! String
+                        let street = address[1]["short_name"] as! String
+                        let city = address[2]["short_name"] as! String
+                        let state = address[4]["short_name"] as! String
+                        let zip = address[6]["short_name"] as! String
+                        print("\n\(number) \(street), \(city), \(state) \(zip)")
+                        self.address = "\(number) \(street), \(city), \(state) \(zip)"
+                        self.labelAddress.text = self.address
+                        self.userMarker = GMSMarker(position: position.target)
+                        self.userMarker!.title = "Setup Location"
+                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+                        self.userMarker!.tracksInfoWindowChanges = true
+                        self.userMarker!.map = self.testView
+                        self.testView.selectedMarker = self.userMarker
+                        
+                    }
+                }
+            }
+
+        }
         
-        if place.coordinate.longitude == currentlocation_long && place.coordinate.latitude == currentlocation_latitude{
-            print("current location")
+    }
+    
+    func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
+        if (userMarker != nil) {
+            self.userMarker!.map = nil
+            self.userMarker = GMSMarker(position: position.target)
+            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+            self.userMarker!.tracksInfoWindowChanges = true
+            self.userMarker!.map = self.testView
+            self.testView.selectedMarker = nil
+            flagCount += 1
+            self.labelAddress.text = self.address
         }
         
         
-        searchController?.active = false
-        // Do something with the selected place.
-        print("Place name: ", place.name)
-        print("Place address: ", place.formattedAddress!)
-        print("Place attributions: ", place.attributions)
-        print("Place longitude: ", place.coordinate.longitude)
-        print("Place latitude: ", place.coordinate.latitude)
-        
-        locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
         
     }
     
-    func resultsController(resultsController: GMSAutocompleteResultsViewController,
-                           didFailAutocompleteWithError error: NSError){
-        // TODO: handle the error.
-        print("Error: ", error.description)
+    func locatewithCoordinate (long: Double, Latitude lat: Double, Title title:String ){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            
+            let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 16)
+            self.testView.camera = camera
+        }
     }
     
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-    }
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
-    func didUpdateAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-    }
 }
+
+////SearchBar: Add an autocomplete UI control
+//
+//extension MapViewController:GMSAutocompleteResultsViewControllerDelegate {
+//    func resultsController(resultsController: GMSAutocompleteResultsViewController,
+//                           didAutocompleteWithPlace place: GMSPlace) {
+//
+//
+//        searchController?.active = false
+//        // Do something with the selected place.
+//        print("Place name: ", place.name)
+//        print("Place address: ", place.formattedAddress!)
+//        print("Place attributions: ", place.attributions)
+//        print("Place longitude: ", place.coordinate.longitude)
+//        print("Place latitude: ", place.coordinate.latitude)
+//
+//        locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
+//
+//    }
+//
+//    func resultsController(resultsController: GMSAutocompleteResultsViewController,
+//                           didFailAutocompleteWithError error: NSError){
+//        // TODO: handle the error.
+//        print("Error: ", error.description)
+//    }
+//
+//    // Turn the network activity indicator on and off again.
+//    func didRequestAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
+//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+//    }
+//
+//    func didUpdateAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
+//        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+//    }
+//}
 
 // MARK: - CLLocationManagerDelegate
 
@@ -236,12 +275,52 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         var userLocation = locations[0]
         
-        locationManager.stopUpdatingLocation()
-        
         let location = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         currentlocation_latitude = location.latitude
         currentlocation_long = location.longitude
         
         print(location)
+        
+        locationManager.stopUpdatingLocation()
     }
+}
+
+extension MapViewController {
+    func initSearchAction(){
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(searchAction(_:)))
+        locationView.addGestureRecognizer(gesture)
+        
+    }
+}
+extension MapViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(viewController: GMSAutocompleteViewController, didAutocompleteWithPlace place: GMSPlace) {
+        print("Place name: ", place.name)
+        print("Place address: ", place.formattedAddress)
+        print("Place attributions: ", place.attributions)
+        
+        locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func viewController(viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: NSError) {
+        // TODO: handle the error.
+        print("Error: ", error.description)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(viewController: GMSAutocompleteViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(viewController: GMSAutocompleteViewController) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(viewController: GMSAutocompleteViewController) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
 }

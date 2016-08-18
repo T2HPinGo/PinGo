@@ -13,12 +13,12 @@ import UIKit
 }
 
 class EditUserProfileViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     
     @IBOutlet weak var profileImage: UIButton!
     
     @IBOutlet weak var profileBackgroundView: UIView!
-
+    
     @IBOutlet weak var firstname: UILabel!
     @IBOutlet weak var lastname: UILabel!
     @IBOutlet weak var phonenumber: UILabel!
@@ -33,19 +33,19 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        tableView.delegate = self
-//        tableView.dataSource = self
+        
+        //        tableView.delegate = self
+        //        tableView.dataSource = self
         
         logoutButton.backgroundColor = AppThemes.cellColors[2]
         // Do any additional setup after loading the view.
     }
-
+    
     @IBAction func logoutAction(sender: AnyObject) {
         
         UserProfile.currentUser = nil
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(UserProfile.userDidLogOutNotification, object: nil)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.logout()
         
     }
     
@@ -72,7 +72,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         
         profileImage.setImage(pickedImage, forState: .Normal)
         profileBackgroundView.backgroundColor = UIColor(patternImage: pickedImage!)
-    
+        
         let blurEffect = UIBlurEffect(style: .Light)
         let blurredEffectView = UIVisualEffectView(effect: blurEffect)
         blurredEffectView.frame = profileBackgroundView.bounds
@@ -88,21 +88,21 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         dismissViewControllerAnimated(true, completion: nil)
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
