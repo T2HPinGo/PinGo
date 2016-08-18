@@ -68,6 +68,10 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        testView.removeObserver(self, forKeyPath: "myLocation")
+    }
+    
     
     
     func searchAction(sender: AnyObject) {

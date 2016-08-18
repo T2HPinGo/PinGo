@@ -9,7 +9,7 @@
         <!--Login View Controller-->
         <scene sceneID="EZS-pu-JZl">
             <objects>
-                <viewController restorationIdentifier="loginReference" storyboardIdentifier="login" id="eWc-au-BgU" customClass="LoginViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="loginReference" storyboardIdentifier="LoginViewController" id="eWc-au-BgU" customClass="LoginViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="axn-RL-PU5"/>
                         <viewControllerLayoutGuide type="bottom" id="Dqs-FK-Kc1"/>
