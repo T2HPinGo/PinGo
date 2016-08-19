@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 enum RequestHeight {
     case defaultHeight
     case expandedHeight
@@ -51,6 +51,12 @@ class RequestStatusCell: UITableViewCell {
             } else {
                 print("'\(unixDate)' did not convert to an Int")
             }
+            if ticket.status! == Status.Done {
+                approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
+            } else {
+                 approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
+            }
+           
         }
     }
     
@@ -88,6 +94,19 @@ class RequestStatusCell: UITableViewCell {
     
     //MARK: - Actions
     @IBAction func onApprove(sender: UIButton) {
+        // Change Status of the ticket to Approve
+        let parameters: [String: AnyObject] = [
+            "statusTicket": Status.Approved.rawValue,
+            "idTicket": (ticket?.id!)!
+        ]
+        let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
+        Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
+            print(response.result.value!)
+            let JSON = response.result.value!["data"] as! [String: AnyObject]
+            print(JSON)
+            self.ticket = Ticket(data: JSON)
+            SocketManager.sharedInstance.pushCategory(JSON)
+        }
         
     }
     

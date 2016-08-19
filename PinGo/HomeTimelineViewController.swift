@@ -27,11 +27,12 @@ class HomeTimelineViewController: BaseViewController {
     //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
         setupAppearance()
+        initSocketTicketOfUser()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -52,16 +53,16 @@ class HomeTimelineViewController: BaseViewController {
     }
     
     @IBAction func quitAfterPickWorker(segue: UIStoryboardSegue) {
-//        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
-//            
-//            if let newTicket = workerBiddingCell.ticket {
-//                ticketList.insert(newTicket, atIndex: 0)
-//                print(newTicket.category)
-//                tableView.reloadData()
-//            }
-//        }
+        //        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
+        //
+        //            if let newTicket = workerBiddingCell.ticket {
+        //                ticketList.insert(newTicket, atIndex: 0)
+        //                print(newTicket.category)
+        //                tableView.reloadData()
+        //            }
+        //        }
     }
-
+    
     
     //MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -85,7 +86,7 @@ class HomeTimelineViewController: BaseViewController {
         //topPanelView.layer.cornerRadius = 5
         topPanelView.backgroundColor = AppThemes.topPannelColor
     }
-
+    
 }
 
 
@@ -159,23 +160,25 @@ extension HomeTimelineViewController {
                 self.ticketList.append(ticket)
                 self.tableView.reloadData()
             }
-            
-            //change status for ticket when worker has mark this ticket as "Done"
-            SocketManager.sharedInstance.getTicketHasUpdateStatus({ (idTicket, statusTicket, idUser) in
-                //if not current user than do nothing
-                if idUser != UserProfile.currentUser!.id {
-                    return
-                }
-                
-                //if it is current user than update status ticket
-                for ticket in self.ticketList {
-                    if idTicket == ticket.id {
-                        ticket.transferToEnum(from: statusTicket)
-                    }
-                }
-                self.tableView.reloadData()
-            })
         }
+    }
+    func initSocketTicketOfUser(){
+        //change status for ticket when worker has mark this ticket as "Done"
+        SocketManager.sharedInstance.getTicketHasUpdateStatus({ (idTicket, statusTicket, idUser) in
+            //if not current user than do nothing
+            if idUser != UserProfile.currentUser!.id {
+                return
+            }
+            
+            //if it is current user than update status ticket
+            for ticket in self.ticketList {
+                if idTicket == ticket.id {
+                    ticket.transferToEnum(from: statusTicket)
+                }
+            }
+            self.tableView.reloadData()
+        })
+
     }
 }
 
