@@ -30,12 +30,12 @@ class HomeTimelineViewController: BaseViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .None
+        
+        setupAppearance()
     }
     
     override func viewDidAppear(animated: Bool) {
         //load ticket from server
-        
         getTicketsOfUser()
     }
     
@@ -71,6 +71,20 @@ class HomeTimelineViewController: BaseViewController {
     
     
     //MARK: Helpers
+    func setupAppearance() {
+        view.backgroundColor = AppThemes.backgroundColor
+        tableView.backgroundColor = UIColor.clearColor()
+        tableView.separatorColor = AppThemes.backgroundColor
+        tableView.separatorStyle = .SingleLineEtched
+        
+        //top and bottom panel
+        //bottomPanelView.layer.cornerRadius = 5
+        bottomPanelView.backgroundColor = AppThemes.bottomPanelColor
+        
+        
+        //topPanelView.layer.cornerRadius = 5
+        topPanelView.backgroundColor = AppThemes.topPannelColor
+    }
 
 }
 
@@ -90,7 +104,7 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
             cell.ratingButton.setImage(UIImage(named: rating), forState: .Normal)
         }
         
-        cell.backgroundColor = AppThemes.cellColors[indexPath.row]
+        //cell.backgroundColor = AppThemes.cellColors[indexPath.row]
         
         return cell
     }
@@ -160,9 +174,7 @@ extension HomeTimelineViewController {
                     }
                 }
                 
-                
-                
-                
+                self.tableView.reloadData()
             })
         }
     }
