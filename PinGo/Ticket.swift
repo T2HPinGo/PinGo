@@ -90,6 +90,8 @@ class Ticket: NSObject {
         }
         
         if let status = data["status"] as? String{
+            
+            //transferToEnum(from: status)
 
             switch status {
             case Status.Cancel.rawValue:
@@ -114,6 +116,21 @@ class Ticket: NSObject {
         }
         if let createdAt = data["createdAt"] as? String{
             self.createdAt = createdAt
+        }
+    }
+    
+    //tranfer from string back to enum when receive JSOn from server
+    func transferToEnum(from statusString: String) {
+        
+        switch statusString {
+        case Status.Cancel.rawValue:
+            self.status = Status.Cancel
+        case Status.InService.rawValue:
+            self.status = Status.InService
+        case Status.Done.rawValue:
+            self.status = Status.Done
+        default:
+            self.status = Status.Pending
         }
     }
     

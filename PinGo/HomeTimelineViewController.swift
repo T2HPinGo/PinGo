@@ -14,6 +14,10 @@ class HomeTimelineViewController: BaseViewController {
     
     @IBOutlet weak var createNewTicketButton: UIButton!
     
+    @IBOutlet weak var bottomPanelView: UIView!
+    
+    @IBOutlet weak var topPanelView: UIView!
+    
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
@@ -142,8 +146,24 @@ extension HomeTimelineViewController {
                 self.tableView.reloadData()
             }
             
-            //
-            //SocketManager.sharedInstance.
+            //change status for ticket when worker has mark this ticket as "Done"
+            SocketManager.sharedInstance.getTicketHasUpdateStatus({ (idTicket, statusTicket, idUser) in
+                //if not current user than do nothing
+                if idUser != UserProfile.currentUser!.id {
+                    return
+                }
+                
+                //if it is current user than update status ticket
+                for ticket in self.ticketList {
+                    if idTicket == ticket.id {
+                        ticket.transferToEnum(from: statusTicket)
+                    }
+                }
+                
+                
+                
+                
+            })
         }
     }
 }
