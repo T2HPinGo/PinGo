@@ -81,6 +81,9 @@ class RequestStatusCell: UITableViewCell {
         //colors
         requestTitleLabel.textColor = UIColor.whiteColor()
         dateCreatedLabel.textColor = UIColor.whiteColor()
+        
+        //customize the separator
+        separatorInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0) //moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images
     }
     
     //MARK: - Actions
