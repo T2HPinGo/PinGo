@@ -452,6 +452,8 @@ extension CreateTicketViewController: NVActivityIndicatorViewable {
 //action for choose locaation - Haena
 extension CreateTicketViewController {
     
+    
+    
     func chooseLocation (sender: AnyObject){
         print("choose location")
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)

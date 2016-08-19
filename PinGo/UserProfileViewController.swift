@@ -52,6 +52,10 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
 //        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
 //        blurredEffectView.frame = view.bounds
 //        backgroundImage.addSubview(blurredEffectView)
+        scrollView.delegate = self
+        textView.delegate = self
+        
+        
         phonenumber.keyboardType = UIKeyboardType.PhonePad
         password.secureTextEntry = true
         confirmpassword.secureTextEntry = true
@@ -92,32 +96,6 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         
     }
     
-//    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-//        if textView.text == "introduce yourself"{
-//            textView.text = ""
-//            scrollView.contentInset.bottom = 300
-//            scrollView.scrollIndicatorInsets.top = 300
-//        }
-//        textView.becomeFirstResponder()
-//        return true
-//    }
-//
-//    func textViewDidBeginEditing(textView: UITextView) {
-//        if textView.text == "introduce yourself"{
-//            textView.text = ""
-//            scrollView.contentInset.bottom = 300
-//            scrollView.scrollIndicatorInsets.top = 300
-//        }
-//        textView.becomeFirstResponder()
-//    }
-//    
-//    func textViewShouldEndEditing(textView: UITextView) -> Bool {
-//        return true
-//    }
-//    func textViewDidEndEditing(textView: UITextView) {
-//        scrollView.contentInset.bottom = 200
-//        scrollView.scrollIndicatorInsets.top = 200
-//    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

@@ -40,4 +40,13 @@ struct AppThemes {
                              UIColor(red: 128.0/255.0, green: 237.0/255.0, blue: 239.0/255.0, alpha: 1.0),
                              UIColor(red: 182.0/255.0, green: 222.0/255.0, blue: 123.0/255.0, alpha: 1.0)]*/
     
+    //--- UI Colors - Haena
+    static let backgroundColor = UIColor(red: 37.0/255.0, green: 32.0/255.0, blue: 44.0/255.0, alpha: 1.0)
+    static let lightgrayColor = UIColor(red: 130.0/255.0, green: 121.0/255.0, blue: 139.0/255.0, alpha: 1.0)
+    static let redDarkColor = UIColor(red: 174.0/255.0, green: 53.0/255.0, blue: 66.0/255.0, alpha: 1.0)
+    static let redButtonColor = UIColor(red: 204.0/255.0, green: 74.0/255.0, blue: 90.0/255.0, alpha: 1.0)
+    static let  orangeColor = UIColor(red: 209.0/255.0, green: 111.0/255.0, blue: 43.0/255.0, alpha: 1.0)
+    static let blueColor = UIColor(red: 77.0/255.0, green: 145.0/255.0, blue: 192.0/255.0, alpha: 1.0)
+    
+    
 }

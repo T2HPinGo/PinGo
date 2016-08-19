@@ -12,7 +12,7 @@ import UIKit
     optional func editUserProfileViewController(editUserProfileViewController: EditUserProfileViewController, didUpdateProfile profile: [String:AnyObject])
 }
 
-class EditUserProfileViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditUserProfileViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate {
 
     
     @IBOutlet weak var profileImage: UIButton!
@@ -24,6 +24,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     @IBOutlet weak var phonenumber: UILabel!
     @IBOutlet weak var email: UILabel!
     
+    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var logoutButton: UIButton!
     let imagePicker = UIImagePickerController()
     var isPaymentCollapsed = true

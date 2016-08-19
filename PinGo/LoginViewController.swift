@@ -16,6 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     
+    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var login: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -27,7 +28,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
 
-        self.login.backgroundColor = AppThemes.cellColors[3]
+        self.login.backgroundColor = AppThemes.redButtonColor
+        self.login.layer.cornerRadius = 5
+       
+        self.logoImage.layer.masksToBounds = false
+        self.logoImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        self.logoImage.layer.cornerRadius = logoImage.frame.size.width/2
+        self.logoImage.clipsToBounds = true
+        
+        self.logoImage.layer.borderWidth = 0.2
+        self.logoImage.layer.borderColor = UIColor.whiteColor().CGColor
         passwordTextField.secureTextEntry = true
         
 //        let backgroundImage = UIImage(named: "eco")
