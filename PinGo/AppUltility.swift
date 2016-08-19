@@ -18,7 +18,15 @@ func getCorrespnsingColorForCell(index: Int) -> Int {
 
 
 
+
+
 //date formatter
-func getStringFromDate(date: NSDate, withFormat: String) {
-    
+public enum DateStringFormat : String {
+    case DD_MMM_YYYY = "dd MMM yyyy"
+}
+
+func getStringFromDate(date: NSDate, withFormat format: DateStringFormat) -> String {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = format.rawValue
+    return formatter.stringFromDate(date)    
 }

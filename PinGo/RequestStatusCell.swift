@@ -20,6 +20,8 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var ratingButton: UIButton!
     
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var approveButton: UIButton!
 //    var rating: String! {
 //        didSet {

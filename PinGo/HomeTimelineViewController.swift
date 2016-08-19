@@ -17,7 +17,12 @@ class HomeTimelineViewController: BaseViewController {
     @IBOutlet weak var bottomPanelView: UIView!
     
     @IBOutlet weak var topPanelView: UIView!
+    @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet weak var numbersOfTicketsPendingLabel: UILabel!
     
+    @IBOutlet weak var ticketIconImageView: UIImageView!
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
@@ -72,18 +77,37 @@ class HomeTimelineViewController: BaseViewController {
     
     //MARK: Helpers
     func setupAppearance() {
-        view.backgroundColor = AppThemes.backgroundColor
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorColor = AppThemes.backgroundColor
-        tableView.separatorStyle = .SingleLineEtched
+        tableView.separatorStyle = .None
         
         //top and bottom panel
-        //bottomPanelView.layer.cornerRadius = 5
-        bottomPanelView.backgroundColor = AppThemes.bottomPanelColor
+        bottomPanelView.layer.cornerRadius = 5
+        bottomPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.bottomPanelColor
         
+        topPanelView.layer.cornerRadius = 5
+        topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
         
-        //topPanelView.layer.cornerRadius = 5
-        topPanelView.backgroundColor = AppThemes.topPannelColor
+        //greeting label
+        greetingLabel.font = AppThemes.avenirBlack21
+        greetingLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        let userFirstName = UserProfile.currentUser?.firstName ?? "User"
+        print(UserProfile.currentUser?.firstName)
+
+        greetingLabel.text = "Hello " + userFirstName
+        
+        //other Labels
+        dateLabel.font = AppThemes.avenirBlack16
+        dateLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        
+        notificationLabel.font = AppThemes.avenirBlack16
+        notificationLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        
+        numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
+        
+        //create ticket button
+        createNewTicketButton.layer.cornerRadius = createNewTicketButton.frame.width / 2
+        createNewTicketButton.layer.borderWidth = 1.5
+        createNewTicketButton.layer.borderColor = AppThemes.buttonBorderColorOnWhiteBackgroundColor.CGColor
+        createNewTicketButton.layer.backgroundColor = UIColor.whiteColor().CGColor
     }
 
 }
@@ -99,12 +123,13 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
         cell.ticket = ticketList[indexPath.row]
         
+        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+        cell.containerView.backgroundColor = AppThemes.cellColors[colorIndex]
+        
         //fake
         if rating != nil {
             cell.ratingButton.setImage(UIImage(named: rating), forState: .Normal)
         }
-        
-        //cell.backgroundColor = AppThemes.cellColors[indexPath.row]
         
         return cell
     }
