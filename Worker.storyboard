@@ -269,6 +269,7 @@
                                             <constraint firstItem="FwQ-ha-sVR" firstAttribute="top" secondItem="r3d-N1-5sY" secondAttribute="top" constant="8" id="eEv-Es-Ouj"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="actionButton" destination="CKO-Tr-9Ji" id="nhE-hx-5JF"/>
                                             <outlet property="categoryImageView" destination="dS4-JU-EZK" id="7tk-7q-Wik"/>
                                             <outlet property="dateStartOfTicket" destination="cVQ-6N-rHh" id="3EF-2i-u7w"/>
                                             <outlet property="imageViewOfTicket" destination="Bh0-Cb-ude" id="lNo-rh-Lot"/>
