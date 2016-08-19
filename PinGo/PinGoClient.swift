@@ -26,7 +26,7 @@ class PinGoClient {
                     upload.responseJSON { response in
                         print(response)
                         let JSON = response.result.value as? [String:AnyObject]
-                        //print(JSON!["url"])
+                        print(JSON!["url"])
                         imageResource.imageUrl = JSON!["url"] as? String
                         print(imageResource.imageUrl)
                     }

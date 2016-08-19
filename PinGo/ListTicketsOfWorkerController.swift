@@ -7,15 +7,18 @@
 //
 
 import UIKit
-
+import Alamofire
 class ListTicketsOfWorkerController: UIViewController {
     
     var tickets = [Ticket]()
-    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        initTableView()
+        initCollectionView()
+        loadDataFromAPI()
         initSocket()
         
     }
@@ -37,24 +40,43 @@ class ListTicketsOfWorkerController: UIViewController {
     
 }
 
-// MARK: - TableView
-extension ListTicketsOfWorkerController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - CollectionView
+extension ListTicketsOfWorkerController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return  1 //row number
+    }
+    
+    func initCollectionView(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tickets.count
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TicketOfWorkerCell") as! TicketOfWorkerCell
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TicketOfWorkerCell", forIndexPath: indexPath) as! TicketOfWorkerCell
         cell.ticket = tickets[indexPath.row]
         return cell
     }
-    
-    func initTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
 }
+
 // MARK: - InitSocket
 extension ListTicketsOfWorkerController {
+    func loadDataFromAPI(){
+        var parameters = [String : AnyObject]()
+        parameters["status"] = "Pending"
+        parameters["category"] = Worker.currentUser?.category
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticketOnCategory", parameters: parameters).responseJSON { response  in
+            print("ListTicketController ---")
+            print("\(response.result.value)")
+            let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
+            for JSONItem in JSONArrays {
+                let ticket = Ticket(data: JSONItem)
+                self.tickets.append(ticket)
+                self.collectionView.reloadData()
+            }
+        }
+    }
     func initSocket() {
         SocketManager.sharedInstance.getTicket { (ticket) in
             // Check category of ticket
@@ -74,7 +96,7 @@ extension ListTicketsOfWorkerController {
                 if isNewTicket {
                     self.tickets.append(ticket)
                 }
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
             
         }

@@ -11,13 +11,14 @@ import GooglePlaces
 import GoogleMaps
 import Alamofire
 
+
 class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate{
     
     @IBOutlet weak var testView: GMSMapView!
     
     @IBOutlet weak var okButton: UIButton!
     
-
+    
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
@@ -29,14 +30,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     var userMarker: GMSMarker?
     var isFirstTimeUseMap: Bool = true
     var flagCount: Int = 0
-
+    
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var labelAddress: UILabel!
     
     @IBOutlet weak var locationLabel: UILabel!
     
-        let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
-        let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
+    let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
+    let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
     var address: String = ""
     
@@ -58,12 +59,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         self.okButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         placesClient = GMSPlacesClient.sharedClient()
+        initSearchAction()
         
-        //        let gesture = UITapGestureRecognizer(target: self, action: #selector(panGestureMap(_:)))
-        //        testView.addGestureRecognizer(gesture)
-        //        testView.gestureRecognizerShouldBegin(gesture)
-         initSearchAction()
-        
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
     
@@ -141,7 +142,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
- 
+    
     
     @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
         // Absolute (x,y) coordinates in parent view (parentView should be
@@ -165,7 +166,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
                 let json = response.result.value as! NSDictionary
                 if let result = json["results"] as? NSArray {
-                     self.userMarker!.map = nil
+                    self.userMarker!.map = nil
                     if let address = result[0]["address_components"] as? NSArray {
                         let number = address[0]["short_name"] as! String
                         let street = address[1]["short_name"] as! String
@@ -185,7 +186,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                     }
                 }
             }
-
+            
         }
         
     }
@@ -213,53 +214,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.testView.camera = camera
         }
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
-////SearchBar: Add an autocomplete UI control
-//
-//extension MapViewController:GMSAutocompleteResultsViewControllerDelegate {
-//    func resultsController(resultsController: GMSAutocompleteResultsViewController,
-//                           didAutocompleteWithPlace place: GMSPlace) {
-//
-//
-//        searchController?.active = false
-//        // Do something with the selected place.
-//        print("Place name: ", place.name)
-//        print("Place address: ", place.formattedAddress!)
-//        print("Place attributions: ", place.attributions)
-//        print("Place longitude: ", place.coordinate.longitude)
-//        print("Place latitude: ", place.coordinate.latitude)
-//
-//        locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
-//
-//    }
-//
-//    func resultsController(resultsController: GMSAutocompleteResultsViewController,
-//                           didFailAutocompleteWithError error: NSError){
-//        // TODO: handle the error.
-//        print("Error: ", error.description)
-//    }
-//
-//    // Turn the network activity indicator on and off again.
-//    func didRequestAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-//    }
-//
-//    func didUpdateAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-//    }
-//}
 
 // MARK: - CLLocationManagerDelegate
 

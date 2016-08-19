@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 
+
 class CreateTicketViewController: UIViewController {
     //MARK: - Outlets and Variables
     @IBOutlet weak var collectionView: UICollectionView!
@@ -59,6 +60,7 @@ class CreateTicketViewController: UIViewController {
     let descriptionText = ""
     
     var activityIndicatorView: NVActivityIndicatorView! = nil
+    
     
     struct TextFieldColorThemes {
         static let textFieldTintColor = UIColor.purpleColor()
@@ -458,6 +460,7 @@ extension CreateTicketViewController {
         print("choose location")
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let mapViewController = storyboard.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+       
         self.navigationController?.pushViewController(mapViewController, animated: true)
     }
     

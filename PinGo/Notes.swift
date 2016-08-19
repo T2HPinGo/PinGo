@@ -23,6 +23,7 @@
 //      make the filter slide down from top and block a part of the main view OR add a segment to let user tap to filter
 //      discuss if the user is able to edit ticket detail in this step
 //      add a timer that check if the system can found any workers
+//      what if user cancel the ticket and suddenly lost connection
 
 //WorkerHistoryVC
 //      divide the tableView in to sections (last week, last month, last 3 months, later)
