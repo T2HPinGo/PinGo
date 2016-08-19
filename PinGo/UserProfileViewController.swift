@@ -42,19 +42,12 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.signUpTextField.backgroundColor = AppThemes.cellColors[3]
-        self.navigationController!.navigationBar.backgroundColor = AppThemes.cellColors[3]
-        //        self.view.backgroundColor = UIColor(red: 0.2, green: 0.1, blue: 0.2, alpha: 0.35)
-        //        backgroundImage.hidden = true
+        self.signUpTextField.backgroundColor = AppThemes.redButtonColor
         
-//        
-//        let blurEffect = UIBlurEffect(style: .Dark)
-//        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurredEffectView.frame = view.bounds
-//        backgroundImage.addSubview(blurredEffectView)
+        backgroundImage.hidden = true
+        
         scrollView.delegate = self
         textView.delegate = self
-        
         
         phonenumber.keyboardType = UIKeyboardType.PhonePad
         password.secureTextEntry = true

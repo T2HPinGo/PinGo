@@ -10,6 +10,7 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 import Alamofire
+import CoreLocation
 
 
 class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate{
@@ -18,11 +19,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     @IBOutlet weak var okButton: UIButton!
     
-    
+    //get location
+    var locationManager = CLLocationManager()
+    //get search results
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
-    var locationManager = CLLocationManager()
+    
     var didFindMyLocation = false
     var placesClient = GMSPlacesClient()
     var currentlocation_long = Double()
@@ -43,13 +46,28 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
+        
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        if locationManager.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)){
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//        else{
+//            locationManager.startUpdatingLocation()
+//        }
+        
         //current locatioN
         currentLocation()
+        
         testView.delegate = self
         
         locationViewStyle ()
         
-        testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
         
         self.okButton.layer.cornerRadius = self.okButton.frame.size.width/2
         self.okButton.clipsToBounds = true
@@ -63,7 +81,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+         testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+        
+    }
+    
     override func viewDidDisappear(animated: Bool) {
+//        removeObserver:fromObjectsAtIndexes:forKeyPath:context: 
         testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
@@ -103,15 +127,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     //---------------Google Map AP
     
     func currentLocation(){
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        if locationManager.respondsToSelector(#selector(CLLocationManager.requestWhenInUseAuthorization)){
-            locationManager.requestWhenInUseAuthorization()
-        }
-        else{
-            locationManager.startUpdatingLocation()
-        }
         
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
@@ -224,6 +239,7 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
             testView.myLocationEnabled = true
+            locationManager.startUpdatingLocation()
         }
     }
     
