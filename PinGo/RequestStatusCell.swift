@@ -61,9 +61,18 @@ class RequestStatusCell: UITableViewCell {
             requestTitleLabel.text = ticket.title ?? ticket.category
             workerNameLabel.text = ticket.worker?.name
             
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "dd MMM yyyy"
-            dateCreatedLabel.text = formatter.stringFromDate(ticket.dateCreated!)
+//            let formatter = NSDateFormatter()
+//            formatter.dateFormat = "dd MMM yyyy"
+//            dateCreatedLabel.text = formatter.stringFromDate(ticket.dateCreated!)
+            let unixDate = ticket.createdAt!
+            if let number = Int(unixDate) {
+                let myNumber = NSNumber(integer:number)
+                let epocTime = NSTimeInterval(myNumber) / 1000
+                let myDate = NSDate(timeIntervalSince1970:  epocTime)
+                dateCreatedLabel.text = "\(myDate)"
+            } else {
+                print("'\(unixDate)' did not convert to an Int")
+            }
         }
     }
     

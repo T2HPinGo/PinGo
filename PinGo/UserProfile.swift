@@ -54,7 +54,11 @@ class UserProfile: NSObject {
         username = data["username"] as? String
         email = data["email"] as? String
         isWorker = data["isWorker"] as? Bool
-        phoneNumber = data["phoneNumber"] as? String
+        if let phoneNumber = data["phoneNumber"] as? String {
+            self.phoneNumber = phoneNumber
+        } else {
+            self.phoneNumber = ""
+        }
         id = data["_id"] as? String
         print(data["phoneNumber"])
         location = Location(data: (data["location"] as? [String: AnyObject])!)
@@ -69,7 +73,9 @@ class UserProfile: NSObject {
     
     func setTempData(data: [String: AnyObject]) {
         username = data["username"] as? String
-        phoneNumber = data["phoneNumber"] as? String
+        if let phoneNumber = data["phoneNumber"] as? String {
+            self.phoneNumber = phoneNumber
+        }
         id = data["_id"] as? String
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
     }

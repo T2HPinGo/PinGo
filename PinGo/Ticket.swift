@@ -31,6 +31,7 @@ class Ticket: NSObject {
     var location: Location?
     var id: String?
     var descriptions: String?
+    var createdAt: String?
     // Hien Code 
     var issueImageVideoPath: String?
     var dateCreated: NSDate?
@@ -85,7 +86,7 @@ class Ticket: NSObject {
         
         if let worker = data["responsible"] as? [String:AnyObject]{
             self.worker = Worker()
-            self.user?.setTempData(worker)
+            self.worker?.setTempData(worker)
         }
         
         if let status = data["status"] as? String{
@@ -110,6 +111,9 @@ class Ticket: NSObject {
         
         if let descriptions  = data["description"] as? String {
             self.descriptions = descriptions
+        }
+        if let createdAt = data["createdAt"] as? String{
+            self.createdAt = createdAt
         }
     }
     

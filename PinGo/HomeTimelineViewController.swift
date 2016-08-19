@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class HomeTimelineViewController: BaseViewController {
     //MARK: - Outlets and variables
     @IBOutlet weak var tableView: UITableView!
@@ -31,7 +31,7 @@ class HomeTimelineViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .None
-        
+        getTicketsOfUser()
         //Fake data goes here
 //        ticket = Ticket(user: user, worker: worker, id: "1q2w3e4r", category: "Electricity" , title: "Broken Lightbulb", status: Status.Pending, issueImageVideoPath: nil, dateCreated: NSDate())
 //        tableView.backgroundColor = UIColor.clearColor()
@@ -164,6 +164,24 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         return [deleteAction, shareAction]
     }
     
+}
+// MARK: Load data user tickets
+extension HomeTimelineViewController {
+    func getTicketsOfUser() {
+        var parameters = [String : AnyObject]()
+        parameters["statusTicket"] = "InService"
+        parameters["idUser"] = UserProfile.currentUser?.id!
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/userTickets", parameters: parameters).responseJSON { response  in
+            print("HomeTineLineViewController ---")
+            print("\(response.result.value)")
+            let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
+            for JSONItem in JSONArrays {
+                let ticket = Ticket(data: JSONItem)
+                self.ticketList.append(ticket)
+                self.tableView.reloadData()
+            }
+        }
+    }
 }
 
 
