@@ -115,12 +115,14 @@ class TicketOfWorkerCell: UICollectionViewCell {
             }
         } else {
             let parameters: [String: AnyObject] = [
-                "status": Status.Done.rawValue
+                "statusTicket": Status.Done.rawValue,
+                "idTicket": (ticket?.id!)!
             ]
-            let url = "\(API_URL)\(PORT_API)/v1/updateStatusTicket/\(ticket!.id!)"
+            let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
             Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
-                print(response.result)
+                print(response.result.value!)
                 let JSON = response.result.value!["data"] as! [String: AnyObject]
+                print(JSON)
                 self.ticket = Ticket(data: JSON)
                 SocketManager.sharedInstance.updateTicket(self.ticket!.id!, statusTicket: (self.ticket?.status?.rawValue)!, idUser: (self.ticket?.user?.id)!)
             }

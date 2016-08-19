@@ -159,10 +159,7 @@ extension HomeTimelineViewController {
                         ticket.transferToEnum(from: statusTicket)
                     }
                 }
-                
-                
-                
-                
+                self.tableView.reloadData()
             })
         }
     }
