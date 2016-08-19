@@ -59,17 +59,18 @@ class SocketManager: NSObject {
         }
     }
     
-    func updateTicket(idTicket: String, statusTicket: String){
+    func updateTicket(idTicket: String, statusTicket: String, idUser: String){
         print("Update Ticket")
-        socket.emit("updateTicket", idTicket, statusTicket)
+        socket.emit("updateTicket", idTicket, statusTicket, idUser)
     }
     
-    func getTicketHasUpdateStatus(success: (idTicket: String, statusTicket: String)-> Void) {
+    func getTicketHasUpdateStatus(success: (idTicket: String, statusTicket: String, idUser: String)-> Void) {
         socket.on("changeStatusTicket") { (dataArray, socketAck) -> Void in
             print("dataArray: \(dataArray)")
-            let id = dataArray[0] as? String
+            let ticketID = dataArray[0] as? String
             let status = dataArray[1] as? String
-            success(idTicket: id!, statusTicket: status!)
+            let userID = dataArray[2] as? String
+            success(idTicket: ticketID!, statusTicket: status!, idUser: userID!)
         }
     }
 }
