@@ -15,3 +15,10 @@ func getCorrespnsingColorForCell(index: Int) -> Int {
     let colorIndex = index % 10 - AppThemes.cellColors.count
     return colorIndex
 }
+
+
+
+//date formatter
+func getStringFromDate(date: NSDate, withFormat: String) {
+    
+}
