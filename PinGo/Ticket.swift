@@ -13,6 +13,7 @@ public enum Status: String {
     case InService = "InService"// when user has picked a worker but the task hasn't been finished
     case Done = "Done" //when the task has been done by worker
     case Cancel = "Cancel" //when user cancel the ticket
+    case Approved = "Approved"
 }
 
 class Ticket: NSObject {
@@ -100,6 +101,8 @@ class Ticket: NSObject {
                 self.status = Status.InService
             case Status.Done.rawValue:
                 self.status = Status.Done
+            case Status.Approved.rawValue:
+                self.status = Status.Approved
             default:
                 self.status = Status.Pending
             }
@@ -129,6 +132,8 @@ class Ticket: NSObject {
             self.status = Status.InService
         case Status.Done.rawValue:
             self.status = Status.Done
+        case Status.Approved.rawValue:
+            self.status = Status.Approved
         default:
             self.status = Status.Pending
         }
