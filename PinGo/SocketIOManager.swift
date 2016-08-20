@@ -34,13 +34,18 @@ class SocketManager: NSObject {
         
     }
     
-    func getWorkers(success: (worker: Worker) -> Void) {
+    func getWorkers(success: (worker: Worker, idTicket: String) -> Void) {
         socket.on("newWorkerForTicket") { (dataArray, socketAck) -> Void in
             print("dataArray: \(dataArray)")
             if let item = dataArray[0] as? [String: AnyObject] {
+                let price = dataArray[2] as? String
                 let worker = Worker(data: item)
+                // Add price of worker
+                worker.price = price!
+                let idTicket = dataArray[1] as? String
+               
                 print("WorkerSocket: \(worker)")
-                success(worker: worker)
+                success(worker: worker, idTicket: idTicket!)
             }
         }
     }

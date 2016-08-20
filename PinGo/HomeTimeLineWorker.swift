@@ -96,10 +96,16 @@ extension HomeTimeLineWorker {
                                 isNewTicket = false
                                 break
                             } else {
-                                // Change status Pending to Inservice
-                                itemTicket.status = ticket.status
-                                isNewTicket = false
-                                break
+                                
+                                if ticket.worker!.id != Worker.currentUser?.id {
+                                    print("Not choose you")
+                                    break
+                                } else { // Change status Pending to Inservice
+                                    itemTicket.status = ticket.status
+                                    isNewTicket = false
+                                    break
+                                }
+                                
                             }
                             
                         }
@@ -107,7 +113,8 @@ extension HomeTimeLineWorker {
                     }
                 }
                 if isNewTicket {
-                    self.tickets.append(ticket)
+                    self.tickets.insert(ticket, atIndex: 0)
+//                    self.tickets.append(ticket)
                 }
                 self.indexAtTab(self.segmentedControl.selectedSegmentIndex)
                 self.tableView.reloadData()

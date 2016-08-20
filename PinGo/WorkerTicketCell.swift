@@ -93,7 +93,7 @@ class WorkerTicketCell: UITableViewCell {
         if ticket?.status?.rawValue == "Pending" {
             if actionButton.titleLabel!.text != "Waiting" {
                 let jsonData = Worker.currentUser?.dataJson
-                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.title!, price: "150.000")
+                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
                 actionButton.setTitle("Waiting", forState: .Normal)
             }
         } else {
