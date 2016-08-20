@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
                 
                 window?.rootViewController = resultViewController
-                 window?.makeKeyAndVisible()
+                window?.makeKeyAndVisible()
                 
                 
             } else {
@@ -47,13 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let resultViewController =
                     storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
                 window?.rootViewController = resultViewController
-                 window?.makeKeyAndVisible()
+                window?.makeKeyAndVisible()
             }
             
             
         }
         
-
+        
         NSNotificationCenter.defaultCenter().addObserverForName(UserProfile.userDidLogOutNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) in
             
             let storyboard = UIStoryboard( name: "LoginStoryboard", bundle: nil)
@@ -64,16 +64,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         generalAppearance()
-
+        
         
         return true
     }
     
     func generalAppearance(){
-
+        
         UINavigationBar.appearance().barTintColor = AppThemes.navigationBackgroundColor
         UINavigationBar.appearance().tintColor = AppThemes.iconLightGrayColor //color of the back button
-
+        
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         //color of title
         //customize the status bar
@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
         UITabBar.appearance().tintColor = UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
         
-//        UIApplication.sharedApplication().statusBarStyle = .
+        //        UIApplication.sharedApplication().statusBarStyle = .
     }
     
     func applicationWillResignActive(application: UIApplication) {

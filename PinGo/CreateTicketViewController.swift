@@ -98,6 +98,10 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "ShowWorkerListSegue" {
             let biddingViewController = segue.destinationViewController as! TicketBiddingViewController
             biddingViewController.newTicket = self.newTicket
+            
+            print(biddingViewController.newTicket.location?.address)
+            print(biddingViewController.newTicket.location?.latitude)
+            print(biddingViewController.newTicket.location?.longitute)
         }
     }
     
@@ -105,8 +109,12 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         //transfer date here
         if let mapViewController = segue.sourceViewController as? MapViewController {
             let location = mapViewController.location!.address
-            newTicket?.location = mapViewController.location
-            print(location)
+            if let location = mapViewController.location {
+                newTicket?.location = location
+                print(location)
+                print(location.longitute)
+                print(location.latitude)
+            }
             chooseLabel.text = newTicket!.location?.address
         }
     }
@@ -489,14 +497,16 @@ extension CreateTicketViewController: NVActivityIndicatorViewable {
 //action for choose locaation - Haena
 extension CreateTicketViewController {
     
-    
-    
     func chooseLocation (sender: AnyObject){
         print("choose location")
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let mapViewController = storyboard.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
        
         self.navigationController?.pushViewController(mapViewController, animated: true)
+        
+        if newTicket?.location != nil{
+            newTicket = Ticket()
+        }
     }
     
     func initChooseAction(){
