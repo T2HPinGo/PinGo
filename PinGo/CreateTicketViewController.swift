@@ -65,11 +65,9 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         static let textFieldTintColor = UIColor.blueColor()
         static let placeholderColor = UIColor.lightGrayColor()
         static let textColor = UIColor.darkGrayColor()
-        static let floatingLabelColor = AppThemes.cellColors[4]
+        static let floatingLabelColor = AppThemes.cellColors[3]
         static let bottomLineColor = UIColor.lightGrayColor()
-        static let selectedBottomLineColor = AppThemes.cellColors[4]
-        
-        
+        static let selectedBottomLineColor = AppThemes.cellColors[3]
     }
     
     
