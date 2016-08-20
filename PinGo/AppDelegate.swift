@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         GMSServices.provideAPIKey("AIzaSyA2Q4hFrqFvAqCvbJve9YjBIG716U5jQS8")
+        
         GMSPlacesClient.provideAPIKey("AIzaSyD26Ic4Z40PACvHfEsdTheOpPRrdKl78zc")
         
         
@@ -62,34 +63,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = vc
         }
         
-        
-//        customizeAppearance()
         generalAppearance()
 
         
         return true
     }
     
-    func customizeAppearance() {
-        //customize navigation bar
-        UINavigationBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor() //color of the back button
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        //color of title
-        //customize the status bar
-        //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        
-        //customize the tab bar
-        UITabBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
-        UITabBar.appearance().tintColor = UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
-        
-    }
+//    func customizeAppearance() {
+//        //customize navigation bar
+//        UINavigationBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
+//        UINavigationBar.appearance().tintColor = UIColor.whiteColor() //color of the back button
+//        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+//        //color of title
+//        //customize the status bar
+//        //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+//        
+//        //customize the tab bar
+//        UITabBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
+//        UITabBar.appearance().tintColor = UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
+//        
+//    }
     
     func generalAppearance(){
-        
-        UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().barTintColor = AppThemes.backgroundColor
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor() //color of the back button
+
+        UINavigationBar.appearance().barTintColor = AppThemes.navigationBackgroundColor
+        UINavigationBar.appearance().tintColor = AppThemes.iconLightGrayColor //color of the back button
+
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         //color of title
         //customize the status bar

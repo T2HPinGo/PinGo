@@ -59,7 +59,13 @@ class UserProfile: NSObject {
         } else {
             self.phoneNumber = ""
         }
-        id = data["_id"] as? String
+        if let id = data["_id"] as? String {
+            self.id = id
+        } else {
+            if let id = data["id"] as? String {
+                self.id = id
+            }
+        }
         print(data["phoneNumber"])
         location = Location(data: (data["location"] as? [String: AnyObject])!)
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
@@ -76,7 +82,13 @@ class UserProfile: NSObject {
         if let phoneNumber = data["phoneNumber"] as? String {
             self.phoneNumber = phoneNumber
         }
-        id = data["_id"] as? String
+        if let id = data["_id"] as? String {
+            self.id = id
+        } else {
+            if let id = data["id"] as? String {
+                self.id = id
+            }
+        }
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
     }
     

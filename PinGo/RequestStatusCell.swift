@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 enum RequestHeight {
     case defaultHeight
     case expandedHeight
@@ -18,18 +18,11 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var requestTitleLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
-    @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var ratingButton: UIButton!
     
+    @IBOutlet weak var containerView: UIView!
     
-    @IBOutlet weak var detailView: UIView!
-    @IBOutlet weak var detailViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var workerNameLabel: UILabel!
-    @IBOutlet weak var workerImageView: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var costLabel: UILabel!
-    
+    @IBOutlet weak var approveButton: UIButton!
 //    var rating: String! {
 //        didSet {
 //            if rating != nil {
@@ -44,22 +37,9 @@ class RequestStatusCell: UITableViewCell {
 //        }
 //    }
     
-    class var defaultHeight: CGFloat{
-        get {
-            return 90
-        }
-    }
-    
-    class var expandedHeight: CGFloat {
-        get {
-            return 180
-        }
-    }
-    
     var ticket: Ticket! {
         didSet {
             requestTitleLabel.text = ticket.title ?? ticket.category
-            workerNameLabel.text = ticket.worker?.name
             
 //            let formatter = NSDateFormatter()
 //            formatter.dateFormat = "dd MMM yyyy"
@@ -69,10 +49,16 @@ class RequestStatusCell: UITableViewCell {
                 let myNumber = NSNumber(integer:number)
                 let epocTime = NSTimeInterval(myNumber) / 1000
                 let myDate = NSDate(timeIntervalSince1970:  epocTime)
-                dateCreatedLabel.text = "\(myDate)"
+                dateCreatedLabel.text = getStringFromDate(myDate, withFormat: DateStringFormat.DD_MMM_YYYY) //"\(myDate)"
             } else {
                 print("'\(unixDate)' did not convert to an Int")
             }
+            if ticket.status! == Status.Done {
+                approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
+            } else {
+                 approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
+            }
+           
         }
     }
     
@@ -91,50 +77,40 @@ class RequestStatusCell: UITableViewCell {
     
     //MARK: - Helpers
     func setupAppearance(){
-        //worker profile image
-        workerImageView.layer.cornerRadius = workerImageView.frame.width / 2
-        workerImageView.layer.masksToBounds = true
         
         //font
         requestTitleLabel.font = AppThemes.helveticaNeueRegular17
-        workerNameLabel.font = AppThemes.helveticaNeueRegular17
         dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
         
         //allignment
         requestTitleLabel.textAlignment = .Left
-        workerNameLabel.textAlignment = .Center
         dateCreatedLabel.textAlignment = .Center
         
         //colors
         requestTitleLabel.textColor = UIColor.whiteColor()
-        workerNameLabel.textColor = UIColor.whiteColor()
         dateCreatedLabel.textColor = UIColor.whiteColor()
         
-        detailView.backgroundColor = UIColor.clearColor()   
+        //customize the separator
+        separatorInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0) //moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images
     }
     
-    func setHeight() {
-        //if the height of the cell is smaller than the expanded cell height, set constraint of the detail view to 0
-        detailViewHeightConstraint.constant = frame.size.height < RequestStatusCell.expandedHeight ? 0 : 90
-    }
-    
-    func watchFrameChanges() {
-        self.addObserver(self, forKeyPath: "frame", options: .New, context: nil)
-    }
-    
-    func removeFrameChanges() {
-        self.removeObserver(self, forKeyPath: "frame")
-        //self.removeObserver(<#T##observer: NSObject##NSObject#>, forKeyPath: <#T##String#>)
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if keyPath == "frame" {
-            setHeight()
+    //MARK: - Actions
+    @IBAction func onApprove(sender: UIButton) {
+        // Change Status of the ticket to Approve
+        let parameters: [String: AnyObject] = [
+            "statusTicket": Status.Approved.rawValue,
+            "idTicket": (ticket?.id!)!
+        ]
+        let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
+        Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
+            print(response.result.value!)
+            let JSON = response.result.value!["data"] as! [String: AnyObject]
+            print(JSON)
+            self.ticket = Ticket(data: JSON)
+            SocketManager.sharedInstance.pushCategory(JSON)
         }
+        
     }
-    
-    //MARK: - Navigations
-    
     
     
 

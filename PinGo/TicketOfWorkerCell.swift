@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import Alamofire
 class TicketOfWorkerCell: UICollectionViewCell {
     
     @IBOutlet weak var profileUserImageView: UIImageView!
@@ -113,7 +114,18 @@ class TicketOfWorkerCell: UICollectionViewCell {
                 actionButton.setTitle("Waiting", forState: .Normal)
             }
         } else {
-            
+            let parameters: [String: AnyObject] = [
+                "statusTicket": Status.Done.rawValue,
+                "idTicket": (ticket?.id!)!
+            ]
+            let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
+            Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
+                print(response.result.value!)
+                let JSON = response.result.value!["data"] as! [String: AnyObject]
+                print(JSON)
+                self.ticket = Ticket(data: JSON)
+                SocketManager.sharedInstance.updateTicket(self.ticket!.id!, statusTicket: (self.ticket?.status?.rawValue)!, idUser: (self.ticket?.user?.id)!)
+            }
         }
         
     }

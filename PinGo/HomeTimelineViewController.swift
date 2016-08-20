@@ -14,28 +14,35 @@ class HomeTimelineViewController: BaseViewController {
     
     @IBOutlet weak var createNewTicketButton: UIButton!
     
+    @IBOutlet weak var bottomPanelView: UIView!
+    
+    @IBOutlet weak var topPanelView: UIView!
+    @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet weak var numbersOfTicketsPendingLabel: UILabel!
+    
+    @IBOutlet weak var ticketIconImageView: UIImageView!
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
     
     var ticketList: [Ticket] = []
-
-//    //MARK: - Fake Data
-//    let user = User(name: "Hien", id: "123456", location: nil, profileImagePath: nil)
-//    let worker = Worker(name: "Puppy", id: "qwerty", location: nil, profileImagePath: nil, currentLocation: nil, rating: 4.5)
     
     //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .None
-        getTicketsOfUser()
-        //Fake data goes here
-//        ticket = Ticket(user: user, worker: worker, id: "1q2w3e4r", category: "Electricity" , title: "Broken Lightbulb", status: Status.Pending, issueImageVideoPath: nil, dateCreated: NSDate())
-//        tableView.backgroundColor = UIColor.clearColor()
         
+        setupAppearance()
+        initSocketTicketOfUser()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        //load ticket from server
+        getTicketsOfUser()
     }
     
     //MARK: - Actions
@@ -51,16 +58,16 @@ class HomeTimelineViewController: BaseViewController {
     }
     
     @IBAction func quitAfterPickWorker(segue: UIStoryboardSegue) {
-        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
-            
-            if let newTicket = workerBiddingCell.ticket {
-                ticketList.insert(newTicket, atIndex: 0)
-                print(newTicket.category)
-                tableView.reloadData()
-            }
-        }
+        //        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
+        //
+        //            if let newTicket = workerBiddingCell.ticket {
+        //                ticketList.insert(newTicket, atIndex: 0)
+        //                print(newTicket.category)
+        //                tableView.reloadData()
+        //            }
+        //        }
     }
-
+    
     
     //MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -70,7 +77,40 @@ class HomeTimelineViewController: BaseViewController {
     
     
     //MARK: Helpers
+    func setupAppearance() {
+        tableView.separatorStyle = .None
+        
+        //top and bottom panel
+        bottomPanelView.layer.cornerRadius = 5
+        bottomPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.bottomPanelColor
+        
+        topPanelView.layer.cornerRadius = 5
+        topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
+        
+        //greeting label
+        greetingLabel.font = AppThemes.avenirBlack21
+        greetingLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        let userFirstName = UserProfile.currentUser?.firstName ?? "User"
+        print(UserProfile.currentUser?.firstName)
 
+        greetingLabel.text = "Hello " + userFirstName
+        
+        //other Labels
+        dateLabel.font = AppThemes.avenirBlack16
+        dateLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        
+        notificationLabel.font = AppThemes.avenirBlack16
+        notificationLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        
+        numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
+        
+        //create ticket button
+        createNewTicketButton.layer.cornerRadius = createNewTicketButton.frame.width / 2
+        createNewTicketButton.layer.borderWidth = 1.5
+        createNewTicketButton.layer.borderColor = AppThemes.buttonBorderColorOnWhiteBackgroundColor.CGColor
+        createNewTicketButton.layer.backgroundColor = UIColor.whiteColor().CGColor
+    }
+    
 }
 
 
@@ -84,62 +124,25 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
         cell.ticket = ticketList[indexPath.row]
         
+        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+        cell.containerView.backgroundColor = AppThemes.cellColors[colorIndex]
+        cell.backgroundColor = AppThemes.cellColors[colorIndex]
+        
+        
         //fake
         if rating != nil {
             cell.ratingButton.setImage(UIImage(named: rating), forState: .Normal)
         }
         
-        cell.backgroundColor = AppThemes.cellColors[indexPath.row]
-        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.backgroundColor = AppThemes.cellColors[indexPath.row] //set the tableview background to the same color of selected cell to get rid of that white back ground when the cell expands
-        
-        let previousIndexPath = selectedIndexPath
-        
-        //if the cell is already selected then set the selectedIndexPath to nil
-        if indexPath == selectedIndexPath {
-            selectedIndexPath = nil
-        } else {
-            //otherwise set it as indexPath
-            selectedIndexPath = indexPath
-        }
-        
-        var indexPathsToReload: [NSIndexPath] = []
-        //if user previously selected a cell, add it to the indexPaths
-        if let previous = previousIndexPath {
-            indexPathsToReload.append(previous)
-        }
-        
-        //if user select a new cell, add it to the indexPath
-        if let current = selectedIndexPath {
-            indexPathsToReload.append(current)
-        }
-        
-        //expanding the cell that tapped and compressing the previous selected cell
-        if indexPathsToReload.count > 0 {
-            tableView.reloadRowsAtIndexPaths(indexPathsToReload, withRowAnimation: .Fade)
-        }
-    
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        //
-        (cell as! RequestStatusCell).watchFrameChanges()
-    }
-    
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        //
-        (cell as! RequestStatusCell).removeFrameChanges()
-    }
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        //if user tap on a cell, change the height
-        return indexPath == selectedIndexPath ? RequestStatusCell.expandedHeight : RequestStatusCell.defaultHeight
+        return 90
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -165,6 +168,7 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
     }
     
 }
+
 // MARK: Load data user tickets
 extension HomeTimelineViewController {
     func getTicketsOfUser() {
@@ -175,12 +179,33 @@ extension HomeTimelineViewController {
             print("HomeTineLineViewController ---")
             print("\(response.result.value)")
             let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
+            if self.ticketList.count > 0 {
+                self.ticketList.removeAll()
+            }
             for JSONItem in JSONArrays {
                 let ticket = Ticket(data: JSONItem)
                 self.ticketList.append(ticket)
                 self.tableView.reloadData()
             }
         }
+    }
+    func initSocketTicketOfUser(){
+        //change status for ticket when worker has mark this ticket as "Done"
+        SocketManager.sharedInstance.getTicketHasUpdateStatus({ (idTicket, statusTicket, idUser) in
+            //if not current user than do nothing
+            if idUser != UserProfile.currentUser!.id {
+                return
+            }
+            
+            //if it is current user than update status ticket
+            for ticket in self.ticketList {
+                if idTicket == ticket.id {
+                    ticket.transferToEnum(from: statusTicket)
+                }
+            }
+            self.tableView.reloadData()
+        })
+
     }
 }
 

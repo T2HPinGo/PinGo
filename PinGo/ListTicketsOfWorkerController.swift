@@ -84,13 +84,24 @@ extension ListTicketsOfWorkerController {
                 return
             } else {
                 var isNewTicket :Bool = true
+                var index = 0
                 if self.tickets.count > 0 {
                     for itemTicket in self.tickets {
                         if itemTicket.id == ticket.id {
-                            itemTicket.status = ticket.status
-                            isNewTicket = false
-                            break
+                            // Remove ticket to history if ticket has been approved by user
+                            if ticket.status == Status.Approved {
+                                self.tickets.removeAtIndex(index)
+                                isNewTicket = false
+                                break
+                            } else {
+                                // Change status Pending to Inservice
+                                itemTicket.status = ticket.status
+                                isNewTicket = false
+                                break
+                            }
+                            
                         }
+                        index += 1
                     }
                 }
                 if isNewTicket {

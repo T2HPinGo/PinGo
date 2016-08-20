@@ -30,12 +30,7 @@ class WorkerDetailCell: UITableViewCell {
         setupAppearance()
     }
     
-    @IBAction func onPickWorker(sender: AnyObject) {
-        
-        
-        
-        
-        
+    @IBAction func onPickWorker(sender: AnyObject) {      
         
         ticket?.worker = worker
         print("Pick WOrker: \(worker)")
