@@ -20,7 +20,7 @@ class WorkerDetailCell: UITableViewCell {
     var worker: Worker! {
         didSet {
             workerNameLabel.text =  worker.username
-            workerRatingLabel.text = String(format: "%.1f", worker.averageRating!)            
+            workerRatingLabel.text = String(format: "%.1f", worker.averageRating)
         }
     }
 

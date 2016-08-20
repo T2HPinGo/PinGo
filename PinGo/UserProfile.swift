@@ -17,7 +17,7 @@ class UserProfile: NSObject {
     var location: Location?
     var profileImage: ImageResource?
    
-    var averageRating: Double?
+    var averageRating: Double = 0
     // Hien code
     var firstName: String?
     var lastName: String?

@@ -11,8 +11,10 @@ import Alamofire
 class WorkerTicketCell: UITableViewCell {
     
     // View Status
-    @IBOutlet weak var buttonStatus: UIButton!
+
+    @IBOutlet weak var viewWordOfStatus: UIView!
     
+    @IBOutlet weak var labelStatus: UILabel!
     // View User
     @IBOutlet weak var imageViewProfile: UIImageView!
     
@@ -38,7 +40,9 @@ class WorkerTicketCell: UITableViewCell {
         didSet {
             // View Status
             let oneWord = HandleUtil.getOneWordOfStatus((ticket?.status?.rawValue)!)
-            buttonStatus.setTitle(oneWord, forState: .Normal)
+            labelStatus.text = oneWord
+            viewWordOfStatus.layer.cornerRadius = viewWordOfStatus.frame.size.width / 2
+            viewWordOfStatus.layer.masksToBounds = true
 //            buttonStatus.layer.cornerRadius =
 //                self.frame.size.width / 2
 //            buttonStatus.clipsToBounds = true
