@@ -98,7 +98,9 @@ class CreateTicketViewController: UIViewController {
         //transfer date here
         if let mapViewController = segue.sourceViewController as? MapViewController {
             let location = mapViewController.location!.address
-            newTicket?.location = mapViewController.location
+            if let location = mapViewController.location {
+                newTicket?.location = location
+            }
             print(location)
         }
     }
