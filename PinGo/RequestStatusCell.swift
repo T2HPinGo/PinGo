@@ -22,7 +22,7 @@ class RequestStatusCell: UITableViewCell {
     
     @IBOutlet weak var workerProfileImageView: UIImageView!
     @IBOutlet weak var workerNameLabel: UILabel!
-    @IBOutlet weak var workerActionLabel: UILabel!
+    @IBOutlet weak var callWorkerView: UIView!
     
     @IBOutlet weak var ticketDetailView: UIView!
     @IBOutlet weak var requestTitleLabel: UILabel!
@@ -50,11 +50,15 @@ class RequestStatusCell: UITableViewCell {
             categoryIconContainerView.backgroundColor = themeColor
             ticketDetailView.backgroundColor = themeColor
             connectionLineView.backgroundColor = themeColor
+            callWorkerView.backgroundColor = themeColor
         }
     }
     
+    
     var ticket: Ticket! {
         didSet {
+            workerNameLabel.text = ticket.worker?.username
+            
             requestTitleLabel.text = ticket.title ?? ticket.category
             let unixDate = ticket.createdAt!
             if let number = Int(unixDate) {
@@ -79,6 +83,10 @@ class RequestStatusCell: UITableViewCell {
         super.awakeFromNib()
         
         setupAppearance()
+        
+        //add gesture
+//        let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCollectionView(_:)))
+//        chooseCategoryView.addGestureRecognizer(categoryViewGestureRecognizer)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -91,7 +99,7 @@ class RequestStatusCell: UITableViewCell {
     func setupAppearance(){
         
         //font
-        requestTitleLabel.font = AppThemes.helveticaNeueRegular17
+        requestTitleLabel.font = AppThemes.helveticaNeueRegular15
         dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
         
         //allignment
@@ -106,10 +114,13 @@ class RequestStatusCell: UITableViewCell {
         categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
         workerProfileImageView.layer.cornerRadius = 5
         workerProfileImageView.layer.masksToBounds = true
+        callWorkerView.layer.cornerRadius = 5
         
         //customize the separator
         //separatorInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0) //moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images
     }
+    
+    
     
     //MARK: - Actions
     @IBAction func onApprove(sender: UIButton) {
