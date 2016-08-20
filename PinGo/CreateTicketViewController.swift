@@ -96,6 +96,14 @@ class CreateTicketViewController: UIViewController {
         }
     }
     
+    @IBAction func unwindFromMap(segue: UIStoryboardSegue) {
+        //transfer date here
+        if let mapViewController = segue.sourceViewController as? MapViewController {
+            let location = mapViewController.address
+            print(location)
+        }
+    }
+    
     //MARK: - Helpers
     func setupAppearance() {
         collectionView.backgroundColor = UIColor.greenColor()

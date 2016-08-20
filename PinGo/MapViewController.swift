@@ -35,7 +35,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var labelAddress: UILabel!
     
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var okButton: UIButton!
+
     
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
@@ -50,15 +51,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
         
-        
-        
         //current locatioN
         currentLocation()
         
         testView.delegate = self
-        
+
+//        locationView.hidden = true
         locationViewStyle ()
-        
+        okButtonStyle()
         
         placesClient = GMSPlacesClient.sharedClient()
         
@@ -87,13 +87,17 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         self.definesPresentationContext = true
         
         let searchTextField = searchBar!.valueForKey("_searchField") as? UITextField
-        searchTextField?.backgroundColor = AppThemes.backgroundColor
-        searchTextField?.textColor = UIColor.lightGrayColor()
+        searchTextField?.backgroundColor = AppThemes.navigationBackgroundColor
+        searchTextField?.textColor = UIColor.whiteColor()
         
-        searchController?.searchBar.barTintColor = UIColor.darkGrayColor()
-        searchController?.searchBar.tintColor = UIColor.lightGrayColor()
+        searchController?.searchBar.barTintColor = AppThemes.navigationBackgroundColor
+        searchController?.searchBar.tintColor = UIColor.whiteColor()
     }
     
+    @IBAction func okButtonAction(sender: AnyObject) {
+        
+        
+    }
     override func viewWillAppear(animated: Bool) {
          testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
         
@@ -104,11 +108,19 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
+    func okButtonStyle(){
+        self.okButton.backgroundColor = AppThemes.navigationBackgroundColor
+        self.okButton.layer.masksToBounds = true
+//        self.okButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        self.okButton.layer.cornerRadius = okButton.frame.size.width/2
+        self.okButton.clipsToBounds = true
+    }
     
     func locationViewStyle (){
+        UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         locationView.layer.cornerRadius = 0
         locationView.layer.masksToBounds = true
-        locationView.backgroundColor = UIColor.darkGrayColor()
+        locationView.backgroundColor = AppThemes.navigationBackgroundColor
 //        locationView.layer.borderColor = UIColor.lightGrayColor().CGColor
 //        locationView.layer.borderWidth = 1
     }
@@ -151,7 +163,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
             let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
             self.userMarker = GMSMarker(position: position)
-            self.userMarker!.title = "Setup Location"
+//            self.userMarker!.snippet = "\(self.address)"
 //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
@@ -201,7 +213,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         self.address = "\(number) \(street), \(city), \(state) \(zip)"
                         self.labelAddress.text = self.address
                         self.userMarker = GMSMarker(position: position.target)
-                        self.userMarker!.title = "Setup Location"
+//                        self.userMarker!.title = "Setup Location"
+//                            self.userMarker!.snippet = "\(self.address)"
 //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
                         self.userMarker!.tracksInfoWindowChanges = true
                         self.userMarker!.map = self.testView
@@ -223,8 +236,10 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
             self.testView.selectedMarker = nil
+//            self.userMarker?.snippet = "\(self.address)"
             flagCount += 1
             self.labelAddress.text = self.address
+            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         }
         
         

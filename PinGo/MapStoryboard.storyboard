@@ -25,7 +25,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqr-3h-AjO">
-                                <rect key="frame" x="0.0" y="129" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="104" width="320" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EC-sE-gBI">
                                         <rect key="frame" x="8" y="5" width="300" height="50"/>
@@ -45,6 +45,20 @@
                                     <constraint firstItem="7EC-sE-gBI" firstAttribute="top" secondItem="Uqr-3h-AjO" secondAttribute="top" constant="5" id="n2r-2R-gBi"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz9-Z6-dWJ">
+                                <rect key="frame" x="250" y="438" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="7VF-Xc-0i2"/>
+                                    <constraint firstAttribute="height" constant="60" id="OM4-2x-gUp"/>
+                                </constraints>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="okButtonAction:" destination="NYf-HS-S9A" eventType="touchUpInside" id="Gsr-WM-04Y"/>
+                                    <segue destination="PRW-58-cFu" kind="unwind" identifier="UnwindToCreateTicket" unwindAction="unwindFromMap:" id="BaR-a4-UY7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -55,11 +69,13 @@
                             <constraint firstAttribute="trailing" secondItem="Uqr-3h-AjO" secondAttribute="trailing" constant="10" id="OJI-WH-p8k"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" id="Q6L-Um-wVE"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" constant="10" id="X40-tl-Mth"/>
+                            <constraint firstAttribute="trailing" secondItem="Tz9-Z6-dWJ" secondAttribute="trailing" constant="10" id="a0s-Tu-ALS"/>
+                            <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Tz9-Z6-dWJ" secondAttribute="bottom" constant="70" id="cCe-vQ-bug"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="8" symbolic="YES" id="jbS-uj-iym"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Xbk-z3-E2M" secondAttribute="bottom" id="kj1-bj-cmt"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="ltP-Tq-wd4"/>
                             <constraint firstAttribute="trailing" secondItem="Xbk-z3-E2M" secondAttribute="trailing" id="nGX-NF-z2h"/>
-                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="65" id="suO-pm-Ats"/>
+                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="40" id="suO-pm-Ats"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="43k-ks-D0N" secondAttribute="top" id="wk8-Dx-wrO"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="zCK-kV-YNc"/>
                         </constraints>
@@ -79,11 +95,12 @@
                     <connections>
                         <outlet property="labelAddress" destination="7EC-sE-gBI" id="pwm-LZ-U6Q"/>
                         <outlet property="locationView" destination="Uqr-3h-AjO" id="R4K-Uf-3n7"/>
+                        <outlet property="okButton" destination="Tz9-Z6-dWJ" id="Pm9-6o-9KJ"/>
                         <outlet property="testView" destination="Xbk-z3-E2M" id="Mla-Bi-AGr"/>
-                        <segue destination="Jol-p4-LB3" kind="push" identifier="mapviewchange" id="Dqn-2Q-fy2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vC1-Sp-Gzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="PRW-58-cFu" userLabel="Exit" sceneMemberID="exit"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="WfM-Q7-UEd">
                     <connections>
                         <action selector="panGestureMap:" destination="NYf-HS-S9A" id="UDo-G9-g7U"/>
@@ -92,10 +109,10 @@
             </objects>
             <point key="canvasLocation" x="1868" y="275"/>
         </scene>
-        <!--Main-->
+        <!--CreateTicketViewController-->
         <scene sceneID="fTw-gG-gOP">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" id="Jol-p4-LB3" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="CreateTicketViewController" id="Jol-p4-LB3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="QPk-aH-CfH"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3s-7p-FId" userLabel="First Responder" sceneMemberID="firstResponder"/>
