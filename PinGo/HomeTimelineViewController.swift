@@ -35,6 +35,8 @@ class HomeTimelineViewController: BaseViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = 150
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         setupAppearance()
         initSocketTicketOfUser()
@@ -125,8 +127,8 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         cell.ticket = ticketList[indexPath.row]
         
         let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
-        cell.containerView.backgroundColor = AppThemes.cellColors[colorIndex]
-        cell.backgroundColor = AppThemes.cellColors[colorIndex]
+        cell.themeColor = AppThemes.cellColors[colorIndex]
+        //cell.backgroundColor = AppThemes.cellColors[colorIndex]
         
         
         //fake
@@ -141,9 +143,9 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90
-    }
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return 90
+//    }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
