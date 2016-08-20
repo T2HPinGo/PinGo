@@ -60,15 +60,7 @@ class RequestStatusCell: UITableViewCell {
             workerNameLabel.text = ticket.worker?.username
             
             requestTitleLabel.text = ticket.title ?? ticket.category
-            let unixDate = ticket.createdAt!
-            if let number = Int(unixDate) {
-                let myNumber = NSNumber(integer:number)
-                let epocTime = NSTimeInterval(myNumber) / 1000
-                let myDate = NSDate(timeIntervalSince1970:  epocTime)
-                dateCreatedLabel.text = getStringFromDate(myDate, withFormat: DateStringFormat.DD_MMM_YYYY) //"\(myDate)"
-            } else {
-                print("'\(unixDate)' did not convert to an Int")
-            }
+            dateCreatedLabel.text = HandleUtil.changeUnixDateToNSDate(ticket.createdAt!)
             if ticket.status! == Status.Done {
                 approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
             } else {

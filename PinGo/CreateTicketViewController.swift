@@ -295,7 +295,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         newTicket?.user = UserProfile.currentUser
         newTicket?.status = Status.Pending
         newTicket?.worker = Worker()
-        newTicket?.location = Location()
+        newTicket?.descriptions = descriptionTextView.text!
+       // newTicket?.location = Location()
         
         let parameters = parametersTicket(newTicket!)
         
@@ -354,7 +355,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         parameters["height"] = 300
         parameters["widthOfProfile"] = 60
         parameters["heightOfProfile"] = 60
-
+        parameters["descriptions"] = ticket.descriptions
 
         return parameters
     }

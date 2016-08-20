@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-
+import AFNetworking
 struct HandleUtil {
     static func getOneWordOfStatus(status: String) ->String{
         switch status {
@@ -25,10 +25,9 @@ struct HandleUtil {
     static func loadImageViewWithUrl(sourceImage: String, imageView: UIImageView){
         
         let stringUrl = "\(API_URL)\(PORT_API)/v1\(sourceImage)"
-        print("URl: \(stringUrl)")
         let url = NSURL(string: stringUrl)
         let imageRequest = NSURLRequest(URL: url!)
-        
+        imageView.tintColor = UIColor.orangeColor()
         imageView.setImageWithURLRequest(
             imageRequest,
             placeholderImage: nil,
@@ -50,5 +49,23 @@ struct HandleUtil {
             failure: { (imageRequest, imageResponse, error) -> Void in
                 // do something for the failure condition
         })
+    }
+    
+    static func formatDateToLongDate(timestamp: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.timeStyle = .ShortStyle
+        dateFormatter.dateFormat = "h:mm a '-' MMMM dd, yyyy"
+        dateFormatter.AMSymbol = "AM"
+        dateFormatter.PMSymbol = "PM"
+        return  dateFormatter.stringFromDate(timestamp)
+    }
+    static func changeUnixDateToNSDate(unixTime: String) -> String {
+        let number = Int(unixTime)
+        let myNumber = NSNumber(integer:number!)
+        let epocTime = NSTimeInterval(myNumber)
+        
+        let myDate = NSDate(timeIntervalSince1970:  epocTime)
+        return formatDateToLongDate(myDate)
     }
 }
