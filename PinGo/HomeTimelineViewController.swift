@@ -90,27 +90,24 @@ class HomeTimelineViewController: BaseViewController {
         topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
         
         //greeting label
-        greetingLabel.font = AppThemes.avenirBlack21
-        greetingLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        greetingLabel.font = AppThemes.helveticaNeueRegular20
+        greetingLabel.textColor = AppThemes.tableHeaderTextColor
         let userFirstName = UserProfile.currentUser?.firstName ?? "User"
         print(UserProfile.currentUser?.firstName)
 
         greetingLabel.text = "Hello " + userFirstName
         
         //other Labels
-        dateLabel.font = AppThemes.avenirBlack16
-        dateLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        dateLabel.font = AppThemes.helveticaNeueRegular16
+        dateLabel.textColor = AppThemes.tableHeaderTextColor
         
-        notificationLabel.font = AppThemes.avenirBlack16
-        notificationLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        notificationLabel.font = AppThemes.helveticaNeueRegular16
+        notificationLabel.textColor = AppThemes.tableHeaderTextColor
         
         numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
         
         //create ticket button
-        createNewTicketButton.layer.cornerRadius = createNewTicketButton.frame.width / 2
-        createNewTicketButton.layer.borderWidth = 1.5
-        createNewTicketButton.layer.borderColor = AppThemes.buttonBorderColorOnWhiteBackgroundColor.CGColor
-        createNewTicketButton.layer.backgroundColor = UIColor.whiteColor().CGColor
+        createNewTicketButton.layer.backgroundColor = UIColor.clearColor().CGColor
     }
     
 }
