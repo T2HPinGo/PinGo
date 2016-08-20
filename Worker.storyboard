@@ -186,7 +186,7 @@
                                                                         <constraint firstAttribute="height" constant="30" id="8gD-RW-hqf"/>
                                                                         <constraint firstAttribute="width" constant="85" id="hmL-8f-8BH"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="Pid">
+                                                                    <state key="normal" title="Bid">
                                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>

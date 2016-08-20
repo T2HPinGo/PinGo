@@ -66,14 +66,18 @@ extension ListTicketsOfWorkerController {
         var parameters = [String : AnyObject]()
         parameters["status"] = "Pending"
         parameters["category"] = Worker.currentUser?.category
+        parameters["idWorker"] = Worker.currentUser?.id
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticketOnCategory", parameters: parameters).responseJSON { response  in
             print("ListTicketController ---")
             print("\(response.result.value)")
             let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
             for JSONItem in JSONArrays {
                 let ticket = Ticket(data: JSONItem)
-                self.tickets.append(ticket)
-                self.collectionView.reloadData()
+                if ticket.status != Status.Approved {
+                    self.tickets.append(ticket)
+                    self.collectionView.reloadData()
+                }
+             
             }
         }
     }
