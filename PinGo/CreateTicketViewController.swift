@@ -99,7 +99,8 @@ class CreateTicketViewController: UIViewController {
     @IBAction func unwindFromMap(segue: UIStoryboardSegue) {
         //transfer date here
         if let mapViewController = segue.sourceViewController as? MapViewController {
-            let location = mapViewController.address
+            let location = mapViewController.location!.address
+            newTicket?.location = mapViewController.location
             print(location)
         }
     }

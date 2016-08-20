@@ -26,12 +26,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     var didFindMyLocation = false
     var placesClient = GMSPlacesClient()
-    var currentlocation_long = Double()
-    var currentlocation_latitude = Double()
+//    var currentlocation_long = Double()
+//    var currentlocation_latitude = Double()
     var userMarker: GMSMarker?
     var isFirstTimeUseMap: Bool = true
     var flagCount: Int = 0
-    
+    var location :Location?
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var labelAddress: UILabel!
     
@@ -41,11 +41,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
-    var address: String = ""
+//    var address: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        location = Location()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.distanceFilter = 200
@@ -155,13 +155,21 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                 return
             }
             
-            self.currentlocation_long = (self.locationManager.location?.coordinate.longitude)!
-            self.currentlocation_latitude = (self.locationManager.location?.coordinate.latitude)!
-            self.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
+            self.location?.longitute = (self.locationManager.location?.coordinate.longitude)!
+            self.location?.latitude = (self.locationManager.location?.coordinate.latitude)!
+            self.location?.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
             
+//            self.currentlocation_long = (self.locationManager.location?.coordinate.longitude)!
+//            self.currentlocation_latitude = (self.locationManager.location?.coordinate.latitude)!
+//            self.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
+//            
             // Set up Marker:
-            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
-            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
+            
+            self.locatewithCoordinate((self.location?.longitute)!, Latitude: (self.location?.latitude)!, Title: "current location")
+            let position = CLLocationCoordinate2DMake(self.location?.longitute as! Double, self.location?.latitude as! Double)
+
+//            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
+//            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
             self.userMarker = GMSMarker(position: position)
 //            self.userMarker!.snippet = "\(self.address)"
 //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
@@ -169,7 +177,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.userMarker!.map = self.testView
             self.testView.selectedMarker = self.userMarker
             
-            self.labelAddress.text = self.address
+            self.labelAddress.text = self.location!.address
             
             self.flagCount = 0
             
@@ -210,8 +218,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         let state = address[4]["short_name"] as! String
                         let zip = address[6]["short_name"] as! String
                         print("\n\(number) \(street), \(city), \(state) \(zip)")
-                        self.address = "\(number) \(street), \(city), \(state) \(zip)"
-                        self.labelAddress.text = self.address
+                        self.location!.address = "\(number) \(street), \(city), \(state) \(zip)"
+//                        self.labelAddress.text = self.address
+                        self.labelAddress.text = self.location!.address
                         self.userMarker = GMSMarker(position: position.target)
 //                        self.userMarker!.title = "Setup Location"
 //                            self.userMarker!.snippet = "\(self.address)"
@@ -238,7 +247,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.testView.selectedMarker = nil
 //            self.userMarker?.snippet = "\(self.address)"
             flagCount += 1
-            self.labelAddress.text = self.address
+            self.labelAddress.text = self.location!.address
             UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         }
         
@@ -246,10 +255,10 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
-    func locatewithCoordinate (long: Double, Latitude lat: Double, Title title:String ){
+    func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
-            let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude: long, zoom: 16)
+            let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
             self.testView.camera = camera
         
         }
@@ -275,10 +284,13 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         var userLocation = locations[0]
         
-        let location = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        currentlocation_latitude = location.latitude
-        currentlocation_long = location.longitude
+        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+//        currentlocation_latitude = location.latitude
+//        currentlocation_long = location.longitude
+        location!.latitude = location_default.latitude
+        location!.longitute = location_default.longitude
         
+        print(location_default)
         print(location)
         
         locationManager.stopUpdatingLocation()
