@@ -85,8 +85,8 @@ class RequestStatusCell: UITableViewCell {
         setupAppearance()
         
         //add gesture
-        let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCollectionView(_:)))
-        chooseCategoryView.addGestureRecognizer(categoryViewGestureRecognizer)
+//        let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCollectionView(_:)))
+//        chooseCategoryView.addGestureRecognizer(categoryViewGestureRecognizer)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
