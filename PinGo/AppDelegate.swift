@@ -86,6 +86,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func generalAppearance(){
+        
+        UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barTintColor = AppThemes.backgroundColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor() //color of the back button
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -97,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
         UITabBar.appearance().tintColor = UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
         
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+//        UIApplication.sharedApplication().statusBarStyle = .
     }
     
     func applicationWillResignActive(application: UIApplication) {
