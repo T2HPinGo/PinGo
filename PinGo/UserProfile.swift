@@ -25,6 +25,7 @@ class UserProfile: NSObject {
     var profileImagePath: String?
     var dataJson: [String: AnyObject]?
     var category: String = ""
+    var price: String = ""
     override init() {
         super.init()
         username = ""
@@ -83,6 +84,13 @@ class UserProfile: NSObject {
             }
         }
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
+        if (isWorker!) {
+            if let price = data["price"] as? String {
+                self.price = price
+            }
+            
+        }
+        
     }
     
   

@@ -50,7 +50,10 @@ class TicketBiddingViewController: UIViewController {
         ticketTitleLabel.text = newTicket.title
         
         //load worker list
-        SocketManager.sharedInstance.getWorkers { (worker) in
+        SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
+            if self.newTicket.id != idTicket {
+                return
+            }
             self.workerList.append(worker)
             self.tableView.reloadData()
         }
