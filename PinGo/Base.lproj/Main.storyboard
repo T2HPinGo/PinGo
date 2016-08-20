@@ -8,7 +8,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Eto-mz-YbD">
             <objects>
-                <tabBarController storyboardIdentifier="MainViewController" id="nJr-qv-QsY" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainViewController" hidesBottomBarWhenPushed="YES" id="nJr-qv-QsY" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Wrj-28-hLt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -104,8 +104,8 @@
                                                         </mask>
                                                     </variation>
                                                 </view>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dF9-5Z-7CN" userLabel="FakeView">
-                                                    <rect key="frame" x="0.0" y="180" width="20" height="10"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dF9-5Z-7CN" userLabel="FakeView">
+                                                    <rect key="frame" x="0.0" y="130" width="20" height="10"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Ak5-sf-uBK"/>
@@ -118,13 +118,19 @@
                                                         </mask>
                                                     </variation>
                                                 </view>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rcj-ub-JXq" userLabel="FakeView">
-                                                    <rect key="frame" x="284" y="170" width="20" height="20"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcj-ub-JXq" userLabel="FakeView">
+                                                    <rect key="frame" x="284" y="130" width="20" height="10"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="EeT-O8-bBx"/>
                                                         <constraint firstAttribute="width" constant="20" id="ycQ-Wm-H7m"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="EeT-O8-bBx"/>
+                                                            <exclude reference="ycQ-Wm-H7m"/>
+                                                        </mask>
+                                                    </variation>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18 Aug 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gP5-4i-IVU">
                                                     <rect key="frame" x="5" y="59" width="96" height="21"/>
@@ -155,6 +161,7 @@
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.69803921570000005" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="jP0-ON-LpU" firstAttribute="top" secondItem="gP5-4i-IVU" secondAttribute="bottom" constant="8" id="1Ra-Mq-POk"/>
+                                                <constraint firstItem="rcj-ub-JXq" firstAttribute="width" secondItem="wnN-r1-w2V" secondAttribute="width" id="5rs-56-j8z"/>
                                                 <constraint firstItem="mqq-6C-pjG" firstAttribute="centerY" secondItem="jfq-gE-oRE" secondAttribute="centerY" id="6bS-MA-kAg"/>
                                                 <constraint firstAttribute="trailing" secondItem="mqq-6C-pjG" secondAttribute="trailing" constant="5" id="7ta-TU-7O6"/>
                                                 <constraint firstItem="7gZ-3W-a7I" firstAttribute="height" secondItem="wnN-r1-w2V" secondAttribute="height" id="8gy-v2-3lE"/>
@@ -172,6 +179,7 @@
                                                 <constraint firstItem="wnN-r1-w2V" firstAttribute="leading" secondItem="jfq-gE-oRE" secondAttribute="leading" id="chK-Am-bzl"/>
                                                 <constraint firstAttribute="bottom" secondItem="dF9-5Z-7CN" secondAttribute="bottom" id="dyx-QN-4q2"/>
                                                 <constraint firstItem="7gZ-3W-a7I" firstAttribute="width" secondItem="wnN-r1-w2V" secondAttribute="width" id="fYw-Wq-CE5"/>
+                                                <constraint firstItem="rcj-ub-JXq" firstAttribute="height" secondItem="wnN-r1-w2V" secondAttribute="height" id="iNI-pr-kIk"/>
                                                 <constraint firstItem="dF9-5Z-7CN" firstAttribute="leading" secondItem="jfq-gE-oRE" secondAttribute="leading" id="lHe-QU-CL7"/>
                                                 <constraint firstItem="jP0-ON-LpU" firstAttribute="leading" secondItem="gP5-4i-IVU" secondAttribute="leading" id="njU-FV-BEH"/>
                                                 <constraint firstItem="dF9-5Z-7CN" firstAttribute="width" secondItem="wnN-r1-w2V" secondAttribute="width" id="paT-TB-waD"/>
@@ -339,11 +347,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exp-q6-85B" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="690"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blur_1" translatesAutoresizingMaskIntoConstraints="NO" id="yIB-yu-pNV">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="690"/>
-                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rk2-5E-Frb">
                                                 <rect key="frame" x="40" y="79" width="240" height="49"/>
                                                 <subviews>
@@ -625,11 +630,7 @@
                                             <constraint firstItem="5Cn-uC-FAf" firstAttribute="leading" secondItem="exp-q6-85B" secondAttribute="leading" id="Hjh-x0-kKu"/>
                                             <constraint firstItem="w4u-LS-e9h" firstAttribute="top" secondItem="rk2-5E-Frb" secondAttribute="bottom" constant="8" id="LPx-Pd-381"/>
                                             <constraint firstAttribute="trailing" secondItem="w4u-LS-e9h" secondAttribute="trailing" id="PBk-2W-UuU"/>
-                                            <constraint firstAttribute="bottom" secondItem="yIB-yu-pNV" secondAttribute="bottom" id="aMv-HO-qg9"/>
-                                            <constraint firstItem="yIB-yu-pNV" firstAttribute="top" secondItem="w4u-LS-e9h" secondAttribute="bottom" constant="-226" id="bLZ-YS-cCz"/>
                                             <constraint firstAttribute="trailing" secondItem="5Cn-uC-FAf" secondAttribute="trailing" id="kPM-ZP-czk"/>
-                                            <constraint firstItem="yIB-yu-pNV" firstAttribute="leading" secondItem="exp-q6-85B" secondAttribute="leading" id="mu6-BZ-v4L"/>
-                                            <constraint firstAttribute="trailing" secondItem="yIB-yu-pNV" secondAttribute="trailing" id="n6A-Nu-t56"/>
                                             <constraint firstItem="rk2-5E-Frb" firstAttribute="top" secondItem="exp-q6-85B" secondAttribute="top" constant="79" id="tMj-k4-1NT"/>
                                             <constraint firstItem="w4u-LS-e9h" firstAttribute="leading" secondItem="exp-q6-85B" secondAttribute="leading" id="yFR-uh-fiX"/>
                                         </constraints>
@@ -1129,7 +1130,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Blur_1" width="600" height="589"/>
         <image name="CloseButton" width="15" height="15"/>
         <image name="camera" width="100" height="100"/>
         <image name="checkmark_filled" width="50" height="50"/>

@@ -126,6 +126,8 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         
         let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
         cell.containerView.backgroundColor = AppThemes.cellColors[colorIndex]
+        cell.backgroundColor = AppThemes.cellColors[colorIndex]
+        
         
         //fake
         if rating != nil {
