@@ -39,15 +39,6 @@ class UserProfile: NSObject {
         averageRating = 0
     }
     
-    // Hien Code
-    init(name: String, id: String, location: Location?, profileImagePath: String?) {
-        self.name = name
-        self.id = id
-        self.location = Location()
-        self.profileImagePath = ""
-        //self.isWorker = isWorker
-    }
-    
     init (data: [String:AnyObject]){
          print(data)
         self.dataJson = data
@@ -75,6 +66,8 @@ class UserProfile: NSObject {
         if let category = data["category"] as? String{
             self.category = category
         }
+        
+        
     }
     
     func setTempData(data: [String: AnyObject]) {
