@@ -41,8 +41,6 @@ class CreateTicketViewController: UIViewController {
     @IBOutlet weak var titleTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionTextView: T2HTextViewWithPlaceHolder!
     
-    @IBOutlet weak var urgentSwitch: UISwitch!
-    
     @IBOutlet weak var chooseLocationView: UIView!
     
     @IBOutlet weak var findWorkerButton: UIButton!
@@ -96,6 +94,15 @@ class CreateTicketViewController: UIViewController {
         }
     }
     
+    @IBAction func unwindFromMap(segue: UIStoryboardSegue) {
+        //transfer date here
+        if let mapViewController = segue.sourceViewController as? MapViewController {
+            let location = mapViewController.location!.address
+            newTicket?.location = mapViewController.location
+            print(location)
+        }
+    }
+    
     //MARK: - Helpers
     func setupAppearance() {
         collectionView.backgroundColor = UIColor.greenColor()
@@ -109,7 +116,7 @@ class CreateTicketViewController: UIViewController {
         //auto resize ticket detail view depending on screen size
         let topAndBottomMargin: CGFloat = 13
         let verticalDistanceBetweenViews: CGFloat = 8
-        ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + urgentSwitch.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
+        ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
         
         //titleTextField
         titleTextField.placeholder = NSLocalizedString("Enter Title For Your Ticket", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
@@ -250,7 +257,6 @@ class CreateTicketViewController: UIViewController {
         newTicket?.ticketDescription = descriptionTextView.text
         newTicket?.user = UserProfile.currentUser
         newTicket?.status = Status.Pending
-        newTicket?.urgent = urgentSwitch.on
         newTicket?.worker = Worker()
         newTicket?.location = Location()
         

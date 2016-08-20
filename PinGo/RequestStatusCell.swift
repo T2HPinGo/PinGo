@@ -15,12 +15,20 @@ enum RequestHeight {
 
 class RequestStatusCell: UITableViewCell {
     //MARK: - Outlets and Variables
-    @IBOutlet weak var categoryImageView: UIImageView!
+    @IBOutlet weak var categoryIconContainerView: UIView!
+    @IBOutlet weak var categoryIconImageView: UIImageView!
+    
+    @IBOutlet weak var connectionLineView: UIView!
+    
+    @IBOutlet weak var workerProfileImageView: UIImageView!
+    @IBOutlet weak var workerNameLabel: UILabel!
+    @IBOutlet weak var callWorkerView: UIView!
+    
+    @IBOutlet weak var ticketDetailView: UIView!
     @IBOutlet weak var requestTitleLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var ratingButton: UIButton!
-    
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var ratingLabel: UILabel!
     
     @IBOutlet weak var approveButton: UIButton!
 //    var rating: String! {
@@ -37,13 +45,21 @@ class RequestStatusCell: UITableViewCell {
 //        }
 //    }
     
+    var themeColor: UIColor! {
+        didSet {
+            categoryIconContainerView.backgroundColor = themeColor
+            ticketDetailView.backgroundColor = themeColor
+            connectionLineView.backgroundColor = themeColor
+            callWorkerView.backgroundColor = themeColor
+        }
+    }
+    
+    
     var ticket: Ticket! {
         didSet {
-            requestTitleLabel.text = ticket.title ?? ticket.category
+            workerNameLabel.text = ticket.worker?.username
             
-//            let formatter = NSDateFormatter()
-//            formatter.dateFormat = "dd MMM yyyy"
-//            dateCreatedLabel.text = formatter.stringFromDate(ticket.dateCreated!)
+            requestTitleLabel.text = ticket.title ?? ticket.category
             let unixDate = ticket.createdAt!
             if let number = Int(unixDate) {
                 let myNumber = NSNumber(integer:number)
@@ -67,6 +83,10 @@ class RequestStatusCell: UITableViewCell {
         super.awakeFromNib()
         
         setupAppearance()
+        
+        //add gesture
+//        let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCollectionView(_:)))
+//        chooseCategoryView.addGestureRecognizer(categoryViewGestureRecognizer)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -79,7 +99,7 @@ class RequestStatusCell: UITableViewCell {
     func setupAppearance(){
         
         //font
-        requestTitleLabel.font = AppThemes.helveticaNeueRegular17
+        requestTitleLabel.font = AppThemes.helveticaNeueRegular15
         dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
         
         //allignment
@@ -90,9 +110,17 @@ class RequestStatusCell: UITableViewCell {
         requestTitleLabel.textColor = UIColor.whiteColor()
         dateCreatedLabel.textColor = UIColor.whiteColor()
         
+        //frames
+        categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
+        workerProfileImageView.layer.cornerRadius = 5
+        workerProfileImageView.layer.masksToBounds = true
+        callWorkerView.layer.cornerRadius = 5
+        
         //customize the separator
-        separatorInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0) //moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images
+        //separatorInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0) //moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images
     }
+    
+    
     
     //MARK: - Actions
     @IBAction func onApprove(sender: UIButton) {
