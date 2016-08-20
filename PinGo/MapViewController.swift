@@ -147,7 +147,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     //---------------Google Map AP
     
     func currentLocation(){
-        
+
+
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
                 print("Current Place error: \(error!.localizedDescription)")
