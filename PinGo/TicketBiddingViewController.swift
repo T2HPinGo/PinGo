@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class TicketBiddingViewController: UIViewController {
     @IBOutlet weak var ticketDetailView: UIView!
@@ -15,11 +16,15 @@ class TicketBiddingViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var mapView: GMSMapView!
+    
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
     var newTicket: Ticket!
     
     var workerList: [Worker] = []
+    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,37 +35,31 @@ class TicketBiddingViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        //mapView.delegate = self
+        
+        addMarker()
+        
         let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
         
-        //set up loading indicator
-        let width: CGFloat = 30
-        let height: CGFloat = 30
-        let x  = ticketDetailView.frame.width / 2 - width/2
-        let y = ticketDetailView.frame.height / 2 - height/2
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        setupIndicator(withFrame: frame)
-        let resetButton = UIButton(frame: frame)
-        resetButton.setImage(UIImage(named: "greentech"), forState: .Normal)
-        
-        resetButton.addTarget(self, action: #selector(buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        ticketDetailView.addSubview(resetButton)
-        activityIndicatorView.startAnimation()
+        setupAppearance()
         
         //set up appearance (need to refactor)
         ticketTitleLabel.text = newTicket.title
-        
         
         //load worker list
         SocketManager.sharedInstance.getWorkers { (worker) in
             self.workerList.append(worker)
             self.tableView.reloadData()
         }
+        
+        print(newTicket.location?.latitude)
+        print(newTicket.location?.longitute)
+        print(newTicket.location?.address)
     }
     
-    
-
     /*
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -74,8 +73,34 @@ class TicketBiddingViewController: UIViewController {
     }
     
     //MARK: - Helpers
+    func setupAppearance() {
+        ticketDetailView.backgroundColor = UIColor.clearColor()
+        
+        //set up positin & size for the indicator
+        let width: CGFloat = 30
+        let height: CGFloat = 30
+        let x: CGFloat = 50
+        let y: CGFloat = ticketDetailView.frame.height / 2 - height/2
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        setupIndicator(withFrame: frame)
+        let categoryIconContainerView = UIView(frame: frame)
+        let categoryIconImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 20, height: 20)) //image is in the center of the container view
+        categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
+        categoryIconImageView.image = UIImage(named: "greentech")
+        categoryIconContainerView.addSubview(categoryIconImageView)
+        categoryIconContainerView.backgroundColor = AppThemes.navigationBackgroundColor
+        
+        //        let resetButton = UIButton(frame: frame)
+        //        resetButton.setImage(UIImage(named: "greentech"), forState: .Normal)
+        //        resetButton.addTarget(self, action: #selector(buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        ticketDetailView.addSubview(categoryIconContainerView)
+        activityIndicatorView.startAnimation()
+    }
+    
     func setupIndicator(withFrame frame: CGRect) {
-        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.lightGrayColor(), padding: 70)
+        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: AppThemes.navigationBackgroundColor, padding: 60)
         ticketDetailView.addSubview(activityIndicatorView)
     }    
     
@@ -89,7 +114,7 @@ class TicketBiddingViewController: UIViewController {
     
     //MARK: - Actions
     @IBAction func cancelTapped(sender: UIButton) {
-        let alert = UIAlertController(title: "Cancel Request", message: "This process can no be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Cancel Request", message: "This process can not be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
         let okACtion = UIAlertAction(title: "OK", style: .Default) { _ in
             self.navigationController?.popToRootViewControllerAnimated(true)
         }
@@ -120,4 +145,42 @@ extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
+}
+
+extension TicketBiddingViewController: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        locationManager.startUpdatingLocation()
+        
+        mapView.myLocationEnabled = false
+        mapView.settings.myLocationButton = false
+        addMarker()
+//        if status == .AuthorizedWhenInUse {
+// 
+//        }
+    }
+
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            locationManager.stopUpdatingLocation()
+        }
+        
+    }
+    
+    //Helpers
+    func addMarker() {
+        if let latitude = newTicket.location?.latitude, let longitude = newTicket.location?.longitute {
+            //Add Event Location Marker
+            let camera = GMSCameraPosition.cameraWithLatitude(latitude as Double, longitude: longitude as Double, zoom: 14)
+            let position = CLLocationCoordinate2DMake(latitude as Double, longitude as Double)
+            let marker = GMSMarker(position: position)
+            marker.icon = UIImage(named: "dog")
+            
+            marker.title = newTicket.title
+            marker.map = self.mapView
+            
+            self.mapView.camera = camera
+            marker.appearAnimation = kGMSMarkerAnimationPop
+        }
+    }
 }
