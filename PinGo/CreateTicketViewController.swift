@@ -84,6 +84,7 @@ class CreateTicketViewController: UIViewController {
         
         addGesture()
         initChooseAction()
+        
     }
     
     // MARK: - Navigation
@@ -105,6 +106,13 @@ class CreateTicketViewController: UIViewController {
     
     //MARK: - Helpers
     func setupAppearance() {
+        
+        //---- Haena
+        chooseCategoryView.backgroundColor = AppThemes.redButtonColor
+        chooseLocationView.backgroundColor = AppThemes.redButtonColor
+        
+        
+        //Existing
         collectionView.backgroundColor = UIColor.greenColor()
         collectionView.showsHorizontalScrollIndicator = false
         
