@@ -14,13 +14,13 @@ class WorkerDetailCell: UITableViewCell {
     @IBOutlet weak var workerNameLabel: UILabel!
     @IBOutlet weak var workerRatingLabel: UILabel!
     @IBOutlet weak var workerHourlyRateLabel: UILabel!
-    @IBOutlet weak var workerDistanceLabel: UILabel!
     
     var ticket: Ticket?
     var worker: Worker! {
         didSet {
             workerNameLabel.text =  worker.username
-            workerRatingLabel.text = String(format: "%.1f", worker.averageRating!)            
+            workerRatingLabel.text = String(format: "%.1f", worker.averageRating!)
+            workerHourlyRateLabel.text = worker.price
         }
     }
 
@@ -30,8 +30,7 @@ class WorkerDetailCell: UITableViewCell {
         setupAppearance()
     }
     
-    @IBAction func onPickWorker(sender: AnyObject) {      
-        
+    @IBAction func onPickWorker(sender: AnyObject) {
         ticket?.worker = worker
         print("Pick WOrker: \(worker)")
         
@@ -48,8 +47,6 @@ class WorkerDetailCell: UITableViewCell {
             self.ticket = Ticket(data: JSON)
             SocketManager.sharedInstance.pushCategory(JSON)
         }
-        
-        
     }
     
     //MARK: - Helpers
