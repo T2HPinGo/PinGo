@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class CreateTicketViewController: UIViewController {
+class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Outlets and Variables
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraints: NSLayoutConstraint!
@@ -28,6 +28,7 @@ class CreateTicketViewController: UIViewController {
     @IBOutlet weak var pickedImageView1: UIImageView!
     @IBOutlet weak var pickedImageView1HeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var chooseLabel: UILabel!
     @IBOutlet weak var takePhotoView2: UIView!
     @IBOutlet weak var takePhotoView2HeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pickedImageView2: UIImageView!
@@ -61,13 +62,17 @@ class CreateTicketViewController: UIViewController {
     
     
     struct TextFieldColorThemes {
-        static let textFieldTintColor = UIColor.purpleColor()
-        static let placeholderColor = UIColor.redColor()
+        static let textFieldTintColor = UIColor.blueColor()
+        static let placeholderColor = UIColor.lightGrayColor()
         static let textColor = UIColor.darkGrayColor()
-        static let floatingLabelColor = UIColor.yellowColor()
-        static let bottomLineColor = UIColor.blueColor()
-        static let selectedBottomLineColor = UIColor.greenColor()
+        static let floatingLabelColor = AppThemes.cellColors[4]
+        static let bottomLineColor = UIColor.lightGrayColor()
+        static let selectedBottomLineColor = AppThemes.cellColors[4]
+        
+        
     }
+    
+    
     
      //MARK: - Load view
     override func viewDidLoad() {
@@ -84,6 +89,7 @@ class CreateTicketViewController: UIViewController {
         
         addGesture()
         initChooseAction()
+
         
     }
     
@@ -101,18 +107,17 @@ class CreateTicketViewController: UIViewController {
             let location = mapViewController.location!.address
             newTicket?.location = mapViewController.location
             print(location)
+            chooseLabel.text = newTicket!.location?.address
         }
     }
+    
+    //text Theme
+    
     
     //MARK: - Helpers
     func setupAppearance() {
         
-        //---- Haena
-        chooseCategoryView.backgroundColor = AppThemes.redButtonColor
-        chooseLocationView.backgroundColor = AppThemes.redButtonColor
-        
-        
-        //Existing
+
         collectionView.backgroundColor = UIColor.greenColor()
         collectionView.showsHorizontalScrollIndicator = false
         
@@ -127,9 +132,10 @@ class CreateTicketViewController: UIViewController {
         ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
         
         //titleTextField
-        titleTextField.placeholder = NSLocalizedString("Enter Title For Your Ticket", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
-        titleTextField.selectedTitle   = NSLocalizedString("Title", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+        titleTextField.placeholder = NSLocalizedString("Ticket Name", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
+        titleTextField.selectedTitle   = NSLocalizedString("Ticket Name", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
         titleTextField.placeholderColor = TextFieldColorThemes.placeholderColor
+        
         titleTextField.tintColor = TextFieldColorThemes.textFieldTintColor
         titleTextField.textColor = TextFieldColorThemes.textColor
         
@@ -142,6 +148,8 @@ class CreateTicketViewController: UIViewController {
         titleTextField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 16)
         titleTextField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         
+    
+        
         
         //descriptionTextField
         descriptionTextView.placeholder = "Enter description"
@@ -150,9 +158,22 @@ class CreateTicketViewController: UIViewController {
         //chooseCategoryView
         chooseCategoryView.backgroundColor = UIColor(red: 42.0/255.0, green: 58.0/255.0, blue: 74.0/255.0, alpha: 1.0)
         chooseCategoryView.layer.cornerRadius = 20.0
-        chooseCategoryView.layer.borderColor = UIColor(red: 0.0/255.0, green: 180.0/255.0, blue: 136.0/255.0, alpha: 1.0).CGColor
+        chooseCategoryView.layer.borderColor = AppThemes.navigationBackgroundColor.CGColor
         chooseCategoryView.layer.borderWidth = 2.0
-        categoryLabel.textColor = UIColor(red: 0.0/255.0, green: 180.0/255.0, blue: 136.0/255.0, alpha: 1.0)
+        categoryLabel.textColor = AppThemes.navigationBackgroundColor
+        
+        //---- Haena
+        
+        chooseLocationView.backgroundColor = AppThemes.redButtonColor
+        chooseLocationView.layer.cornerRadius = 10.0
+        chooseLocationView.layer.borderWidth = 3.0
+        chooseLocationView.layer.borderColor = AppThemes.redButtonColor.CGColor
+        
+        
+        findWorkerButton.layer.cornerRadius = 10.0
+        findWorkerButton.backgroundColor = AppThemes.cellColors[1]
+        findWorkerButton.layer.borderWidth = 1.0
+        findWorkerButton.layer.borderColor = UIColor.blackColor().CGColor
         
         //takePhotoView1/2/3
         setupPhotoView(takePhotoView1)
