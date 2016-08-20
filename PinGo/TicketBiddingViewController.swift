@@ -11,13 +11,17 @@ import UIKit
 import GoogleMaps
 
 class TicketBiddingViewController: UIViewController {
-    @IBOutlet weak var ticketDetailView: UIView!
     @IBOutlet weak var ticketTitleLabel: UILabel!
-    @IBOutlet weak var ticketPaymentLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var dateIssuedLabel: UILabel!
 
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var mapView: GMSMapView!
+    
+    @IBOutlet weak var bottomPanelView: UIView!
+    
+    @IBOutlet weak var topPanelView: UIView!
     
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
@@ -36,11 +40,11 @@ class TicketBiddingViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .None
         
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        //locationManager.delegate = self
+        //locationManager.requestWhenInUseAuthorization()
         //mapView.delegate = self
         
-        addMarker()
+        //addMarker()
         
         let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
@@ -48,7 +52,7 @@ class TicketBiddingViewController: UIViewController {
         setupAppearance()
         
         //set up appearance (need to refactor)
-        ticketTitleLabel.text = newTicket.title
+        ticketTitleLabel.text = newTicket.title?.uppercaseString
         
         //load worker list
         SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
@@ -78,35 +82,54 @@ class TicketBiddingViewController: UIViewController {
     
     //MARK: - Helpers
     func setupAppearance() {
-        ticketDetailView.backgroundColor = UIColor.clearColor()
+        setupIndicator()
         
+        //top and bottom panel
+        bottomPanelView.layer.cornerRadius = 5
+        bottomPanelView.backgroundColor = AppThemes.bottomPanelColor
+        
+        topPanelView.layer.cornerRadius = 5
+        topPanelView.backgroundColor = AppThemes.topPannelColor
+        
+        //color
+        ticketTitleLabel.font = AppThemes.avenirBlack20
+        ticketTitleLabel.textColor = UIColor.whiteColor()
+        addressLabel.font = AppThemes.helveticaNeueRegular14
+        addressLabel.textColor = UIColor.whiteColor()
+        dateIssuedLabel.font = AppThemes.avenirBlack20
+        dateIssuedLabel.textColor = UIColor.whiteColor()
+        
+        
+
+        
+        
+    }
+    
+    func setupIndicator() {
         //set up positin & size for the indicator
         let width: CGFloat = 30
         let height: CGFloat = 30
-        let x: CGFloat = 50
-        let y: CGFloat = ticketDetailView.frame.height / 2 - height/2
+        let x: CGFloat = bottomPanelView.frame.width - 50
+        let y: CGFloat = (bottomPanelView.frame.height + topPanelView.frame.height) / 2 - height/2
         let frame = CGRect(x: x, y: y, width: width, height: height)
         
-        setupIndicator(withFrame: frame)
+        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: AppThemes.topPannelColor, padding: 60)
+        
         let categoryIconContainerView = UIView(frame: frame)
         let categoryIconImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 20, height: 20)) //image is in the center of the container view
         categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
         categoryIconImageView.image = UIImage(named: "greentech")
         categoryIconContainerView.addSubview(categoryIconImageView)
-        categoryIconContainerView.backgroundColor = AppThemes.navigationBackgroundColor
+        categoryIconContainerView.backgroundColor = AppThemes.topPannelColor
         
         //        let resetButton = UIButton(frame: frame)
         //        resetButton.setImage(UIImage(named: "greentech"), forState: .Normal)
         //        resetButton.addTarget(self, action: #selector(buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
-        ticketDetailView.addSubview(categoryIconContainerView)
+        bottomPanelView.addSubview(activityIndicatorView)
+        bottomPanelView.addSubview(categoryIconContainerView)
         activityIndicatorView.startAnimation()
     }
-    
-    func setupIndicator(withFrame frame: CGRect) {
-        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: AppThemes.navigationBackgroundColor, padding: 60)
-        ticketDetailView.addSubview(activityIndicatorView)
-    }    
     
     func buttonTapped(sender: UIButton) {
         if activityIndicatorView.animating {
@@ -150,7 +173,7 @@ extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegat
     }
     
 }
-
+/*
 extension TicketBiddingViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
@@ -187,4 +210,4 @@ extension TicketBiddingViewController: CLLocationManagerDelegate {
             marker.appearAnimation = kGMSMarkerAnimationPop
         }
     }
-}
+}*/
