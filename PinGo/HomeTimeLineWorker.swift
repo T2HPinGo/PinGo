@@ -1,32 +1,33 @@
 //
-//  ListTicketsOfWorkerController.swift
+//  HomeTimeLineWorker.swift
 //  PinGo
 //
-//  Created by Cao Thắng on 8/15/16.
+//  Created by Cao Thắng on 8/20/16.
 //  Copyright © 2016 Hien Tran. All rights reserved.
 //
 
 import UIKit
 import Alamofire
-class ListTicketsOfWorkerController: UIViewController {
+class HomeTimeLineWorker: UIViewController {
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
     var tickets = [Ticket]()
-    
-    @IBOutlet weak var collectionView: UICollectionView!
-    
+    var ticketsFilter = [Ticket]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
-        initCollectionView()
+        initTableView()
         loadDataFromAPI()
         initSocket()
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     /*
      // MARK: - Navigation
@@ -37,31 +38,26 @@ class ListTicketsOfWorkerController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    @IBAction func onChanged(sender: AnyObject) {
+        indexAtTab(segmentedControl.selectedSegmentIndex)
+    }
     
 }
-
-// MARK: - CollectionView
-extension ListTicketsOfWorkerController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return  1 //row number
+extension HomeTimeLineWorker: UITableViewDelegate, UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ticketsFilter.count
     }
-    
-    func initCollectionView(){
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tickets.count
-    }
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TicketOfWorkerCell", forIndexPath: indexPath) as! TicketOfWorkerCell
-        cell.ticket = tickets[indexPath.row]
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("WorkerTicketCell") as! WorkerTicketCell
+        cell.ticket = ticketsFilter[indexPath.row]
         return cell
     }
+    func initTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
 }
-
-// MARK: - InitSocket
-extension ListTicketsOfWorkerController {
+extension HomeTimeLineWorker {
     func loadDataFromAPI(){
         var parameters = [String : AnyObject]()
         parameters["status"] = "Pending"
@@ -75,10 +71,12 @@ extension ListTicketsOfWorkerController {
                 let ticket = Ticket(data: JSONItem)
                 if ticket.status != Status.Approved {
                     self.tickets.append(ticket)
-                    self.collectionView.reloadData()
+                    
                 }
-             
+                
             }
+            self.indexAtTab(self.segmentedControl.selectedSegmentIndex)
+            self.tableView.reloadData()
         }
     }
     func initSocket() {
@@ -111,10 +109,43 @@ extension ListTicketsOfWorkerController {
                 if isNewTicket {
                     self.tickets.append(ticket)
                 }
-                self.collectionView.reloadData()
+                self.indexAtTab(self.segmentedControl.selectedSegmentIndex)
+                self.tableView.reloadData()
             }
             
         }
         
+    }
+}
+extension HomeTimeLineWorker {
+    func filterTicketList(status: String){
+        if ticketsFilter.count > 0 {
+            ticketsFilter.removeAll()
+        }
+        for ticket in tickets {
+            if ticket.status?.rawValue == status {
+                ticketsFilter.append(ticket)
+            }
+        }
+    }
+    func indexAtTab(index: Int){
+        switch index
+        {
+        case 0:
+            ticketsFilter = tickets
+            break
+        case 1:
+            filterTicketList(Status.Pending.rawValue)
+            break
+        case 2:
+            filterTicketList(Status.InService.rawValue)
+            break
+        case 3:
+            filterTicketList(Status.Done.rawValue)
+            break
+        default:
+            break;
+        }
+        tableView.reloadData()
     }
 }

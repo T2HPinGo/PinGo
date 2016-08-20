@@ -69,6 +69,11 @@ class TicketOfWorkerCell: UICollectionViewCell {
             }
             if ticket?.status == Status.InService {
                 actionButton.setTitle("Done", forState: .Normal)
+            } else {
+                if ticket?.status == Status.Pending{
+                    actionButton.setTitle("Bid", forState: .Normal)
+
+                }
             }
            
         }
