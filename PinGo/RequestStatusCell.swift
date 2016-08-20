@@ -20,6 +20,8 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var ratingButton: UIButton!
     
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var approveButton: UIButton!
 //    var rating: String! {
 //        didSet {
@@ -47,7 +49,7 @@ class RequestStatusCell: UITableViewCell {
                 let myNumber = NSNumber(integer:number)
                 let epocTime = NSTimeInterval(myNumber) / 1000
                 let myDate = NSDate(timeIntervalSince1970:  epocTime)
-                dateCreatedLabel.text = "\(myDate)"
+                dateCreatedLabel.text = getStringFromDate(myDate, withFormat: DateStringFormat.DD_MMM_YYYY) //"\(myDate)"
             } else {
                 print("'\(unixDate)' did not convert to an Int")
             }
