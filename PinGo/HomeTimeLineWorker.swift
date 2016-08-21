@@ -79,6 +79,7 @@ extension HomeTimeLineWorker: UITableViewDelegate, UITableViewDataSource {
         
         let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
         cell.themeColor = AppThemes.cellColors[colorIndex]
+        cell.homeTimeLineViewWorker = self
         return cell
     }
     func initTableView() {
@@ -131,6 +132,8 @@ extension HomeTimeLineWorker {
                                 
                                 if ticket.worker!.id != Worker.currentUser?.id {
                                     print("Not choose you")
+                                    self.tickets.removeAtIndex(index)
+                                    isNewTicket = false
                                     break
                                 } else { // Change status Pending to Inservice
                                     itemTicket.status = ticket.status
