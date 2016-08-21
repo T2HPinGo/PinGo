@@ -11,7 +11,7 @@ import UIKit
 class UserProfile: NSObject {
     var username: String?
     var email: String?
-    var isWorker: Bool?
+    var isWorker: Bool = false
     var phoneNumber: String?
     var id: String?
     var location: Location?
@@ -49,7 +49,7 @@ class UserProfile: NSObject {
             self.username = ""
         }
         email = data["email"] as? String
-        isWorker = data["isWorker"] as? Bool
+        isWorker = data["isWorker"] as! Bool
         if let phoneNumber = data["phoneNumber"] as? String {
             self.phoneNumber = phoneNumber
         } else {
@@ -95,7 +95,7 @@ class UserProfile: NSObject {
             }
         }
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
-        if (isWorker!) {
+        if isWorker {
             if let price = data["price"] as? String {
                 self.price = price
             }

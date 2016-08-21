@@ -145,6 +145,23 @@ class Ticket: NSObject {
         }
     }
     
+    func getImagesArray() -> [String]{
+        var imagesArray: [String] = []
+        if imageOne?.imageUrl != "" {
+            imagesArray.append((imageOne?.imageUrl)!)
+        }
+        
+        if imageTwo?.imageUrl != "" {
+            imagesArray.append((imageTwo?.imageUrl)!)
+        }
+        
+        if imageThree?.imageUrl != "" {
+            imagesArray.append((imageThree?.imageUrl)!)
+        }
+        
+        return imagesArray
+    }
+    
 }
 
 

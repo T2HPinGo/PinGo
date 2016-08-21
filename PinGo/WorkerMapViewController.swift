@@ -25,7 +25,7 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
              print(urlString)
             if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
         
-            {
+               {
                 UIApplication.sharedApplication().openURL(url)
                 }
             }

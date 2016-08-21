@@ -114,7 +114,9 @@ class WorkerTicketCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        
+        //let ticketDetailGestureRecognizer = UITapGestureRecognizer(target: self, action: <#T##Selector#>)
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -146,5 +148,6 @@ class WorkerTicketCell: UITableViewCell {
             }
         }
     }
+    
     
 }

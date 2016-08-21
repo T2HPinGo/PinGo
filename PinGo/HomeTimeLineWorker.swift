@@ -7,15 +7,33 @@
 //
 
 import UIKit
+import GooglePlaces
+import GoogleMaps
+import AFNetworking
 import Alamofire
-class HomeTimeLineWorker: UIViewController {
+import CoreLocation
+
+class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     var tickets = [Ticket]()
     var ticketsFilter = [Ticket]()
+    var workerlocation = Location()
+    var userLocation = Location()
+    var placesClient = GMSPlacesClient()
+    
+    var directionShow = false
+    
+    let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
+    
+    //location map
+    var locationManager = CLLocationManager()
+    var didFindMyLocation = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view.
         initTableView()
@@ -28,16 +46,18 @@ class HomeTimeLineWorker: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /*
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        if segue.identifier == "TicketDetailSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let ticketDetailViewController = segue.destinationViewController as! TicketDetailViewController
+                ticketDetailViewController.ticket = ticketsFilter[indexPath.row]
+            }
+        }
+ 
      }
-     */
+    
+    
     @IBAction func onChanged(sender: AnyObject) {
         indexAtTab(segmentedControl.selectedSegmentIndex)
     }
