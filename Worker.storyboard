@@ -5,33 +5,15 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
-        <scene sceneID="ivm-z8-B22">
+        <!--UserAndWorkerProfile-->
+        <scene sceneID="6XM-YT-BXB">
             <objects>
-                <viewController id="ziJ-zO-PZR" customClass="WorkerProfileController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kME-XI-L0f"/>
-                        <viewControllerLayoutGuide type="bottom" id="10K-96-0cS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Yjd-AP-3ps">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQu-rR-oHX">
-                                <rect key="frame" x="156" y="69" width="48" height="30"/>
-                                <state key="normal" title="Logout"/>
-                                <connections>
-                                    <action selector="logoutAction:" destination="ziJ-zO-PZR" eventType="touchUpInside" id="1Ld-rl-WYB"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="drp-k9-b1R"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dNN-TR-y9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="UserAndWorkerProfile" id="03N-1L-Cfl" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="j0u-i4-HK2"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2b4-5e-ds4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453.5" y="719.5"/>
+            <point key="canvasLocation" x="344.5" y="515"/>
         </scene>
         <!--Home-->
         <scene sceneID="twW-Hr-tOh">
@@ -376,7 +358,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="5dM-cj-ZTN" kind="relationship" relationship="viewControllers" id="mcQ-G5-2H1"/>
-                        <segue destination="ziJ-zO-PZR" kind="relationship" relationship="viewControllers" id="wJG-qC-PLc"/>
+                        <segue destination="03N-1L-Cfl" kind="relationship" relationship="viewControllers" id="CTK-tk-JS9"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4jv-Qr-gfs" userLabel="First Responder" sceneMemberID="firstResponder"/>
