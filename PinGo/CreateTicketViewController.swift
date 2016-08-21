@@ -350,6 +350,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         parameters["height"] = 300
         parameters["widthOfProfile"] = 60
         parameters["heightOfProfile"] = 60
+        parameters["descriptions"] = ticket.descriptions
 
         return parameters
     }

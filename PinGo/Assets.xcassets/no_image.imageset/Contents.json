@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "add_ticket.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "no_image.jpeg",
       "scale" : "2x"
     },
     {

@@ -55,6 +55,8 @@ extension HomeTimeLineWorker: UITableViewDelegate, UITableViewDataSource {
     func initTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+//        tableView.estimatedRowHeight = 600
+//        tableView.rowHeight = UITableViewAutomaticDimension
     }
 }
 extension HomeTimeLineWorker {
@@ -102,6 +104,7 @@ extension HomeTimeLineWorker {
                                     break
                                 } else { // Change status Pending to Inservice
                                     itemTicket.status = ticket.status
+                                    itemTicket.worker = ticket.worker
                                     isNewTicket = false
                                     break
                                 }
