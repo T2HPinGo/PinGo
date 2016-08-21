@@ -185,6 +185,7 @@
                                                                     </variation>
                                                                     <connections>
                                                                         <action selector="onDoAction:" destination="l4V-xY-09l" eventType="touchUpInside" id="Icp-AD-lee"/>
+                                                                        <segue destination="wou-tv-KFA" kind="presentation" id="kmp-3F-NnU"/>
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOz-Fu-F6s">
@@ -385,8 +386,70 @@
             </objects>
             <point key="canvasLocation" x="766" y="-369"/>
         </scene>
+        <!--Set Price Pop Up View Controller-->
+        <scene sceneID="vVE-zr-sgk">
+            <objects>
+                <viewController id="wou-tv-KFA" customClass="SetPricePopUpViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="32M-aV-PIm"/>
+                        <viewControllerLayoutGuide type="bottom" id="R3n-fV-WrS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KDR-hY-hSf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" restorationIdentifier="Pop-up View" translatesAutoresizingMaskIntoConstraints="NO" id="Rrt-su-rSq">
+                                <rect key="frame" x="40" y="164" width="240" height="240"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eq3-EX-Pi5" userLabel="Close Button">
+                                        <rect key="frame" x="3" y="3" width="15" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="3cT-bn-kLO"/>
+                                            <constraint firstAttribute="width" secondItem="Eq3-EX-Pi5" secondAttribute="height" multiplier="1:1" id="zko-Zh-es8"/>
+                                        </constraints>
+                                        <state key="normal" image="CloseButton"/>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFV-Zc-TUS">
+                                        <rect key="frame" x="10" y="50" width="220" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="xLB-xK-eaa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-S8-S84">
+                                        <rect key="frame" x="97" y="202" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Rrt-su-rSq" secondAttribute="height" multiplier="1:1" id="4e1-EL-iVK"/>
+                                    <constraint firstItem="bFV-Zc-TUS" firstAttribute="centerX" secondItem="Rrt-su-rSq" secondAttribute="centerX" id="Uwx-Ie-DJ8"/>
+                                    <constraint firstAttribute="trailing" secondItem="bFV-Zc-TUS" secondAttribute="trailing" constant="10" id="VB7-Zs-QVH"/>
+                                    <constraint firstAttribute="height" constant="240" id="WHI-Kk-cxK"/>
+                                    <constraint firstItem="Eq3-EX-Pi5" firstAttribute="top" secondItem="Rrt-su-rSq" secondAttribute="top" constant="3" id="Y7G-vl-RVs"/>
+                                    <constraint firstItem="bFV-Zc-TUS" firstAttribute="top" secondItem="Rrt-su-rSq" secondAttribute="top" constant="50" id="a3t-K1-it4"/>
+                                    <constraint firstItem="bFV-Zc-TUS" firstAttribute="leading" secondItem="Rrt-su-rSq" secondAttribute="leading" constant="10" id="lYi-65-rIe"/>
+                                    <constraint firstItem="Eq3-EX-Pi5" firstAttribute="leading" secondItem="Rrt-su-rSq" secondAttribute="leading" constant="3" id="r1b-Hq-inb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Rrt-su-rSq" firstAttribute="centerY" secondItem="KDR-hY-hSf" secondAttribute="centerY" id="gc9-tH-sud"/>
+                            <constraint firstItem="Rrt-su-rSq" firstAttribute="centerX" secondItem="KDR-hY-hSf" secondAttribute="centerX" id="w7K-u8-kgG"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AyR-HT-ru9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1695" y="-424"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="CloseButton" width="15" height="15"/>
         <image name="marker" width="26" height="26"/>
         <image name="phone_filled" width="50" height="50"/>
     </resources>

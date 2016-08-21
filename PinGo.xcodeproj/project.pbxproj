@@ -24,12 +24,12 @@
 		219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E21D50B62E006B5ADE /* Main.storyboard */; };
 		219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E51D50B62E006B5ADE /* Assets.xcassets */; };
 		219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E71D50B62E006B5ADE /* LaunchScreen.storyboard */; };
+		21A6F9801D69792800AA2EBF /* SetPricePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */; };
 		21B3A1031D561CC700C1CE9E /* AppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1021D561CC700C1CE9E /* AppThemes.swift */; };
 		21B3A1051D562C3800C1CE9E /* CreateTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */; };
 		21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1061D56379C00C1CE9E /* CategoryCell.swift */; };
 		21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */; };
 		21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */; };
-		21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */; };
 		21F8FE571D5A0E8600DD150D /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */; };
 		21F9E6F81D58F27B002D9DF6 /* WorkerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */; };
 		21F9E6FA1D58F2B6002D9DF6 /* TicketBiddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */; };
@@ -122,12 +122,12 @@
 		219D49E51D50B62E006B5ADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		219D49E81D50B62E006B5ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		219D49EA1D50B62E006B5ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPricePopUpViewController.swift; sourceTree = "<group>"; };
 		21B3A1021D561CC700C1CE9E /* AppThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemes.swift; sourceTree = "<group>"; };
 		21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTicketViewController.swift; sourceTree = "<group>"; };
 		21B3A1061D56379C00C1CE9E /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextField.swift; sourceTree = "<group>"; };
 		21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+fixCaretPosition.swift"; sourceTree = "<group>"; };
-		21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TittleAndDescriptionViewController.swift; sourceTree = "<group>"; };
 		21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerDetailCell.swift; sourceTree = "<group>"; };
 		21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketBiddingViewController.swift; sourceTree = "<group>"; };
@@ -235,7 +235,6 @@
 		21434C311D559E4C00B31122 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */,
 				B0F0A5F81D683669003C8DAD /* HomeTimeLineWorker.swift */,
 				2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */,
 				21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */,
@@ -248,6 +247,7 @@
 				E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */,
 				E7120D331D61C19100193061 /* MapViewController.swift */,
 				B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */,
+				21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -327,14 +327,6 @@
 				213D284A1D64D941009A06D8 /* NothingFoundCell.xib */,
 			);
 			path = PinGo;
-			sourceTree = "<group>";
-		};
-		21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */ = {
-			isa = PBXGroup;
-			children = (
-				21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */,
-			);
-			name = ToBeUsedLater;
 			sourceTree = "<group>";
 		};
 		21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */ = {
@@ -484,7 +476,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 3CC3C6G767;
+						DevelopmentTeam = PZ96SBWHN3;
 					};
 				};
 			};
@@ -653,7 +645,6 @@
 				21FAD0751D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				21FAD0781D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
-				21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
 				21F9E7041D5901F3002D9DF6 /* TicketRatingViewController.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
@@ -684,6 +675,7 @@
 				21434C3B1D55AB9C00B31122 /* UserProfile.swift in Sources */,
 				B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */,
 				21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */,
+				21A6F9801D69792800AA2EBF /* SetPricePopUpViewController.swift in Sources */,
 				B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */,
 				21FAD0811D5EFEFC000ED89F /* NVActivityIndicatorAnimationPacman.swift in Sources */,
 				21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */,

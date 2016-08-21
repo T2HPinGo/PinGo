@@ -128,9 +128,10 @@ class WorkerTicketCell: UITableViewCell {
     @IBAction func onDoAction(sender: UIButton) {
         if ticket?.status?.rawValue == "Pending" {
             if actionButton.titleLabel!.text != "Waiting" {
-                let jsonData = Worker.currentUser?.dataJson
-                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
-                actionButton.setTitle("Waiting", forState: .Normal)
+                
+//                let jsonData = Worker.currentUser?.dataJson
+//                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
+//                actionButton.setTitle("Waiting", forState: .Normal)
             }
         } else {
             let parameters: [String: AnyObject] = [
