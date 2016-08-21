@@ -50,13 +50,17 @@ extension HomeTimeLineWorker: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WorkerTicketCell") as! WorkerTicketCell
         cell.ticket = ticketsFilter[indexPath.row]
+        
+        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+        cell.themeColor = AppThemes.cellColors[colorIndex]
         return cell
     }
     func initTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.estimatedRowHeight = 600
-//        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = .None
+        tableView.estimatedRowHeight = 162
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 }
 extension HomeTimeLineWorker {
