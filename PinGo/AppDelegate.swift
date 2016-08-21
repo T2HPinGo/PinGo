@@ -80,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
         //customize the tab bar
-        UITabBar.appearance().barTintColor = UIColor(red: 37.0/255.0, green: 55.0/255.0, blue: 68.0/255.0, alpha: 1.0)
-        UITabBar.appearance().tintColor = UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
+        UITabBar.appearance().barTintColor = UIColor.whiteColor()
+        UITabBar.appearance().tintColor = AppThemes.appColorTheme//UIColor(red: 243.0/255.0, green: 190.0/255.0, blue: 118.0/255.0, alpha: 1.0)
         
         //        UIApplication.sharedApplication().statusBarStyle = .
     }
