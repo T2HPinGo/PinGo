@@ -104,13 +104,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func applySkyscannerTheme(textField: SkyFloatingLabelTextField) {
         
-        textField.tintColor = AppThemes.cellColors[4]
+       // textField.tintColor = AppThemes.cellColors[4]
         
         textField.textColor = lightGreyColor
         textField.lineColor = lightGreyColor
         
-        textField.selectedTitleColor = AppThemes.cellColors[4]
-        textField.selectedLineColor = AppThemes.cellColors[4]
+       // textField.selectedTitleColor = AppThemes.cellColors[4]
+        //textField.selectedLineColor = AppThemes.cellColors[4]
         
         // Set custom fonts for the title, placeholder and textfield labels
         textField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)

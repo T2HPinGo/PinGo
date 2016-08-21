@@ -19,8 +19,8 @@ class UserProfile: NSObject {
    
     var averageRating: Double = 0
     // Hien code
-    var firstName: String?
-    var lastName: String?
+    var firstName: String = ""
+    var lastName: String = ""
     var name: String?
     var profileImagePath: String?
     var dataJson: [String: AnyObject]?
@@ -43,7 +43,11 @@ class UserProfile: NSObject {
     init (data: [String:AnyObject]){
          print(data)
         self.dataJson = data
-        username = data["username"] as? String
+        if let username = data["username"] as? String {
+            self.username = username
+        } else {
+            self.username = ""
+        }
         email = data["email"] as? String
         isWorker = data["isWorker"] as? Bool
         if let phoneNumber = data["phoneNumber"] as? String {
@@ -68,6 +72,13 @@ class UserProfile: NSObject {
             self.category = category
         }
         
+        if let firstName = data["firstname"] as? String {
+            self.firstName = firstName
+        }
+        
+        if let lastName = data["lastname"] as? String{
+            self.lastName = lastName
+        }
         
     }
     
@@ -90,7 +101,13 @@ class UserProfile: NSObject {
             }
             
         }
+        if let firstName = data["firstname"] as? String {
+            self.firstName = firstName
+        }
         
+        if let lastName = data["lastname"] as? String{
+            self.lastName = lastName
+        }
     }
     
   
@@ -129,5 +146,11 @@ class UserProfile: NSObject {
             defaults.synchronize()
             
         }
+    }
+    func getFullName()-> String{
+        if firstName != "" && lastName != "" {
+            return firstName + lastName
+        }
+        return username!
     }
 }
