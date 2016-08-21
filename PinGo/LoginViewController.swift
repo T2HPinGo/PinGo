@@ -11,7 +11,6 @@ import Alamofire
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
