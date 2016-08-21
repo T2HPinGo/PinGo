@@ -5,13 +5,27 @@
 //  Created by Cao Thắng on 8/20/16.
 //  Copyright © 2016 Hien Tran. All rights reserved.
 //
-
 import UIKit
+import GooglePlaces
+import GoogleMaps
+import AFNetworking
 import Alamofire
-class WorkerTicketCell: UITableViewCell {
+import CoreLocation
+
+class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
+    
+    //for map
+    var locationManager = CLLocationManager()
+    var didFindMyLocation = false
+    var workerlocation = Location()
+    var placesClient = GMSPlacesClient()
+    var directionShow = false
+    
+    let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
+    
     
     // View Status
-
+    
     @IBOutlet weak var viewWordOfStatus: UIView!
     
     @IBOutlet weak var labelStatus: UILabel!
@@ -21,14 +35,14 @@ class WorkerTicketCell: UITableViewCell {
     @IBOutlet weak var labelUsername: UILabel!
     
     @IBOutlet weak var ticketDetailView: UIView!
-
+    
     @IBOutlet weak var connectionLineView: UIView!
     
     // View Info
     @IBOutlet weak var imageViewTicket: UIImageView!
     
     @IBOutlet weak var labelPhoneNumber: UILabel!
-
+    
     
     @IBOutlet weak var imageViewLocation: UIImageView!
     
@@ -38,6 +52,8 @@ class WorkerTicketCell: UITableViewCell {
     @IBOutlet weak var labelDateCreated: UILabel!
     
     @IBOutlet weak var actionButton: UIButton!
+    
+    var homeTimeLineViewWorker: HomeTimeLineWorker?
     
     var themeColor: UIColor! {
         didSet {
@@ -73,32 +89,32 @@ class WorkerTicketCell: UITableViewCell {
                 } else {
                     //labelLocation.text = "No Address"
                 }
-
+                
             } else {
                 labelPhoneNumber.text = "Blocked"
                 //labelLocation.text = "Blocked"
                 
             }
-    
+            
             // View Information
-//            buttonCall.layer.cornerRadius = buttonCall.frame.size.width / 2
-//            buttonCall.layer.masksToBounds = true
-//            buttonCall.layer.borderColor = UIColor.whiteColor().CGColor
-//            buttonCall.layer.borderWidth = 2
+            //            buttonCall.layer.cornerRadius = buttonCall.frame.size.width / 2
+            //            buttonCall.layer.masksToBounds = true
+            //            buttonCall.layer.borderColor = UIColor.whiteColor().CGColor
+            //            buttonCall.layer.borderWidth = 2
             if ticket?.imageOne?.imageUrl! != "" {
                 let imageTicket = ticket?.imageOne?.imageUrl!
                 HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewTicket)
             } else {
                 imageViewTicket.image = UIImage(named: "no_image")
             }
-           
+            
             
             labelTitle.text = ticket?.title!
             labelDateCreated.text = HandleUtil.changeUnixDateToNSDate(ticket!.createdAt!)
             actionButton.layer.cornerRadius = 5
             actionButton.layer.borderColor = UIColor.whiteColor().CGColor
             actionButton.layer.borderWidth = 1
-        
+            
             if ticket?.status == Status.InService {
                 actionButton.setTitle("Done", forState: .Normal)
             } else {
@@ -112,26 +128,80 @@ class WorkerTicketCell: UITableViewCell {
             }
         }
     }
+    
+    
+    
+    // Map Haena
+    func forMapDirection(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
+        
+        currentLocation()
+        
+        placesClient = GMSPlacesClient.sharedClient()
+    }
+    
+    func currentLocation(){
+        
+        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            guard error == nil else {
+                print("Current Place error: \(error!.localizedDescription)")
+                print("errorrrr")
+                return
+            }
+            
+            self.workerlocation.longitute = (self.locationManager.location?.coordinate.longitude)!
+            self.workerlocation.latitude = (self.locationManager.location?.coordinate.latitude)!
+            
+            self.workerlocation.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
+            
+        })
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        forMapDirection()
         //let ticketDetailGestureRecognizer = UITapGestureRecognizer(target: self, action: <#T##Selector#>)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    @IBAction func mapDirectionAction(sender: AnyObject) {
+        print("abc")
         
-        // Configure the view for the selected state
+        if let locationLog = ticket!.location!.longitute, let locationLat = ticket!.location!.latitude, let workerloclog = workerlocation.longitute, let workerloclat = workerlocation.latitude{
+            
+            var urlString = "http://maps.google.com/maps?"
+            urlString += "saddr=\(workerloclog),\(workerloclat)"
+            urlString += "&daddr=\(locationLat)),\(locationLog)"
+            print(urlString)
+            if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+                
+            {
+                UIApplication.sharedApplication().openURL(url)
+            }
+            
+            
+            print("bahhh")
+            
+        }
     }
     
     @IBAction func onDoAction(sender: UIButton) {
         if ticket?.status?.rawValue == "Pending" {
+            
             if actionButton.titleLabel!.text != "Waiting" {
                 
-//                let jsonData = Worker.currentUser?.dataJson
-//                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
-//                actionButton.setTitle("Waiting", forState: .Normal)
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
+                
+                let resultViewController =
+                    storyBoard.instantiateViewControllerWithIdentifier("SetPricePopUpViewController") as! SetPricePopUpViewController
+                resultViewController.ticket = self.ticket!
+                homeTimeLineViewWorker!.presentViewController(resultViewController, animated: true, completion:nil)
+                actionButton.setTitle("Waiting", forState: .Normal)
+                
             }
         } else {
             let parameters: [String: AnyObject] = [
@@ -150,4 +220,33 @@ class WorkerTicketCell: UITableViewCell {
     }
     
     
+}
+
+extension WorkerTicketCell: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            //            mapView.myLocationEnabled = true
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error")
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation = locations[0]
+        
+        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        //        currentlocation_latitude = location.latitude
+        //        currentlocation_long = location.longitude
+        workerlocation.latitude = location_default.latitude
+        workerlocation.longitute = location_default.longitude
+        
+        print(location_default)
+        print(workerlocation)
+        
+        locationManager.stopUpdatingLocation()
+    }
 }

@@ -13,37 +13,14 @@ import AFNetworking
 import Alamofire
 import CoreLocation
 
-class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
+class HomeTimeLineWorker: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     var tickets = [Ticket]()
     var ticketsFilter = [Ticket]()
+
     
-    //for map
-    var locationManager = CLLocationManager()
-    var didFindMyLocation = false
-    var workerlocation = Location()
-    var userLocation = Location()
-    var placesClient = GMSPlacesClient()
-    var directionShow = false
-    
-    let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
-    
-    @IBAction func directionAction(sender: AnyObject) {
-        if let locationLog = userLocation.longitute, locationLat = userLocation.latitude, workerloclog = workerlocation.longitute, workerloclat = workerlocation.latitude{
-            var urlString = "http://maps.google.com/maps?"
-            urlString += "saddr=\(workerloclat),\(workerloclog)"
-            urlString += "&daddr=\(locationLat),\(locationLog)"
-            print(urlString)
-            if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-                
-            {
-                UIApplication.sharedApplication().openURL(url)
-            }
-        }
-    }
-    //location map
     
     
     override func viewDidLoad() {
@@ -54,38 +31,12 @@ class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
         initTableView()
         loadDataFromAPI()
         initSocket()
-        forMapDirection()
+        
     }
     
-    // Map Haena
-    func forMapDirection(){
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = 200
-        locationManager.requestWhenInUseAuthorization()
-        
-        currentLocation()
-        
-        placesClient = GMSPlacesClient.sharedClient()
-    }
-    
-    func currentLocation(){
-        
-        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-            guard error == nil else {
-                print("Current Place error: \(error!.localizedDescription)")
-                print("errorrrr")
-                return
-            }
-            
-            self.workerlocation.longitute = (self.locationManager.location?.coordinate.longitude)!
-            self.workerlocation.latitude = (self.locationManager.location?.coordinate.latitude)!
-            
-            self.workerlocation.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
-            
-        })
-    }
 
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -97,8 +48,10 @@ class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
         if segue.identifier == "TicketDetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let ticketDetailViewController = segue.destinationViewController as! TicketDetailViewController
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
                 ticketDetailViewController.ticket = ticketsFilter[indexPath.row]
-                ticketDetailViewController.ticket.location = userLocation
+                ticketDetailViewController.colorTheme = cell.themeColor
+
             }
         }
  
@@ -124,6 +77,7 @@ extension HomeTimeLineWorker: UITableViewDelegate, UITableViewDataSource {
         
         let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
         cell.themeColor = AppThemes.cellColors[colorIndex]
+        cell.homeTimeLineViewWorker = self
         return cell
     }
     func initTableView() {
@@ -176,6 +130,8 @@ extension HomeTimeLineWorker {
                                 
                                 if ticket.worker!.id != Worker.currentUser?.id {
                                     print("Not choose you")
+                                    self.tickets.removeAtIndex(index)
+                                    isNewTicket = false
                                     break
                                 } else { // Change status Pending to Inservice
                                     itemTicket.status = ticket.status
@@ -232,34 +188,5 @@ extension HomeTimeLineWorker {
             break;
         }
         tableView.reloadData()
-    }
-}
-
-extension HomeTimeLineWorker: CLLocationManagerDelegate {
-    
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-//            mapView.myLocationEnabled = true
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
-        print("error")
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation = locations[0]
-        
-        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        //        currentlocation_latitude = location.latitude
-        //        currentlocation_long = location.longitude
-        workerlocation.latitude = location_default.latitude
-        workerlocation.longitute = location_default.longitude
-        
-        print(location_default)
-        print(workerlocation)
-        
-        locationManager.stopUpdatingLocation()
     }
 }

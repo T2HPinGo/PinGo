@@ -14,7 +14,8 @@ class SetPricePopUpViewController: UIViewController {
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var confirmButton: UIButton!
     
-    
+    @IBOutlet weak var priceTextField: UITextField!
+    var ticket: Ticket?
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
@@ -41,32 +42,26 @@ class SetPricePopUpViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-    //MARK: - Actions
-    //    @IBAction func close() {
-    //        dismissViewControllerAnimated(true, completion: nil)
-    //    }
-    
     func close() {
-        dismissViewControllerAnimated(true, completion: nil)
+      
+        
     }
     
+    @IBAction func okAction(sender: UIButton) {
+        let jsonData = Worker.currentUser?.dataJson
+        SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: priceTextField.text!)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     //MARK: - Helpers
     func setupAppearance() {
-//        popupView.layer.cornerRadius = 10
+       // popupView.layer.cornerRadius = 10
         view.backgroundColor = UIColor.clearColor()
-//        
-//        //rating buttons
-//        cornerRadiusForButton(badButton)
-//        cornerRadiusForButton(normalButton)
-//        cornerRadiusForButton(goodButton)
-//        cornerRadiusForButton(greatBUtton)
         
     }
     
     func cornerRadiusForButton(button: UIButton) {
         button.layer.cornerRadius = button.frame.width / 2
         button.layer.backgroundColor = UIColor(red: 255.0/255.0, green: 217.0/255.0, blue: 25.0/255.0, alpha: 1.0).CGColor
-        
     }
     
 }

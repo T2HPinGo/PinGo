@@ -10,7 +10,18 @@ import UIKit
 
 class TicketDetailViewController: UIViewController {
     
+    @IBOutlet weak var categoryIconView: UIView!
+    @IBOutlet weak var categoryIconImageView: UIImageView!
+    
+    @IBOutlet weak var ticketTitleLabel: UILabel!
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var bidButton: UIButton!
+    
+    var colorTheme: UIColor!
     
     var ticket: Ticket!
     
@@ -23,11 +34,24 @@ class TicketDetailViewController: UIViewController {
         collectionView.delegate = self
         
         imageUrls = ticket.getImagesArray()
+        configureLabels()
+        setupAppearance()
     }
+    
+    func setupAppearance() {
+        bidButton.layer.cornerRadius = 5
+        bidButton.layer.borderColor = colorTheme.CGColor
+        bidButton.layer.borderWidth = 1.0
+        bidButton.tintColor = colorTheme
+        
+        categoryIconView.layer.cornerRadius = categoryIconView.frame.width / 2
+        categoryIconView.backgroundColor = colorTheme
+    }
+    
+    func configureLabels() {
+        ticketTitleLabel.text = ticket.title
+        descriptionLabel.text = ticket.descriptions != "" ? ticket.descriptions : "No description"
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Navigation
