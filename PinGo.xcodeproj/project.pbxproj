@@ -84,6 +84,7 @@
 		21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */; };
 		6326151595FD7B29E155F761 /* Pods_PinGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */; };
 		B04E73FC1D6968FA00751D4C /* UserAndWorkerProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */; };
+		B04E73FE1D6991E800751D4C /* HistoryTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */; };
 		B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */; };
 		B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */; };
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
@@ -189,6 +190,7 @@
 		46B67295BCB5B178E35CE385 /* Pods-PinGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.release.xcconfig"; sourceTree = "<group>"; };
 		6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserAndWorkerProfile.storyboard; sourceTree = "<group>"; };
+		B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTicketCell.swift; sourceTree = "<group>"; };
 		B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */,
 				E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */,
 				21A6F9851D69A78400AA2EBF /* TicketImageCell.swift */,
+				B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
 				21F9E7041D5901F3002D9DF6 /* TicketRatingViewController.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
+				B04E73FE1D6991E800751D4C /* HistoryTicketCell.swift in Sources */,
 				21FAD0671D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
 				E7EBFA061D5C6AE900C1FEB8 /* LoginViewController.swift in Sources */,
 				E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */,
