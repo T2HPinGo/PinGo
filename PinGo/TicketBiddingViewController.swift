@@ -9,7 +9,7 @@
 
 import UIKit
 import GoogleMaps
-
+import Alamofire
 class TicketBiddingViewController: UIViewController {
     @IBOutlet weak var ticketTitleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
@@ -73,7 +73,21 @@ class TicketBiddingViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     }
     */
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let cell = sender as! UITableViewCell
+//        if let indexPath = tableView.indexPathForCell(cell) {
+//            
+//            if segue.identifier == "workerSegue" {
+//                let storyBoard: UIStoryboard = UIStoryboard(name: "EditUserProfile", bundle: nil)
+//                
+//                let navigationController =
+//                    storyBoard.instantiateViewControllerWithIdentifier("EditUserProfileNavigationController") as! UINavigationController
+//                let editUserProfileViewController = navigationController.topViewController as! EditUserProfileViewController
+//                
+//                editUserProfileViewController.userProfile = workerList[indexPath.row]
+//            }
+//        }
+    }
     @IBAction func filterTapped(sender: UIBarButtonItem) {
     }
 
@@ -143,7 +157,17 @@ class TicketBiddingViewController: UIViewController {
     @IBAction func cancelTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Cancel Request", message: "This process can not be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            
+            // Delete this ticket to database and remove it to socket chanel
+            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
+            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                print(response.result)
+                var JSON = self.newTicket.dataJson
+                JSON!["status"] = Status.Cancel.rawValue
+                SocketManager.sharedInstance.pushCategory(JSON!)
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alert.addAction(okAction)
@@ -169,6 +193,7 @@ extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegat
         cell.backgroundColor = AppThemes.cellColors[colorIndex]
         cell.worker = workerList[indexPath.row]
         cell.ticket = newTicket!
+        cell.ticketBiddingController = self
         return cell
     }
     

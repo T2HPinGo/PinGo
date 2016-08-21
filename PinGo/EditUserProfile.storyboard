@@ -300,8 +300,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="3qe-Vp-fGD">
-                        <barButtonItem key="leftBarButtonItem" image="icon-menu_white" id="jKW-TT-b0j">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="jKW-TT-b0j">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onMenuBarAction:" destination="QMJ-mi-S6v" id="FiH-Ho-7HD"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -316,6 +319,7 @@
                         <outlet property="labelPhoneNumber" destination="KMv-db-DoY" id="F77-65-cAb"/>
                         <outlet property="labelUsername" destination="a4q-Mo-blZ" id="Y3K-7w-WsB"/>
                         <outlet property="logoutButton" destination="G5W-iw-Iwt" id="0yf-D8-prV"/>
+                        <outlet property="menuBarButton" destination="jKW-TT-b0j" id="7Fh-oo-hrO"/>
                         <outlet property="tableView" destination="L8A-iU-gNz" id="bbq-7B-5tM"/>
                     </connections>
                 </viewController>
@@ -352,6 +356,5 @@
         <image name="cat_profile_filled" width="25" height="25"/>
         <image name="good" width="256" height="256"/>
         <image name="greentech" width="100" height="100"/>
-        <image name="icon-menu_white" width="137" height="92"/>
     </resources>
 </document>

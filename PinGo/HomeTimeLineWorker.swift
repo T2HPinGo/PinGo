@@ -13,23 +13,15 @@ import AFNetworking
 import Alamofire
 import CoreLocation
 
-class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
+class HomeTimeLineWorker: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     var tickets = [Ticket]()
     var ticketsFilter = [Ticket]()
-    var workerlocation = Location()
-    var userLocation = Location()
-    var placesClient = GMSPlacesClient()
+
     
-    var directionShow = false
     
-    let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
-    
-    //location map
-    var locationManager = CLLocationManager()
-    var didFindMyLocation = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +31,12 @@ class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
         initTableView()
         loadDataFromAPI()
         initSocket()
+        
     }
+    
+
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,6 +51,7 @@ class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
                 let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
                 ticketDetailViewController.ticket = ticketsFilter[indexPath.row]
                 ticketDetailViewController.colorTheme = cell.themeColor
+
             }
         }
  
@@ -124,7 +122,7 @@ extension HomeTimeLineWorker {
                     for itemTicket in self.tickets {
                         if itemTicket.id == ticket.id {
                             // Remove ticket to history if ticket has been approved by user
-                            if ticket.status == Status.Approved {
+                            if ticket.status == Status.Approved || ticket.status == Status.Cancel{
                                 self.tickets.removeAtIndex(index)
                                 isNewTicket = false
                                 break

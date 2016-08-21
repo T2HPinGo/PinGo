@@ -75,11 +75,19 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         let subViews = UIView(frame: CGRectMake(0, 20, view.frame.width, 45.0))
+       
+//         var button = UIButton(type: .Custom)
+//        
+//        button.frame = CGRectMake(0, 0, 45, 45)
+//        button.setTitle("Back", forState: .Normal)
         
         let searchBar = searchController?.searchBar
         subViews.addSubview(searchBar!)
         self.view.addSubview(subViews)
         searchBar!.sizeToFit()
+        
+
+        
         searchController?.hidesNavigationBarDuringPresentation = false
         
         // When UISearchController presents the results view, present it in

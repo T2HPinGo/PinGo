@@ -14,7 +14,7 @@ class WorkerDetailCell: UITableViewCell {
     @IBOutlet weak var workerNameLabel: UILabel!
     @IBOutlet weak var workerRatingLabel: UILabel!
     @IBOutlet weak var workerHourlyRateLabel: UILabel!
-    
+    var ticketBiddingController: TicketBiddingViewController?
     var ticket: Ticket?
     var worker: Worker! {
         didSet {
@@ -54,6 +54,17 @@ class WorkerDetailCell: UITableViewCell {
         //profile image
         workerProfileImageView.layer.cornerRadius = workerProfileImageView.frame.width / 2
         workerProfileImageView.clipsToBounds = true
+    }
+
+    @IBAction func onprofileAction(sender: AnyObject) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "EditUserProfile", bundle: nil)
+        
+        let navigationController =
+            storyBoard.instantiateViewControllerWithIdentifier("EditUserProfileNavigationController") as! UINavigationController
+        let editUserProfileViewController = navigationController.topViewController as! EditUserProfileViewController
+        
+        editUserProfileViewController.userProfile = worker
+        ticketBiddingController?.presentViewController(navigationController, animated: true, completion:nil)
     }
 
 }
