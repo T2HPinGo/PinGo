@@ -236,7 +236,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="FlZ-gP-QXz"/>
                                                             </constraints>
                                                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <state key="normal" image="rating"/>
+                                                            <state key="normal" image="good"/>
                                                             <connections>
                                                                 <segue destination="cVb-Pc-pFH" kind="presentation" identifier="RatingSegue" id="n47-y7-8iA"/>
                                                             </connections>
@@ -255,7 +255,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Broken Light Bulb" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCC-1E-xye">
-                                                            <rect key="frame" x="103" y="3" width="148" height="20"/>
+                                                            <rect key="frame" x="103" y="3" width="128.5" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -277,7 +277,7 @@
                                                         <constraint firstItem="vCC-1E-xye" firstAttribute="leading" secondItem="0U2-v9-YNh" secondAttribute="trailing" constant="3" id="daH-89-jdo"/>
                                                         <constraint firstItem="cav-Ah-Tkt" firstAttribute="leading" secondItem="42r-ZZ-oWJ" secondAttribute="trailing" constant="28" id="e21-zS-N0B"/>
                                                         <constraint firstItem="0U2-v9-YNh" firstAttribute="height" secondItem="NKC-QN-gle" secondAttribute="height" id="eMS-zZ-2zS"/>
-                                                        <constraint firstAttribute="trailing" secondItem="vCC-1E-xye" secondAttribute="trailing" constant="5" id="pYh-tG-b01"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vCC-1E-xye" secondAttribute="trailing" constant="5" id="pYh-tG-b01"/>
                                                         <constraint firstAttribute="height" constant="100" id="xWM-92-ZJU"/>
                                                     </constraints>
                                                 </view>
