@@ -83,12 +83,9 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
             self.mapView.selectedMarker = self.userMarker
             //            self.userMarker!.icon = UIImage(named:"Pingo")
             
-            var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
+            let imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
             imgView.image = UIImage(named: "Pingo")!
             self.userMarker!.iconView = imgView
-            // 
-            
-            
             
         })
     }
@@ -148,7 +145,9 @@ extension WorkerMapViewController {
         let request = NSURLRequest(URL: url!)
         
         do {
-            let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
+            
+            let data = try NSURLSession.dataTaskWithRequest(request)
+//            let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
             
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary
             
@@ -203,12 +202,12 @@ extension WorkerMapViewController: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("error")
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var userLocation = locations[0]
+        let userLocation = locations[0]
         
         let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         //        currentlocation_latitude = location.latitude
