@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "PINGO_FINAL.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "iron_man.jpg",
       "scale" : "2x"
     },
     {
