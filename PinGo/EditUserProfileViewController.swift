@@ -26,6 +26,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     // HeaderView
     @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var menuBarButton: UIBarButtonItem!
     // HeadeView Of TableiView
     @IBOutlet weak var imageViewProfile: UIImageView!
     
@@ -57,6 +58,9 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
        
         if userProfile == nil {
             userProfile = UserProfile.currentUser
+        } else {
+            menuBarButton.image = UIImage()
+            menuBarButton.title = "Back"
         }
         initTableView()
         loadDataForView()
@@ -78,6 +82,9 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         
     }
     
+    @IBAction func onMenuBarAction(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

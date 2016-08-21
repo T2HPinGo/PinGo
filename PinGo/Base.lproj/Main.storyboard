@@ -958,11 +958,11 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WorkerHistoryCell" rowHeight="111" id="mAY-vL-6ss" customClass="WorkerDetailCell" customModule="PinGo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkerHistoryCell" rowHeight="111" id="mAY-vL-6ss" customClass="WorkerDetailCell" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="178" width="320" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAY-vL-6ss" id="J0y-Dj-CX4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="110.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="rDF-2N-1Jn">
@@ -998,14 +998,24 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkf-9D-Whb" userLabel="btnTemp">
+                                                    <rect key="frame" x="15" y="17" width="60" height="59.5"/>
+                                                    <connections>
+                                                        <action selector="onprofileAction:" destination="mAY-vL-6ss" eventType="touchUpInside" id="bCR-4e-5cm"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rDF-2N-1Jn" secondAttribute="bottom" constant="17" id="1Au-zC-9Ue"/>
+                                                <constraint firstItem="vkf-9D-Whb" firstAttribute="height" secondItem="rDF-2N-1Jn" secondAttribute="height" id="2GE-Fk-1hz"/>
                                                 <constraint firstItem="rDF-2N-1Jn" firstAttribute="leading" secondItem="J0y-Dj-CX4" secondAttribute="leading" constant="15" id="99j-Cq-xby"/>
+                                                <constraint firstItem="vkf-9D-Whb" firstAttribute="top" secondItem="rDF-2N-1Jn" secondAttribute="top" id="BbM-1O-uxa"/>
                                                 <constraint firstItem="42y-NZ-Ovw" firstAttribute="baseline" secondItem="rDF-2N-1Jn" secondAttribute="baseline" id="Hgx-Np-pEY"/>
                                                 <constraint firstItem="Hy7-0B-AvP" firstAttribute="top" secondItem="qeL-lR-tnF" secondAttribute="bottom" constant="2.5" id="So5-ar-SdO"/>
                                                 <constraint firstItem="qeL-lR-tnF" firstAttribute="leading" secondItem="rDF-2N-1Jn" secondAttribute="trailing" constant="8" id="UJF-M0-QCM"/>
                                                 <constraint firstItem="Hy7-0B-AvP" firstAttribute="leading" secondItem="qeL-lR-tnF" secondAttribute="leading" id="WOy-XH-Vr6"/>
+                                                <constraint firstItem="vkf-9D-Whb" firstAttribute="width" secondItem="rDF-2N-1Jn" secondAttribute="width" id="jP7-7N-eYi"/>
+                                                <constraint firstItem="vkf-9D-Whb" firstAttribute="leading" secondItem="rDF-2N-1Jn" secondAttribute="leading" id="lLO-Fv-ziE"/>
                                                 <constraint firstItem="Hy7-0B-AvP" firstAttribute="centerY" secondItem="rDF-2N-1Jn" secondAttribute="centerY" id="nlo-uG-NxK"/>
                                                 <constraint firstItem="qeL-lR-tnF" firstAttribute="top" secondItem="rDF-2N-1Jn" secondAttribute="top" id="o97-Pe-7yO"/>
                                                 <constraint firstItem="Hy7-0B-AvP" firstAttribute="top" secondItem="qeL-lR-tnF" secondAttribute="bottom" constant="-0.5" id="ptA-oX-0KH"/>
@@ -1024,7 +1034,6 @@
                                             <outlet property="workerNameLabel" destination="qeL-lR-tnF" id="UuK-di-Dwj"/>
                                             <outlet property="workerProfileImageView" destination="rDF-2N-1Jn" id="DmE-vG-FmX"/>
                                             <outlet property="workerRatingLabel" destination="42y-NZ-Ovw" id="p0v-lJ-hjR"/>
-                                            <segue destination="NJf-Ax-Ffm" kind="show" id="u6O-dL-BIP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1174,7 +1183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bp2-MP-wdY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-101" y="613"/>
+            <point key="canvasLocation" x="-201" y="855"/>
         </scene>
         <!--Ticket Rating View Controller-->
         <scene sceneID="z6p-9f-O3n">
@@ -1336,10 +1345,11 @@
             <objects>
                 <viewControllerPlaceholder storyboardName="EditUserProfile" id="yqv-IT-9KH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="O6Q-MV-1NE"/>
+                    <navigationItem key="navigationItem" id="wgm-7G-GRE"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wbs-Gu-FSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1351" y="851"/>
+            <point key="canvasLocation" x="-157" y="413"/>
         </scene>
     </scenes>
     <resources>

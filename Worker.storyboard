@@ -428,7 +428,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-S8-S84">
-                                        <rect key="frame" x="97" y="202" width="46" height="30"/>
+                                        <rect key="frame" x="97" y="88" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="okAction:" destination="wou-tv-KFA" eventType="touchUpInside" id="XRF-j7-fgm"/>
