@@ -11,31 +11,31 @@ import GooglePlaces
 import GoogleMaps
 
 class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
-
-//    PUT THIS IN WORKER TICKET VIEW IN ACTION
     
-//    IBAction func showDirection(sender: AnyObject) {
-//    
-//    var urlString = "http://maps.google.com/maps?"
-//    urlString += "saddr = \(currentlocation.latitude), \(currentlocation.longitude)"
-//    urlString += "&daddr = \(ticket.location.latitude), \(ticket.location.longitude)"
-//     print(urlString)
-//    if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-//        
-//    {
-//        UIApplication.sharedApplication().openURL(url)
-//        }
-//        
-//}
+    //    PUT THIS IN WORKER TICKET VIEW IN ACTION
     
-
+    //    IBAction func showDirection(sender: AnyObject) {
+    //
+    //    var urlString = "http://maps.google.com/maps?"
+    //    urlString += "saddr = \(currentlocation.latitude), \(currentlocation.longitude)"
+    //    urlString += "&daddr = \(ticket.location.latitude), \(ticket.location.longitude)"
+    //     print(urlString)
+    //    if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+    //
+    //    {
+    //        UIApplication.sharedApplication().openURL(url)
+    //        }
+    //
+    //}
+    
+    
     @IBOutlet weak var mapView: GMSMapView!
-
+    
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var userMarker: GMSMarker?
     var workerMarker: GMSMarker?
-    var location: Location?
+    var workerlocation: Location?
     var ticket: Ticket?
     var placesClient = GMSPlacesClient()
     
@@ -44,24 +44,28 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
     
     var directionShow = false
     
-    var myLocation = Location()
+    var userLocation = Location()
     
     var destLocationArray = [Location]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        location = Location()
+        
+        userLocation.longitute = -122.406165
+        userLocation.latitude = 37.785771
+        
+        workerlocation = Location()
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        
+        currentLocation()
     }
-
     
-
+    
+    
     func currentLocation(){
         
-        myLocation.longitute = -122.406165
-        myLocation.latitude = 37.785771
         
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
@@ -69,12 +73,12 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
                 return
             }
             
-            self.location?.longitute = (self.locationManager.location?.coordinate.longitude)!
-            self.location?.latitude = (self.locationManager.location?.coordinate.latitude)!
-            self.location?.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
+            self.workerlocation?.longitute = (self.locationManager.location?.coordinate.longitude)!
+            self.workerlocation?.latitude = (self.locationManager.location?.coordinate.latitude)!
+            self.workerlocation?.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
             
-            self.locatewithCoordinate((self.location?.longitute)!, Latitude: (self.location?.latitude)!, Title: "current location")
-            let position = CLLocationCoordinate2DMake(self.location?.longitute as! Double, self.location?.latitude as! Double)
+            self.locatewithCoordinate((self.workerlocation?.longitute)!, Latitude: (self.workerlocation?.latitude)!, Title: "worker location")
+            let position = CLLocationCoordinate2DMake(self.workerlocation?.longitute as! Double, self.workerlocation?.latitude as! Double)
             self.userMarker = GMSMarker(position: position)
             //            self.userMarker!.snippet = "\(self.address)"
             //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
@@ -89,38 +93,39 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
             
         })
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-        
-        func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                
-                let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
-                self.mapView.camera = camera
-                
-            }
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+    func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            
+            let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
+            self.mapView.camera = camera
+            
         }
-
-
+    }
+    
+    
+    
 }
 
 extension WorkerMapViewController {
     
     func mapLoad() {
-        let camera = GMSCameraPosition.cameraWithLatitude(location!.latitude! as Double, longitude: location!.longitute! as Double, zoom: 15)
+        let camera = GMSCameraPosition.cameraWithLatitude(workerlocation!.latitude! as Double, longitude: workerlocation!.longitute! as Double, zoom: 15)
         mapView.camera = camera
         mapView.myLocationEnabled = true
         
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(location!.latitude! as Double, location!.longitute! as Double)
+        marker.position = CLLocationCoordinate2DMake(workerlocation!.latitude! as Double, workerlocation!.longitute! as Double)
         marker.title = "worker"
         marker.map = mapView
     }
@@ -130,7 +135,7 @@ extension WorkerMapViewController {
     
     func onGetDirection(sender:UITapGestureRecognizer) {
         if !directionShow {
-            getDirection(location!.latitude! as Double, lng: location!.longitute! as Double)
+            getDirection(workerlocation!.latitude! as Double, lng: workerlocation!.longitute! as Double)
             showDirection()
             
             directionShow = true
@@ -138,7 +143,7 @@ extension WorkerMapViewController {
     }
     
     func getDirection(lat: Double, lng: Double) {
-        let sUrl = String(format: "http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=driving", arguments: [myLocation.latitude!, myLocation.longitute!, lat, lng])
+        let sUrl = String(format: "http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=driving", arguments: [userLocation.latitude!, userLocation.longitute!, lat, lng])
         
         let url = NSURL(string: sUrl)
         
@@ -146,8 +151,8 @@ extension WorkerMapViewController {
         
         do {
             
-            let data = try NSURLSession.dataTaskWithRequest(request)
-//            let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
+            //            let data = try NSURLSession.dataTaskWithRequest(request)
+            let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)
             
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary
             
@@ -156,7 +161,7 @@ extension WorkerMapViewController {
                 let array = stepArray[0][0] as! [NSDictionary]
                 
                 // Add the 1st location (my location)
-                destLocationArray.append(myLocation)
+                destLocationArray.append(workerlocation!)
                 for step in array {
                     let desLat = step.valueForKeyPath("end_location.lat") as! Double
                     let desLng = step.valueForKeyPath("end_location.lng") as! Double
@@ -164,7 +169,7 @@ extension WorkerMapViewController {
                     appendlocation.latitude = desLat
                     appendlocation.longitute = desLng
                     self.destLocationArray.append(appendlocation)
-
+                    
                 }
             }
             
@@ -173,7 +178,7 @@ extension WorkerMapViewController {
     
     func showDirection() {
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(myLocation.latitude as! Double, myLocation.longitute as! Double)
+        marker.position = CLLocationCoordinate2DMake(workerlocation!.latitude as! Double, workerlocation!.longitute as! Double)
         marker.title = "My location"
         marker.icon = UIImage(named: "MyLocation")
         marker.map = mapView
@@ -212,11 +217,11 @@ extension WorkerMapViewController: CLLocationManagerDelegate {
         let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         //        currentlocation_latitude = location.latitude
         //        currentlocation_long = location.longitude
-        location!.latitude = location_default.latitude
-        location!.longitute = location_default.longitude
+        workerlocation!.latitude = location_default.latitude
+        workerlocation!.longitute = location_default.longitude
         
         print(location_default)
-        print(location)
+        print(workerlocation)
         
         locationManager.stopUpdatingLocation()
     }
