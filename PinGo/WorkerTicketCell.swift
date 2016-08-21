@@ -11,22 +11,28 @@ import Alamofire
 class WorkerTicketCell: UITableViewCell {
     
     // View Status
-    @IBOutlet weak var buttonStatus: UIButton!
+
+    @IBOutlet weak var viewWordOfStatus: UIView!
     
+    @IBOutlet weak var labelStatus: UILabel!
     // View User
     @IBOutlet weak var imageViewProfile: UIImageView!
     
     @IBOutlet weak var labelUsername: UILabel!
     
-    @IBOutlet weak var lablePhoneNumber: UIButton!
+
     
     // View Info
     @IBOutlet weak var imageViewTicket: UIImageView!
+    
+    @IBOutlet weak var labelPhoneNumber: UILabel!
+
     
     @IBOutlet weak var imageViewLocation: UIImageView!
     
     @IBOutlet weak var labelLocation: UILabel!
     
+    @IBOutlet weak var buttonCall: UIButton!
     @IBOutlet weak var labelTitle: UILabel!
     
     @IBOutlet weak var labelDateCreated: UILabel!
@@ -38,10 +44,9 @@ class WorkerTicketCell: UITableViewCell {
         didSet {
             // View Status
             let oneWord = HandleUtil.getOneWordOfStatus((ticket?.status?.rawValue)!)
-            buttonStatus.setTitle(oneWord, forState: .Normal)
-//            buttonStatus.layer.cornerRadius =
-//                self.frame.size.width / 2
-//            buttonStatus.clipsToBounds = true
+            labelStatus.text = oneWord
+            viewWordOfStatus.layer.cornerRadius = viewWordOfStatus.frame.size.width / 2
+            viewWordOfStatus.layer.masksToBounds = true
             // View User
             if ticket?.user?.profileImage?.imageUrl! != "" {
                 let profileUser = ticket?.user?.profileImage?.imageUrl!
@@ -49,31 +54,52 @@ class WorkerTicketCell: UITableViewCell {
                 imageViewProfile.layer.cornerRadius = 5
                 imageViewProfile.clipsToBounds = true
             }
-            labelUsername.text = ticket?.user?.username
+            labelUsername.text = ticket?.user?.getFullName()
+            // Check block or un block phoneNumber and Address
             if ticket?.worker?.id == Worker.currentUser?.id {
-                lablePhoneNumber.setTitle(ticket?.user?.phoneNumber, forState: .Normal)
-                lablePhoneNumber.hidden = false
+                // address
+                labelPhoneNumber.text = ticket?.user?.phoneNumber
+                // Location
+                if ticket?.location?.address != "" {
+                    labelLocation.text = ticket?.location?.address!
+                } else {
+                    labelLocation.text = "No Address"
+                }
 
             } else {
-                lablePhoneNumber.hidden = true
+                labelPhoneNumber.text = "Blocked"
+                labelLocation.text = "Blocked"
+                
             }
-                        // View Infor
+    
+            // View Information
+//            buttonCall.layer.cornerRadius = buttonCall.frame.size.width / 2
+//            buttonCall.layer.masksToBounds = true
+//            buttonCall.layer.borderColor = UIColor.whiteColor().CGColor
+//            buttonCall.layer.borderWidth = 2
             if ticket?.imageOne?.imageUrl! != "" {
                 let imageTicket = ticket?.imageOne?.imageUrl!
                 HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewTicket)
+            } else {
+                imageViewTicket.image = UIImage(named: "no_image")
             }
-            labelLocation.text = "77 Tran Ke Xuong"
+           
+            
             labelTitle.text = ticket?.title!
-            labelDateCreated.text = "30/7/2016 at 9.am"
+            labelDateCreated.text = HandleUtil.changeUnixDateToNSDate(ticket!.createdAt!)
             actionButton.layer.cornerRadius = 5
             actionButton.layer.borderColor = UIColor.whiteColor().CGColor
             actionButton.layer.borderWidth = 1
+        
             if ticket?.status == Status.InService {
                 actionButton.setTitle("Done", forState: .Normal)
             } else {
                 if ticket?.status == Status.Pending{
                     actionButton.setTitle("Bid", forState: .Normal)
-                    
+                } else {
+                    if ticket?.status == Status.Done {
+                        actionButton.setTitle("Waiting ...", forState: .Normal)
+                    }
                 }
             }
         }

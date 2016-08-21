@@ -31,7 +31,7 @@ class Ticket: NSObject {
     var imageThree: ImageResource?
     var location: Location?
     var id: String?
-    var descriptions: String?
+    var descriptions: String = ""
     var createdAt: String?
     // Hien Code 
     var issueImageVideoPath: String?
@@ -119,6 +119,12 @@ class Ticket: NSObject {
         }
         if let createdAt = data["createdAt"] as? String{
             self.createdAt = createdAt
+        }
+        if let location = data["location"] as? [String: AnyObject]{
+            self.location = Location(data: location)
+        }
+        if let descriptions = data["descriptions"] as? String {
+            self.descriptions = descriptions
         }
     }
     

@@ -80,7 +80,6 @@
 		21FD0FA41D6046C4005A7421 /* PinGoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FD0FA31D6046C4005A7421 /* PinGoClient.swift */; };
 		21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */; };
 		6326151595FD7B29E155F761 /* Pods_PinGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */; };
-		B0861E8A1D66ADC9002B2C7D /* TicketOfWorkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0861E891D66ADC9002B2C7D /* TicketOfWorkerCell.swift */; };
 		B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */; };
 		B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */; };
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
@@ -90,7 +89,6 @@
 		B0F0A5FB1D6836C3003C8DAD /* WorkerTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0A5FA1D6836C3003C8DAD /* WorkerTicketCell.swift */; };
 		B0F0A5FD1D683704003C8DAD /* HandleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0A5FC1D683704003C8DAD /* HandleUtil.swift */; };
 		B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FC11B01D618CBB00F34FDC /* Worker.storyboard */; };
-		B0FC11B51D621C0600F34FDC /* ListTicketsOfWorkerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */; };
 		B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */; };
 		E7120D341D61C19100193061 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7120D331D61C19100193061 /* MapViewController.swift */; };
 		E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */; };
@@ -181,7 +179,6 @@
 		21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		46B67295BCB5B178E35CE385 /* Pods-PinGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinGo/Pods-PinGo.release.xcconfig"; sourceTree = "<group>"; };
 		6816080423E9A75F36CECBB3 /* Pods_PinGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0861E891D66ADC9002B2C7D /* TicketOfWorkerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketOfWorkerCell.swift; sourceTree = "<group>"; };
 		B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
@@ -191,7 +188,6 @@
 		B0F0A5FA1D6836C3003C8DAD /* WorkerTicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerTicketCell.swift; sourceTree = "<group>"; };
 		B0F0A5FC1D683704003C8DAD /* HandleUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleUtil.swift; sourceTree = "<group>"; };
 		B0FC11B01D618CBB00F34FDC /* Worker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Worker.storyboard; path = ../Worker.storyboard; sourceTree = "<group>"; };
-		B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTicketsOfWorkerController.swift; sourceTree = "<group>"; };
 		B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerProfileController.swift; sourceTree = "<group>"; };
 		E7120D331D61C19100193061 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditUserProfile.storyboard; sourceTree = "<group>"; };
@@ -249,7 +245,6 @@
 				E7EBFA051D5C6AE900C1FEB8 /* LoginViewController.swift */,
 				E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */,
 				E7120D331D61C19100193061 /* MapViewController.swift */,
-				B0FC11B41D621C0600F34FDC /* ListTicketsOfWorkerController.swift */,
 				B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */,
 			);
 			name = ViewControllers;
@@ -264,7 +259,6 @@
 				21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */,
 				21F9E6FF1D58F95D002D9DF6 /* WorkerHistoryCell.swift */,
 				E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */,
-				B0861E891D66ADC9002B2C7D /* TicketOfWorkerCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -487,6 +481,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3CC3C6G767;
 					};
 				};
 			};
@@ -637,7 +632,6 @@
 				21FAD07D1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
 				21FD0FA41D6046C4005A7421 /* PinGoClient.swift in Sources */,
 				21F9E7001D58F95D002D9DF6 /* WorkerHistoryCell.swift in Sources */,
-				B0FC11B51D621C0600F34FDC /* ListTicketsOfWorkerController.swift in Sources */,
 				21FAD0761D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */,
 				21FAD0661D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
@@ -649,7 +643,6 @@
 				21434C331D559EAD00B31122 /* BaseViewController.swift in Sources */,
 				21FAD07E1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift in Sources */,
 				21FAD0881D5EFEFC000ED89F /* NVActivityIndicatorView.swift in Sources */,
-				B0861E8A1D66ADC9002B2C7D /* TicketOfWorkerCell.swift in Sources */,
 				21434C3E1D55AC4700B31122 /* Location.swift in Sources */,
 				B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */,
 				21FAD06B1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,

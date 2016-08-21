@@ -90,27 +90,24 @@ class HomeTimelineViewController: BaseViewController {
         topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
         
         //greeting label
-        greetingLabel.font = AppThemes.avenirBlack21
-        greetingLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        greetingLabel.font = AppThemes.helveticaNeueRegular20
+        greetingLabel.textColor = AppThemes.tableHeaderTextColor
         let userFirstName = UserProfile.currentUser?.firstName ?? "User"
         print(UserProfile.currentUser?.firstName)
 
         greetingLabel.text = "Hello " + userFirstName
         
         //other Labels
-        dateLabel.font = AppThemes.avenirBlack16
-        dateLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        dateLabel.font = AppThemes.helveticaNeueRegular16
+        dateLabel.textColor = AppThemes.tableHeaderTextColor
         
-        notificationLabel.font = AppThemes.avenirBlack16
-        notificationLabel.textColor = AppThemes.textOnWhiteBackgroundColor
+        notificationLabel.font = AppThemes.helveticaNeueRegular16
+        notificationLabel.textColor = AppThemes.tableHeaderTextColor
         
         numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
         
         //create ticket button
-        createNewTicketButton.layer.cornerRadius = createNewTicketButton.frame.width / 2
-        createNewTicketButton.layer.borderWidth = 1.5
-        createNewTicketButton.layer.borderColor = AppThemes.buttonBorderColorOnWhiteBackgroundColor.CGColor
-        createNewTicketButton.layer.backgroundColor = UIColor.whiteColor().CGColor
+        createNewTicketButton.layer.backgroundColor = UIColor.clearColor().CGColor
     }
     
 }
@@ -178,16 +175,17 @@ extension HomeTimelineViewController {
         parameters["statusTicket"] = "InService"
         parameters["idUser"] = UserProfile.currentUser?.id!
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/userTickets", parameters: parameters).responseJSON { response  in
-            print("HomeTineLineViewController ---")
-            print("\(response.result.value)")
             let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
             if self.ticketList.count > 0 {
                 self.ticketList.removeAll()
             }
             for JSONItem in JSONArrays {
                 let ticket = Ticket(data: JSONItem)
-                self.ticketList.append(ticket)
-                self.tableView.reloadData()
+                if ticket.status != Status.Pending {
+                    self.ticketList.append(ticket)
+                    self.tableView.reloadData()
+
+                }
             }
         }
     }

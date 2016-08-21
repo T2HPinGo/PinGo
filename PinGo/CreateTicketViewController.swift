@@ -28,7 +28,6 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var pickedImageView1: UIImageView!
     @IBOutlet weak var pickedImageView1HeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var chooseLabel: UILabel!
     @IBOutlet weak var takePhotoView2: UIView!
     @IBOutlet weak var takePhotoView2HeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pickedImageView2: UIImageView!
@@ -43,6 +42,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var descriptionTextView: T2HTextViewWithPlaceHolder!
     
     @IBOutlet weak var chooseLocationView: UIView!
+    @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var findWorkerButton: UIButton!
         
@@ -62,17 +62,13 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     
     
     struct TextFieldColorThemes {
-        static let textFieldTintColor = UIColor.blueColor()
+        static let textFieldTintColor = AppThemes.appColorTheme
         static let placeholderColor = UIColor.lightGrayColor()
         static let textColor = UIColor.darkGrayColor()
-        static let floatingLabelColor = AppThemes.cellColors[4]
+        static let floatingLabelColor = AppThemes.cellColors[3]
         static let bottomLineColor = UIColor.lightGrayColor()
-        static let selectedBottomLineColor = AppThemes.cellColors[4]
-        
-        
+        static let selectedBottomLineColor = AppThemes.appColorTheme
     }
-    
-    
     
      //MARK: - Load view
     override func viewDidLoad() {
@@ -88,9 +84,6 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         //setupLoadingIndicator()
         
         addGesture()
-        initChooseAction()
-
-        
     }
     
     // MARK: - Navigation
@@ -108,23 +101,18 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     @IBAction func unwindFromMap(segue: UIStoryboardSegue) {
         //transfer date here
         if let mapViewController = segue.sourceViewController as? MapViewController {
-            let location = mapViewController.location!.address
             if let location = mapViewController.location {
                 newTicket?.location = location
                 print(location)
                 print(location.longitute)
                 print(location.latitude)
             }
-            chooseLabel.text = newTicket!.location?.address
+            locationLabel.text = newTicket!.location?.address
         }
     }
     
-    //text Theme
-    
-    
     //MARK: - Helpers
     func setupAppearance() {
-        
 
         collectionView.backgroundColor = UIColor.greenColor()
         collectionView.showsHorizontalScrollIndicator = false
@@ -140,8 +128,9 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
         
         //titleTextField
-        titleTextField.placeholder = NSLocalizedString("Ticket Name", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
-        titleTextField.selectedTitle   = NSLocalizedString("Ticket Name", tableName: "SkyFloatingLabelTextField", comment: "selected title for person title field")
+        titleTextField.placeholder = NSLocalizedString("  Enter Title Here", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
+        titleTextField.selectedTitle   = NSLocalizedString("Title", tableName: "SkyFloatingLabelTextField", comment: "title when selected")
+        titleTextField.title = NSLocalizedString("Title", tableName: "SkyFloatingLabelTextField", comment: "title when not selected")
         titleTextField.placeholderColor = TextFieldColorThemes.placeholderColor
         
         titleTextField.tintColor = TextFieldColorThemes.textFieldTintColor
@@ -155,33 +144,17 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         titleTextField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 13)
         titleTextField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 16)
         titleTextField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
-        
-    
-        
-        
+
         //descriptionTextField
-        descriptionTextView.placeholder = "Enter description"
+        descriptionTextView.placeholder = "Enter Description (Optional)"
         descriptionTextView.backgroundColor = UIColor.clearColor()
+        descriptionTextView.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         
         //chooseCategoryView
-        chooseCategoryView.backgroundColor = UIColor(red: 42.0/255.0, green: 58.0/255.0, blue: 74.0/255.0, alpha: 1.0)
-        chooseCategoryView.layer.cornerRadius = 20.0
-        chooseCategoryView.layer.borderColor = AppThemes.navigationBackgroundColor.CGColor
-        chooseCategoryView.layer.borderWidth = 2.0
-        categoryLabel.textColor = AppThemes.navigationBackgroundColor
-        
-        //---- Haena
-        
-        chooseLocationView.backgroundColor = AppThemes.redButtonColor
-        chooseLocationView.layer.cornerRadius = 10.0
-        chooseLocationView.layer.borderWidth = 3.0
-        chooseLocationView.layer.borderColor = AppThemes.redButtonColor.CGColor
-        
-        
-        findWorkerButton.layer.cornerRadius = 10.0
-        findWorkerButton.backgroundColor = AppThemes.cellColors[1]
-        findWorkerButton.layer.borderWidth = 1.0
-        findWorkerButton.layer.borderColor = UIColor.blackColor().CGColor
+        chooseCategoryView.backgroundColor = AppThemes.appColorTheme
+        chooseCategoryView.layer.cornerRadius = 10
+        categoryLabel.font = AppThemes.helveticaNeueRegular17
+        categoryLabel.textColor = UIColor.whiteColor()
         
         //takePhotoView1/2/3
         setupPhotoView(takePhotoView1)
@@ -189,6 +162,15 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         setupPhotoView(takePhotoView3)
         takePhotoView2.hidden = true
         takePhotoView3.hidden = true
+        
+        //chooseLocationView
+        chooseLocationView.backgroundColor = AppThemes.appColorTheme
+        chooseLocationView.layer.cornerRadius = 10
+        
+        //findWorker button
+        findWorkerButton.layer.cornerRadius = 10.0
+        findWorkerButton.backgroundColor = AppThemes.appColorTheme
+        
         
         //collectionView
         collectionView.backgroundColor = UIColor.clearColor()
@@ -200,7 +182,10 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     
     func setupPhotoView(view: UIView) {
         view.layer.cornerRadius = 10
+        view.layer.borderWidth = 1
+        view.layer.borderColor = AppThemes.appColorTheme.CGColor
         view.layer.masksToBounds = true
+        view.backgroundColor = UIColor.clearColor()
     }
     
     func addGesture() {
@@ -219,8 +204,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         takePhotoView3.addGestureRecognizer(thirdPhotoViewGestureRecognizer)
         
         //add gesture that go to the Map
-        //let findLocationGestureRecognizer = UITapGestureRecognize
-    }
+        let chooseLocationGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseLocation(_:)))
+        chooseLocationView.addGestureRecognizer(chooseLocationGestureRecognizer)    }
     
     //make flipping effect for chooseCategoryView when selected
     func presentCategoryUpdateAnimation() {
@@ -295,7 +280,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         newTicket?.user = UserProfile.currentUser
         newTicket?.status = Status.Pending
         newTicket?.worker = Worker()
-        newTicket?.location = Location()
+        //newTicket?.location = Location()
         
         let parameters = parametersTicket(newTicket!)
         
@@ -327,6 +312,17 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
          */
     }
     
+    func chooseLocation (sender: AnyObject){
+        let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
+        let mapViewController = storyboard.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        
+        self.navigationController?.pushViewController(mapViewController, animated: true)
+        
+        if newTicket?.location != nil{
+            newTicket?.location = Location()
+        }
+    }
+    
     //_____________________________
     func parametersTicket(ticket: Ticket) -> [String: AnyObject]{
         
@@ -354,12 +350,14 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         parameters["height"] = 300
         parameters["widthOfProfile"] = 60
         parameters["heightOfProfile"] = 60
-
+        parameters["descriptions"] = ticket.descriptions
+        parameters["firstnameOfUser"] = ticket.user?.firstName
+        parameters["lastnameOfUser"] = ticket.user?.lastName
+        parameters["firstnameOfWorker"] = ticket.worker?.firstName
+        parameters["lastnameOfWorker"] = ticket.worker?.lastName
 
         return parameters
     }
-    
-    
     //_______________________________
 
 }
@@ -492,29 +490,6 @@ extension CreateTicketViewController: NVActivityIndicatorViewable {
         
         startActivityAnimating(size, message: nil, type: .BallTrianglePath)
     }
-}
-
-//action for choose locaation - Haena
-extension CreateTicketViewController {
-    
-    func chooseLocation (sender: AnyObject){
-        print("choose location")
-        let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
-        let mapViewController = storyboard.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
-       
-        self.navigationController?.pushViewController(mapViewController, animated: true)
-        
-        if newTicket?.location != nil{
-            newTicket = Ticket()
-        }
-    }
-    
-    func initChooseAction(){
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(chooseLocation(_:)))
-        chooseLocationView.addGestureRecognizer(gesture)
-        
-    }
-    
 }
 
 
