@@ -74,7 +74,7 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
         
-        let UITextViewTextDidEndEditingNotification: String
+        //let UITextViewTextDidEndEditingNotification: String
         
         
         let gradient: CAGradientLayer = CAGradientLayer()
@@ -129,10 +129,8 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         textField.textColor = lightGreyColor
         textField.lineColor = lightGreyColor
         
-        textField.selectedTitleColor = AppThemes.cellColors[4]
-        textField.selectedLineColor = AppThemes.cellColors[4]
-        
-        
+        textField.selectedTitleColor = AppThemes.appColorTheme
+        textField.selectedLineColor = AppThemes.appColorTheme
         
         //         Set custom fonts for the title, placeholder and textfield labels
         textField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
