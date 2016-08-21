@@ -25,7 +25,7 @@ class T2HGradientView: UIView {
         //colors and location for colors
         let components: [CGFloat] = [198.0/255.0, 53.0/255.0, 50.0/255.0, 0.3,
                                      185.0/255.0, 40.0/255.0, 105.0/255.0, 0.7] //array contain value for colors (0, 0, 0, 0.3) means black with 30% transparent, (0, 0, 0, 0.3) means black with 70% transparent
-        let locations: [CGFloat] = [0,  1]
+        let locations: [CGFloat] = [0, 1]
         
         //
         let colorSpace = CGColorSpaceCreateDeviceRGB()

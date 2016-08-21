@@ -32,8 +32,6 @@ class WorkerTicketCell: UITableViewCell {
     
     @IBOutlet weak var imageViewLocation: UIImageView!
     
-    @IBOutlet weak var labelLocation: UILabel!
-    
     @IBOutlet weak var buttonCall: UIButton!
     @IBOutlet weak var labelTitle: UILabel!
     
@@ -71,14 +69,14 @@ class WorkerTicketCell: UITableViewCell {
                 labelPhoneNumber.text = ticket?.user?.phoneNumber
                 // Location
                 if ticket?.location?.address != "" {
-                    labelLocation.text = ticket?.location?.address!
+                    //labelLocation.text = ticket?.location?.address!
                 } else {
-                    labelLocation.text = "No Address"
+                    //labelLocation.text = "No Address"
                 }
 
             } else {
                 labelPhoneNumber.text = "Blocked"
-                labelLocation.text = "Blocked"
+                //labelLocation.text = "Blocked"
                 
             }
     
@@ -128,9 +126,10 @@ class WorkerTicketCell: UITableViewCell {
     @IBAction func onDoAction(sender: UIButton) {
         if ticket?.status?.rawValue == "Pending" {
             if actionButton.titleLabel!.text != "Waiting" {
-                let jsonData = Worker.currentUser?.dataJson
-                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
-                actionButton.setTitle("Waiting", forState: .Normal)
+                
+//                let jsonData = Worker.currentUser?.dataJson
+//                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
+//                actionButton.setTitle("Waiting", forState: .Normal)
             }
         } else {
             let parameters: [String: AnyObject] = [
