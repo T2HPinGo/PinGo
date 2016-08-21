@@ -30,13 +30,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.login.backgroundColor = AppThemes.redButtonColor
         self.login.layer.cornerRadius = 5
        
-        self.logoImage.layer.masksToBounds = false
-        self.logoImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        self.logoImage.layer.cornerRadius = logoImage.frame.size.width/2
-        self.logoImage.clipsToBounds = true
-        
-        self.logoImage.layer.borderWidth = 0.2
-        self.logoImage.layer.borderColor = UIColor.whiteColor().CGColor
+//        self.logoImage.layer.masksToBounds = false
+//        self.logoImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+//        self.logoImage.layer.cornerRadius = logoImage.frame.size.width/2
+//        self.logoImage.clipsToBounds = true
+//        
+//        self.logoImage.layer.borderWidth = 0.2
+//        self.logoImage.layer.borderColor = UIColor.whiteColor().CGColor
         passwordTextField.secureTextEntry = true
         
 //        let backgroundImage = UIImage(named: "eco")
@@ -102,18 +102,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func applySkyscannerTheme(textField: SkyFloatingLabelTextField) {
+
         textField.tintColor = AppThemes.appColorTheme
+
         
         textField.textColor = lightGreyColor
         textField.lineColor = lightGreyColor
         
         textField.selectedTitleColor = AppThemes.appColorTheme
         textField.selectedLineColor = AppThemes.appColorTheme
+
         
         // Set custom fonts for the title, placeholder and textfield labels
         textField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
-        textField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 15)
-        textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
+        textField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 16)
+        textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
     }
     
     override func didReceiveMemoryWarning() {

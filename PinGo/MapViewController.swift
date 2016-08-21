@@ -41,6 +41,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
+    
 //    var address: String = ""
     
     override func viewDidLoad() {
@@ -79,7 +80,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         subViews.addSubview(searchBar!)
         self.view.addSubview(subViews)
         searchBar!.sizeToFit()
-        searchController?.hidesNavigationBarDuringPresentation = true
+        searchController?.hidesNavigationBarDuringPresentation = false
         
         // When UISearchController presents the results view, present it in
         // this view controller, not one further up the chain.
@@ -91,6 +92,10 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         searchController?.searchBar.barTintColor = AppThemes.navigationBackgroundColor
         searchController?.searchBar.tintColor = UIColor.whiteColor()
+        
+        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
+        let image = UIImage(named: "Pingo")
+        markerView.image = image
     }
     
     @IBAction func okButtonAction(sender: AnyObject) {
@@ -123,6 +128,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //        locationView.layer.borderColor = UIColor.lightGrayColor().CGColor
 //        locationView.layer.borderWidth = 1
     }
+    
     
 //    func searchAction(sender: AnyObject) {
 //        let autocompleteController = GMSAutocompleteViewController()
@@ -176,6 +182,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
             self.testView.selectedMarker = self.userMarker
+//            self.userMarker!.icon = UIImage(named:"Pingo")
+            
+            var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
+            imgView.image = UIImage(named: "Pingo")!
+            self.userMarker!.iconView = imgView
             
             self.labelAddress.text = self.location!.address
             
@@ -183,7 +194,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             
         })
         
-        
+        func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+            image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+            let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return newImage
+        }
     }
     
     
@@ -225,6 +242,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //                        self.userMarker!.title = "Setup Location"
 //                            self.userMarker!.snippet = "\(self.address)"
 //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+                        self.userMarker!.icon = UIImage(named: "Pingo")
                         self.userMarker!.tracksInfoWindowChanges = true
                         self.userMarker!.map = self.testView
                         self.testView.selectedMarker = self.userMarker
@@ -244,6 +262,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
+            self.userMarker!.icon = UIImage(named: "Pingo")
             self.testView.selectedMarker = nil
 //            self.userMarker?.snippet = "\(self.address)"
             flagCount += 1
