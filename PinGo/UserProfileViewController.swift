@@ -186,20 +186,18 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
     
     @IBAction func signUpAction(sender: AnyObject) {
         
-        let parameters = [
-            "username": username.text!,
-            "password": password.text!,
-            "firstname":fistname.text!,
-            "lastname":lastname.text!,
-            "email" : email.text!,
-            "phoneNumber": phonenumber.text!,
-            "imageUrl": "\((user?.profileImage?.imageUrl)!)",
-            "width": "\((user?.profileImage?.width)!)",
-            "height": "\((user?.profileImage?.height)!)",
-            "isWorker": false,
-            "isFemale":isFemale.on
-        ]
-        
+        var parameters = [String : AnyObject]()
+        parameters["username"] = username.text!
+        parameters["password"] = password.text!
+        parameters["firstname"] = fistname.text!
+        parameters["lastname"] = lastname.text!
+        parameters["email"] = email.text!
+        parameters["phoneNumber"] = phonenumber.text!
+        parameters["imageUrl"] = "\((user?.profileImage?.imageUrl)!)"
+        parameters["width"] = "\((user?.profileImage?.width)!)"
+        parameters["height"] = "\((user?.profileImage?.height)!)"
+        parameters["isWorker"] = false
+        parameters["isFemale"] = isFemale.on
         
         if let firstNameText = fistname.text, let lastNameText = lastname.text, let userNameText = username.text, let emailText = email.text, let phonenumberText = phonenumber.text, let passwordText = password.text, let confirmpasswordText = confirmpassword.text {
             if firstNameText == "" || lastNameText == "" || userNameText == "" || emailText == "" || phonenumberText == "" || passwordText == "" || confirmpasswordText == "" {

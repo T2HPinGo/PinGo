@@ -103,7 +103,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func applySkyscannerTheme(textField: SkyFloatingLabelTextField) {
-        
         textField.tintColor = AppThemes.appColorTheme
         
         textField.textColor = lightGreyColor
@@ -164,12 +163,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 print(errorMessage)
                 self.errorLabel.hidden = false
                 self.errorLabel.text = errorMessage
-                
             }
-            
-            
-        }
-        
+        }        
     }
     
     /*

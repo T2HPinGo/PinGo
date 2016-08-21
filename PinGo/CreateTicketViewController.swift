@@ -351,6 +351,10 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         parameters["widthOfProfile"] = 60
         parameters["heightOfProfile"] = 60
         parameters["descriptions"] = ticket.descriptions
+        parameters["firstnameOfUser"] = ticket.user?.firstName
+        parameters["lastnameOfUser"] = ticket.user?.lastName
+        parameters["firstnameOfWorker"] = ticket.worker?.firstName
+        parameters["lastnameOfWorker"] = ticket.worker?.lastName
 
         return parameters
     }

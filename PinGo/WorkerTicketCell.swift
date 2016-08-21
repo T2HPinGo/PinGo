@@ -54,7 +54,7 @@ class WorkerTicketCell: UITableViewCell {
                 imageViewProfile.layer.cornerRadius = 5
                 imageViewProfile.clipsToBounds = true
             }
-            labelUsername.text = ticket?.user?.username
+            labelUsername.text = ticket?.user?.getFullName()
             // Check block or un block phoneNumber and Address
             if ticket?.worker?.id == Worker.currentUser?.id {
                 // address
@@ -71,11 +71,7 @@ class WorkerTicketCell: UITableViewCell {
                 labelLocation.text = "Blocked"
                 
             }
-            
-            
-           
-            
-            
+    
             // View Information
 //            buttonCall.layer.cornerRadius = buttonCall.frame.size.width / 2
 //            buttonCall.layer.masksToBounds = true
