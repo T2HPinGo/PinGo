@@ -51,7 +51,9 @@ class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
         if segue.identifier == "TicketDetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let ticketDetailViewController = segue.destinationViewController as! TicketDetailViewController
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
                 ticketDetailViewController.ticket = ticketsFilter[indexPath.row]
+                ticketDetailViewController.colorTheme = cell.themeColor
             }
         }
  
