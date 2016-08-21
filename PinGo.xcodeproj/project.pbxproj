@@ -92,6 +92,8 @@
 		B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FC11B01D618CBB00F34FDC /* Worker.storyboard */; };
 		B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */; };
 		E7120D341D61C19100193061 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7120D331D61C19100193061 /* MapViewController.swift */; };
+		E725C8391D69638D0061A6AB /* WorkerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */; };
+		E725C8411D697F560061A6AB /* MapWorkerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */; };
 		E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */; };
 		E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */; };
 		E7CB13811D5DEECD00BA5AA4 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */; };
@@ -192,6 +194,8 @@
 		B0FC11B01D618CBB00F34FDC /* Worker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Worker.storyboard; path = ../Worker.storyboard; sourceTree = "<group>"; };
 		B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerProfileController.swift; sourceTree = "<group>"; };
 		E7120D331D61C19100193061 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerMapViewController.swift; sourceTree = "<group>"; };
+		E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapWorkerStoryboard.storyboard; sourceTree = "<group>"; };
 		E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditUserProfile.storyboard; sourceTree = "<group>"; };
 		E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
 		E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 				E7120D331D61C19100193061 /* MapViewController.swift */,
 				B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */,
 				21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */,
+				E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				21434C311D559E4C00B31122 /* ViewControllers */,
 				219D49DE1D50B62E006B5ADE /* AppDelegate.swift */,
 				B0FC11B01D618CBB00F34FDC /* Worker.storyboard */,
+				E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */,
 				B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */,
 				219D49E21D50B62E006B5ADE /* Main.storyboard */,
 				E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */,
@@ -510,6 +516,7 @@
 				219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */,
 				E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */,
 				E7EBFA0F1D5CE97200C1FEB8 /* UserProfile.storyboard in Resources */,
+				E725C8411D697F560061A6AB /* MapWorkerStoryboard.storyboard in Resources */,
 				219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */,
 				219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */,
 				213D284B1D64D941009A06D8 /* NothingFoundCell.xib in Resources */,
@@ -695,6 +702,7 @@
 				21FAD0741D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */,
 				210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */,
 				21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */,
+				E725C8391D69638D0061A6AB /* WorkerMapViewController.swift in Sources */,
 				21FAD0861D5EFEFC000ED89F /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				21FAD0841D5EFEFC000ED89F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
 			);

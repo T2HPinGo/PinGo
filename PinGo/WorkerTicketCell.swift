@@ -32,8 +32,6 @@ class WorkerTicketCell: UITableViewCell {
     
     @IBOutlet weak var imageViewLocation: UIImageView!
     
-    @IBOutlet weak var labelLocation: UILabel!
-    
     @IBOutlet weak var buttonCall: UIButton!
     @IBOutlet weak var labelTitle: UILabel!
     
@@ -71,14 +69,14 @@ class WorkerTicketCell: UITableViewCell {
                 labelPhoneNumber.text = ticket?.user?.phoneNumber
                 // Location
                 if ticket?.location?.address != "" {
-                    labelLocation.text = ticket?.location?.address!
+                    //labelLocation.text = ticket?.location?.address!
                 } else {
-                    labelLocation.text = "No Address"
+                    //labelLocation.text = "No Address"
                 }
 
             } else {
                 labelPhoneNumber.text = "Blocked"
-                labelLocation.text = "Blocked"
+                //labelLocation.text = "Blocked"
                 
             }
     
