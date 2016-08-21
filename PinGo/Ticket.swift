@@ -33,6 +33,7 @@ class Ticket: NSObject {
     var id: String?
     var descriptions: String = ""
     var createdAt: String?
+    var dataJson: [String: AnyObject]?
     // Hien Code 
     var issueImageVideoPath: String?
     var dateCreated: NSDate?
@@ -71,6 +72,7 @@ class Ticket: NSObject {
     }
     
     init(data: [String: AnyObject]){
+        dataJson = data
         self.id = data["_id"] as? String
         if let category = data["category"] as? String {
             self.category = category
@@ -161,7 +163,6 @@ class Ticket: NSObject {
         
         return imagesArray
     }
-    
 }
 
 

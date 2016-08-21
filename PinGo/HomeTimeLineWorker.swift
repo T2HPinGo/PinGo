@@ -122,7 +122,7 @@ extension HomeTimeLineWorker {
                     for itemTicket in self.tickets {
                         if itemTicket.id == ticket.id {
                             // Remove ticket to history if ticket has been approved by user
-                            if ticket.status == Status.Approved {
+                            if ticket.status == Status.Approved || ticket.status == Status.Cancel{
                                 self.tickets.removeAtIndex(index)
                                 isNewTicket = false
                                 break

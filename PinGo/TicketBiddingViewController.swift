@@ -9,7 +9,7 @@
 
 import UIKit
 import GoogleMaps
-
+import Alamofire
 class TicketBiddingViewController: UIViewController {
     @IBOutlet weak var ticketTitleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
@@ -157,7 +157,17 @@ class TicketBiddingViewController: UIViewController {
     @IBAction func cancelTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Cancel Request", message: "This process can not be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            
+            // Delete this ticket to database and remove it to socket chanel
+            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
+            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                print(response.result)
+                var JSON = self.newTicket.dataJson
+                JSON!["status"] = Status.Cancel.rawValue
+                SocketManager.sharedInstance.pushCategory(JSON!)
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alert.addAction(okAction)
