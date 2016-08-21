@@ -319,7 +319,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.pushViewController(mapViewController, animated: true)
         
         if newTicket?.location != nil{
-            newTicket = Ticket()
+            newTicket?.location = Location()
         }
     }
     
