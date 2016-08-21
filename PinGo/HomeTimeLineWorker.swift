@@ -42,6 +42,10 @@ class HomeTimeLineWorker: UIViewController {
         indexAtTab(segmentedControl.selectedSegmentIndex)
     }
     
+    @IBAction func unwindFromSetprice(segue:UIStoryboardSegue) {
+        //transfer data here
+    }
+    
 }
 extension HomeTimeLineWorker: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

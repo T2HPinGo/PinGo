@@ -12,9 +12,7 @@ class SetPricePopUpViewController: UIViewController {
     //MARK: - Outlets and Variables
     
     @IBOutlet weak var popupView: UIView!
-    @IBOutlet weak var workerProfileImageView: UIImageView!
-    @IBOutlet weak var workerNameLabel: UILabel!
-    @IBOutlet weak var normalButton: UIButton!
+    @IBOutlet weak var confirmButton: UIButton!
     
     
     required init?(coder aDecoder: NSCoder) {

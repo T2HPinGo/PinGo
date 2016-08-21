@@ -21,7 +21,7 @@
                 <viewControllerPlaceholder storyboardName="MapWorkerStoryboard" id="GOM-cC-aPU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pPH-X7-MUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1596.5" y="-899"/>
+            <point key="canvasLocation" x="1604.5" y="-857"/>
         </scene>
         <!--Home-->
         <scene sceneID="twW-Hr-tOh">
@@ -415,6 +415,9 @@
                                             <constraint firstAttribute="width" secondItem="Eq3-EX-Pi5" secondAttribute="height" multiplier="1:1" id="zko-Zh-es8"/>
                                         </constraints>
                                         <state key="normal" image="CloseButton"/>
+                                        <connections>
+                                            <segue destination="7G8-SZ-tht" kind="unwind" unwindAction="unwindFromSetprice:" id="8LO-X6-svk"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bFV-Zc-TUS">
                                         <rect key="frame" x="10" y="50" width="220" height="30"/>
@@ -451,6 +454,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AyR-HT-ru9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7G8-SZ-tht" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1695" y="-424"/>
         </scene>
