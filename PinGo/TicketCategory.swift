@@ -15,7 +15,3 @@ class TicketCategory: NSObject {
     static let categoryNames = ["Electricity", "Cleanning",
                         "Plumbing", "Auto Repair", "Gardening"]
 }
-
-
-
-
