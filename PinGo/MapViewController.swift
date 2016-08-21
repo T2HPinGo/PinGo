@@ -80,7 +80,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         subViews.addSubview(searchBar!)
         self.view.addSubview(subViews)
         searchBar!.sizeToFit()
-        searchController?.hidesNavigationBarDuringPresentation = true
+        searchController?.hidesNavigationBarDuringPresentation = false
         
         // When UISearchController presents the results view, present it in
         // this view controller, not one further up the chain.
@@ -93,8 +93,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         searchController?.searchBar.barTintColor = AppThemes.navigationBackgroundColor
         searchController?.searchBar.tintColor = UIColor.whiteColor()
         
-        var markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
-        var image = UIImage(named: "Pingo")
+        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
+        let image = UIImage(named: "Pingo")
         markerView.image = image
     }
     
