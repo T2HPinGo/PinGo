@@ -5,10 +5,10 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--UserAndWorkerProfile-->
+        <!--EditUserProfile-->
         <scene sceneID="6XM-YT-BXB">
             <objects>
-                <viewControllerPlaceholder storyboardName="UserAndWorkerProfile" id="03N-1L-Cfl" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="EditUserProfile" id="03N-1L-Cfl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="j0u-i4-HK2"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2b4-5e-ds4" userLabel="First Responder" sceneMemberID="firstResponder"/>
