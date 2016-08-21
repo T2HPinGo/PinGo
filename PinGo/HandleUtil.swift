@@ -66,6 +66,6 @@ struct HandleUtil {
         let epocTime = NSTimeInterval(myNumber)
         
         let myDate = NSDate(timeIntervalSince1970:  epocTime)
-        return formatDateToLongDate(myDate)
+        return getStringFromDate(myDate, withFormat: DateStringFormat.DD_MMM_YYYY_HH_mm)
     }
 }
