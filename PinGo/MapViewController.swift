@@ -296,9 +296,13 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
-        print("error")
+    func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) {
+        print("error location Manager")
     }
+    
+//    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
+//        print("error location Manager")
+//    }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation = locations[0]
