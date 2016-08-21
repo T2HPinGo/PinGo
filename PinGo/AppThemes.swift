@@ -61,6 +61,7 @@ struct AppThemes {
     //--- UI Colors - Haena
     static let navigationBackgroundColor = UIColor(red: 248.0/255.0, green: 233.0/255.0, blue: 210.0/255.0, alpha: 1.0) //was 88 180 164
     static let backgroundColor = UIColor(red: 248.0/255.0, green: 233.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+    static let appColorTheme = UIColor(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 1.0)
     
     static let iconLightGrayColor = UIColor(red: 144.0/255.0, green: 133.0/255.0, blue: 153.0/255.0, alpha: 1.0)
     static let topPannelColor = UIColor(red: 231.0/255.0, green: 126.0/255.0, blue: 33.0/255.0, alpha: 1.0)
