@@ -5,10 +5,24 @@
 //  Created by Cao Thắng on 8/20/16.
 //  Copyright © 2016 Hien Tran. All rights reserved.
 //
-
 import UIKit
+import GooglePlaces
+import GoogleMaps
+import AFNetworking
 import Alamofire
-class WorkerTicketCell: UITableViewCell {
+import CoreLocation
+
+class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
+    
+    //for map
+    var locationManager = CLLocationManager()
+    var didFindMyLocation = false
+    var workerlocation = Location()
+    var placesClient = GMSPlacesClient()
+    var directionShow = false
+    
+    let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
+    
     
     // View Status
     
@@ -114,21 +128,70 @@ class WorkerTicketCell: UITableViewCell {
             }
         }
     }
+    
+    
+    
+    // Map Haena
+    func forMapDirection(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
+        
+        currentLocation()
+        
+        placesClient = GMSPlacesClient.sharedClient()
+    }
+    
+    func currentLocation(){
+        
+        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            guard error == nil else {
+                print("Current Place error: \(error!.localizedDescription)")
+                print("errorrrr")
+                return
+            }
+            
+            self.workerlocation.longitute = (self.locationManager.location?.coordinate.longitude)!
+            self.workerlocation.latitude = (self.locationManager.location?.coordinate.latitude)!
+            
+            self.workerlocation.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
+            
+        })
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        forMapDirection()
         //let ticketDetailGestureRecognizer = UITapGestureRecognizer(target: self, action: <#T##Selector#>)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    @IBAction func mapDirectionAction(sender: AnyObject) {
+        print("abc")
         
-        // Configure the view for the selected state
+        if let locationLog = ticket!.location!.longitute, let locationLat = ticket!.location!.latitude, let workerloclog = workerlocation.longitute, let workerloclat = workerlocation.latitude{
+            
+            var urlString = "http://maps.google.com/maps?"
+            urlString += "saddr=\(workerloclog),\(workerloclat)"
+            urlString += "&daddr=\(locationLat)),\(locationLog)"
+            print(urlString)
+            if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+                
+            {
+                UIApplication.sharedApplication().openURL(url)
+            }
+            
+            
+            print("bahhh")
+            
+        }
     }
     
     @IBAction func onDoAction(sender: UIButton) {
         if ticket?.status?.rawValue == "Pending" {
+            
             if actionButton.titleLabel!.text != "Waiting" {
                 
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
@@ -138,7 +201,7 @@ class WorkerTicketCell: UITableViewCell {
                 resultViewController.ticket = self.ticket!
                 homeTimeLineViewWorker!.presentViewController(resultViewController, animated: true, completion:nil)
                 actionButton.setTitle("Waiting", forState: .Normal)
-               
+                
             }
         } else {
             let parameters: [String: AnyObject] = [
@@ -157,4 +220,33 @@ class WorkerTicketCell: UITableViewCell {
     }
     
     
+}
+
+extension WorkerTicketCell: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            //            mapView.myLocationEnabled = true
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error")
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation = locations[0]
+        
+        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        //        currentlocation_latitude = location.latitude
+        //        currentlocation_long = location.longitude
+        workerlocation.latitude = location_default.latitude
+        workerlocation.longitute = location_default.longitude
+        
+        print(location_default)
+        print(workerlocation)
+        
+        locationManager.stopUpdatingLocation()
+    }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -24,11 +24,11 @@
             </objects>
             <point key="canvasLocation" x="-1794" y="141"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="e28-hZ-Zh3">
             <objects>
                 <navigationController storyboardIdentifier="HomeTimelineNavigationViewController" id="MLA-Py-G1c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="zGc-xT-Lpx"/>
+                    <tabBarItem key="tabBarItem" title="" image="starred_ticket" id="zGc-xT-Lpx"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RNs-YU-kOg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -210,7 +210,7 @@
                                         <rect key="frame" x="0.0" y="158" width="320" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D95-BH-WSo" id="pVf-z2-LX9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="161.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKC-QN-gle" userLabel="TicketDetailView">
@@ -302,7 +302,7 @@
                                                         <constraint firstItem="MFE-M0-6iw" firstAttribute="centerY" secondItem="CeS-ez-cb6" secondAttribute="centerY" id="y16-EH-d5I"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-FF-nXo" userLabel="ConnectionLine">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-FF-nXo" userLabel="ConnectionLine">
                                                     <rect key="frame" x="27" y="48" width="2" height="114"/>
                                                     <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -480,7 +480,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="C9T-0E-ScK" customClass="CategoryCell" customModule="PinGo" customModuleProvider="target">
-                                                        <rect key="frame" x="6" y="4.5" width="81" height="81"/>
+                                                        <rect key="frame" x="6" y="5" width="81" height="81"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="81" height="81"/>
@@ -1130,7 +1130,7 @@
                                         <rect key="frame" x="0.0" y="138" width="320" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uvf-Vb-c4v" id="kc0-f9-fFe">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Broken toilet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yx-eb-cdN">
@@ -1366,6 +1366,7 @@
         <image name="phone_filled" width="50" height="50"/>
         <image name="plus" width="25" height="25"/>
         <image name="rating" width="256" height="256"/>
+        <image name="starred_ticket" width="25" height="25"/>
         <image name="ticket_filled" width="100" height="100"/>
         <image name="water_filled" width="50" height="50"/>
     </resources>

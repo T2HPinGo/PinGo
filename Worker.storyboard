@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="936-x6-cBF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="936-x6-cBF">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -9,7 +9,7 @@
         <scene sceneID="6XM-YT-BXB">
             <objects>
                 <viewControllerPlaceholder storyboardName="EditUserProfile" id="03N-1L-Cfl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="j0u-i4-HK2"/>
+                    <tabBarItem key="tabBarItem" title="" image="user" id="j0u-i4-HK2"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2b4-5e-ds4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -56,11 +56,11 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l4V-xY-09l" id="2e5-vO-21X">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DH-U4-TbA" userLabel="ViewContent">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="161"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U5W-9O-koH" userLabel="ViewUser">
                                                             <rect key="frame" x="56" y="8" width="319" height="40"/>
@@ -221,7 +221,7 @@
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <segue destination="GOM-cC-aPU" kind="presentation" id="buG-r5-Xa3"/>
+                                                                        <action selector="mapDirectionAction:" destination="l4V-xY-09l" eventType="touchUpInside" id="Fuf-dX-r16"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -259,7 +259,7 @@
                                                                 </mask>
                                                             </variation>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOT-bX-M1o" userLabel="ViewLine">
+                                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oOT-bX-M1o" userLabel="ViewLine">
                                                             <rect key="frame" x="27" y="48" width="2" height="114"/>
                                                             <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
@@ -373,11 +373,11 @@
             </objects>
             <point key="canvasLocation" x="-231" y="222"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="gHt-6g-nJ1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5dM-cj-ZTN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="xI7-lZ-nGE"/>
+                    <tabBarItem key="tabBarItem" title="" image="starred_ticket" id="xI7-lZ-nGE"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QUx-ql-Idl">
@@ -467,7 +467,7 @@
         <!--Ticket Detail View Controller-->
         <scene sceneID="Osw-54-00m">
             <objects>
-                <viewController id="aYv-mw-iyz" customClass="TicketDetailViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="aYv-mw-iyz" customClass="TicketDetailViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KoK-WL-jP7"/>
                         <viewControllerLayoutGuide type="bottom" id="V8y-TX-OHr"/>
@@ -701,5 +701,7 @@
         <image name="greentech" width="100" height="100"/>
         <image name="marker" width="26" height="26"/>
         <image name="phone_filled" width="50" height="50"/>
+        <image name="starred_ticket" width="25" height="25"/>
+        <image name="user" width="25" height="25"/>
     </resources>
 </document>
