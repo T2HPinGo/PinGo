@@ -28,7 +28,9 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
 //        
 //}
     
+
     @IBOutlet weak var mapView: GMSMapView!
+
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var userMarker: GMSMarker?
@@ -40,19 +42,26 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
+    var directionShow = false
+    
+    var myLocation = Location()
+    
+    var destLocationArray = [Location]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         location = Location()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        /
     }
 
     
 
     func currentLocation(){
         
+        myLocation.longitute = -122.406165
+        myLocation.latitude = 37.785771
         
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
             guard error == nil else {
@@ -70,19 +79,19 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
             //            self.userMarker!.snippet = "\(self.address)"
             //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
             self.userMarker!.tracksInfoWindowChanges = true
-            self.userMarker!.map = self.testView
-            self.testView.selectedMarker = self.userMarker
+            self.userMarker!.map = self.mapView
+            self.mapView.selectedMarker = self.userMarker
             //            self.userMarker!.icon = UIImage(named:"Pingo")
             
             var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
             imgView.image = UIImage(named: "Pingo")!
             self.userMarker!.iconView = imgView
+            // 
             
-            self.labelAddress.text = self.location!.address
             
-            self.flagCount = 0
             
         })
+    }
 
     /*
     // MARK: - Navigation
@@ -93,44 +102,46 @@ class WorkerMapViewController: UIViewController, GMSMapViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+        
+        func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                
+                let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
+                self.mapView.camera = camera
+                
+            }
+        }
+
 
 }
 
 extension WorkerMapViewController {
     
     func mapLoad() {
-        let camera = GMSCameraPosition.cameraWithLatitude(currentlocation!.latitude!, longitude: currentlocation.longitude!, zoom: 15)
+        let camera = GMSCameraPosition.cameraWithLatitude(location!.latitude! as Double, longitude: location!.longitute! as Double, zoom: 15)
         mapView.camera = camera
         mapView.myLocationEnabled = true
         
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(selectedBusiness.latitude!, selectedBusiness.longitude!)
-        marker.title = selectedBusiness.name!
+        marker.position = CLLocationCoordinate2DMake(location!.latitude! as Double, location!.longitute! as Double)
+        marker.title = "worker"
         marker.map = mapView
     }
     
-    func configDirectionView() {
-        getDirectionView.layer.cornerRadius = 5
-        getDirectionView.layer.borderWidth = 1
-        getDirectionView.layer.borderColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1.0).CGColor
-        
-        let onGetDirection = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.onGetDirection(_:)))
-        getDirectionView.addGestureRecognizer(onGetDirection)
-    }
     
     // MARK: Get direction
     
     func onGetDirection(sender:UITapGestureRecognizer) {
-        if !showedDirection {
-            getDirection(selectedBusiness.latitude!, lng: selectedBusiness.longitude!)
+        if !directionShow {
+            getDirection(location!.latitude! as Double, lng: location!.longitute! as Double)
             showDirection()
             
-            showedDirection = true
+            directionShow = true
         }
     }
     
     func getDirection(lat: Double, lng: Double) {
-        let sUrl = String(format: "http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=driving", arguments: [myLocation.latitude, myLocation.longitude, lat, lng])
+        let sUrl = String(format: "http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=driving", arguments: [myLocation.latitude!, myLocation.longitute!, lat, lng])
         
         let url = NSURL(string: sUrl)
         
@@ -150,8 +161,11 @@ extension WorkerMapViewController {
                 for step in array {
                     let desLat = step.valueForKeyPath("end_location.lat") as! Double
                     let desLng = step.valueForKeyPath("end_location.lng") as! Double
-                    self.destLocationArray.append(Location(lat: desLat, lng: desLng))
-                    //println("lat: \(desLat), lng: \(desLng)")
+                    let appendlocation = Location()
+                    appendlocation.latitude = desLat
+                    appendlocation.longitute = desLng
+                    self.destLocationArray.append(appendlocation)
+
                 }
             }
             
@@ -160,14 +174,14 @@ extension WorkerMapViewController {
     
     func showDirection() {
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(myLocation.latitude, myLocation.longitude)
+        marker.position = CLLocationCoordinate2DMake(myLocation.latitude as! Double, myLocation.longitute as! Double)
         marker.title = "My location"
         marker.icon = UIImage(named: "MyLocation")
         marker.map = mapView
         
         let path = GMSMutablePath()
         for location in destLocationArray {
-            path.addLatitude(CLLocationDegrees(location.latitude), longitude: CLLocationDegrees(location.longitude))
+            path.addLatitude(CLLocationDegrees(location.latitude!), longitude: CLLocationDegrees(location.longitute!))
         }
         
         let polyline = GMSPolyline(path: path)
@@ -178,13 +192,13 @@ extension WorkerMapViewController {
     
 }
 
-}
+
 
 extension WorkerMapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-            testView.myLocationEnabled = true
+            mapView.myLocationEnabled = true
             locationManager.startUpdatingLocation()
         }
     }
