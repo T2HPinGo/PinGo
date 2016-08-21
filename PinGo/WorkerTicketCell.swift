@@ -20,7 +20,9 @@ class WorkerTicketCell: UITableViewCell {
     
     @IBOutlet weak var labelUsername: UILabel!
     
+    @IBOutlet weak var ticketDetailView: UIView!
 
+    @IBOutlet weak var connectionLineView: UIView!
     
     // View Info
     @IBOutlet weak var imageViewTicket: UIImageView!
@@ -38,6 +40,14 @@ class WorkerTicketCell: UITableViewCell {
     @IBOutlet weak var labelDateCreated: UILabel!
     
     @IBOutlet weak var actionButton: UIButton!
+    
+    var themeColor: UIColor! {
+        didSet {
+            ticketDetailView.backgroundColor = themeColor
+            viewWordOfStatus.backgroundColor = themeColor
+            connectionLineView.backgroundColor = themeColor
+        }
+    }
     
     // Ticket
     var ticket: Ticket? {

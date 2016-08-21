@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -210,7 +210,7 @@
                                         <rect key="frame" x="0.0" y="158" width="320" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D95-BH-WSo" id="pVf-z2-LX9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="161.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKC-QN-gle" userLabel="TicketDetailView">
@@ -241,12 +241,6 @@
                                                                 <segue destination="cVb-Pc-pFH" kind="presentation" identifier="RatingSegue" id="n47-y7-8iA"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42r-ZZ-oWJ">
-                                                            <rect key="frame" x="130" y="74" width="27" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cav-Ah-Tkt">
                                                             <rect key="frame" x="185" y="69" width="46" height="30"/>
                                                             <state key="normal" title="Button"/>
@@ -268,16 +262,15 @@
                                                         <constraint firstItem="0U2-v9-YNh" firstAttribute="top" secondItem="NKC-QN-gle" secondAttribute="top" id="5oa-D7-fzL"/>
                                                         <constraint firstItem="15b-lf-uDx" firstAttribute="top" secondItem="vCC-1E-xye" secondAttribute="bottom" constant="5" id="EZm-xV-rVJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="41u-jH-Imm" secondAttribute="bottom" constant="3" id="Huw-V9-k4W"/>
+                                                        <constraint firstItem="cav-Ah-Tkt" firstAttribute="leading" secondItem="41u-jH-Imm" secondAttribute="trailing" constant="57" id="Itt-ib-YKY"/>
                                                         <constraint firstItem="vCC-1E-xye" firstAttribute="top" secondItem="NKC-QN-gle" secondAttribute="top" constant="3" id="KpZ-fc-wTi"/>
-                                                        <constraint firstItem="42r-ZZ-oWJ" firstAttribute="leading" secondItem="41u-jH-Imm" secondAttribute="trailing" constant="2" id="NQY-gB-iro"/>
                                                         <constraint firstItem="41u-jH-Imm" firstAttribute="leading" secondItem="vCC-1E-xye" secondAttribute="leading" id="Uig-ue-aL5"/>
-                                                        <constraint firstItem="42r-ZZ-oWJ" firstAttribute="centerY" secondItem="41u-jH-Imm" secondAttribute="centerY" id="VJt-iT-ekH"/>
                                                         <constraint firstItem="0U2-v9-YNh" firstAttribute="leading" secondItem="NKC-QN-gle" secondAttribute="leading" id="ZYM-BG-jY9"/>
                                                         <constraint firstItem="15b-lf-uDx" firstAttribute="leading" secondItem="vCC-1E-xye" secondAttribute="leading" id="bJy-Gy-6f1"/>
                                                         <constraint firstItem="vCC-1E-xye" firstAttribute="leading" secondItem="0U2-v9-YNh" secondAttribute="trailing" constant="3" id="daH-89-jdo"/>
-                                                        <constraint firstItem="cav-Ah-Tkt" firstAttribute="leading" secondItem="42r-ZZ-oWJ" secondAttribute="trailing" constant="28" id="e21-zS-N0B"/>
                                                         <constraint firstItem="0U2-v9-YNh" firstAttribute="height" secondItem="NKC-QN-gle" secondAttribute="height" id="eMS-zZ-2zS"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vCC-1E-xye" secondAttribute="trailing" constant="5" id="pYh-tG-b01"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="15b-lf-uDx" secondAttribute="trailing" constant="5" id="qIs-Ds-wm4"/>
                                                         <constraint firstAttribute="height" constant="100" id="xWM-92-ZJU"/>
                                                     </constraints>
                                                 </view>
@@ -309,8 +302,8 @@
                                                         <constraint firstItem="MFE-M0-6iw" firstAttribute="centerY" secondItem="CeS-ez-cb6" secondAttribute="centerY" id="y16-EH-d5I"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-FF-nXo" userLabel="ConnectionLine">
-                                                    <rect key="frame" x="26" y="48" width="2" height="114"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-FF-nXo" userLabel="ConnectionLine">
+                                                    <rect key="frame" x="27" y="48" width="2" height="114"/>
                                                     <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="8Oy-FF-nXo" secondAttribute="height" multiplier="3:128" id="5VI-Rt-Hnu"/>
@@ -372,7 +365,6 @@
                                             <outlet property="connectionLineView" destination="8Oy-FF-nXo" id="PwQ-NL-lDz"/>
                                             <outlet property="dateCreatedLabel" destination="15b-lf-uDx" id="aXW-v9-hax"/>
                                             <outlet property="ratingButton" destination="41u-jH-Imm" id="2R7-Wu-mw1"/>
-                                            <outlet property="ratingLabel" destination="42r-ZZ-oWJ" id="fo0-bi-ks0"/>
                                             <outlet property="requestTitleLabel" destination="vCC-1E-xye" id="Vuj-7e-nw4"/>
                                             <outlet property="ticketDetailView" destination="NKC-QN-gle" id="ohm-wX-1nF"/>
                                             <outlet property="workerNameLabel" destination="O3w-3b-G7o" id="O1B-Qc-qLv"/>
@@ -488,7 +480,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="C9T-0E-ScK" customClass="CategoryCell" customModule="PinGo" customModuleProvider="target">
-                                                        <rect key="frame" x="6" y="5" width="81" height="81"/>
+                                                        <rect key="frame" x="6" y="4.5" width="81" height="81"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="81" height="81"/>
@@ -970,7 +962,7 @@
                                         <rect key="frame" x="0.0" y="178" width="320" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAY-vL-6ss" id="J0y-Dj-CX4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="rDF-2N-1Jn">
@@ -1129,7 +1121,7 @@
                                         <rect key="frame" x="0.0" y="138" width="320" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uvf-Vb-c4v" id="kc0-f9-fFe">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Broken toilet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yx-eb-cdN">

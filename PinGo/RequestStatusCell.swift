@@ -28,7 +28,6 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var requestTitleLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var ratingButton: UIButton!
-    @IBOutlet weak var ratingLabel: UILabel!
     
     @IBOutlet weak var approveButton: UIButton!
 //    var rating: String! {

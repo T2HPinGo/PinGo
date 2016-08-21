@@ -34,12 +34,12 @@ class WorkerDetailCell: UITableViewCell {
         ticket?.worker = worker
         print("Pick WOrker: \(worker)")
         
-        let parameters: [String: AnyObject] = [
-            "idWorker" : worker.id!,
-            "nameOfWorker" : worker.username!,
-            "phoneNumber" : worker.phoneNumber!,
-            "imageOfWorker" : (worker.profileImage?.imageUrl)!
-        ]
+        var parameters = [String:AnyObject]()
+        parameters["idWorker"] = worker.id!
+        parameters["nameOfWorker"] = worker.username!
+        parameters["phoneNumber"] = worker.phoneNumber!
+        parameters["imageOfWorker"] = (worker.profileImage?.imageUrl)!
+        parameters["price"] = worker.price
         let url = "\(API_URL)\(PORT_API)/v1/ticket/\(ticket!.id!)"
         Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
             print(response.result)

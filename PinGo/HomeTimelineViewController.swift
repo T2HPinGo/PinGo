@@ -38,8 +38,8 @@ class HomeTimelineViewController: BaseViewController {
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        setupAppearance()
         initSocketTicketOfUser()
+        setupAppearance()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -93,16 +93,20 @@ class HomeTimelineViewController: BaseViewController {
         greetingLabel.font = AppThemes.helveticaNeueRegular20
         greetingLabel.textColor = AppThemes.tableHeaderTextColor
         let userFirstName = UserProfile.currentUser?.firstName ?? "User"
-        print(UserProfile.currentUser?.firstName)
 
         greetingLabel.text = "Hello " + userFirstName
         
         //other Labels
         dateLabel.font = AppThemes.helveticaNeueRegular16
         dateLabel.textColor = AppThemes.tableHeaderTextColor
+        dateLabel.text = getStringFromDate(NSDate(), withFormat: DateStringFormat.DD_MMM_YYYY)
         
         notificationLabel.font = AppThemes.helveticaNeueRegular16
         notificationLabel.textColor = AppThemes.tableHeaderTextColor
+        let activeTickets = ticketList.count
+        let activeTicketsString = activeTickets != 0 ? "\(activeTickets)" : "no"
+        let ticketString = activeTickets == 0 || activeTickets == 1 ? "ticket" : "tickets"
+        notificationLabel.text = "You have " + activeTicketsString + " active  " + ticketString
         
         numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
         
