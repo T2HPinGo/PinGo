@@ -14,7 +14,8 @@ class SetPricePopUpViewController: UIViewController {
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var confirmButton: UIButton!
     
-    
+    @IBOutlet weak var priceTextField: UITextField!
+    var ticket: Ticket?
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
@@ -42,12 +43,18 @@ class SetPricePopUpViewController: UIViewController {
     }
     
     func close() {
-        dismissViewControllerAnimated(true, completion: nil)
+      
+        
     }
     
+    @IBAction func okAction(sender: UIButton) {
+        let jsonData = Worker.currentUser?.dataJson
+        SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: priceTextField.text!)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     //MARK: - Helpers
     func setupAppearance() {
-        popupView.layer.cornerRadius = 10
+       // popupView.layer.cornerRadius = 10
         view.backgroundColor = UIColor.clearColor()
         
     }

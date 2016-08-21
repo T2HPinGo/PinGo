@@ -11,7 +11,7 @@ import Alamofire
 class WorkerTicketCell: UITableViewCell {
     
     // View Status
-
+    
     @IBOutlet weak var viewWordOfStatus: UIView!
     
     @IBOutlet weak var labelStatus: UILabel!
@@ -21,14 +21,14 @@ class WorkerTicketCell: UITableViewCell {
     @IBOutlet weak var labelUsername: UILabel!
     
     @IBOutlet weak var ticketDetailView: UIView!
-
+    
     @IBOutlet weak var connectionLineView: UIView!
     
     // View Info
     @IBOutlet weak var imageViewTicket: UIImageView!
     
     @IBOutlet weak var labelPhoneNumber: UILabel!
-
+    
     
     @IBOutlet weak var imageViewLocation: UIImageView!
     
@@ -38,6 +38,8 @@ class WorkerTicketCell: UITableViewCell {
     @IBOutlet weak var labelDateCreated: UILabel!
     
     @IBOutlet weak var actionButton: UIButton!
+    
+    var homeTimeLineViewWorker: HomeTimeLineWorker?
     
     var themeColor: UIColor! {
         didSet {
@@ -73,32 +75,32 @@ class WorkerTicketCell: UITableViewCell {
                 } else {
                     //labelLocation.text = "No Address"
                 }
-
+                
             } else {
                 labelPhoneNumber.text = "Blocked"
                 //labelLocation.text = "Blocked"
                 
             }
-    
+            
             // View Information
-//            buttonCall.layer.cornerRadius = buttonCall.frame.size.width / 2
-//            buttonCall.layer.masksToBounds = true
-//            buttonCall.layer.borderColor = UIColor.whiteColor().CGColor
-//            buttonCall.layer.borderWidth = 2
+            //            buttonCall.layer.cornerRadius = buttonCall.frame.size.width / 2
+            //            buttonCall.layer.masksToBounds = true
+            //            buttonCall.layer.borderColor = UIColor.whiteColor().CGColor
+            //            buttonCall.layer.borderWidth = 2
             if ticket?.imageOne?.imageUrl! != "" {
                 let imageTicket = ticket?.imageOne?.imageUrl!
                 HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewTicket)
             } else {
                 imageViewTicket.image = UIImage(named: "no_image")
             }
-           
+            
             
             labelTitle.text = ticket?.title!
             labelDateCreated.text = HandleUtil.changeUnixDateToNSDate(ticket!.createdAt!)
             actionButton.layer.cornerRadius = 5
             actionButton.layer.borderColor = UIColor.whiteColor().CGColor
             actionButton.layer.borderWidth = 1
-        
+            
             if ticket?.status == Status.InService {
                 actionButton.setTitle("Done", forState: .Normal)
             } else {
@@ -129,9 +131,14 @@ class WorkerTicketCell: UITableViewCell {
         if ticket?.status?.rawValue == "Pending" {
             if actionButton.titleLabel!.text != "Waiting" {
                 
-//                let jsonData = Worker.currentUser?.dataJson
-//                SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: "150.000")
-//                actionButton.setTitle("Waiting", forState: .Normal)
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
+                
+                let resultViewController =
+                    storyBoard.instantiateViewControllerWithIdentifier("SetPricePopUpViewController") as! SetPricePopUpViewController
+                resultViewController.ticket = self.ticket!
+                homeTimeLineViewWorker!.presentViewController(resultViewController, animated: true, completion:nil)
+                actionButton.setTitle("Waiting", forState: .Normal)
+               
             }
         } else {
             let parameters: [String: AnyObject] = [

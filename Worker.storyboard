@@ -193,7 +193,6 @@
                                                                     </variation>
                                                                     <connections>
                                                                         <action selector="onDoAction:" destination="l4V-xY-09l" eventType="touchUpInside" id="Icp-AD-lee"/>
-                                                                        <segue destination="wou-tv-KFA" kind="presentation" id="kmp-3F-NnU"/>
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOz-Fu-F6s">
@@ -397,7 +396,7 @@
         <!--Set Price Pop Up View Controller-->
         <scene sceneID="vVE-zr-sgk">
             <objects>
-                <viewController id="wou-tv-KFA" customClass="SetPricePopUpViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetPricePopUpViewController" id="wou-tv-KFA" customClass="SetPricePopUpViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="32M-aV-PIm"/>
                         <viewControllerLayoutGuide type="bottom" id="R3n-fV-WrS"/>
@@ -431,6 +430,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-S8-S84">
                                         <rect key="frame" x="97" y="202" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="okAction:" destination="wou-tv-KFA" eventType="touchUpInside" id="XRF-j7-fgm"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -453,11 +455,14 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="priceTextField" destination="bFV-Zc-TUS" id="Yxr-3l-UT2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AyR-HT-ru9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="7G8-SZ-tht" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1695" y="-424"/>
+            <point key="canvasLocation" x="1674" y="-424"/>
         </scene>
         <!--Ticket Detail View Controller-->
         <scene sceneID="Osw-54-00m">
@@ -528,7 +533,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TicketImageCell" id="1wy-ei-RhT" customClass="TicketImageCell" customModule="PinGo" customModuleProvider="target">
-                                        <rect key="frame" x="6" y="17.5" width="100" height="100"/>
+                                        <rect key="frame" x="6" y="10" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -699,7 +704,4 @@
         <image name="starred_ticket" width="25" height="25"/>
         <image name="user" width="25" height="25"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4Ht-c1-jRf"/>
-    </inferredMetricsTieBreakers>
 </document>
