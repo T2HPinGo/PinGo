@@ -40,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window?.rootViewController = resultViewController
                 window?.makeKeyAndVisible()
                 
-                
             } else {
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 
@@ -49,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window?.rootViewController = resultViewController
                 window?.makeKeyAndVisible()
             }
-            
-            
         }
         
         

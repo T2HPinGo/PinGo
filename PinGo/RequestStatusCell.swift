@@ -53,7 +53,6 @@ class RequestStatusCell: UITableViewCell {
         }
     }
     
-    
     var ticket: Ticket! {
         didSet {
             workerNameLabel.text = ticket.worker?.username
@@ -76,8 +75,8 @@ class RequestStatusCell: UITableViewCell {
         setupAppearance()
         
         //add gesture
-//        let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCollectionView(_:)))
-//        chooseCategoryView.addGestureRecognizer(categoryViewGestureRecognizer)
+        let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(makePhoneCall(_:)))
+        callWorkerView.addGestureRecognizer(callWorkerGestureRecognizer)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -106,9 +105,6 @@ class RequestStatusCell: UITableViewCell {
         workerProfileImageView.layer.cornerRadius = 5
         workerProfileImageView.layer.masksToBounds = true
         callWorkerView.layer.cornerRadius = 5
-        
-        //customize the separator
-        //separatorInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0) //moves the separator lines between the cells a bit to the right so there are no lines between the thumbnail images
     }
     
     
@@ -128,9 +124,22 @@ class RequestStatusCell: UITableViewCell {
             self.ticket = Ticket(data: JSON)
             SocketManager.sharedInstance.pushCategory(JSON)
         }
-        
     }
     
-    
-
+    func makePhoneCall(gestureRecognizer: UIGestureRecognizer) {
+        if let phoneNumber = ticket.worker?.phoneNumber {
+            let alert = UIAlertController(title: "", message: "Call " + phoneNumber, preferredStyle: .Alert)
+            let callAction = UIAlertAction(title: "OK", style: .Default, handler: { _ in
+                let url = NSURL(string: "tel://\(phoneNumber)")
+                UIApplication.sharedApplication().openURL(url!)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alert.addAction(callAction)
+            alert.addAction(cancelAction)
+            //presentViewController(alert, animated: true, completion: nil)
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            
+        }
+    }
 }

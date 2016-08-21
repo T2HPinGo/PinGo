@@ -24,11 +24,11 @@
             </objects>
             <point key="canvasLocation" x="-1794" y="141"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="e28-hZ-Zh3">
             <objects>
                 <navigationController storyboardIdentifier="HomeTimelineNavigationViewController" id="MLA-Py-G1c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="zGc-xT-Lpx"/>
+                    <tabBarItem key="tabBarItem" title="" image="starred_ticket" id="zGc-xT-Lpx"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RNs-YU-kOg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1356,6 +1356,7 @@
         <image name="phone_filled" width="50" height="50"/>
         <image name="plus" width="25" height="25"/>
         <image name="rating" width="256" height="256"/>
+        <image name="starred_ticket" width="25" height="25"/>
         <image name="ticket_filled" width="100" height="100"/>
         <image name="water_filled" width="50" height="50"/>
     </resources>

@@ -142,11 +142,11 @@ class TicketBiddingViewController: UIViewController {
     //MARK: - Actions
     @IBAction func cancelTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Cancel Request", message: "This process can not be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
-        let okACtion = UIAlertAction(title: "OK", style: .Default) { _ in
+        let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
             self.navigationController?.popToRootViewControllerAnimated(true)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(okACtion)
+        alert.addAction(okAction)
         alert.addAction(cancelAction)
         
         presentViewController(alert, animated: true, completion: nil)

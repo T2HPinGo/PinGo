@@ -42,7 +42,6 @@ class TicketRatingViewController: UIViewController {
         //set up apperance
         setupAppearance()
         
-        
         //add gesture so user can close the popup by tapping out side the popup view
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
         gestureRecognizer.cancelsTouchesInView = false

@@ -9,7 +9,7 @@
         <scene sceneID="6XM-YT-BXB">
             <objects>
                 <viewControllerPlaceholder storyboardName="EditUserProfile" id="03N-1L-Cfl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="j0u-i4-HK2"/>
+                    <tabBarItem key="tabBarItem" title="" image="user" id="j0u-i4-HK2"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2b4-5e-ds4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -373,11 +373,11 @@
             </objects>
             <point key="canvasLocation" x="-231" y="222"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="gHt-6g-nJ1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5dM-cj-ZTN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="xI7-lZ-nGE"/>
+                    <tabBarItem key="tabBarItem" title="" image="starred_ticket" id="xI7-lZ-nGE"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QUx-ql-Idl">
@@ -467,7 +467,7 @@
         <!--Ticket Detail View Controller-->
         <scene sceneID="Osw-54-00m">
             <objects>
-                <viewController id="aYv-mw-iyz" customClass="TicketDetailViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="aYv-mw-iyz" customClass="TicketDetailViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KoK-WL-jP7"/>
                         <viewControllerLayoutGuide type="bottom" id="V8y-TX-OHr"/>
@@ -701,5 +701,7 @@
         <image name="greentech" width="100" height="100"/>
         <image name="marker" width="26" height="26"/>
         <image name="phone_filled" width="50" height="50"/>
+        <image name="starred_ticket" width="25" height="25"/>
+        <image name="user" width="25" height="25"/>
     </resources>
 </document>
