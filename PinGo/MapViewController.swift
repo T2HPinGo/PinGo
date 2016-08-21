@@ -93,9 +93,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         searchController?.searchBar.barTintColor = AppThemes.navigationBackgroundColor
         searchController?.searchBar.tintColor = UIColor.whiteColor()
         
-        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
-        let image = UIImage(named: "Pingo")
-        markerView.image = image
+//        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
+//        let image = UIImage(named: "Pingo")
+//        markerView.image = image
     }
     
     @IBAction func okButtonAction(sender: AnyObject) {
@@ -301,7 +301,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var userLocation = locations[0]
+        let userLocation = locations[0]
         
         let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
 //        currentlocation_latitude = location.latitude
