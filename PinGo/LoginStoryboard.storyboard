@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eWc-au-BgU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eWc-au-BgU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -26,8 +26,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEt-LJ-5GC">
                                         <rect key="frame" x="30" y="70" width="260" height="198"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="user and worker matchmaking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjf-DU-aKI">
-                                                <rect key="frame" x="15" y="140" width="231" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="user and worker matchmaking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjf-DU-aKI">
+                                                <rect key="frame" x="16" y="140" width="228.5" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="DwH-O6-45s"/>
                                                     <constraint firstAttribute="width" constant="142" id="bqh-07-aqx"/>
@@ -130,8 +130,8 @@
                                             <action selector="loginAction:" destination="eWc-au-BgU" eventType="touchUpInside" id="0Vl-Er-e7O"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sign up as " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9u-D4-x4k">
-                                        <rect key="frame" x="62" y="74" width="72" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up as " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9u-D4-x4k">
+                                        <rect key="frame" x="64" y="74" width="70" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Pjz-xT-fCN"/>
                                             <constraint firstAttribute="width" constant="179" id="rdX-9V-ViD"/>
@@ -167,7 +167,7 @@
                                             <color key="titleColor" red="1" green="0.98503661620000005" blue="0.63349163200000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="JEb-qq-Rho" kind="modal" id="9Ea-aj-srb"/>
+                                            <segue destination="JEb-qq-Rho" kind="presentation" id="9Ea-aj-srb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J80-Py-nUA">
@@ -239,24 +239,6 @@
             </objects>
             <point key="canvasLocation" x="356" y="383"/>
         </scene>
-        <!--MapStoryboard-->
-        <scene sceneID="wTx-Gy-tPf">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MapStoryboard" id="fRK-qj-Mxa" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="qwV-eB-uAR"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="o9H-no-ize" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="758.5" y="197"/>
-        </scene>
-        <!--Main-->
-        <scene sceneID="yJa-MX-7rs">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Main" id="LD5-R1-Qf2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5xT-13-TuY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="756.5" y="348"/>
-        </scene>
         <!--UserProfileViewController-->
         <scene sceneID="41f-0E-4JS">
             <objects>
@@ -273,6 +255,6 @@
         <image name="Speech Bubble-520" width="520" height="520"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6a4-ft-2aU"/>
+        <segue reference="9Ea-aj-srb"/>
     </inferredMetricsTieBreakers>
 </document>

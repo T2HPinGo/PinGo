@@ -23,10 +23,9 @@ class T2HGradientView: UIView {
     //should use lazy loading when create gradient
     override func drawRect(rect: CGRect) {
         //colors and location for colors
-        let components: [CGFloat] = [198.0/255.0, 53.0/255.0, 50.0/255.0, 0.3,
-                                     185.0/255.0, 40.0/255.0, 105.0/255.0, 0.7] //array contain value for colors (0, 0, 0, 0.3) means black with 30% transparent, (0, 0, 0, 0.3) means black with 70% transparent
-        let locations: [CGFloat] = [0,  1]
-        
+        let components: [CGFloat] = [0.0/255.0, 0.0/255.0, 0.0/255.0, 0.3,
+                                     0.0/255.0, 0.0/255.0, 0.0/255.0, 0.7] //array contain value for colors (0, 0, 0, 0.3) means black with 30% transparent, (0, 0, 0, 0.3) means black with 70% transparent
+        let locations: [CGFloat] = [0, 1]
         //
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let gradient = CGGradientCreateWithColorComponents(colorSpace, components, locations, 2)

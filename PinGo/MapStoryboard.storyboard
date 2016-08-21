@@ -109,16 +109,6 @@
             </objects>
             <point key="canvasLocation" x="1868" y="275"/>
         </scene>
-        <!--CreateTicketViewController-->
-        <scene sceneID="fTw-gG-gOP">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="CreateTicketViewController" id="Jol-p4-LB3" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="QPk-aH-CfH"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q3s-7p-FId" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2162.5" y="335"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="BzL-sB-whg">
             <objects>

@@ -785,7 +785,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vOA-nQ-J7j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-634" y="673"/>
+            <point key="canvasLocation" x="-538" y="-111"/>
         </scene>
         <!--Ticket Bidding View Controller-->
         <scene sceneID="DMp-Or-3UA">
@@ -1058,7 +1058,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zx-yB-Ghf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9vA-Vj-VeY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-117" y="-135"/>
+            <point key="canvasLocation" x="-101" y="-111"/>
         </scene>
         <!--Worker History View Controller-->
         <scene sceneID="BDi-Bb-yf9">
@@ -1174,7 +1174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bp2-MP-wdY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-117" y="563"/>
+            <point key="canvasLocation" x="-101" y="613"/>
         </scene>
         <!--Ticket Rating View Controller-->
         <scene sceneID="z6p-9f-O3n">

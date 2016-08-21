@@ -24,12 +24,13 @@
 		219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E21D50B62E006B5ADE /* Main.storyboard */; };
 		219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E51D50B62E006B5ADE /* Assets.xcassets */; };
 		219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E71D50B62E006B5ADE /* LaunchScreen.storyboard */; };
+		21A6F9801D69792800AA2EBF /* SetPricePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */; };
+		21A6F9821D69971900AA2EBF /* TicketPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */; };
 		21B3A1031D561CC700C1CE9E /* AppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1021D561CC700C1CE9E /* AppThemes.swift */; };
 		21B3A1051D562C3800C1CE9E /* CreateTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */; };
 		21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1061D56379C00C1CE9E /* CategoryCell.swift */; };
 		21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */; };
 		21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */; };
-		21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */; };
 		21F8FE571D5A0E8600DD150D /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */; };
 		21F9E6F81D58F27B002D9DF6 /* WorkerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */; };
 		21F9E6FA1D58F2B6002D9DF6 /* TicketBiddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */; };
@@ -93,6 +94,8 @@
 		B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FC11B01D618CBB00F34FDC /* Worker.storyboard */; };
 		B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */; };
 		E7120D341D61C19100193061 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7120D331D61C19100193061 /* MapViewController.swift */; };
+		E725C8391D69638D0061A6AB /* WorkerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */; };
+		E725C8411D697F560061A6AB /* MapWorkerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */; };
 		E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */; };
 		E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */; };
 		E7CB13811D5DEECD00BA5AA4 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */; };
@@ -123,12 +126,13 @@
 		219D49E51D50B62E006B5ADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		219D49E81D50B62E006B5ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		219D49EA1D50B62E006B5ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPricePopUpViewController.swift; sourceTree = "<group>"; };
+		21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPhotoViewController.swift; sourceTree = "<group>"; };
 		21B3A1021D561CC700C1CE9E /* AppThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemes.swift; sourceTree = "<group>"; };
 		21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTicketViewController.swift; sourceTree = "<group>"; };
 		21B3A1061D56379C00C1CE9E /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextField.swift; sourceTree = "<group>"; };
 		21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+fixCaretPosition.swift"; sourceTree = "<group>"; };
-		21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TittleAndDescriptionViewController.swift; sourceTree = "<group>"; };
 		21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerDetailCell.swift; sourceTree = "<group>"; };
 		21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketBiddingViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 		B0FC11B01D618CBB00F34FDC /* Worker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Worker.storyboard; path = ../Worker.storyboard; sourceTree = "<group>"; };
 		B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerProfileController.swift; sourceTree = "<group>"; };
 		E7120D331D61C19100193061 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerMapViewController.swift; sourceTree = "<group>"; };
+		E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapWorkerStoryboard.storyboard; sourceTree = "<group>"; };
 		E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditUserProfile.storyboard; sourceTree = "<group>"; };
 		E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
 		E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
@@ -237,7 +243,6 @@
 		21434C311D559E4C00B31122 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */,
 				B0F0A5F81D683669003C8DAD /* HomeTimeLineWorker.swift */,
 				2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */,
 				21FEDDD41D526F7A00AF58EF /* UserProfileViewController.swift */,
@@ -250,6 +255,9 @@
 				E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */,
 				E7120D331D61C19100193061 /* MapViewController.swift */,
 				B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */,
+				21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */,
+				E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */,
+				21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -314,6 +322,7 @@
 				21434C311D559E4C00B31122 /* ViewControllers */,
 				219D49DE1D50B62E006B5ADE /* AppDelegate.swift */,
 				B0FC11B01D618CBB00F34FDC /* Worker.storyboard */,
+				E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */,
 				B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */,
 				219D49E21D50B62E006B5ADE /* Main.storyboard */,
 				E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */,
@@ -330,14 +339,6 @@
 				213D284A1D64D941009A06D8 /* NothingFoundCell.xib */,
 			);
 			path = PinGo;
-			sourceTree = "<group>";
-		};
-		21B3A10E1D56EF7300C1CE9E /* ToBeUsedLater */ = {
-			isa = PBXGroup;
-			children = (
-				21B3A10C1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift */,
-			);
-			name = ToBeUsedLater;
 			sourceTree = "<group>";
 		};
 		21FAD03D1D5EFEFC000ED89F /* NVActivityIndicatorView */ = {
@@ -487,7 +488,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 3CC3C6G767;
+						DevelopmentTeam = PZ96SBWHN3;
 					};
 				};
 			};
@@ -521,6 +522,7 @@
 				219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */,
 				E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */,
 				E7EBFA0F1D5CE97200C1FEB8 /* UserProfile.storyboard in Resources */,
+				E725C8411D697F560061A6AB /* MapWorkerStoryboard.storyboard in Resources */,
 				219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */,
 				219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */,
 				213D284B1D64D941009A06D8 /* NothingFoundCell.xib in Resources */,
@@ -656,7 +658,6 @@
 				21FAD0751D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				21FAD0781D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
-				21B3A10D1D56E4C300C1CE9E /* TittleAndDescriptionViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
 				21F9E7041D5901F3002D9DF6 /* TicketRatingViewController.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
@@ -688,12 +689,14 @@
 				21434C3B1D55AB9C00B31122 /* UserProfile.swift in Sources */,
 				B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */,
 				21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */,
+				21A6F9801D69792800AA2EBF /* SetPricePopUpViewController.swift in Sources */,
 				B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */,
 				21FAD0811D5EFEFC000ED89F /* NVActivityIndicatorAnimationPacman.swift in Sources */,
 				21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */,
 				21FC6A791D5A65E700819090 /* T2HBouceAnimationController.swift in Sources */,
 				21FAD06A1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallGridBeat.swift in Sources */,
 				21FAD0871D5EFEFC000ED89F /* NVActivityIndicatorShape.swift in Sources */,
+				21A6F9821D69971900AA2EBF /* TicketPhotoViewController.swift in Sources */,
 				21F9E6FA1D58F2B6002D9DF6 /* TicketBiddingViewController.swift in Sources */,
 				21FAD07F1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */,
 				21FAD0731D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallScaleRipple.swift in Sources */,
@@ -707,6 +710,7 @@
 				21FAD0741D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */,
 				210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */,
 				21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */,
+				E725C8391D69638D0061A6AB /* WorkerMapViewController.swift in Sources */,
 				21FAD0861D5EFEFC000ED89F /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				21FAD0841D5EFEFC000ED89F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
 			);
