@@ -1117,7 +1117,7 @@
                                     <color key="backgroundColor" red="0.30196078430000001" green="0.76862745099999996" blue="0.49019607840000001" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="Uvf-Vb-c4v" customClass="WorkerHistoryCell" customModule="PinGo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FUCk" rowHeight="58" id="Uvf-Vb-c4v" customClass="WorkerHistoryCell" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="138" width="320" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uvf-Vb-c4v" id="kc0-f9-fFe">

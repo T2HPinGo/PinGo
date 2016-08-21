@@ -9,11 +9,23 @@
 import UIKit
 
 class TicketPhotoViewController: UIViewController {
-
+    //MARK: - Outlets and Variables
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var ticketImageView: UIImageView!
+    
+    var imageUrl: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        scrollView.delegate = self
+        
+        //set max and min of zoomable scale for photo
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 2.0
+        
+        HandleUtil.loadImageViewWithUrl(imageUrl, imageView: ticketImageView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,5 +43,14 @@ class TicketPhotoViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func onCancel(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 
+}
+
+extension TicketPhotoViewController: UIScrollViewDelegate {
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return ticketImageView
+    }
 }
