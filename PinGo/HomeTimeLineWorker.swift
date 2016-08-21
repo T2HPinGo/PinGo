@@ -7,15 +7,33 @@
 //
 
 import UIKit
+import GooglePlaces
+import GoogleMaps
+import AFNetworking
 import Alamofire
-class HomeTimeLineWorker: UIViewController {
+import CoreLocation
+
+class HomeTimeLineWorker: UIViewController, GMSMapViewDelegate {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     var tickets = [Ticket]()
     var ticketsFilter = [Ticket]()
+    var workerlocation = Location()
+    var userLocation = Location()
+    var placesClient = GMSPlacesClient()
+    
+    var directionShow = false
+    
+    let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
+    
+    //location map
+    var locationManager = CLLocationManager()
+    var didFindMyLocation = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view.
         initTableView()
