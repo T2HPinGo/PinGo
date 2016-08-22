@@ -59,6 +59,10 @@ class HomeTimelineViewController: BaseViewController {
         }
     }
     
+    @IBAction func onRatingAction(sender: UIButton) {
+
+    }
+    
     @IBAction func quitAfterPickWorker(segue: UIStoryboardSegue) {
         //        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
         //
@@ -75,6 +79,14 @@ class HomeTimelineViewController: BaseViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "ratingSegue" {
+            if let choosenCell = sender!.superview!!.superview!.superview as? RequestStatusCell{
+                let ticketRatingController = segue.destinationViewController as! TicketRatingViewController
+                ticketRatingController.nameWorker = (choosenCell.ticket.worker?.getFullName())!
+                ticketRatingController.idTicket = (choosenCell.ticket.id)!
+            }
+
+        }
     }
     
     
