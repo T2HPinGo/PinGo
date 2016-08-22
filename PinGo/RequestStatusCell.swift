@@ -28,6 +28,7 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var requestTitleLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var ratingButton: UIButton!
+    @IBOutlet weak var ticketImageView: UIImageView!
     
     @IBOutlet weak var approveButton: UIButton!
 //    var rating: String! {
@@ -64,7 +65,22 @@ class RequestStatusCell: UITableViewCell {
             } else {
                  approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
             }
-           
+            
+            //load ticket image
+            if ticket?.imageOne?.imageUrl! != "" {
+                let imageUrl = ticket?.imageOne?.imageUrl!
+                HandleUtil.loadImageViewWithUrl(imageUrl!, imageView: ticketImageView)
+            } else {
+                ticketImageView.image = UIImage(named: "no_image")
+            }
+            
+            //worker profile image
+            if ticket?.worker?.profileImage?.imageUrl! != "" {
+                let imageUrl = ticket?.worker?.profileImage?.imageUrl!
+                HandleUtil.loadImageViewWithUrl(imageUrl!, imageView: workerProfileImageView)
+            } else {
+                workerProfileImageView.image = UIImage(named: "profile_image_placeholder")
+            }           
         }
     }
     

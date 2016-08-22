@@ -179,18 +179,25 @@ extension HomeTimelineViewController {
         parameters["statusTicket"] = "InService"
         parameters["idUser"] = UserProfile.currentUser?.id!
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/userTickets", parameters: parameters).responseJSON { response  in
-            let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
-            if self.ticketList.count > 0 {
-                self.ticketList.removeAll()
-            }
-            for JSONItem in JSONArrays {
-                let ticket = Ticket(data: JSONItem)
-                if ticket.status != Status.Pending {
-                    self.ticketList.append(ticket)
-                    self.tableView.reloadData()
-
+            let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]// {
+                if self.ticketList.count > 0 {
+                    self.ticketList.removeAll()
                 }
-            }
+                for JSONItem in JSONArrays {
+                    let ticket = Ticket(data: JSONItem)
+                    if ticket.status != Status.Pending {
+                        self.ticketList.append(ticket)
+                        self.tableView.reloadData()
+                        
+                    }
+                }
+            //}
+//        else {
+//                let alert = UIAlertController(title: "Network Error", message: "Cannot load data due to no internet connection. Please check your connection", preferredStyle: .Alert)
+//                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+//                alert.addAction(okAction)
+//                self.presentViewController(alert, animated: true, completion: nil)
+//            }
         }
     }
     func initSocketTicketOfUser(){
