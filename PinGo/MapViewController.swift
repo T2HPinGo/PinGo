@@ -243,7 +243,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         let state = address[4]["short_name"] as! String
                         //let zip = address[6]["short_name"] as! String
                         //print("\n\(number) \(street), \(city), \(state)")
-                        self.location!.address = "\(number) \(street), \(city), \(state)"
+                        self.location!.address = "\(number) \(street), \(city), \(state)" 
 //                        self.labelAddress.text = self.address
                         self.labelAddress.text = self.location!.address
                         self.userMarker = GMSMarker(position: position.target)

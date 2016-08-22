@@ -91,7 +91,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "ShowWorkerListSegue" {
             let biddingViewController = segue.destinationViewController as! TicketBiddingViewController
             biddingViewController.newTicket = self.newTicket
-            
+            //biddingViewController.newTicket.location = self.newTicket!.location
             print(biddingViewController.newTicket.location?.address)
             print(biddingViewController.newTicket.location?.latitude)
             print(biddingViewController.newTicket.location?.longitute)
@@ -104,8 +104,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
             if let location = mapViewController.location {
                 newTicket?.location = location
                 print(location)
-                print(location.longitute)
-                print(location.latitude)
+                print(location.longitute!)
+                print(location.latitude!)
             }
             locationLabel.text = newTicket!.location?.address
         }

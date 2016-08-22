@@ -9,7 +9,15 @@
 import UIKit
 import Alamofire
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButtonDelegate {
+    
+    //facebook login 
+    
+    let loginButton: FBSDKLoginButton = {
+        let button = FBSDKLoginButton()
+        button.readPermissions = ["email"]
+        return button
+    }()
     
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
@@ -26,7 +34,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //facebook login
+        view.addSubview(loginButton)
+        loginButton.center = view.center
+        loginButton.delegate = self
 
+        if let token = FBSDKAccessToken.currentAccessToken(){
+            fetchProfile()
+        }
         self.login.backgroundColor = AppThemes.redButtonColor
         self.login.layer.cornerRadius = 5
        
@@ -69,6 +84,34 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     }
     
+    func fetchProfile(){
+        print("fetch profile")
+        
+        let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
+        FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler { (connection, result, error) -> Void in
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            if let email = result["email"] as? String{
+                print(email)
+                
+            }
+        }
+        
+    }
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        print("completed login")
+        fetchProfile()
+    }
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        
+    }
+    
+    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
+        return true
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
