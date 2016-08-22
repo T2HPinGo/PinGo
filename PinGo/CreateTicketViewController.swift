@@ -91,10 +91,6 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "ShowWorkerListSegue" {
             let biddingViewController = segue.destinationViewController as! TicketBiddingViewController
             biddingViewController.newTicket = self.newTicket
-            
-            print(biddingViewController.newTicket.location?.address)
-            print(biddingViewController.newTicket.location?.latitude)
-            print(biddingViewController.newTicket.location?.longitute)
         }
     }
     
@@ -128,7 +124,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         ticketDetailViewHeightConstraint.constant = topAndBottomMargin*2 + verticalDistanceBetweenViews*5 + takePhotoView2HeightConstraint.constant + titleTextField.bounds.height + descriptionTextView.bounds.height + chooseLocationView.bounds.height + findWorkerButton.bounds.height
         
         //titleTextField
-        titleTextField.placeholder = NSLocalizedString("  Enter Title Here", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
+        titleTextField.placeholder = NSLocalizedString("Enter Title Here", tableName: "SkyFloatingLabelTextField", comment: "placeholder in the textField")
         titleTextField.selectedTitle   = NSLocalizedString("Title", tableName: "SkyFloatingLabelTextField", comment: "title when selected")
         titleTextField.title = NSLocalizedString("Title", tableName: "SkyFloatingLabelTextField", comment: "title when not selected")
         titleTextField.placeholderColor = TextFieldColorThemes.placeholderColor
@@ -225,6 +221,15 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         }, completion: nil)
     }
     
+    //check if user enter enough information
+    func didEnterRequiredInformation() -> Bool {
+        //if the category hasn/t been chosen OR no photo has been chosen OR no tile has been entered
+        if titleTextField.text == "" || newTicket?.imageOne == "" || takePhotoView2.hidden {
+            return true
+        }
+        return false
+    }
+    
         //  MARK: - Gesture/Actions
     func showCollectionView(gestureRecognizer: UIGestureRecognizer) {
         //if the collectionView is currently hidden, then show it. Otherwise, hide it
@@ -272,34 +277,42 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func findWorkerButtonTapped(sender: UIButton) {
         
-        self.startLoadingAnimation()
-        
-        newTicket?.category = categoryLabel.text!
-        newTicket?.title = titleTextField.text!
-        newTicket?.ticketDescription = descriptionTextView.text
-        newTicket?.user = UserProfile.currentUser
-        newTicket?.status = Status.Pending
-        newTicket?.worker = Worker()
-        //newTicket?.location = Location()
-        
-        let parameters = parametersTicket(newTicket!)
-        
-        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticket", parameters: parameters).responseJSON { response  in
+        if didEnterRequiredInformation() {
+            let alert = UIAlertController(title: "Ticket Invalid", message: "All required information must be entered before proceding to the next step", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(action)
+            presentViewController(alert, animated: true, completion: nil)
+        } else {
             
-            if response.result.value != nil {
-                let JSON = response.result.value as? [String:AnyObject]
-                let JSONobj = JSON!["data"]! as! [String : AnyObject]
-                self.newTicket = Ticket(data: JSONobj)
-                SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
-                self.stopActivityAnimating()
-                self.performSegueWithIdentifier("ShowWorkerListSegue", sender: nil)
-            } else {
-                //return an error message if cannot send request to server
-                self.stopActivityAnimating()
-                let alertController = UIAlertController(title: "Error", message: "Cannot push data to server. This could be due to internet connection. Please try again later", preferredStyle: .Alert)
-                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                alertController.addAction(action)
-                self.presentViewController(alertController, animated: true, completion: nil)
+            self.startLoadingAnimation()
+            
+            newTicket?.category = categoryLabel.text!
+            newTicket?.title = titleTextField.text!
+            newTicket?.ticketDescription = descriptionTextView.text
+            newTicket?.user = UserProfile.currentUser
+            newTicket?.status = Status.Pending
+            newTicket?.worker = Worker()
+            //newTicket?.dateCreated = NSDate()
+            
+            let parameters = parametersTicket(newTicket!)
+            
+            Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticket", parameters: parameters).responseJSON { response  in
+                
+                if response.result.value != nil {
+                    let JSON = response.result.value as? [String:AnyObject]
+                    let JSONobj = JSON!["data"]! as! [String : AnyObject]
+                    self.newTicket = Ticket(data: JSONobj)
+                    SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
+                    self.stopActivityAnimating()
+                    self.performSegueWithIdentifier("ShowWorkerListSegue", sender: nil)
+                } else {
+                    //return an error message if cannot send request to server
+                    self.stopActivityAnimating()
+                    let alertController = UIAlertController(title: "Error", message: "Cannot push data to server. This could be due to internet connection. Please try again later", preferredStyle: .Alert)
+                    let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alertController.addAction(action)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
             }
         }
         
@@ -345,7 +358,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         parameters["nameOfWorker"] = (ticket.worker?.username)!
         parameters["phoneOfWorker"] = (ticket.worker?.phoneNumber)!
         parameters["imageWorkerUrl"] = (ticket.worker?.profileImage!.imageUrl)!
-        parameters["urgent"] = (ticket.urgent)!
+        //parameters["urgent"] = (ticket.urgent)!
         parameters["width"] = 400
         parameters["height"] = 300
         parameters["widthOfProfile"] = 60

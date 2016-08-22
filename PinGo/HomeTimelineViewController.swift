@@ -106,7 +106,7 @@ class HomeTimelineViewController: BaseViewController {
         let activeTickets = ticketList.count
         let activeTicketsString = activeTickets != 0 ? "\(activeTickets)" : "no"
         let ticketString = activeTickets == 0 || activeTickets == 1 ? "ticket" : "tickets"
-        notificationLabel.text = "You have " + activeTicketsString + " active  " + ticketString
+        notificationLabel.text = "You have " + activeTicketsString + " active " + ticketString
         
         numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
         
