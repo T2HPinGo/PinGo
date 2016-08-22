@@ -71,13 +71,18 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
             labelStatus.text = oneWord
             viewWordOfStatus.layer.cornerRadius = viewWordOfStatus.frame.size.width / 2
             viewWordOfStatus.layer.masksToBounds = true
-            // View User
+            
+            //Load user profile image
             if ticket?.user?.profileImage?.imageUrl! != "" {
                 let profileUser = ticket?.user?.profileImage?.imageUrl!
                 HandleUtil.loadImageViewWithUrl(profileUser!, imageView: imageViewProfile)
                 imageViewProfile.layer.cornerRadius = 5
                 imageViewProfile.clipsToBounds = true
+            } else {
+                imageViewProfile.image = UIImage(named: "profile_image_placeholder")
             }
+            
+            
             labelUsername.text = ticket?.user?.getFullName()
             // Check block or un block phoneNumber and Address
             if ticket?.worker?.id == Worker.currentUser?.id {
