@@ -176,7 +176,7 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
     @IBAction func mapDirectionAction(sender: AnyObject) {
         print("abc")
         
-        if let locationLog = ticket!.location!.longitute, let locationLat = ticket!.location!.latitude, let workerloclog = workerlocation.longitute, let workerloclat = workerlocation.latitude{
+        if let locationLog = ticket!.location!.longitute, locationLat = ticket!.location!.latitude, workerloclog = workerlocation.longitute, workerloclat = workerlocation.latitude{
             
             var urlString = "http://maps.google.com/maps?"
             urlString += "saddr=\(workerloclog),\(workerloclat)"

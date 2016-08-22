@@ -100,8 +100,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
             if let location = mapViewController.location {
                 newTicket?.location = location
                 print(location)
-                print(location.longitute)
-                print(location.latitude)
+                print(location.longitute!)
+                print(location.latitude!)
             }
             locationLabel.text = newTicket!.location?.address
         }

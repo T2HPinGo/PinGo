@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //apply google API key
         
-        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GMSServices.provideAPIKey("AIzaSyA2Q4hFrqFvAqCvbJve9YjBIG716U5jQS8")
         
         GMSPlacesClient.provideAPIKey("AIzaSyD26Ic4Z40PACvHfEsdTheOpPRrdKl78zc")
@@ -65,6 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        return true
+    }
+    
     
     func generalAppearance(){
         
