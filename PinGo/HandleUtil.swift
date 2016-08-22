@@ -68,4 +68,11 @@ struct HandleUtil {
         let myDate = NSDate(timeIntervalSince1970:  epocTime)
         return getStringFromDate(myDate, withFormat: DateStringFormat.DD_MMM_YYYY_HH_mm)
     }
+    
+    static func castStringToNSNumber(data: String) ->NSNumber {
+        var result: NSNumber?
+        let tempDouble = Double(data)
+        result = tempDouble
+        return result!
+    }
 }

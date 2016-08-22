@@ -64,10 +64,8 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         }
         initTableView()
         loadDataForView()
-    
-        if UserProfile.currentUser!.isWorker {
-            loadDataFromApi(UserProfile.currentUser!.id!)
-        }
+        
+        loadDataFromApi(UserProfile.currentUser!.id!, isWorker: UserProfile.currentUser!.isWorker)
         initOpacityBarView()
     }
     
@@ -137,10 +135,11 @@ extension EditUserProfileViewController {
         imageViewProfile.layer.borderColor = UIColor.whiteColor().CGColor
         imageViewProfile.layer.borderWidth = 2
     }
-    func loadDataFromApi(idWorker: String) {
+    func loadDataFromApi(idUser: String, isWorker: Bool) {
         var parameters = [String : AnyObject]()
         parameters["statusTicket"] = Status.Approved.rawValue
-        parameters["idWorker"] = idWorker
+        parameters["idUser"] = idUser
+        parameters["isWorker"] = isWorker
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/historytickets", parameters: parameters).responseJSON { response  in
             let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
             print(JSONArrays)

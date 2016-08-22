@@ -23,8 +23,21 @@ class Location: NSObject {
     init(data: [String : AnyObject]){
         address = data["address"] as? String
         city = data["city"] as? String
-        longitute = data["longitute"] as? NSNumber
-        latitude = data["latitude"] as? NSNumber
+        let strLong = data["longtitude"] as? String
+        let strLati = data["latitude"] as? String
+        if  strLong != "" {
+            longitute = HandleUtil.castStringToNSNumber(strLong!)
+        } else {
+            longitute = 0
+        }
+        
+   
+        if strLati != "" {
+            latitude = HandleUtil.castStringToNSNumber(strLati!)
+        } else {
+            latitude = 0
+        }
+        
     }
 }
 
