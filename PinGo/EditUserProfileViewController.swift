@@ -30,7 +30,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     // HeadeView Of TableiView
     @IBOutlet weak var imageViewProfile: UIImageView!
     
-    @IBOutlet weak var imageViewRating: NSLayoutConstraint!
+    @IBOutlet weak var imageViewRating: UIImageView!
     
     @IBOutlet weak var labelUsername: UILabel!
     @IBOutlet weak var labelFullname: UILabel!
@@ -53,11 +53,13 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         //        tableView.delegate = self
         //        tableView.dataSource = self
         
-        logoutButton.backgroundColor = AppThemes.cellColors[2]
+       // logoutButton.backgroundColor = AppThemes.cellColors[2]
         // Do any additional setup after loading the view.
        
         if userProfile == nil {
             userProfile = UserProfile.currentUser
+            menuBarButton.image = UIImage()
+            imageViewRating.hidden = true
         } else {
             menuBarButton.image = UIImage()
             menuBarButton.title = "Back"
