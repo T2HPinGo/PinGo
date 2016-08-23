@@ -2,15 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Construction Worker-50.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Housekeeping@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Housekeeping@3x.png",
       "scale" : "3x"
     }
   ],
