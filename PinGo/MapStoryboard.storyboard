@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rsz-hC-wab">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rsz-hC-wab">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -25,10 +25,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqr-3h-AjO">
-                                <rect key="frame" x="0.0" y="104" width="320" height="50"/>
+                                <rect key="frame" x="10" y="79" width="300" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EC-sE-gBI">
-                                        <rect key="frame" x="8" y="5" width="300" height="50"/>
+                                        <rect key="frame" x="10" y="0.0" width="280" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="lc9-ZR-PBx"/>
                                         </constraints>
@@ -39,10 +39,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="9fY-xK-DW3"/>
-                                    <constraint firstItem="7EC-sE-gBI" firstAttribute="leading" secondItem="Uqr-3h-AjO" secondAttribute="leading" constant="8" id="GOf-4b-dXW"/>
-                                    <constraint firstAttribute="trailing" secondItem="7EC-sE-gBI" secondAttribute="trailing" constant="12" id="Tdh-w9-9xd"/>
-                                    <constraint firstItem="7EC-sE-gBI" firstAttribute="top" secondItem="Uqr-3h-AjO" secondAttribute="top" constant="5" id="n2r-2R-gBi"/>
+                                    <constraint firstAttribute="height" constant="45" id="9fY-xK-DW3"/>
+                                    <constraint firstItem="7EC-sE-gBI" firstAttribute="leading" secondItem="Uqr-3h-AjO" secondAttribute="leading" constant="10" id="GOf-4b-dXW"/>
+                                    <constraint firstAttribute="trailing" secondItem="7EC-sE-gBI" secondAttribute="trailing" constant="10" id="Tdh-w9-9xd"/>
+                                    <constraint firstItem="7EC-sE-gBI" firstAttribute="top" secondItem="Uqr-3h-AjO" secondAttribute="top" id="n2r-2R-gBi"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz9-Z6-dWJ">
@@ -67,21 +67,25 @@
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="centerX" secondItem="43k-ks-D0N" secondAttribute="centerX" id="EGA-jd-fNx"/>
                             <constraint firstAttribute="trailing" secondItem="Uqr-3h-AjO" secondAttribute="trailing" id="GWQ-Ni-8n1"/>
                             <constraint firstAttribute="trailing" secondItem="Uqr-3h-AjO" secondAttribute="trailing" constant="10" id="OJI-WH-p8k"/>
+                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" constant="10" id="PFY-ZE-lJW"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" id="Q6L-Um-wVE"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" constant="10" id="X40-tl-Mth"/>
                             <constraint firstAttribute="trailing" secondItem="Tz9-Z6-dWJ" secondAttribute="trailing" constant="10" id="a0s-Tu-ALS"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Tz9-Z6-dWJ" secondAttribute="bottom" constant="70" id="cCe-vQ-bug"/>
+                            <constraint firstAttribute="trailing" secondItem="Uqr-3h-AjO" secondAttribute="trailing" constant="10" id="hxW-2c-SDI"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="8" symbolic="YES" id="jbS-uj-iym"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Xbk-z3-E2M" secondAttribute="bottom" id="kj1-bj-cmt"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="ltP-Tq-wd4"/>
                             <constraint firstAttribute="trailing" secondItem="Xbk-z3-E2M" secondAttribute="trailing" id="nGX-NF-z2h"/>
-                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="40" id="suO-pm-Ats"/>
+                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="15" id="suO-pm-Ats"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="43k-ks-D0N" secondAttribute="top" id="wk8-Dx-wrO"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="zCK-kV-YNc"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="jbS-uj-iym"/>
+                                <exclude reference="1h9-r3-J7w"/>
+                                <exclude reference="74I-XP-B3k"/>
                                 <exclude reference="GWQ-Ni-8n1"/>
                                 <exclude reference="OJI-WH-p8k"/>
                                 <exclude reference="Q6L-Um-wVE"/>

@@ -32,6 +32,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     var isFirstTimeUseMap: Bool = true
     var flagCount: Int = 0
     var location :Location?
+    
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var labelAddress: UILabel!
     
@@ -57,55 +58,19 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         testView.delegate = self
 
-//        locationView.hidden = true
-        locationViewStyle ()
+        locationView.hidden = true
+//        locationViewStyle ()
         okButtonStyle()
         
         placesClient = GMSPlacesClient.sharedClient()
         
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        
-        //SEARCH BAR        
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        let subViews = UIView(frame: CGRectMake(0, 20, view.frame.width, 45.0))
-       
-//         var button = UIButton(type: .Custom)
-//        
-//        button.frame = CGRectMake(0, 0, 45, 45)
-//        button.setTitle("Back", forState: .Normal)
-        
-        let searchBar = searchController?.searchBar
-        subViews.addSubview(searchBar!)
-        self.view.addSubview(subViews)
-        searchBar!.sizeToFit()
-        
 
         
-        searchController?.hidesNavigationBarDuringPresentation = false
-        
-        // When UISearchController presents the results view, present it in
-        // this view controller, not one further up the chain.
-        self.definesPresentationContext = true
-        
-        let searchTextField = searchBar!.valueForKey("_searchField") as? UITextField
-        searchTextField?.backgroundColor = AppThemes.navigationBackgroundColor
-        searchTextField?.textColor = UIColor.whiteColor()
-        
-        searchController?.searchBar.barTintColor = AppThemes.navigationBackgroundColor
-        searchController?.searchBar.tintColor = UIColor.whiteColor()
-        
-//        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
-//        let image = UIImage(named: "Pingo")
-//        markerView.image = image
+        searchbarStyle()
+
     }
     
+
     @IBAction func okButtonAction(sender: AnyObject) {
         
         
@@ -121,7 +86,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     }
     
     func okButtonStyle(){
-        self.okButton.backgroundColor = AppThemes.navigationBackgroundColor
+        self.okButton.backgroundColor = AppThemes.appColorTheme
         self.okButton.layer.masksToBounds = true
 //        self.okButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         self.okButton.layer.cornerRadius = okButton.frame.size.width/2
@@ -129,10 +94,18 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     }
     
     func locationViewStyle (){
-        UINavigationBar.appearance().barTintColor = UIColor.clearColor()
+//        UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         locationView.layer.cornerRadius = 0
         locationView.layer.masksToBounds = true
-        locationView.backgroundColor = AppThemes.navigationBackgroundColor
+        locationView.backgroundColor = UIColor.whiteColor()
+        
+        
+        locationView.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
+        locationView.layer.shadowColor = UIColor.blackColor().CGColor//default is black
+        locationView.layer.shadowRadius = 1.0 //default is 3.0
+        locationView.layer.shadowOpacity = 0.5
+        
+        labelAddress.textColor = AppThemes.appColorText
 //        locationView.layer.borderColor = UIColor.lightGrayColor().CGColor
 //        locationView.layer.borderWidth = 1
     }
@@ -157,6 +130,48 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
+    func searchbarStyle(){
+        
+        resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController?.searchResultsUpdater = resultsViewController
+        
+        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        let subViews = UIView(frame: CGRectMake(10, 75, view.frame.width-20, 150.0))
+        subViews.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
+        subViews.layer.shadowColor = UIColor.blackColor().CGColor//default is black
+        subViews.layer.shadowRadius = 1.0 //default is 3.0
+        subViews.layer.shadowOpacity = 0.5 //default is 0.0
+        //         var button = UIButton(type: .Custom)
+        //
+        //        button.frame = CGRectMake(0, 0, 45, 45)
+        //        button.setTitle("Back", forState: .Normal)
+        //action
+        let searchBar = searchController?.searchBar
+        searchBar?.placeholder = "\(location?.address)"
+        subViews.addSubview(searchBar!)
+        self.view.addSubview(subViews)
+        searchBar!.sizeToFit()
+        
+        searchController?.hidesNavigationBarDuringPresentation = false
+        
+        // When UISearchController presents the results view, present it in
+        // this view controller, not one further up the chain.
+        self.definesPresentationContext = true
+        
+        let searchTextField = searchBar!.valueForKey("_searchField") as? UITextField
+        searchTextField?.backgroundColor = UIColor.whiteColor()
+        searchTextField?.textColor = AppThemes.appColorTheme
+        
+        searchController?.searchBar.barTintColor = UIColor.whiteColor()
+        searchController?.searchBar.tintColor = AppThemes.appColorTheme
+        
+        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
+        let image = UIImage(named: "Pingo")
+        markerView.image = image
+    }
     
     //---------------Google Map AP
     
@@ -164,6 +179,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 
 
         placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
+            
             guard error == nil else {
                 print("Current Place error: \(error!.localizedDescription)")
                 return
@@ -173,6 +189,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.location?.latitude = (self.locationManager.location?.coordinate.latitude)!
             self.location?.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
             
+            if let currentAddress = self.location!.address{
+            self.searchController!.searchBar.placeholder = "\(currentAddress)"
+            }
 //            self.currentlocation_long = (self.locationManager.location?.coordinate.longitude)!
 //            self.currentlocation_latitude = (self.locationManager.location?.coordinate.latitude)!
 //            self.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
@@ -241,11 +260,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         let street = address[1]["short_name"] as! String
                         let city = address[2]["short_name"] as! String
                         let state = address[4]["short_name"] as! String
-                        //let zip = address[6]["short_name"] as! String
+//                        let zip = address[6]["short_name"] as! String
                         //print("\n\(number) \(street), \(city), \(state)")
-                        self.location!.address = "\(number) \(street), \(city), \(state)" 
+                        self.location!.address = "\(number) \(street), \(city), \(state)"
 //                        self.labelAddress.text = self.address
-                        self.labelAddress.text = self.location!.address
+                        self.searchController!.searchBar.placeholder = self.location!.address
+//                        self.labelAddress.text = self.location!.address
                         self.userMarker = GMSMarker(position: position.target)
 //                        self.userMarker!.title = "Setup Location"
 //                            self.userMarker!.snippet = "\(self.address)"
@@ -322,7 +342,8 @@ extension MapViewController: CLLocationManagerDelegate {
         location!.longitute = location_default.longitude
         
         print(location_default)
-        print(location)
+        print(location!)
+        
         
         locationManager.stopUpdatingLocation()
     }
@@ -407,6 +428,7 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
         print("Place attributions: ", place.attributions)
         
         locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
+        self.searchController?.searchBar.placeholder = String(place.addressComponents)
     }
     
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
@@ -418,6 +440,7 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     // Turn the network activity indicator on and off again.
     func didRequestAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.searchController?.searchBar.placeholder = ""
     }
     
     func didUpdateAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
