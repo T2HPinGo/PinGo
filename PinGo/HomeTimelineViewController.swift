@@ -14,15 +14,16 @@ class HomeTimelineViewController: BaseViewController {
     
     @IBOutlet weak var createNewTicketButton: UIButton!
     
-    @IBOutlet weak var bottomPanelView: UIView!
-    
-    @IBOutlet weak var topPanelView: UIView!
     @IBOutlet weak var greetingLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var notificationLabel: UILabel!
-    @IBOutlet weak var numbersOfTicketsPendingLabel: UILabel!
-    
-    @IBOutlet weak var ticketIconImageView: UIImageView!
+//    @IBOutlet weak var bottomPanelView: UIView!
+//    
+//    @IBOutlet weak var topPanelView: UIView!
+//
+//    @IBOutlet weak var dateLabel: UILabel!
+//    @IBOutlet weak var notificationLabel: UILabel!
+//    @IBOutlet weak var numbersOfTicketsPendingLabel: UILabel!
+//    
+//    @IBOutlet weak var ticketIconImageView: UIImageView!
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
@@ -95,35 +96,40 @@ class HomeTimelineViewController: BaseViewController {
         tableView.separatorStyle = .None
         
         //top and bottom panel
-        bottomPanelView.layer.cornerRadius = 5
-        bottomPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.bottomPanelColor
-        
-        topPanelView.layer.cornerRadius = 5
-        topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
-        
-        //greeting label
-        greetingLabel.font = AppThemes.helveticaNeueRegular20
-        greetingLabel.textColor = AppThemes.tableHeaderTextColor
-        let userFirstName = UserProfile.currentUser?.firstName ?? "User"
-
-        greetingLabel.text = "Hello " + userFirstName
-        
-        //other Labels
-        dateLabel.font = AppThemes.helveticaNeueRegular16
-        dateLabel.textColor = AppThemes.tableHeaderTextColor
-        dateLabel.text = getStringFromDate(NSDate(), withFormat: DateStringFormat.DD_MMM_YYYY)
-        
-        notificationLabel.font = AppThemes.helveticaNeueRegular16
-        notificationLabel.textColor = AppThemes.tableHeaderTextColor
-        let activeTickets = ticketList.count
-        let activeTicketsString = activeTickets != 0 ? "\(activeTickets)" : "no"
-        let ticketString = activeTickets == 0 || activeTickets == 1 ? "ticket" : "tickets"
-        notificationLabel.text = "You have " + activeTicketsString + " active " + ticketString
-        
-        numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
+//        bottomPanelView.layer.cornerRadius = 5
+//        bottomPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.bottomPanelColor
+//        
+//        topPanelView.layer.cornerRadius = 5
+//        topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
+//        
+//        //greeting label
+//        greetingLabel.font = AppThemes.helveticaNeueRegular20
+//        greetingLabel.textColor = AppThemes.tableHeaderTextColor
+//        let userFirstName = UserProfile.currentUser?.firstName ?? "User"
+//
+//        greetingLabel.text = "Hello " + userFirstName
+//        
+//        //other Labels
+//        dateLabel.font = AppThemes.helveticaNeueRegular16
+//        dateLabel.textColor = AppThemes.tableHeaderTextColor
+//        dateLabel.text = getStringFromDate(NSDate(), withFormat: DateStringFormat.DD_MMM_YYYY)
+//        
+//        notificationLabel.font = AppThemes.helveticaNeueRegular16
+//        notificationLabel.textColor = AppThemes.tableHeaderTextColor
+//        let activeTickets = ticketList.count
+//        let activeTicketsString = activeTickets != 0 ? "\(activeTickets)" : "no"
+//        let ticketString = activeTickets == 0 || activeTickets == 1 ? "ticket" : "tickets"
+//        notificationLabel.text = "You have " + activeTicketsString + " active " + ticketString
+//        
+//        numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
         
         //create ticket button
-        createNewTicketButton.layer.backgroundColor = UIColor.clearColor().CGColor
+        greetingLabel.text = "Hello \((UserProfile.currentUser?.firstName)!) !"
+        createNewTicketButton.layer.cornerRadius = createNewTicketButton.frame.size.width / 2
+        createNewTicketButton.layer.masksToBounds = true
+        createNewTicketButton.layer.borderColor = UIColor.whiteColor().CGColor
+        createNewTicketButton.layer.borderWidth = 2
+       
     }
     
 }

@@ -18,6 +18,8 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var categoryIconContainerView: UIView!
     @IBOutlet weak var categoryIconImageView: UIImageView!
     
+    @IBOutlet weak var buttonAction: UIButton!
+    
     @IBOutlet weak var connectionLineView: UIView!
     
     @IBOutlet weak var workerProfileImageView: UIImageView!
@@ -121,6 +123,11 @@ class RequestStatusCell: UITableViewCell {
         workerProfileImageView.layer.cornerRadius = 5
         workerProfileImageView.layer.masksToBounds = true
         callWorkerView.layer.cornerRadius = 5
+        
+        // button 
+        buttonAction.layer.cornerRadius = 5
+        buttonAction.layer.borderColor = UIColor.whiteColor().CGColor
+        buttonAction.layer.borderWidth = 1
     }
     
     
