@@ -23,6 +23,8 @@ class TicketBiddingViewController: UIViewController {
     
     @IBOutlet weak var topPanelView: UIView!
     
+    @IBOutlet weak var cancelTicketButton: UIButton!
+    
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
     var newTicket: Ticket!
@@ -46,8 +48,8 @@ class TicketBiddingViewController: UIViewController {
         
         //addMarker()
         
-        let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
+//        let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
+//        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
         
         setupAppearance()
         
@@ -113,6 +115,10 @@ class TicketBiddingViewController: UIViewController {
         addressLabel.textColor = UIColor.whiteColor()
         dateIssuedLabel.font = AppThemes.avenirBlack17
         dateIssuedLabel.textColor = UIColor.whiteColor()
+        
+        cancelTicketButton.layer.cornerRadius = 5.0
+        cancelTicketButton.layer.borderWidth = 1.0
+        cancelTicketButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         
 
