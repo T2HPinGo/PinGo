@@ -169,8 +169,8 @@ extension EditUserProfileViewController {
         headerBackgroundBlurImageView.addSubview(blurEffectView)
         headerBackgroundBlurImageView?.alpha = 0.0
         
-        headerBackgroundImageView?.image = UIImage(named: "iron_man")
-        headerBackgroundBlurImageView?.image = UIImage(named: "iron_man")
+        headerBackgroundImageView?.image = UIImage(named: "Pingobackground")
+        headerBackgroundBlurImageView?.image = UIImage(named: "Pingobackground")
         headerBackgroundImageView?.contentMode = UIViewContentMode.ScaleAspectFill
         headerBackgroundBlurImageView?.contentMode = UIViewContentMode.ScaleAspectFill
         // Should add background view below SubView

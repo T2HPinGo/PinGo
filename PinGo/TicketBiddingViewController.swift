@@ -52,7 +52,8 @@ class TicketBiddingViewController: UIViewController {
         setupAppearance()
         
         //set up appearance (need to refactor)
-        ticketTitleLabel.text = newTicket.title?.uppercaseString
+        ticketTitleLabel.text = newTicket.title
+        addressLabel.text = newTicket.location?.address
         
         //load worker list
         SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
@@ -106,11 +107,11 @@ class TicketBiddingViewController: UIViewController {
         topPanelView.backgroundColor = AppThemes.topPannelColor
         
         //color
-        ticketTitleLabel.font = AppThemes.avenirBlack20
+        ticketTitleLabel.font = AppThemes.avenirBlack17
         ticketTitleLabel.textColor = UIColor.whiteColor()
         addressLabel.font = AppThemes.helveticaNeueRegular14
         addressLabel.textColor = UIColor.whiteColor()
-        dateIssuedLabel.font = AppThemes.avenirBlack20
+        dateIssuedLabel.font = AppThemes.avenirBlack17
         dateIssuedLabel.textColor = UIColor.whiteColor()
         
         
@@ -123,7 +124,7 @@ class TicketBiddingViewController: UIViewController {
         //set up positin & size for the indicator
         let width: CGFloat = 30
         let height: CGFloat = 30
-        let x: CGFloat = bottomPanelView.frame.width - 50
+        let x: CGFloat = bottomPanelView.frame.width - 70
         let y: CGFloat = (bottomPanelView.frame.height + topPanelView.frame.height) / 2 - height/2
         let frame = CGRect(x: x, y: y, width: width, height: height)
         
