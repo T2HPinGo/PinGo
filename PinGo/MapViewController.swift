@@ -150,7 +150,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         //        button.setTitle("Back", forState: .Normal)
         //action
         let searchBar = searchController?.searchBar
-        searchBar?.placeholder = "\(location?.address)"
+        searchBar?.placeholder = "\(location?.address!)"
         subViews.addSubview(searchBar!)
         self.view.addSubview(subViews)
         searchBar!.sizeToFit()
@@ -264,7 +264,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         //print("\n\(number) \(street), \(city), \(state)")
                         self.location!.address = "\(number) \(street), \(city), \(state)"
 //                        self.labelAddress.text = self.address
-                        self.searchController!.searchBar.placeholder = self.location!.address
+                        self.searchController!.searchBar.placeholder = self.location!.address!
 //                        self.labelAddress.text = self.location!.address
                         self.userMarker = GMSMarker(position: position.target)
 //                        self.userMarker!.title = "Setup Location"
@@ -428,7 +428,7 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
         print("Place attributions: ", place.attributions)
         
         locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
-        self.searchController?.searchBar.placeholder = String(place.addressComponents)
+        self.searchController?.searchBar.placeholder = String(place.addressComponents!)
     }
     
     func resultsController(resultsController: GMSAutocompleteResultsViewController,

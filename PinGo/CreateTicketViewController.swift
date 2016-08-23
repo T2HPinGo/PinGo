@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-class CreateTicketViewController: UIViewController, UITextFieldDelegate {
+class CreateTicketViewController: UIViewController, UITextFieldDelegate , UITextViewDelegate{
     //MARK: - Outlets and Variables
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraints: NSLayoutConstraint!
@@ -79,11 +79,65 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionViewHeightConstraints.constant = 0
+        
+        titleTextField.delegate = self
+        descriptionTextView.delegate = self
+        
 
         setupAppearance()
         //setupLoadingIndicator()
         
         addGesture()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+    }
+    
+    //keyboard disapear with return
+    
+//    func textViewDidEndEditing(textView: UITextView) {
+//        
+//        self.view.endEditing(true)
+//    }
+    
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        if textView.textColor == UIColor.lightGrayColor() {
+            textView.text = nil
+            textView.textColor = TextFieldColorThemes.textColor
+        }
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = descriptionTextView.placeholder
+            textView.textColor = TextFieldColorThemes.textColor
+        }
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n"{
+            textView.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -50
+    }
+    
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y = 0
     }
     
     // MARK: - Navigation
