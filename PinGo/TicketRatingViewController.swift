@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 protocol TicketRatingViewControllerDelegate: class {
     func ticketRatingViewController(from: TicketRatingViewController, didRateTicket rating: String)
 }
@@ -15,18 +15,26 @@ protocol TicketRatingViewControllerDelegate: class {
 class TicketRatingViewController: UIViewController {
     //MARK: - Outlets and Variables
     
+    @IBOutlet weak var buttonClose: UIButton!
+    @IBOutlet weak var commentLabel: UITextView!
+    
+    @IBOutlet weak var buttonOk: UIButton!
+    
     @IBOutlet weak var popupView: UIView!
-    @IBOutlet weak var workerProfileImageView: UIImageView!
     @IBOutlet weak var workerNameLabel: UILabel!
     
+    @IBOutlet weak var viewContent: UIView!
     @IBOutlet weak var ratingStackView: UIStackView!
     @IBOutlet weak var badButton: UIButton!
     @IBOutlet weak var normalButton: UIButton!
     @IBOutlet weak var goodButton: UIButton!
     @IBOutlet weak var greatBUtton: UIButton!
     
+    var idTicket: String = ""
+    var nameWorker: String = ""
+    var valueRating: Int = 0
     var rating: String? //store the string that corresponding to the rating icons
-    
+    var senderButton : AnyObject?
     weak var delegate: TicketRatingViewControllerDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,10 +46,10 @@ class TicketRatingViewController: UIViewController {
     //MARK: Load Views
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //set up apperance
         setupAppearance()
-        
+        initView()
         //add gesture so user can close the popup by tapping out side the popup view
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
         gestureRecognizer.cancelsTouchesInView = false
@@ -60,7 +68,7 @@ class TicketRatingViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
         UIView.animateWithDuration(0.2, delay: 0.0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: [], animations: {
             self.badButton.transform = CGAffineTransformIdentity
             }, completion: nil)
@@ -75,66 +83,102 @@ class TicketRatingViewController: UIViewController {
         
         UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: [], animations: {
             self.greatBUtton.transform = CGAffineTransformIdentity
-        }, completion: nil)
+            }, completion: nil)
     }
     
     //MARK: - Actions
-//    @IBAction func close() {
-//        dismissViewControllerAnimated(true, completion: nil)
-//    }
+    //    @IBAction func close() {
+    //        dismissViewControllerAnimated(true, completion: nil)
+    //    }
+    
+    @IBAction func okAction(sender: UIButton) {
+        ratingForWorker()
+    }
+    
     
     func close() {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func ratingSelected(sender: UIButton) {
+        clearColorForAllButtonsRating()
         switch sender.tag {
         case 100:
             rating = "dislike"
+            valueRating = 1
+            cornerRadiusForButton(badButton)
         case 200:
             rating = "rating"
+            valueRating = 2
+            cornerRadiusForButton(normalButton)
         case 300:
             rating = "good"
+            valueRating = 3
+            cornerRadiusForButton(goodButton)
+            
         case 400:
             rating = "great"
+            valueRating = 4
+            cornerRadiusForButton(greatBUtton)
         default:
             rating = "rating"
+            valueRating = 0
         }
-        
-        performSegueWithIdentifier("UnwindToHomeTimeline", sender: sender)
+        senderButton = sender
     }
     
     //MARK: - Helpers
     func setupAppearance() {
-        popupView.layer.cornerRadius = 10
+        viewContent.layer.cornerRadius = 10
         view.backgroundColor = UIColor.clearColor()
         
         //rating buttons
-        cornerRadiusForButton(badButton)
-        cornerRadiusForButton(normalButton)
-        cornerRadiusForButton(goodButton)
-        cornerRadiusForButton(greatBUtton)
+        //        cornerRadiusForButton(badButton)
+        //        cornerRadiusForButton(normalButton)
+        //        cornerRadiusForButton(goodButton)
+        //        cornerRadiusForButton(greatBUtton)
         
+    }
+    // MARK: - Clear color of buttons
+    func clearColorForAllButtonsRating(){
+        badButton.layer.backgroundColor = UIColor.clearColor().CGColor
+        normalButton.layer.backgroundColor = UIColor.clearColor().CGColor
+        goodButton.layer.backgroundColor = UIColor.clearColor().CGColor
+        greatBUtton.layer.backgroundColor = UIColor.clearColor().CGColor
+    }
+    // MARK - InitView
+    func initView(){
+        buttonClose.layer.cornerRadius = buttonClose.frame.size.width / 2
+        buttonClose.layer.masksToBounds = true
+        buttonClose.layer.borderColor = UIColor.whiteColor().CGColor
+        buttonClose.layer.borderWidth = 2
+        buttonOk.layer.borderColor = UIColor.whiteColor().CGColor
+        buttonOk.layer.borderWidth = 2
+        buttonOk.layer.cornerRadius = 5
+        workerNameLabel.text = nameWorker;
     }
     
     func cornerRadiusForButton(button: UIButton) {
-        button.layer.cornerRadius = button.frame.width / 2
-        button.layer.backgroundColor = UIColor(red: 255.0/255.0, green: 217.0/255.0, blue: 25.0/255.0, alpha: 1.0).CGColor
         
+        UIView.animateWithDuration(0.8) {
+            button.layer.cornerRadius = button.frame.width / 2
+            button.layer.backgroundColor = UIColor(red: 255.0/255.0, green: 217.0/255.0, blue: 25.0/255.0, alpha: 1.0).CGColor
+            
+        }
     }
-
+    
 }
 
 extension TicketRatingViewController: UIViewControllerTransitioningDelegate {
     func presentationControllerForPresentedViewController(presented: UIViewController,
                                                           presentingViewController presenting: UIViewController,
-                                                        sourceViewController source: UIViewController) -> UIPresentationController? {
+                                                                                   sourceViewController source: UIViewController) -> UIPresentationController? {
         return DimmingPresentationViewController(presentedViewController: presented, presentingViewController: presenting)
     }
     
     func animationControllerForPresentedController(presented: UIViewController,
                                                    presentingController presenting: UIViewController,
-                                                    sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+                                                                        sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return T2HBounceAnimationController()
     }
     
@@ -147,5 +191,19 @@ extension TicketRatingViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         //return true if user touch any where but the popupView
         return touch.view === self.view
+    }
+}
+
+// MARK : Rating API
+extension TicketRatingViewController {
+    func ratingForWorker (){
+        var parameters = [String:AnyObject]()
+        parameters["idTicket"] = idTicket
+        parameters["rating"] = valueRating
+        parameters["comment"] = commentLabel.text
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ratingForTicket", parameters: parameters).responseJSON { response  in
+            print(response.result.value)
+            self.performSegueWithIdentifier("UnwindToHomeTimeline", sender: self.senderButton)
+        }
     }
 }
