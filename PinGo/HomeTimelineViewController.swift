@@ -203,7 +203,7 @@ extension HomeTimelineViewController {
                 }
                 for JSONItem in JSONArrays {
                     let ticket = Ticket(data: JSONItem)
-                    if ticket.status != Status.Pending {
+                    if ticket.status != Status.Pending  && ticket.status != Status.Approved{
                         self.ticketList.append(ticket)
                         self.tableView.reloadData()
                         

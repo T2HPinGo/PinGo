@@ -76,7 +76,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="full name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4q-Mo-blZ">
                                             <rect key="frame" x="8" y="177" width="52" height="15"/>
                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
-                                            <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blU-Lj-Zs5" userLabel="viewDivided">
@@ -88,6 +88,7 @@
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="good" translatesAutoresizingMaskIntoConstraints="NO" id="rej-x9-8e0">
                                             <rect key="frame" x="337" y="120" width="30" height="30"/>
+                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="621-O2-fEI"/>
                                                 <constraint firstAttribute="height" constant="30" id="fOJ-mQ-Fc9"/>
@@ -96,13 +97,13 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCZ-qD-f79">
                                             <rect key="frame" x="8" y="198" width="32.5" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phonenumber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMv-db-DoY">
                                             <rect key="frame" x="46" y="221" width="84.5" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ObP-yh-TKc">
@@ -113,14 +114,13 @@
                                             </constraints>
                                             <state key="normal" title="Call"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5W-iw-Iwt">
-                                            <rect key="frame" x="81" y="115" width="100" height="35"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5W-iw-Iwt">
+                                            <rect key="frame" x="81" y="115" width="35" height="35"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="3bg-T1-Jb0"/>
+                                                <constraint firstAttribute="width" constant="35" id="3bg-T1-Jb0"/>
                                                 <constraint firstAttribute="height" constant="35" id="CXV-2e-o3I"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                                            <state key="normal" title="Log out">
+                                            <state key="normal" image="settings">
                                                 <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
@@ -314,6 +314,7 @@
                         <outlet property="headerPhoneNumber" destination="m1a-xR-Fky" id="6QR-dK-qvo"/>
                         <outlet property="headerView" destination="1JW-16-XUe" id="k31-hi-nCK"/>
                         <outlet property="imageViewProfile" destination="ymH-8l-RRT" id="vi0-Aw-jFc"/>
+                        <outlet property="imageViewRating" destination="rej-x9-8e0" id="y5Y-kC-8jo"/>
                         <outlet property="labelEmail" destination="sCZ-qD-f79" id="vJW-qJ-4mc"/>
                         <outlet property="labelFullname" destination="o02-cE-U0S" id="y0N-6m-4Ar"/>
                         <outlet property="labelPhoneNumber" destination="KMv-db-DoY" id="F77-65-cAb"/>
@@ -356,5 +357,6 @@
         <image name="cat_profile_filled" width="25" height="25"/>
         <image name="good" width="256" height="256"/>
         <image name="greentech" width="100" height="100"/>
+        <image name="settings" width="24" height="24"/>
     </resources>
 </document>

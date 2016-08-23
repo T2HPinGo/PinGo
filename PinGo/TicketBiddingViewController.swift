@@ -23,6 +23,10 @@ class TicketBiddingViewController: UIViewController {
     
     @IBOutlet weak var topPanelView: UIView!
     
+    @IBOutlet weak var cancelTicketButton: UIButton!
+    
+    @IBOutlet weak var numberOfWorkersFoundLabel: UILabel!
+    
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
     var newTicket: Ticket!
@@ -46,14 +50,15 @@ class TicketBiddingViewController: UIViewController {
         
         //addMarker()
         
-        let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
+//        let cellNib = UINib(nibName: "NoResultFound", bundle: nil)
+//        tableView.registerNib(cellNib, forCellReuseIdentifier: "NoResultFound")
         
         setupAppearance()
         
         //set up appearance (need to refactor)
         ticketTitleLabel.text = newTicket.title
         addressLabel.text = newTicket.location?.address
+        numberOfWorkersFoundLabel.text = "0" //String(format: "%d",  workerList.count)
         
         //load worker list
         SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
@@ -62,6 +67,7 @@ class TicketBiddingViewController: UIViewController {
             }
             self.workerList.append(worker)
             self.tableView.reloadData()
+            self.updateNumberOfWorkersFound()
         }
         
         print(newTicket.location?.latitude)
@@ -114,10 +120,9 @@ class TicketBiddingViewController: UIViewController {
         dateIssuedLabel.font = AppThemes.avenirBlack17
         dateIssuedLabel.textColor = UIColor.whiteColor()
         
-        
-
-        
-        
+        cancelTicketButton.layer.cornerRadius = 5.0
+        cancelTicketButton.layer.borderWidth = 1.0
+        cancelTicketButton.layer.borderColor = UIColor.whiteColor().CGColor
     }
     
     func setupIndicator() {
@@ -154,6 +159,24 @@ class TicketBiddingViewController: UIViewController {
         }
     }
     
+    func updateNumberOfWorkersFound() {
+        let offset: CGFloat = numberOfWorkersFoundLabel.frame.height * 2
+        //self.categoryLabel.alpha = 0
+        
+        UIView.animateKeyframesWithDuration(0.3, delay: 0, options: .CalculationModeCubic, animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: {
+                self.numberOfWorkersFoundLabel.transform = CGAffineTransformMakeTranslation(0, -offset)
+                self.numberOfWorkersFoundLabel.transform = CGAffineTransformMakeScale(1, 0.1)
+                self.numberOfWorkersFoundLabel.text = String(format: "%d",  self.workerList.count)
+
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: {
+                self.numberOfWorkersFoundLabel.transform = CGAffineTransformIdentity
+//                self.numberOfWorkersFoundLabel.alpha = 1
+            })
+        }, completion: nil)
+    }
+    
     //MARK: - Actions
     @IBAction func cancelTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Cancel Request", message: "This process can not be undone. Are you sure? Tap OK to cancel this request", preferredStyle: .Alert)
@@ -166,7 +189,9 @@ class TicketBiddingViewController: UIViewController {
                 var JSON = self.newTicket.dataJson
                 JSON!["status"] = Status.Cancel.rawValue
                 SocketManager.sharedInstance.pushCategory(JSON!)
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                //self.navigationController?.popToRootViewControllerAnimated(true)
             }
 
         }

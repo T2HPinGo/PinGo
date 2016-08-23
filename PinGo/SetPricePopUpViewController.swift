@@ -11,6 +11,8 @@ import UIKit
 class SetPricePopUpViewController: UIViewController {
     //MARK: - Outlets and Variables
     
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var viewContent: UIView!
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var confirmButton: UIButton!
     
@@ -54,9 +56,15 @@ class SetPricePopUpViewController: UIViewController {
     }
     //MARK: - Helpers
     func setupAppearance() {
-       // popupView.layer.cornerRadius = 10
+        viewContent.layer.cornerRadius = 10
+        closeButton.layer.cornerRadius = closeButton.frame.size.width / 2
+        closeButton.layer.masksToBounds = true
+        closeButton.layer.borderColor = UIColor.whiteColor().CGColor
+        closeButton.layer.borderWidth = 2
+        confirmButton.layer.borderColor = UIColor.whiteColor().CGColor
+        confirmButton.layer.borderWidth = 2
+        confirmButton.layer.cornerRadius = 5
         view.backgroundColor = UIColor.clearColor()
-        
     }
     
     func cornerRadiusForButton(button: UIButton) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nJr-qv-QsY">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -151,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="188" width="320" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D95-BH-WSo" id="pVf-z2-LX9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="161.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKC-QN-gle" userLabel="TicketDetailView">
@@ -260,7 +260,7 @@
                                                         <constraint firstItem="MFE-M0-6iw" firstAttribute="centerY" secondItem="CeS-ez-cb6" secondAttribute="centerY" id="y16-EH-d5I"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-FF-nXo" userLabel="ConnectionLine">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-FF-nXo" userLabel="ConnectionLine">
                                                     <rect key="frame" x="27" y="48" width="2" height="114"/>
                                                     <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -276,7 +276,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06o-8X-u2g">
                                                     <rect key="frame" x="267" y="13" width="45" height="30"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone_filled" translatesAutoresizingMaskIntoConstraints="NO" id="Mgf-SX-a55">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_phone" translatesAutoresizingMaskIntoConstraints="NO" id="Mgf-SX-a55">
                                                             <rect key="frame" x="12" y="5" width="20" height="20"/>
                                                         </imageView>
                                                     </subviews>
@@ -426,7 +426,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="C9T-0E-ScK" customClass="CategoryCell" customModule="PinGo" customModuleProvider="target">
-                                                        <rect key="frame" x="6" y="5" width="81" height="81"/>
+                                                        <rect key="frame" x="6" y="4.5" width="81" height="81"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="81" height="81"/>
@@ -726,7 +726,7 @@
                         <outlet property="ticketDetailView" destination="5Cn-uC-FAf" id="8jO-ZU-Cba"/>
                         <outlet property="ticketDetailViewHeightConstraint" destination="8uz-9o-QSE" id="w9m-dD-Oy2"/>
                         <outlet property="titleTextField" destination="H3m-sy-GjH" id="S7N-rY-nLN"/>
-                        <segue destination="ZeO-Id-CS6" kind="show" identifier="ShowWorkerListSegue" id="M3b-dm-uw6"/>
+                        <segue destination="ZeO-Id-CS6" kind="presentation" identifier="ShowWorkerListSegue" id="M3b-dm-uw6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vOA-nQ-J7j" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -745,7 +745,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="111" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jDr-sN-Ssq">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="111" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jDr-sN-Ssq">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="5I2-JM-Xte" userLabel="TableHeaderView">
@@ -921,7 +921,7 @@
                                         <rect key="frame" x="0.0" y="178" width="320" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAY-vL-6ss" id="J0y-Dj-CX4">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="rDF-2N-1Jn">
@@ -1017,7 +1017,9 @@
                     <connections>
                         <outlet property="addressLabel" destination="yPf-yJ-gM8" id="3M9-Mk-iUb"/>
                         <outlet property="bottomPanelView" destination="aNf-u5-522" id="qD1-Ur-le8"/>
+                        <outlet property="cancelTicketButton" destination="Ogo-XN-0JS" id="Xuq-dv-c0e"/>
                         <outlet property="dateIssuedLabel" destination="MvM-mL-mKH" id="vcp-4g-6aJ"/>
+                        <outlet property="numberOfWorkersFoundLabel" destination="Y3t-G8-CdL" id="5No-py-zsG"/>
                         <outlet property="tableView" destination="jDr-sN-Ssq" id="wEm-DW-0u1"/>
                         <outlet property="ticketTitleLabel" destination="ibD-Oj-lND" id="hcO-OK-SBr"/>
                         <outlet property="topPanelView" destination="2CO-QT-F3N" id="d2f-5v-KzU"/>
@@ -1089,7 +1091,7 @@
                                         <rect key="frame" x="0.0" y="138" width="320" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uvf-Vb-c4v" id="kc0-f9-fFe">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="57.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Broken toilet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yx-eb-cdN">
@@ -1342,7 +1344,7 @@
         <image name="good" width="256" height="256"/>
         <image name="great" width="256" height="256"/>
         <image name="greentech" width="100" height="100"/>
-        <image name="phone_filled" width="50" height="50"/>
+        <image name="icon_phone" width="48" height="48"/>
         <image name="plus" width="25" height="25"/>
         <image name="rain" width="100" height="100"/>
         <image name="rating" width="256" height="256"/>
