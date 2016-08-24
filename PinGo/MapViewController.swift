@@ -49,12 +49,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         super.viewDidLoad()
         location = Location()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = 200
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
         
-        //current locatioN
-        currentLocation()
+        testView.myLocationEnabled = true
+        locationManager.startUpdatingLocation()
         
         testView.delegate = self
 
@@ -62,12 +62,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //        locationViewStyle ()
         okButtonStyle()
         
-        placesClient = GMSPlacesClient.sharedClient()
-        
-
-        
+        currentLocation()
         searchbarStyle()
-
+        
     }
     
 
@@ -75,6 +72,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         
     }
+    
     override func viewWillAppear(animated: Bool) {
          testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
         
@@ -93,22 +91,22 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         self.okButton.clipsToBounds = true
     }
     
-    func locationViewStyle (){
-//        UINavigationBar.appearance().barTintColor = UIColor.clearColor()
-        locationView.layer.cornerRadius = 0
-        locationView.layer.masksToBounds = true
-        locationView.backgroundColor = UIColor.whiteColor()
-        
-        
-        locationView.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
-        locationView.layer.shadowColor = UIColor.blackColor().CGColor//default is black
-        locationView.layer.shadowRadius = 1.0 //default is 3.0
-        locationView.layer.shadowOpacity = 0.5
-        
-        labelAddress.textColor = AppThemes.appColorText
-//        locationView.layer.borderColor = UIColor.lightGrayColor().CGColor
-//        locationView.layer.borderWidth = 1
-    }
+//    func locationViewStyle (){
+////        UINavigationBar.appearance().barTintColor = UIColor.clearColor()
+//        locationView.layer.cornerRadius = 0
+//        locationView.layer.masksToBounds = true
+//        locationView.backgroundColor = UIColor.whiteColor()
+//        
+//        
+//        locationView.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
+//        locationView.layer.shadowColor = UIColor.blackColor().CGColor//default is black
+//        locationView.layer.shadowRadius = 1.0 //default is 3.0
+//        locationView.layer.shadowOpacity = 0.5
+//        
+//        labelAddress.textColor = AppThemes.appColorText
+////        locationView.layer.borderColor = UIColor.lightGrayColor().CGColor
+////        locationView.layer.borderWidth = 1
+//    }
     
     
 //    func searchAction(sender: AnyObject) {
@@ -124,6 +122,25 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
             testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
             testView.settings.myLocationButton = true
+            
+            self.location!.longitute = myLocation.coordinate.longitude
+            self.location!.latitude = myLocation.coordinate.latitude
+            
+            self.locatewithCoordinate((self.location?.longitute)!, Latitude: (self.location?.latitude)!, Title: "current location")
+            
+            let position = CLLocationCoordinate2DMake(self.location?.longitute as! Double, self.location?.latitude as! Double)
+            self.userMarker = GMSMarker(position: position)
+            //            self.userMarker!.snippet = "\(self.address)"
+            //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+            self.userMarker!.tracksInfoWindowChanges = true
+            self.userMarker!.map = self.testView
+            self.testView.selectedMarker = self.userMarker
+            self.userMarker!.icon = UIImage(named:"Pingo")
+            
+//            
+//            var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
+//            imgView.image = UIImage(named: "Pingo")!
+//            self.userMarker!.icon = UIImage(named: "Pingo")!
             
             didFindMyLocation = true
         }
@@ -150,7 +167,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         //        button.setTitle("Back", forState: .Normal)
         //action
         let searchBar = searchController?.searchBar
-        searchBar?.placeholder = "\(location?.address)"
+        let locationAddress = location!.address!
+        searchBar?.placeholder = "\(locationAddress)"
         subViews.addSubview(searchBar!)
         self.view.addSubview(subViews)
         searchBar!.sizeToFit()
@@ -168,66 +186,17 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         searchController?.searchBar.barTintColor = UIColor.whiteColor()
         searchController?.searchBar.tintColor = AppThemes.appColorTheme
         
-        let markerView = UIImageView(frame: CGRectMake(0, 0, 40, 40))
-        let image = UIImage(named: "Pingo")
-        markerView.image = image
     }
     
     //---------------Google Map AP
     
     func currentLocation(){
-
-
-        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-            
-            guard error == nil else {
-                print("Current Place error: \(error!.localizedDescription)")
-                return
-            }
-            
-            self.location?.longitute = (self.locationManager.location?.coordinate.longitude)!
-            self.location?.latitude = (self.locationManager.location?.coordinate.latitude)!
-            self.location?.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
-            
-            if let currentAddress = self.location!.address{
-            self.searchController!.searchBar.placeholder = "\(currentAddress)"
-            }
-//            self.currentlocation_long = (self.locationManager.location?.coordinate.longitude)!
-//            self.currentlocation_latitude = (self.locationManager.location?.coordinate.latitude)!
-//            self.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
-//            
-            // Set up Marker:
-            
-            self.locatewithCoordinate((self.location?.longitute)!, Latitude: (self.location?.latitude)!, Title: "current location")
-            let position = CLLocationCoordinate2DMake(self.location?.longitute as! Double, self.location?.latitude as! Double)
-
 //            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
 //            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
-            self.userMarker = GMSMarker(position: position)
-//            self.userMarker!.snippet = "\(self.address)"
-//            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-            self.userMarker!.tracksInfoWindowChanges = true
-            self.userMarker!.map = self.testView
-            self.testView.selectedMarker = self.userMarker
-//            self.userMarker!.icon = UIImage(named:"Pingo")
             
-            var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
-            imgView.image = UIImage(named: "Pingo")!
-            self.userMarker!.iconView = imgView
+//            self.labelAddress.text = self.location!.address
             
-            self.labelAddress.text = self.location!.address
-            
-            self.flagCount = 0
-            
-        })
-        
-        func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
-            UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
-            image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
-            let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return newImage
-        }
+            self.flagCount = 1
     }
     
     
@@ -247,9 +216,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     }
     
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
-        if (userMarker != nil && flagCount > 1) {
+        if (userMarker != nil && flagCount > 0) {
             print("hei")
-            flagCount = 1
+            flagCount = 2
             let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
             Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
                 let json = response.result.value as! NSDictionary
@@ -260,11 +229,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         let street = address[1]["short_name"] as! String
                         let city = address[2]["short_name"] as! String
                         let state = address[4]["short_name"] as! String
-//                        let zip = address[6]["short_name"] as! String
-                        //print("\n\(number) \(street), \(city), \(state)")
-                        self.location!.address = "\(number) \(street), \(city), \(state)"
+                        let zip = address[6]["short_name"] as! String
+                        print("\n\(number) \(street), \(city), \(state)")
+                        self.location!.address = "\(number) \(street), \(city), \(state), \(zip)"
 //                        self.labelAddress.text = self.address
-                        self.searchController!.searchBar.placeholder = self.location!.address
+                        let locationAddressShort = "\(number) \(street), \(city)"
+                        self.searchController!.searchBar.placeholder = locationAddressShort
 //                        self.labelAddress.text = self.location!.address
                         self.userMarker = GMSMarker(position: position.target)
 //                        self.userMarker!.title = "Setup Location"
@@ -283,8 +253,10 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
+    
+    
     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
-        if (userMarker != nil) {
+        if (flagCount != 1) {
             self.userMarker!.map = nil
             self.userMarker = GMSMarker(position: position.target)
 //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
@@ -294,14 +266,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.testView.selectedMarker = nil
 //            self.userMarker?.snippet = "\(self.address)"
             flagCount += 1
-            self.labelAddress.text = self.location!.address
-            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
+//            self.labelAddress.text = self.location!.address
+//            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         }
         
         
         
     }
-    
+
     func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
@@ -319,8 +291,8 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-            testView.myLocationEnabled = true
-            locationManager.startUpdatingLocation()
+//            testView.myLocationEnabled = true
+//            locationManager.startUpdatingLocation()
         }
     }
     
@@ -333,19 +305,20 @@ extension MapViewController: CLLocationManagerDelegate {
 //    }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation = locations[0]
-        
-        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-//        currentlocation_latitude = location.latitude
-//        currentlocation_long = location.longitude
-        location!.latitude = location_default.latitude
-        location!.longitute = location_default.longitude
-        
-        print(location_default)
-        print(location!)
-        
-        
+//        let userLocation = locations[0]
+//        
+//        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+////        currentlocation_latitude = location.latitude
+////        currentlocation_long = location.longitude
+//        location!.latitude = location_default.latitude
+//        location!.longitute = location_default.longitude
+//        
+//        print(location_default)
+//        print(location!)
+    
         locationManager.stopUpdatingLocation()
+        
+        
     }
 }
 
@@ -424,11 +397,11 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
         searchController?.active = false
         // Do something with the selected place.
         print("Place name: ", place.name)
-        print("Place address: ", place.formattedAddress)
+        print("Place address: ", place.formattedAddress!)
         print("Place attributions: ", place.attributions)
         
         locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
-        self.searchController?.searchBar.placeholder = String(place.addressComponents)
+        self.searchController?.searchBar.placeholder = place.name
     }
     
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
@@ -446,4 +419,5 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     func didUpdateAutocompletePredictionsForResultsController(resultsController: GMSAutocompleteResultsViewController) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
+    
 }

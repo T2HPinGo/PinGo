@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="936-x6-cBF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="936-x6-cBF">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -56,7 +56,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l4V-xY-09l" id="2e5-vO-21X">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DH-U4-TbA" userLabel="ViewContent">
@@ -161,6 +161,10 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPw-Vu-My1" userLabel="TicketDetailView">
                                                             <rect key="frame" x="56" y="53" width="311" height="100"/>
                                                             <subviews>
+                                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tbb-5Z-0Ij" customClass="GMSMapView">
+                                                                    <rect key="frame" x="185" y="28" width="118" height="19"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </view>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker" translatesAutoresizingMaskIntoConstraints="NO" id="YcX-Dq-mQR">
                                                                     <rect key="frame" x="103" y="28" width="20" height="20"/>
                                                                     <constraints>
@@ -327,6 +331,7 @@
                                             <outlet property="labelStatus" destination="A1a-UW-xIZ" id="bSY-ud-bc3"/>
                                             <outlet property="labelTitle" destination="rOz-Fu-F6s" id="3GI-U3-8VS"/>
                                             <outlet property="labelUsername" destination="6Ec-ni-4df" id="KRe-RB-gGh"/>
+                                            <outlet property="mapView" destination="Tbb-5Z-0Ij" id="TPs-wm-c7F"/>
                                             <outlet property="ticketDetailView" destination="CPw-Vu-My1" id="SdF-2M-Yb6"/>
                                             <outlet property="viewWordOfStatus" destination="NzA-cy-LFH" id="Pg6-Vi-e4Y"/>
                                             <segue destination="aYv-mw-iyz" kind="show" identifier="TicketDetailSegue" id="eUF-9O-Rj6"/>
@@ -443,8 +448,10 @@
                                                     <action selector="okAction:" destination="wou-tv-KFA" eventType="touchUpInside" id="XRF-j7-fgm"/>
                                                 </connections>
                                             </button>
+
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offer Your Hourly Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsZ-JI-HYT">
                                                 <rect key="frame" x="36" y="5" width="152" height="18"/>
+
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>

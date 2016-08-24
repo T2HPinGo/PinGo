@@ -134,45 +134,64 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
         }
     }
     
-    
-    
-    // Map Haena
-    func forMapDirection(){
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = 200
-        locationManager.requestWhenInUseAuthorization()
-        
-        currentLocation()
-        
-        placesClient = GMSPlacesClient.sharedClient()
-    }
-    
-    func currentLocation(){
-        
-        placesClient.currentPlaceWithCallback({ (placeLikelihoods, error) -> Void in
-            guard error == nil else {
-                print("Current Place error: \(error!.localizedDescription)")
-                print("errorrrr")
-                return
-            }
-            
-            self.workerlocation.longitute = (self.locationManager.location?.coordinate.longitude)!
-            self.workerlocation.latitude = (self.locationManager.location?.coordinate.latitude)!
-            
-            self.workerlocation.address = placeLikelihoods!.likelihoods[0].place.formattedAddress!
-            
-        })
-    }
+    @IBOutlet weak var mapView: GMSMapView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         forMapDirection()
+        mapView.hidden = true
+        mapView.accessibilityElementsHidden = false
+        self.mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
         //let ticketDetailGestureRecognizer = UITapGestureRecognizer(target: self, action: <#T##Selector#>)
     }
     
+    // Map Haena
+    
+    func forMapDirection(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
+        
+        mapView.myLocationEnabled = true
+        locationManager.startUpdatingLocation()
+        
+        mapView.delegate = self
+        
+        if let mylocation = mapView.myLocation{
+            self.ticket!.location!.longitute = mylocation.coordinate.longitude
+            self.ticket!.location!.latitude = mylocation.coordinate.latitude
+            print("\(mylocation)")
+        }else {
+            print("location not working")
+        }
+        
+    }
+    
+        func viewWillAppear(animated: Bool) {
+            mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+    
+        }
+    
+        func viewDidDisappear(animated: Bool) {
+            //        removeObserver:fromObjectsAtIndexes:forKeyPath:context:
+            mapView.removeObserver(self, forKeyPath: "myLocation")
+        }
+    
+        override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+            if !didFindMyLocation {
+                let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
+    
+    
+                self.ticket!.location!.longitute = myLocation.coordinate.longitude
+                self.ticket!.location!.latitude = myLocation.coordinate.latitude
+    
+                didFindMyLocation = true
+            }
+    
+        }
     @IBAction func mapDirectionAction(sender: AnyObject) {
         print("abc")
         
@@ -180,7 +199,7 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
             
             var urlString = "http://maps.google.com/maps?"
             urlString += "saddr=\(workerloclog),\(workerloclat)"
-            urlString += "&daddr=\(locationLat)),\(locationLog)"
+            urlString += "&daddr=\(locationLat),\(locationLog)"
             print(urlString)
             if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
                 

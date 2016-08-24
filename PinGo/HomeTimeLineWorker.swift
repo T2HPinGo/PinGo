@@ -15,6 +15,7 @@ import CoreLocation
 
 class HomeTimeLineWorker: UIViewController {
     
+    @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     var tickets = [Ticket]()

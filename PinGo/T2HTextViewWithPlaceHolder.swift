@@ -17,6 +17,7 @@ class T2HTextViewWithPlaceHolder: UITextView, UITextViewDelegate {
         }
     }
     
+
     override func drawRect(rect: CGRect) {
         
     }
