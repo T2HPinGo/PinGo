@@ -554,12 +554,6 @@
                                     <constraint firstAttribute="height" constant="50" id="zTo-J6-CmT"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwj-v4-yqJ">
-                                <rect key="frame" x="10" y="253" width="88" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIb-sj-yl6">
                                 <rect key="frame" x="270" y="74" width="40" height="25"/>
                                 <constraints>
@@ -605,15 +599,31 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmW-bS-yzo" customClass="GMSMapView">
+                                <rect key="frame" x="10" y="245" width="300" height="118"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="118" id="HgG-at-9CZ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwj-v4-yqJ">
+                                <rect key="frame" x="10" y="371" width="88" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="XmW-bS-yzo" firstAttribute="leading" secondItem="n44-sD-2qs" secondAttribute="leading" constant="10" id="3fb-qS-1vn"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nwj-v4-yqJ" secondAttribute="trailing" constant="10" id="64l-cm-Na1"/>
+                            <constraint firstItem="nwj-v4-yqJ" firstAttribute="top" secondItem="XmW-bS-yzo" secondAttribute="bottom" constant="8" id="86Q-V9-1gd"/>
                             <constraint firstItem="e6d-6e-IfV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yPd-F1-Y6x" secondAttribute="bottom" id="Dq2-4q-Tx2"/>
+                            <constraint firstAttribute="trailing" secondItem="XmW-bS-yzo" secondAttribute="trailing" constant="10" id="Eug-sL-Fq2"/>
                             <constraint firstItem="jIb-sj-yl6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yPd-F1-Y6x" secondAttribute="trailing" constant="10" id="F5y-UP-rza"/>
                             <constraint firstItem="nfx-Zb-e1c" firstAttribute="leading" secondItem="n44-sD-2qs" secondAttribute="leading" constant="10" id="GDd-3R-wZg"/>
                             <constraint firstItem="nfx-Zb-e1c" firstAttribute="top" secondItem="KoK-WL-jP7" secondAttribute="bottom" constant="10" id="GPh-IN-0sN"/>
-                            <constraint firstItem="nwj-v4-yqJ" firstAttribute="top" secondItem="e6d-6e-IfV" secondAttribute="bottom" constant="8" id="IAg-qZ-PjF"/>
+                            <constraint firstItem="XmW-bS-yzo" firstAttribute="top" secondItem="e6d-6e-IfV" secondAttribute="bottom" id="GWN-BD-eVM"/>
                             <constraint firstItem="e6d-6e-IfV" firstAttribute="leading" secondItem="n44-sD-2qs" secondAttribute="leading" id="KbI-qb-UgE"/>
                             <constraint firstAttribute="trailing" secondItem="jIb-sj-yl6" secondAttribute="trailing" constant="10" id="Mez-lF-BUk"/>
                             <constraint firstItem="yPd-F1-Y6x" firstAttribute="leading" secondItem="nfx-Zb-e1c" secondAttribute="trailing" constant="6" id="UXF-Mb-Sf5"/>
@@ -638,6 +648,7 @@
                         <outlet property="categoryIconView" destination="nfx-Zb-e1c" id="GFF-nn-QBA"/>
                         <outlet property="collectionView" destination="e6d-6e-IfV" id="C59-Ta-I56"/>
                         <outlet property="descriptionLabel" destination="nwj-v4-yqJ" id="ZNE-SL-N98"/>
+                        <outlet property="mapView" destination="XmW-bS-yzo" id="bYM-nD-Iws"/>
                         <outlet property="ticketTitleLabel" destination="yPd-F1-Y6x" id="jqN-om-DJm"/>
                     </connections>
                 </viewController>

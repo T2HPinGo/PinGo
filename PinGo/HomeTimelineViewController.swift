@@ -34,6 +34,10 @@ class HomeTimelineViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let logo = UIImage(named: "fix")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 150

@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func generalAppearance(){
         
         UINavigationBar.appearance().barTintColor = AppThemes.appColorTheme
-        UINavigationBar.appearance().tintColor = AppThemes.iconLightGrayColor //color of the back button
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor() //color of the back button
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         //color of title
