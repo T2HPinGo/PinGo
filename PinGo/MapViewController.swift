@@ -135,7 +135,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
             self.testView.selectedMarker = self.userMarker
-            self.userMarker!.icon = UIImage(named:"Pingo")
+            self.userMarker!.icon = UIImage(named:"Marker50")
             
 //            
 //            var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
@@ -240,7 +240,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //                        self.userMarker!.title = "Setup Location"
 //                            self.userMarker!.snippet = "\(self.address)"
 //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-                        self.userMarker!.icon = UIImage(named: "Pingo")
+                        self.userMarker!.icon = UIImage(named: "Marker50")
                         self.userMarker!.tracksInfoWindowChanges = true
                         self.userMarker!.map = self.testView
                         self.testView.selectedMarker = self.userMarker
@@ -262,7 +262,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
-            self.userMarker!.icon = UIImage(named: "Pingo")
+            self.userMarker!.icon = UIImage(named: "Marker50")
             self.testView.selectedMarker = nil
 //            self.userMarker?.snippet = "\(self.address)"
             flagCount += 1
