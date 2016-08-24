@@ -160,7 +160,6 @@ class RequestStatusCell: UITableViewCell {
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             alert.addAction(callAction)
             alert.addAction(cancelAction)
-            //presentViewController(alert, animated: true, completion: nil)
             UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
             
         }

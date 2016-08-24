@@ -58,7 +58,8 @@ class TicketBiddingViewController: UIViewController {
         //set up appearance (need to refactor)
         ticketTitleLabel.text = newTicket.title
         addressLabel.text = newTicket.location?.address
-        numberOfWorkersFoundLabel.text = "0" //String(format: "%d",  workerList.count)
+        dateIssuedLabel.text = HandleUtil.changeUnixDateToNSDate(newTicket.createdAt!)
+        numberOfWorkersFoundLabel.text = "0"
         
         //load worker list
         SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
@@ -123,6 +124,8 @@ class TicketBiddingViewController: UIViewController {
         cancelTicketButton.layer.cornerRadius = 5.0
         cancelTicketButton.layer.borderWidth = 1.0
         cancelTicketButton.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        numberOfWorkersFoundLabel.textColor = UIColor.whiteColor()
     }
     
     func setupIndicator() {
