@@ -198,7 +198,7 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
         if let locationLog = ticket!.location!.longitute, locationLat = ticket!.location!.latitude, workerloclog = workerlocation.longitute, workerloclat = workerlocation.latitude{
             
             var urlString = "http://maps.google.com/maps?"
-            urlString += "saddr=\(workerloclog),\(workerloclat)"
+            urlString += "saddr=\(workerloclat),\(workerloclog)"
             urlString += "&daddr=\(locationLat),\(locationLog)"
             print(urlString)
             if let url = NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
