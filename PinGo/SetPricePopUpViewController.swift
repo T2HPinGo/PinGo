@@ -17,7 +17,12 @@ class SetPricePopUpViewController: UIViewController {
     @IBOutlet weak var confirmButton: UIButton!
     
     @IBOutlet weak var priceTextField: UITextField!
+    
+    //locale currency
+    let locale = NSLocale.currentLocale()
+    
     var ticket: Ticket?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .Custom
@@ -28,15 +33,25 @@ class SetPricePopUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        priceTextField.delegate = self
+        
         //set up apperance
         setupAppearance()
-        
         
         //add gesture so user can close the popup by tapping out side the popup view
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self //if dont add this line, it's just going to dismiss the popup anywhere user taps
         view.addGestureRecognizer(gestureRecognizer)
+        
+        //format currency for textfield
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .CurrencyStyle
+        currencyFormatter.minimumFractionDigits = 2
+        currencyFormatter.maximumFractionDigits = 2
+        currencyFormatter.locale = self.locale
+        priceTextField.placeholder = currencyFormatter.stringFromNumber(0.00)
     }
     
     
@@ -45,8 +60,7 @@ class SetPricePopUpViewController: UIViewController {
     }
     
     func close() {
-      
-        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func okAction(sender: UIButton) {
@@ -54,6 +68,7 @@ class SetPricePopUpViewController: UIViewController {
         SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: priceTextField.text!)
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
     //MARK: - Helpers
     func setupAppearance() {
         viewContent.layer.cornerRadius = 10
@@ -94,10 +109,55 @@ extension SetPricePopUpViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
+//MARK: - EXTENSION - Dismiss popup by tapping outside the popup view
 extension SetPricePopUpViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         //return true if user touch any where but the popupView
         return touch.view === self.view
     }
+}
+
+//MARK: - EXTENSION - UITextFieldDelegate
+extension SetPricePopUpViewController: UITextFieldDelegate {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .CurrencyStyle
+        currencyFormatter.minimumFractionDigits = 2
+        currencyFormatter.maximumFractionDigits = 2
+        currencyFormatter.locale = self.locale
+        
+        
+        let currencySymbol = locale.objectForKey(NSLocaleCurrencySymbol)! as! String
+        let startString = textField.text
+        textField.text = ""
+        textField.text = currencySymbol + startString!.stringByReplacingOccurrencesOfString(currencySymbol, withString: "")
+        //
+        return true
+    }
+    
+    /*
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .CurrencyStyle
+        currencyFormatter.minimumFractionDigits = 2
+        currencyFormatter.maximumFractionDigits = 2
+        currencyFormatter.locale = self.locale
+        
+        //get the currency symbol
+        let currencySymbol = self.locale.objectForKey(NSLocaleCurrencySymbol)! as! String
+        
+        //remove the unneccessary characters fromt the string textField
+        //eg: $1,234.00 -> 1234
+        //if you dont do this before calling stringFromNumber, the number will be nil -> crash
+        let stringFormat = textField.text?.stringByReplacingOccurrencesOfString(currencySymbol, withString: "").stringByReplacingOccurrencesOfString(",", withString: "")
+        let number = Double(stringFormat!)
+        
+        //if the stringFormat is empty put the textField back to tha place holder
+        priceTextField.text = number != nil ? currencyFormatter.stringFromNumber(number!) : nil
+    }*/
+
 }
 

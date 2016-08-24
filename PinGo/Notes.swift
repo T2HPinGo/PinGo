@@ -29,6 +29,9 @@
 //      divide the tableView in to sections (last week, last month, last 3 months, later)
 //      add popup view to see customer review on each task history
 
+//SetPricePopupVC
+//when the worker quit withou bidding, the status automatically set to waiting -> WRONG
+
 
 //  USing Alamofire
 

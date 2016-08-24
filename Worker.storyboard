@@ -414,7 +414,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" restorationIdentifier="Pop-up View" translatesAutoresizingMaskIntoConstraints="NO" id="Rrt-su-rSq">
-                                <rect key="frame" x="40" y="164" width="240" height="240"/>
+                                <rect key="frame" x="40" y="221" width="240" height="126"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auL-yc-ozq" userLabel="ViewContent">
                                         <rect key="frame" x="8" y="16" width="224" height="110"/>
@@ -427,7 +427,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="xLB-xK-eaa"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="xLB-xK-eaa"/>
@@ -448,8 +448,10 @@
                                                     <action selector="okAction:" destination="wou-tv-KFA" eventType="touchUpInside" id="XRF-j7-fgm"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsZ-JI-HYT">
-                                                <rect key="frame" x="95" y="5" width="35" height="18"/>
+
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offer Your Hourly Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsZ-JI-HYT">
+                                                <rect key="frame" x="36" y="5" width="152" height="18"/>
+
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -477,15 +479,23 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="auL-yc-ozq" secondAttribute="bottom" constant="114" id="0MV-97-VCM"/>
+                                    <constraint firstAttribute="bottom" secondItem="auL-yc-ozq" secondAttribute="bottom" id="0MV-97-VCM"/>
                                     <constraint firstAttribute="width" secondItem="Rrt-su-rSq" secondAttribute="height" multiplier="1:1" id="4e1-EL-iVK"/>
                                     <constraint firstAttribute="trailing" secondItem="auL-yc-ozq" secondAttribute="trailing" constant="8" id="58R-f4-A3Z"/>
                                     <constraint firstItem="auL-yc-ozq" firstAttribute="top" secondItem="Rrt-su-rSq" secondAttribute="top" constant="16" id="B94-TR-MSX"/>
                                     <constraint firstItem="Eq3-EX-Pi5" firstAttribute="leading" secondItem="Rrt-su-rSq" secondAttribute="leading" id="G4h-bx-Wpv"/>
                                     <constraint firstItem="Eq3-EX-Pi5" firstAttribute="top" secondItem="Rrt-su-rSq" secondAttribute="top" id="JSZ-JO-PDl"/>
                                     <constraint firstItem="auL-yc-ozq" firstAttribute="leading" secondItem="Rrt-su-rSq" secondAttribute="leading" constant="8" id="ONi-dj-Njk"/>
-                                    <constraint firstAttribute="height" constant="240" id="WHI-Kk-cxK"/>
+                                    <constraint firstAttribute="height" constant="126" id="WHI-Kk-cxK"/>
+                                    <constraint firstAttribute="height" constant="126" id="ksp-0n-VKc"/>
+                                    <constraint firstAttribute="width" constant="240" id="uAQ-JJ-TR9"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4e1-EL-iVK"/>
+                                        <exclude reference="WHI-Kk-cxK"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>

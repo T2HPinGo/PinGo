@@ -153,11 +153,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         if let mapViewController = segue.sourceViewController as? MapViewController {
             if let location = mapViewController.location {
                 newTicket?.location = location
-                print(location)
-                print(location.longitute!)
-                print(location.latitude!)
             }
-            locationLabel.text = newTicket!.location?.address
+            locationLabel.text = "tuytuytytyutyutyutyut yttyutyutyutyutyut tyutuyt ytuytuytyutyutyutyut tuytuytuyt"//newTicket!.location?.address
         }
     }
     
@@ -218,9 +215,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         chooseLocationView.layer.cornerRadius = 10
         
         //findWorker button
-        findWorkerButton.layer.cornerRadius = 10.0
-        findWorkerButton.backgroundColor = AppThemes.appColorTheme
-        
+        findWorkerButton.backgroundColor = UIColor.clearColor()
         
         //collectionView
         collectionView.backgroundColor = UIColor.clearColor()
