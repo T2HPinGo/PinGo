@@ -229,9 +229,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                         let street = address[1]["short_name"] as! String
                         let city = address[2]["short_name"] as! String
                         let state = address[4]["short_name"] as! String
-                        let zip = address[6]["short_name"] as! String
+                        //let zip = address[6]["short_name"] as! String
                         print("\n\(number) \(street), \(city), \(state)")
-                        self.location!.address = "\(number) \(street), \(city), \(state), \(zip)"
+                        self.location!.address = "\(number) \(street), \(city), \(state)"
 //                        self.labelAddress.text = self.address
                         let locationAddressShort = "\(number) \(street), \(city)"
                         self.searchController!.searchBar.placeholder = locationAddressShort

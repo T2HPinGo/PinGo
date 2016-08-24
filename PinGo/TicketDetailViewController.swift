@@ -47,13 +47,15 @@ class TicketDetailViewController: UIViewController {
         let camera = GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 14.0)
         let position = CLLocationCoordinate2DMake(latitude, longitude)
         self.marker = GMSMarker(position: position)
-        //            self.userMarker!.snippet = "\(self.address)"
+        self.marker.snippet = ticket.location?.address
         //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
         self.marker.tracksInfoWindowChanges = true
         self.marker.map = self.mapView
         self.mapView.camera = camera
         self.mapView.selectedMarker = self.marker
-        self.marker.icon = UIImage(named:"Pingo")
+        self.marker.icon = UIImage(named:"marker_small")
+        
+        //marker.title = newEvent.name
         
         
     }
