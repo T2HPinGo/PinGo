@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210981251D6D6A8800F6189A /* PhotoSlidePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */; };
 		210EF8C51D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */; };
 		210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */; };
 		2130A14E1D51191C00B37C98 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */; };
@@ -112,6 +113,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSlidePageViewController.swift; sourceTree = "<group>"; };
 		210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HTextViewWithPlaceHolder.swift; sourceTree = "<group>"; };
 		210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HGradientUIView.swift; sourceTree = "<group>"; };
 		2130A1451D510C7300B37C98 /* PinGo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PinGo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */,
 				21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */,
 				21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */,
+				210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 				21FAD0861D5EFEFC000ED89F /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				21A6F9841D699EFC00AA2EBF /* TicketDetailViewController.swift in Sources */,
 				21FAD0841D5EFEFC000ED89F /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
+				210981251D6D6A8800F6189A /* PhotoSlidePageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
