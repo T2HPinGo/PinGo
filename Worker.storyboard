@@ -602,7 +602,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="ticketImageView" destination="6cY-5z-b6F" id="nDB-Hz-jHc"/>
-                                            <segue destination="UjN-op-J6f" kind="presentation" identifier="ViewImageSegue" id="blB-bH-ubz"/>
+                                            <segue destination="W1B-uv-Qe4" kind="presentation" identifier="ViewImageSegue" id="c3I-x4-Jgj"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -650,7 +650,7 @@
         <!--Ticket Photo View Controller-->
         <scene sceneID="8d2-CA-8Q5">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="VKD-oh-x8m" customClass="TicketPhotoViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TicketPhotoViewController" automaticallyAdjustsScrollViewInsets="NO" id="VKD-oh-x8m" customClass="TicketPhotoViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vd4-rw-31M"/>
                         <viewControllerLayoutGuide type="bottom" id="paH-Ow-9Xp"/>
@@ -694,12 +694,27 @@
                                     <constraint firstAttribute="trailing" secondItem="CEK-oa-5mK" secondAttribute="trailing" id="vdy-1i-sgj"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkz-Ja-HXz">
+                                <rect key="frame" x="15" y="5" width="52" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="cUt-M2-phZ"/>
+                                    <constraint firstAttribute="width" constant="52" id="dbB-dC-ptf"/>
+                                </constraints>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Qun-6o-mpl" kind="unwind" unwindAction="unwindFromPhotoView:" id="0zl-X7-tfI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="CEK-oa-5mK" firstAttribute="height" secondItem="SMZ-N2-RZD" secondAttribute="height" id="54j-6e-sBi"/>
                             <constraint firstAttribute="trailing" secondItem="Vz8-gU-Q9a" secondAttribute="trailing" id="Bwq-Pz-dKY"/>
                             <constraint firstItem="paH-Ow-9Xp" firstAttribute="top" secondItem="Vz8-gU-Q9a" secondAttribute="bottom" id="Egf-o4-4Wq"/>
+                            <constraint firstItem="tkz-Ja-HXz" firstAttribute="leading" secondItem="SMZ-N2-RZD" secondAttribute="leading" constant="15" id="I4A-gs-sOa"/>
+                            <constraint firstItem="tkz-Ja-HXz" firstAttribute="top" secondItem="SMZ-N2-RZD" secondAttribute="top" constant="5" id="Ih7-C0-nck"/>
                             <constraint firstItem="Vz8-gU-Q9a" firstAttribute="top" secondItem="SMZ-N2-RZD" secondAttribute="top" id="SAs-Fr-7wm"/>
                             <constraint firstItem="Vz8-gU-Q9a" firstAttribute="top" secondItem="SMZ-N2-RZD" secondAttribute="top" id="Tgy-kh-piG"/>
                             <constraint firstItem="CEK-oa-5mK" firstAttribute="width" secondItem="SMZ-N2-RZD" secondAttribute="width" id="Zjj-Cd-1wg"/>
@@ -727,26 +742,19 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1I-WJ-bwn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Qun-6o-mpl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2751" y="245"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="aMs-fS-o2N">
+        <!--Photo Slide Page View Controller-->
+        <scene sceneID="fYl-b1-Jpw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UjN-op-J6f" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="H8D-vq-R9E">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="VKD-oh-x8m" kind="relationship" relationship="rootViewController" id="k6O-yu-s4N"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nZL-XK-jFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController storyboardIdentifier="PhotoSlideViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="20" navigationOrientation="horizontal" spineLocation="none" id="W1B-uv-Qe4" customClass="PhotoSlidePageViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fDc-KI-37r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2219" y="245"/>
+            <point key="canvasLocation" x="2211" y="245"/>
         </scene>
     </scenes>
     <resources>

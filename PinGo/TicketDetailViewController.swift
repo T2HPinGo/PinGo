@@ -58,12 +58,15 @@ class TicketDetailViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ViewImageSegue" {
             if let indexPaths = collectionView.indexPathsForSelectedItems() {
-                let navigation = segue.destinationViewController as! UINavigationController
-                let ticketPhotoViewController = navigation.topViewController as! TicketPhotoViewController
-                let index = indexPaths[0].row
-                ticketPhotoViewController.imageUrl = imageUrls[index]
+                let pageViewController = segue.destinationViewController as! PhotoSlidePageViewController
+                pageViewController.imageUrls = self.imageUrls
+                pageViewController.index = indexPaths.first?.item
             }
         }
+    }
+    
+    @IBAction func unwindFromPhotoView(sender: UIStoryboardSegue) {
+        
     }
     
 }

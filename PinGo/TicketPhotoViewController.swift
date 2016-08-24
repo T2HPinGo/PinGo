@@ -14,6 +14,8 @@ class TicketPhotoViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var ticketImageView: UIImageView!
     
+    var index = 0
+    
     var imageUrl: String!
     
     override func viewDidLoad() {
@@ -27,12 +29,6 @@ class TicketPhotoViewController: UIViewController {
         
         HandleUtil.loadImageViewWithUrl(imageUrl, imageView: ticketImageView)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // MARK: - Navigation
