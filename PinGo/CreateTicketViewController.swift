@@ -154,7 +154,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
             if let location = mapViewController.location {
                 newTicket?.location = location
             }
-            locationLabel.text = "tuytuytytyutyutyutyut yttyutyutyutyutyut tyutuyt ytuytuytyutyutyutyut tuytuytuyt"//newTicket!.location?.address
+            locationLabel.text = newTicket!.location?.address
         }
     }
     

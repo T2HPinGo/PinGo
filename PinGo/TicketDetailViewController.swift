@@ -83,6 +83,16 @@ extension TicketDetailViewController: UICollectionViewDataSource, UICollectionVi
         return cell
     }
     
+    //custommize size for item
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        //if the width is greater than that of ip6
+        let width = (view.bounds.width - 10*4) / 3
+        let height = width
+        
+        return CGSizeMake(width, height)
+    }
+    
     
 }
 
