@@ -448,10 +448,8 @@
                                                     <action selector="okAction:" destination="wou-tv-KFA" eventType="touchUpInside" id="XRF-j7-fgm"/>
                                                 </connections>
                                             </button>
-
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offer Your Hourly Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsZ-JI-HYT">
                                                 <rect key="frame" x="36" y="5" width="152" height="18"/>
-
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>

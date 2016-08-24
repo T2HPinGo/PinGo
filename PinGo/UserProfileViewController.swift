@@ -94,7 +94,9 @@ class UserProfileViewController: BaseViewController,UIImagePickerControllerDeleg
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
-
+    func textFieldDidBeginEditing(textField: UITextField){
+        textField.autocorrectionType = .No
+    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()

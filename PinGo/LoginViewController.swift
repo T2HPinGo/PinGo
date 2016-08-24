@@ -53,7 +53,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 //        self.logoImage.layer.borderWidth = 0.2
 //        self.logoImage.layer.borderColor = UIColor.whiteColor().CGColor
         passwordTextField.secureTextEntry = true
-        
+        usernameTextField.autocorrectionType = .No
+        passwordTextField.autocorrectionType = .No
 //        let backgroundImage = UIImage(named: "eco")
 //        backgroundView.backgroundColor = UIColor(patternImage: backgroundImage!)
 //        
@@ -113,6 +114,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
         return true
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+
         textField.resignFirstResponder()
         return true
     }
