@@ -35,6 +35,7 @@ class Ticket: NSObject {
     var descriptions: String = ""
     var createdAt: String?
     var dataJson: [String: AnyObject]?
+    var comment: String = ""
     // Hien Code 
     var issueImageVideoPath: String?
     var dateCreated: NSDate?
@@ -128,6 +129,10 @@ class Ticket: NSObject {
         }
         if let descriptions = data["descriptions"] as? String {
             self.descriptions = descriptions
+        }
+        
+        if let comment = data["comment"] as? String {
+            self.comment = comment
         }
     }
     

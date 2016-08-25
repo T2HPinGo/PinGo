@@ -53,9 +53,9 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         //        tableView.delegate = self
         //        tableView.dataSource = self
         
-       // logoutButton.backgroundColor = AppThemes.cellColors[2]
+        // logoutButton.backgroundColor = AppThemes.cellColors[2]
         // Do any additional setup after loading the view.
-       
+        
         if userProfile == nil {
             userProfile = UserProfile.currentUser
             menuBarButton.image = UIImage()
@@ -63,6 +63,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         } else {
             menuBarButton.image = UIImage()
             menuBarButton.title = "Back"
+            imageViewRating.hidden = false
         }
         initTableView()
         loadDataForView()
@@ -85,7 +86,7 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
     @IBAction func onMenuBarAction(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-       
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -110,13 +111,15 @@ extension EditUserProfileViewController : UITableViewDelegate, UITableViewDataSo
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryTicketCell") as! HistoryTicketCell
         cell.ticket = tickets[indexPath.row]
+        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+        cell.themeColor = AppThemes.cellColors[colorIndex]
         return cell
     }
     func initTableView(){
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.clearColor()
-
+        tableView.separatorStyle = .None
     }
 }
 // MARK: Load data for view
@@ -127,6 +130,8 @@ extension EditUserProfileViewController {
             HandleUtil.loadImageViewWithUrl(profileUser!, imageView: imageViewProfile)
             imageViewProfile.layer.cornerRadius = 5
             imageViewProfile.clipsToBounds = true
+        }else {
+            imageViewProfile.image = UIImage(named: "profile_default")
         }
         labelFullname.text = userProfile?.getFullName()
         labelUsername.text = userProfile?.username!
@@ -141,13 +146,13 @@ extension EditUserProfileViewController {
         var parameters = [String : AnyObject]()
         parameters["statusTicket"] = Status.Approved.rawValue
         parameters["idUser"] = idUser
-        parameters["isWorker"] = isWorker
+        parameters["isWorker"] = "\(isWorker)"
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/historytickets", parameters: parameters).responseJSON { response  in
             let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
             print(JSONArrays)
             for JSONItem in JSONArrays {
                 let ticket = Ticket(data: JSONItem)
-                 self.tickets.append(ticket)
+                self.tickets.append(ticket)
                 
             }
             self.tableView.reloadData()
@@ -180,7 +185,7 @@ extension EditUserProfileViewController {
         headerView.insertSubview(headerBackgroundBlurImageView, belowSubview: headerNameLabel)
         headerView.clipsToBounds = true
     }
-
+    
 }
 
 // Update header view when is scrolling

@@ -163,8 +163,8 @@ extension HomeTimeLineWorker {
                                 }  else {
                                     if ticket.status == Status.Approved {
                                         itemTicket.status = ticket.status
-                                        self.tickets.removeAtIndex(index)
-                                        self.countInserivce -= 1
+//                                        self.tickets.removeAtIndex(index)
+//                                        self.countInserivce -= 1
                                         isNewTicket = false
                                         break
                                     } else {
@@ -211,6 +211,16 @@ extension HomeTimeLineWorker {
             }
         }
     }
+    func filterTicketListForInserviceAndDone(){
+        if ticketsFilter.count > 0 {
+            ticketsFilter.removeAll()
+        }
+        for ticket in tickets {
+            if ticket.status == Status.InService || ticket.status == Status.Done || ticket.status == Status.Approved{
+                ticketsFilter.append(ticket)
+            }
+        }
+    }
     func indexAtTab(index: Int){
         switch index
         {
@@ -221,10 +231,7 @@ extension HomeTimeLineWorker {
             filterTicketList(Status.Pending.rawValue)
             break
         case 2:
-            filterTicketList(Status.InService.rawValue)
-            break
-        case 3:
-            filterTicketList(Status.Done.rawValue)
+            filterTicketListForInserviceAndDone()
             break
         default:
             break;
