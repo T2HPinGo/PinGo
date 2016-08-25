@@ -14,4 +14,6 @@ class TicketCategory: NSObject {
     var iconImage: String?
     static let categoryNames = ["Electricity", "Cleanning",
                         "Plumbing", "Auto Repair", "Gardening"]
+    
+    static let categoryIcons = ["Electricity", "Housekeeping", "Plumbing", "Maintenance", "Garden"]
 }

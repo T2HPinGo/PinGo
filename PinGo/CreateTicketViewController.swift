@@ -434,7 +434,7 @@ extension CreateTicketViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
         cell.categoryLabel.text = TicketCategory.categoryNames[indexPath.item]
-        
+        cell.categoryIconImageView.image =  UIImage(named: TicketCategory.categoryIcons[indexPath.item])
         cell.isChosen = indexPath.row == currentCategoryIndex ? true : false
         
         return cell

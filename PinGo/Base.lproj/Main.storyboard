@@ -292,7 +292,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeS-ez-cb6">
                                                     <rect key="frame" x="8" y="8" width="40" height="40"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greentech" translatesAutoresizingMaskIntoConstraints="NO" id="MFE-M0-6iw">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Maintenance" translatesAutoresizingMaskIntoConstraints="NO" id="MFE-M0-6iw">
                                                             <rect key="frame" x="8" y="8" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="MFE-M0-6iw" secondAttribute="height" multiplier="1:1" id="gsO-9e-TdD"/>
@@ -524,7 +524,7 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
-                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19593211206896552" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.34509803921568627" green="0.70588235294117641" blue="0.64313725490196072" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="tIT-rG-pL9" firstAttribute="leading" secondItem="C9T-0E-ScK" secondAttribute="leading" constant="8" id="Gmj-qR-vKg"/>
                                                             <constraint firstItem="tIT-rG-pL9" firstAttribute="leading" secondItem="Gnb-4Y-o7O" secondAttribute="leading" id="KaV-2u-AQc"/>
@@ -566,7 +566,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.34509803921568627" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="LDu-ni-Ra0" firstAttribute="centerY" secondItem="IKk-e1-3Yk" secondAttribute="centerY" id="aLn-pb-EjE"/>
                                                             <constraint firstAttribute="trailing" secondItem="2K3-Eh-6bS" secondAttribute="trailing" constant="8" id="ef9-3b-eXw"/>
@@ -1461,6 +1461,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Maintenance" width="12" height="12"/>
         <image name="Search-50" width="50" height="50"/>
         <image name="camera" width="25" height="25"/>
         <image name="dislike" width="84" height="84"/>
@@ -1469,7 +1470,6 @@
         <image name="finish" width="24" height="24"/>
         <image name="good" width="256" height="256"/>
         <image name="great" width="256" height="256"/>
-        <image name="greentech" width="100" height="100"/>
         <image name="icon_phone" width="48" height="48"/>
         <image name="new_ticket" width="50" height="50"/>
         <image name="plus" width="25" height="25"/>

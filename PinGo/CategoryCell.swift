@@ -15,7 +15,7 @@ class CategoryCell: UICollectionViewCell {
     
     var isChosen = false {
         didSet {
-            self.backgroundColor = isChosen ? UIColor(white: 1.0, alpha: 0.8) : UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
+            self.backgroundColor = isChosen ? AppThemes.appColorTheme : UIColor(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 0.1)
             categoryLabel.textColor = isChosen ? UIColor.blackColor() : UIColor.darkGrayColor()
         }
     }
