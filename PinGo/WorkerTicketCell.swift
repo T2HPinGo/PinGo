@@ -46,7 +46,6 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
     @IBOutlet weak var labelPrice: UILabel!
     
     @IBOutlet weak var labelLocation: UIButton!
-    @IBOutlet weak var labelPhoneNumber: UILabel!
     
     
     @IBOutlet weak var imageViewLocation: UIImageView!
@@ -94,7 +93,7 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
             // Check block or un block phoneNumber and Address
             if ticket?.worker?.id == Worker.currentUser?.id {
                 // address
-                labelPhoneNumber.text = ticket?.user?.phoneNumber
+                //labelPhoneNumber.text = ticket?.user?.phoneNumber
                 // Location
                 if ticket?.location?.address != "" {
                     labelLocation.setTitle(ticket?.location?.address!, forState: .Normal)
@@ -103,7 +102,7 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
                 }
                 
             } else {
-                labelPhoneNumber.text = "Blocked"
+                //labelPhoneNumber.text = "Blocked"
                 labelLocation.setTitle("Block", forState: .Normal)
                 
             }
