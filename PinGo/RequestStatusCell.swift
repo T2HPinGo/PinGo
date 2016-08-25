@@ -33,6 +33,12 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var ticketImageView: UIImageView!
     
     @IBOutlet weak var approveButton: UIButton!
+    
+    @IBOutlet weak var labelMessage: UILabel!
+    
+    @IBOutlet weak var labelPrice: UILabel!
+    
+    @IBOutlet weak var imageViewFinished: UIImageView!
 //    var rating: String! {
 //        didSet {
 //            if rating != nil {
@@ -49,17 +55,20 @@ class RequestStatusCell: UITableViewCell {
     
     var themeColor: UIColor! {
         didSet {
-            categoryIconContainerView.backgroundColor = themeColor
-            ticketDetailView.backgroundColor = themeColor
-            connectionLineView.backgroundColor = themeColor
-            callWorkerView.backgroundColor = themeColor
+            UIView.animateWithDuration(0.6) {
+                self.categoryIconContainerView.backgroundColor = self.themeColor
+                self.ticketDetailView.backgroundColor = self.themeColor
+                self.connectionLineView.backgroundColor = self.themeColor
+                self.callWorkerView.backgroundColor = self.themeColor
+            }
         }
     }
     
     var ticket: Ticket! {
         didSet {
             workerNameLabel.text = ticket.worker?.username
-            
+            imageViewFinished.hidden = true
+            approveButton.hidden = false
             requestTitleLabel.text = ticket.title ?? ticket.category
             dateCreatedLabel.text = HandleUtil.changeUnixDateToNSDate(ticket.createdAt!)
             if ticket.status! == Status.Done {
@@ -81,8 +90,17 @@ class RequestStatusCell: UITableViewCell {
                 let imageUrl = ticket?.worker?.profileImage?.imageUrl!
                 HandleUtil.loadImageViewWithUrl(imageUrl!, imageView: workerProfileImageView)
             } else {
-                workerProfileImageView.image = UIImage(named: "profile_image_placeholder")
-            }           
+                workerProfileImageView.image = UIImage(named: "profile_default")
+            }
+            // Set label message
+            if ticket.status == Status.InService {
+                labelMessage.text = "is working"
+            } else {
+                if ticket.status == Status.Done {
+                    labelMessage.text = "has finished"
+                }
+            }
+            labelPrice.text = ticket.worker?.price
         }
     }
     
@@ -107,16 +125,16 @@ class RequestStatusCell: UITableViewCell {
     func setupAppearance(){
         
         //font
-        requestTitleLabel.font = AppThemes.helveticaNeueRegular15
-        dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
+//        requestTitleLabel.font = AppThemes.helveticaNeueRegular15
+//        dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
         
         //allignment
-        requestTitleLabel.textAlignment = .Left
-        dateCreatedLabel.textAlignment = .Center
+//        requestTitleLabel.textAlignment = .Left
+//        dateCreatedLabel.textAlignment = .Center
         
         //colors
-        requestTitleLabel.textColor = UIColor.whiteColor()
-        dateCreatedLabel.textColor = UIColor.whiteColor()
+//        requestTitleLabel.textColor = UIColor.whiteColor()
+//        dateCreatedLabel.textColor = UIColor.whiteColor()
         
         //frames
         categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
@@ -145,6 +163,10 @@ class RequestStatusCell: UITableViewCell {
             let JSON = response.result.value!["data"] as! [String: AnyObject]
             print(JSON)
             self.ticket = Ticket(data: JSON)
+            self.ratingButton.hidden = false
+            self.themeColor = AppThemes.cellColors[2]
+            self.imageViewFinished.hidden = false
+            self.approveButton.hidden  = true
             SocketManager.sharedInstance.pushCategory(JSON)
         }
     }

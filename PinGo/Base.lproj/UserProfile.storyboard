@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dsu-xC-cWE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dsu-xC-cWE">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -42,7 +42,7 @@
                                     <action selector="signUpAction:" destination="r0p-Ha-yml" eventType="touchUpInside" id="opI-hq-E7Q"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iv7-qW-Y70">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iv7-qW-Y70">
                                 <rect key="frame" x="0.0" y="64" width="375" height="493"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTf-t6-qib">
@@ -63,7 +63,7 @@
                                             <constraint firstAttribute="width" constant="30" id="ulM-Vw-U2W"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cs9-Ma-tej" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cs9-Ma-tej" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="60" y="157" width="122" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="122" id="DLz-EZ-xVe"/>
@@ -79,19 +79,19 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bod-wd-uAQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bod-wd-uAQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="60" y="208" width="243" height="42"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="E-mail Address"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fcM-1r-NfK" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcM-1r-NfK" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="192" y="157" width="111" height="43"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Last Name"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9IG-1n-eO7" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9IG-1n-eO7" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="60" y="308" width="243" height="42"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
@@ -125,7 +125,7 @@
                                             <constraint firstAttribute="height" constant="30" id="sN2-Aw-UaF"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MmJ-ah-igQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MmJ-ah-igQ" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="60" y="107" width="243" height="43"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Username"/>
@@ -145,7 +145,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oqw-wP-qE0" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqw-wP-qE0" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="60" y="257" width="243" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="286" id="pHK-3d-mJZ"/>
@@ -159,7 +159,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Lo-rQ-l0a" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lo-rQ-l0a" customClass="SkyFloatingLabelTextField" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="60" y="358" width="243" height="42"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Confirm Password"/>

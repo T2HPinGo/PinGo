@@ -23,9 +23,12 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
     
     let mapDirectionAPI = "AIzaSyBA6WMj7LYhCNyj3ydOyfN0rogeB80UzCo"
     
+ 
     
     // View Status
     
+    @IBOutlet weak var imageFinish: UIImageView!
+    @IBOutlet weak var labelMessage: UILabel!
     @IBOutlet weak var viewWordOfStatus: UIView!
     
     @IBOutlet weak var labelStatus: UILabel!
@@ -40,7 +43,9 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
     
     // View Info
     @IBOutlet weak var imageViewTicket: UIImageView!
+    @IBOutlet weak var labelPrice: UILabel!
     
+    @IBOutlet weak var labelLocation: UIButton!
     @IBOutlet weak var labelPhoneNumber: UILabel!
     
     
@@ -69,9 +74,11 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
             // View Status
             let oneWord = HandleUtil.getOneWordOfStatus((ticket?.status?.rawValue)!)
             labelStatus.text = oneWord
+            self.actionButton.hidden = false
             viewWordOfStatus.layer.cornerRadius = viewWordOfStatus.frame.size.width / 2
             viewWordOfStatus.layer.masksToBounds = true
-            
+            imageFinish.hidden = true
+            labelPrice.text = ticket?.worker?.price
             //Load user profile image
             if ticket?.user?.profileImage?.imageUrl! != "" {
                 let profileUser = ticket?.user?.profileImage?.imageUrl!
@@ -79,7 +86,7 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
                 imageViewProfile.layer.cornerRadius = 5
                 imageViewProfile.clipsToBounds = true
             } else {
-                imageViewProfile.image = UIImage(named: "profile_image_placeholder")
+                imageViewProfile.image = UIImage(named: "profile_default")
             }
             
             
@@ -90,14 +97,14 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
                 labelPhoneNumber.text = ticket?.user?.phoneNumber
                 // Location
                 if ticket?.location?.address != "" {
-                    //labelLocation.text = ticket?.location?.address!
+                    labelLocation.setTitle(ticket?.location?.address!, forState: .Normal)
                 } else {
-                    //labelLocation.text = "No Address"
+                    labelLocation.setTitle(ticket?.location?.address!, forState: .Normal)
                 }
                 
             } else {
                 labelPhoneNumber.text = "Blocked"
-                //labelLocation.text = "Blocked"
+                labelLocation.setTitle("Block", forState: .Normal)
                 
             }
             
@@ -122,12 +129,31 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
             
             if ticket?.status == Status.InService {
                 actionButton.setTitle("Done", forState: .Normal)
+                self.labelMessage.text = "wait for you"
             } else {
                 if ticket?.status == Status.Pending{
                     actionButton.setTitle("Bid", forState: .Normal)
+                    self.labelMessage.text = "create new ticket"
                 } else {
                     if ticket?.status == Status.Done {
                         actionButton.setTitle("Waiting ...", forState: .Normal)
+                    } else {
+                        if ticket?.status == Status.Approved {
+                            self.themeColor = AppThemes.cellColors[2]
+                            self.labelMessage.text = "has approved"
+                            self.actionButton.hidden = true
+                            self.imageFinish.hidden = false
+                        } else {
+                            if ticket?.status == Status.Cancel {
+                                self.themeColor = UIColor.redColor()
+                                self.labelMessage.text = "cancel ticket"
+                            } else {
+                                if ticket?.status == Status.ChoosenAnother {
+                                    self.themeColor = UIColor.redColor()
+                                    self.labelMessage.text = "choose another worker"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -170,28 +196,28 @@ class WorkerTicketCell: UITableViewCell, GMSMapViewDelegate {
         
     }
     
-        func viewWillAppear(animated: Bool) {
-            mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+    func viewWillAppear(animated: Bool) {
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+        
+    }
     
+    func viewDidDisappear(animated: Bool) {
+        //        removeObserver:fromObjectsAtIndexes:forKeyPath:context:
+        mapView.removeObserver(self, forKeyPath: "myLocation")
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if !didFindMyLocation {
+            let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
+            
+            
+            self.ticket!.location!.longitute = myLocation.coordinate.longitude
+            self.ticket!.location!.latitude = myLocation.coordinate.latitude
+            
+            didFindMyLocation = true
         }
-    
-        func viewDidDisappear(animated: Bool) {
-            //        removeObserver:fromObjectsAtIndexes:forKeyPath:context:
-            mapView.removeObserver(self, forKeyPath: "myLocation")
-        }
-    
-        override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-            if !didFindMyLocation {
-                let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
-    
-    
-                self.ticket!.location!.longitute = myLocation.coordinate.longitude
-                self.ticket!.location!.latitude = myLocation.coordinate.latitude
-    
-                didFindMyLocation = true
-            }
-    
-        }
+        
+    }
     @IBAction func mapDirectionAction(sender: AnyObject) {
         print("abc")
         

@@ -14,6 +14,7 @@ public enum Status: String {
     case Done = "Done" //when the task has been done by worker
     case Cancel = "Cancel" //when user cancel the ticket
     case Approved = "Approved"
+    case ChoosenAnother = "ChoosenAnother"
 }
 
 class Ticket: NSObject {

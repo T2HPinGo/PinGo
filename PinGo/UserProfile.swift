@@ -79,7 +79,12 @@ class UserProfile: NSObject {
         if let lastName = data["lastname"] as? String{
             self.lastName = lastName
         }
-        
+        if isWorker {
+            if let price = data["price"] as? String {
+                self.price = price
+            }
+            
+        }
     }
     
     func setTempData(data: [String: AnyObject]) {
@@ -95,18 +100,16 @@ class UserProfile: NSObject {
             }
         }
         profileImage = ImageResource(data: (data["profileImage"] as? [String: AnyObject])!)
-        if isWorker {
-            if let price = data["price"] as? String {
-                self.price = price
-            }
-            
-        }
+        
         if let firstName = data["firstname"] as? String {
             self.firstName = firstName
         }
         
         if let lastName = data["lastname"] as? String{
             self.lastName = lastName
+        }
+        if let price = data["price"] as? String {
+            self.price = price
         }
     }
     

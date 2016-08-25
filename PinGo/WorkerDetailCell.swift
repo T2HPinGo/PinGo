@@ -21,6 +21,16 @@ class WorkerDetailCell: UITableViewCell {
             workerNameLabel.text =  worker.username
             workerRatingLabel.text = String(format: "%.1f", worker.averageRating)
             workerHourlyRateLabel.text = worker.price
+            
+            if worker?.profileImage?.imageUrl! != "" {
+                let profileUser = worker?.profileImage?.imageUrl
+                HandleUtil.loadImageViewWithUrl(profileUser!, imageView: workerProfileImageView)
+                workerProfileImageView.layer.cornerRadius = 5
+                workerProfileImageView.clipsToBounds = true
+            } else {
+                workerProfileImageView.image = UIImage(named: "profile_default")
+            }
+
         }
     }
 

@@ -14,16 +14,10 @@ class HomeTimelineViewController: BaseViewController {
     
     @IBOutlet weak var createNewTicketButton: UIButton!
     
+    @IBOutlet weak var countLabelTickets: UILabel!
+    
     @IBOutlet weak var greetingLabel: UILabel!
-//    @IBOutlet weak var bottomPanelView: UIView!
-//    
-//    @IBOutlet weak var topPanelView: UIView!
-//
-//    @IBOutlet weak var dateLabel: UILabel!
-//    @IBOutlet weak var notificationLabel: UILabel!
-//    @IBOutlet weak var numbersOfTicketsPendingLabel: UILabel!
-//    
-//    @IBOutlet weak var ticketIconImageView: UIImageView!
+
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
@@ -69,14 +63,6 @@ class HomeTimelineViewController: BaseViewController {
     }
     
     @IBAction func quitAfterPickWorker(segue: UIStoryboardSegue) {
-        //        if let workerBiddingCell = segue.sourceViewController as? WorkerDetailCell {
-        //
-        //            if let newTicket = workerBiddingCell.ticket {
-        //                ticketList.insert(newTicket, atIndex: 0)
-        //                print(newTicket.category)
-        //                tableView.reloadData()
-        //            }
-        //        }
     }
     
     
@@ -99,33 +85,6 @@ class HomeTimelineViewController: BaseViewController {
     func setupAppearance() {
         tableView.separatorStyle = .None
         
-        //top and bottom panel
-//        bottomPanelView.layer.cornerRadius = 5
-//        bottomPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.bottomPanelColor
-//        
-//        topPanelView.layer.cornerRadius = 5
-//        topPanelView.backgroundColor = UIColor.whiteColor()//AppThemes.topPannelColor
-//        
-//        //greeting label
-//        greetingLabel.font = AppThemes.helveticaNeueRegular20
-//        greetingLabel.textColor = AppThemes.tableHeaderTextColor
-//        let userFirstName = UserProfile.currentUser?.firstName ?? "User"
-//
-//        greetingLabel.text = "Hello " + userFirstName
-//        
-//        //other Labels
-//        dateLabel.font = AppThemes.helveticaNeueRegular16
-//        dateLabel.textColor = AppThemes.tableHeaderTextColor
-//        dateLabel.text = getStringFromDate(NSDate(), withFormat: DateStringFormat.DD_MMM_YYYY)
-//        
-//        notificationLabel.font = AppThemes.helveticaNeueRegular16
-//        notificationLabel.textColor = AppThemes.tableHeaderTextColor
-//        let activeTickets = ticketList.count
-//        let activeTicketsString = activeTickets != 0 ? "\(activeTickets)" : "no"
-//        let ticketString = activeTickets == 0 || activeTickets == 1 ? "ticket" : "tickets"
-//        notificationLabel.text = "You have " + activeTicketsString + " active " + ticketString
-//        
-//        numbersOfTicketsPendingLabel.font = AppThemes.avenirBlack15
         
         //create ticket button
         greetingLabel.text = "Hello \((UserProfile.currentUser?.firstName)!) !"
@@ -147,10 +106,17 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
-        cell.ticket = ticketList[indexPath.row]
+        let ticket = ticketList[indexPath.row]
+         cell.ticket = ticket
         
-        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
-        cell.themeColor = AppThemes.cellColors[colorIndex]
+//        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+        if ticket.status == Status.InService {
+            cell.themeColor = AppThemes.cellColors[0]
+            cell.ratingButton.hidden = true
+            
+        } else {
+            cell.themeColor = AppThemes.cellColors[1]
+        }
         //cell.backgroundColor = AppThemes.cellColors[colorIndex]
         
         
@@ -209,10 +175,12 @@ extension HomeTimelineViewController {
                     let ticket = Ticket(data: JSONItem)
                     if ticket.status != Status.Pending  && ticket.status != Status.Approved{
                         self.ticketList.append(ticket)
-                        self.tableView.reloadData()
+                       
                         
                     }
                 }
+                self.tableView.reloadData()
+                self.countLabelTickets.text = "\(self.ticketList.count)"
             }
 //        else {
 //                let alert = UIAlertController(title: "Network Error", message: "Cannot load data due to no internet connection. Please check your connection", preferredStyle: .Alert)
@@ -236,6 +204,7 @@ extension HomeTimelineViewController {
                     ticket.transferToEnum(from: statusTicket)
                 }
             }
+            
             self.tableView.reloadData()
         })
 
