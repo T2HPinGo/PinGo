@@ -73,10 +73,6 @@ struct AppThemes {
     static let buttonBorderColorOnWhiteBackgroundColor = UIColor(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 1.0)
     static let buttonBackGroundOnWhiteBackgroundColor = UIColor(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 1.0)
     
-    
-    
-   
-    
     //static let backgroundColor = UIColor(red: 52.0/255.0, green: 42.0/255.0, blue: 57.0/255.0, alpha: 1.0)
     static let lightgrayColor = UIColor(red: 130.0/255.0, green: 121.0/255.0, blue: 139.0/255.0, alpha: 1.0)
     static let redDarkColor = UIColor(red: 174.0/255.0, green: 53.0/255.0, blue: 66.0/255.0, alpha: 1.0)

@@ -364,7 +364,7 @@
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQg-I2-sGH">
-                                                                    <rect key="frame" x="8" y="91" width="105" height="18"/>
+                                                                    <rect key="frame" x="8" y="96" width="105" height="18"/>
                                                                     <color key="backgroundColor" red="0.34509803921568627" green="0.70588235294117641" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="105" id="Zwu-Fm-8HW"/>
@@ -389,7 +389,7 @@
                                                                 <constraint firstItem="Y1F-H7-jtD" firstAttribute="height" secondItem="CPw-Vu-My1" secondAttribute="height" id="QhC-NM-H6j"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zYB-s7-vb9" secondAttribute="trailing" constant="5" id="SL3-i0-uJw"/>
                                                                 <constraint firstAttribute="height" constant="119" id="Tar-KX-l5T"/>
-                                                                <constraint firstAttribute="bottom" secondItem="kQg-I2-sGH" secondAttribute="bottom" constant="10" id="Ut7-Nm-bcX"/>
+                                                                <constraint firstAttribute="bottom" secondItem="kQg-I2-sGH" secondAttribute="bottom" constant="5" id="Ut7-Nm-bcX"/>
                                                                 <constraint firstItem="7Hf-tp-lN3" firstAttribute="top" secondItem="YcX-Dq-mQR" secondAttribute="bottom" constant="5" id="V4Q-41-KaV"/>
                                                                 <constraint firstItem="5ou-Vr-Tan" firstAttribute="centerY" secondItem="7Hf-tp-lN3" secondAttribute="centerY" id="YRr-7T-no4"/>
                                                                 <constraint firstItem="YcX-Dq-mQR" firstAttribute="top" secondItem="rOz-Fu-F6s" secondAttribute="bottom" constant="7.5" id="Yq1-ID-lpR"/>
