@@ -63,7 +63,7 @@ class HistoryTicketCell: UITableViewCell {
             }
             
             labelPriceTicket.text = ticket?.worker?.price
-            labelPriceTicket.textColor = AppThemes.appColorTheme
+            labelPriceTicket.textColor = UIColor.whiteColor()
             labelCommentTicket.text = ticket?.comment
             
             if ticket?.imageOne?.imageUrl! != "" {
