@@ -63,6 +63,9 @@ class TicketRatingViewController: UIViewController {
         normalButton.transform = CGAffineTransformConcat(scale, translate)
         goodButton.transform = CGAffineTransformConcat(scale, translate)
         greatBUtton.transform = CGAffineTransformConcat(scale, translate)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TicketRatingViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TicketRatingViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
     }
     
     
@@ -139,6 +142,14 @@ class TicketRatingViewController: UIViewController {
         //        cornerRadiusForButton(greatBUtton)
         
     }
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -100
+    }
+    
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y = 0
+    }
+    
     // MARK: - Clear color of buttons
     func clearColorForAllButtonsRating(){
         badButton.layer.backgroundColor = UIColor.clearColor().CGColor
@@ -206,4 +217,5 @@ extension TicketRatingViewController {
             self.performSegueWithIdentifier("UnwindToHomeTimeline", sender: self.senderButton)
         }
     }
+    
 }

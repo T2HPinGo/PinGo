@@ -68,12 +68,13 @@ class EditUserProfileViewController: UIViewController,UIImagePickerControllerDel
         initTableView()
         loadDataForView()
         
-        loadDataFromApi(UserProfile.currentUser!.id!, isWorker: UserProfile.currentUser!.isWorker)
+        
         initOpacityBarView()
     }
     
     override func viewDidAppear(animated: Bool) {
         initHeaderView()
+        loadDataFromApi(UserProfile.currentUser!.id!, isWorker: UserProfile.currentUser!.isWorker)
     }
     @IBAction func logoutAction(sender: AnyObject) {
         
@@ -119,7 +120,7 @@ extension EditUserProfileViewController : UITableViewDelegate, UITableViewDataSo
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = .None
+        //tableView.separatorStyle = .None
     }
 }
 // MARK: Load data for view
