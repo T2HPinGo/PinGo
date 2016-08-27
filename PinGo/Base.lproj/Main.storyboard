@@ -1025,7 +1025,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkerHistoryCell" rowHeight="111" id="mAY-vL-6ss" customClass="WorkerDetailCell" customModule="PinGo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkerHistoryCell" rowHeight="111" id="mAY-vL-6ss" customClass="WorkerDetailCell" customModule="PinGo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="178" width="320" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAY-vL-6ss" id="J0y-Dj-CX4">

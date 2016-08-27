@@ -13,12 +13,17 @@ import Alamofire
 import CoreLocation
 
 
-class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate{
-    
+class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate {
+    //MARK: - Outlets and Variables
     @IBOutlet weak var testView: GMSMapView!
     
+    @IBOutlet weak var locationView: UIView!
+    @IBOutlet weak var labelAddress: UILabel!
+    
+    @IBOutlet weak var okButton: UIButton!
     //get location
     var locationManager = CLLocationManager()
+    
     //get search results
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
@@ -29,60 +34,81 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //    var currentlocation_long = Double()
 //    var currentlocation_latitude = Double()
     var userMarker: GMSMarker?
-    var isFirstTimeUseMap: Bool = true
-    var flagCount: Int = 0
+    var isFirstTimeUseMap = true
+    var flagCount = 0
     var location :Location?
-    
-    @IBOutlet weak var locationView: UIView!
-    @IBOutlet weak var labelAddress: UILabel!
-    
-    @IBOutlet weak var okButton: UIButton!
-
     
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
-    
 //    var address: String = ""
     
+    //MARK: - Load Views
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         location = Location()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        //locationManager.distanceFilter = 200
         
         testView.myLocationEnabled = true
-        locationManager.startUpdatingLocation()
-        
         testView.delegate = self
+        
+        resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController?.searchResultsUpdater = resultsViewController
+        searchController?.hidesNavigationBarDuringPresentation = false
+        // When UISearchController presents the results view, present it in
+        // this view controller, not one further up the chain.
+        self.definesPresentationContext = true
 
         locationView.hidden = true
 //        locationViewStyle ()
         okButtonStyle()
         
         currentLocation()
-        searchbarStyle()
-        
-    }
-    
-
-    @IBAction func okButtonAction(sender: AnyObject) {
-        
-        
+        setupSubView()
     }
     
     override func viewWillAppear(animated: Bool) {
          testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
-        
     }
     
     override func viewDidDisappear(animated: Bool) {
-//        removeObserver:fromObjectsAtIndexes:forKeyPath:context: 
+//        removeObserver:fromObjectsAtIndexes:forKeyPath:context:
         testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
+    //MARK: - Actions
+    @IBAction func okButtonAction(sender: AnyObject) {
+
+    }
+    
+    @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
+        // Absolute (x,y) coordinates in parent view (parentView should be
+        // the parent view of the tray)
+        let point = sender.locationInView(testView)
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            print("Gesture began at: \(point)")
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            print("Gesture changed at: \(point)")
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            print("Gesture ended at: \(point)")
+        }
+    }
+    
+    //MARK: - Navigations
+    @IBAction func unwindFromDateTimePicker(segue: UIStoryboardSegue) {
+        
+    }
+    
+    //MARK: - Helpers & Gestures
     func okButtonStyle(){
         self.okButton.backgroundColor = AppThemes.appColorTheme
         self.okButton.layer.masksToBounds = true
@@ -119,6 +145,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if !didFindMyLocation {
+            //if user hasn't find any location, show current location
             let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation
             testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
             testView.settings.myLocationButton = true
@@ -147,45 +174,85 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
-    func searchbarStyle(){
-        
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        
+    func setupSubView(){
         //        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        let subViews = UIView(frame: CGRectMake(10, 75, view.frame.width-20, 150.0))
-        subViews.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
-        subViews.layer.shadowColor = UIColor.blackColor().CGColor//default is black
-        subViews.layer.shadowRadius = 1.0 //default is 3.0
-        subViews.layer.shadowOpacity = 0.5 //default is 0.0
-        //         var button = UIButton(type: .Custom)
-        //
-        //        button.frame = CGRectMake(0, 0, 45, 45)
-        //        button.setTitle("Back", forState: .Normal)
-        //action
+        let subViews = UIView(frame: CGRectMake(10, 75, view.bounds.width - 20, 134.0))
+        //subViews.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
+        //subViews.layer.shadowColor = UIColor.blackColor().CGColor//default is black
+        //subViews.layer.shadowRadius = 1.0 //default is 3.0
+        //subViews.layer.shadowOpacity = 0.5 //default is 0.0
+        
+        //customize search bar
         let searchBar = searchController?.searchBar
         let locationAddress = location!.address!
         searchBar?.placeholder = "\(locationAddress)"
-        subViews.addSubview(searchBar!)
-        self.view.addSubview(subViews)
         searchBar!.sizeToFit()
-        
-        searchController?.hidesNavigationBarDuringPresentation = false
-        
-        // When UISearchController presents the results view, present it in
-        // this view controller, not one further up the chain.
-        self.definesPresentationContext = true
-        
         let searchTextField = searchBar!.valueForKey("_searchField") as? UITextField
         searchTextField?.backgroundColor = UIColor.whiteColor()
         searchTextField?.textColor = AppThemes.appColorTheme
-        
         searchController?.searchBar.barTintColor = UIColor.whiteColor()
         searchController?.searchBar.tintColor = AppThemes.appColorTheme
+        subViews.addSubview(searchBar!)
         
+        
+        let spaceBetweenViews: CGFloat = 1.0
+        let viewHeight: CGFloat = 44
+        let viewWidthSmall: CGFloat = (view.frame.width - 20 - 2*spaceBetweenViews) / 3
+        let labelMargin: CGFloat = 3
+        let labelHeight:CGFloat = 20
+        let labelWidth: CGFloat = viewWidthSmall - 2*labelMargin
+        
+        //Category
+        let categoryView = UIView(frame: CGRect(x: 0, y: 45, width: viewWidthSmall, height: viewHeight))
+        let categoryLabel = UILabel(frame: CGRect(x: labelMargin, y: labelMargin, width: labelWidth, height: labelHeight))
+        categoryLabel.text = "Electricity"
+        categoryLabel.font = AppThemes.helveticaNeueLight13
+        categoryView.addSubview(categoryLabel)
+        categoryView.backgroundColor = UIColor.yellowColor()
+        subViews.addSubview(categoryView)
+        
+        
+        //Date & Time picker
+        let dateView = UIView(frame: CGRect(x: viewWidthSmall + spaceBetweenViews, y: 45 , width: viewWidthSmall, height: viewHeight))
+        dateView.backgroundColor = UIColor.greenColor()
+        let pickTimeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickTime(_:)))
+        subViews.addGestureRecognizer(pickTimeGestureRecognizer)
+        let dateLabel = UILabel(frame: CGRect(x: labelMargin, y: labelMargin, width: labelWidth, height: labelHeight))
+        dateLabel.text = "28 JUL 2016"
+        dateLabel.font = AppThemes.helveticaNeueLight13
+        dateLabel.sizeToFit()
+        
+        let timeLabel = UILabel(frame: CGRect(x: labelMargin, y: viewHeight - labelMargin - labelHeight, width: labelWidth, height: labelHeight))
+        timeLabel.text = "19:00"
+        timeLabel.font = AppThemes.helveticaNeueLight13
+        dateView.addSubview(dateLabel)
+        dateView.addSubview(timeLabel)
+        subViews.addSubview(dateView)
+        
+        let paymentView = UIView(frame: CGRect(x: 2*viewWidthSmall + 2*spaceBetweenViews, y: 45, width: viewWidthSmall, height: viewHeight))
+        paymentView.backgroundColor = UIColor.cyanColor()
+        let paymentLabel = UILabel(frame: CGRect(x: labelMargin, y: labelMargin, width: labelWidth, height: labelHeight))
+        paymentLabel.text = "CASH"
+        paymentLabel.font = AppThemes.helveticaNeueLight13
+        paymentLabel.sizeToFit()
+        paymentView.addSubview(paymentLabel)
+        subViews.addSubview(paymentView)
+        
+        let addDetailView = UIView(frame: CGRect(x: 0, y: 44 + 1 + 44 + 1, width: view.frame.width - 20, height: viewHeight))
+        addDetailView.backgroundColor = UIColor.blueColor()
+        subViews.addSubview(addDetailView)
+        
+        self.view.addSubview(subViews)
+    }
+    
+    func pickTime(gestureRecognizer: UIGestureRecognizer) {
+        
+        print("helooooooo")
+        let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
+        let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
+        
+        //self.navigationController?.pushViewController(calendarPopupViewController, animated: true)
+        self.presentViewController(calendarPopupViewController, animated: true, completion: nil)//pushViewController(mapViewController, animated: true)
     }
     
     //---------------Google Map AP
@@ -199,25 +266,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.flagCount = 1
     }
     
-    
-    
-    @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
-        // Absolute (x,y) coordinates in parent view (parentView should be
-        // the parent view of the tray)
-        let point = sender.locationInView(testView)
-        
-        if sender.state == UIGestureRecognizerState.Began {
-            print("Gesture began at: \(point)")
-        } else if sender.state == UIGestureRecognizerState.Changed {
-            print("Gesture changed at: \(point)")
-        } else if sender.state == UIGestureRecognizerState.Ended {
-            print("Gesture ended at: \(point)")
-        }
-    }
-    
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
         if (userMarker != nil && flagCount > 0) {
-            print("hei")
+            //print("hei")
             flagCount = 2
             let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
             Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
@@ -253,8 +304,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
     }
     
-    
-    
     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
         if (flagCount != 1) {
             self.userMarker!.map = nil
@@ -269,9 +318,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //            self.labelAddress.text = self.location!.address
 //            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         }
-        
-        
-        
     }
 
     func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
@@ -279,14 +325,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             
             let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
             self.testView.camera = camera
-        
         }
     }
 }
 
 
 // MARK: - CLLocationManagerDelegate
-
 extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

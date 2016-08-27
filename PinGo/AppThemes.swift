@@ -32,6 +32,24 @@ struct AppThemes {
     static let avenirBlack13 = UIFont(name: "Avenir-Black", size: 13.0)
     static let avenirBlack12 = UIFont(name: "Avenir-Black", size: 12.0)
     
+    static let oswaldRegular17 = UIFont(name: "Oswald-Regular", size: 17)
+    static let oswaldRegular16 = UIFont(name: "Oswald-Regular", size: 16)
+    static let oswaldRegular15 = UIFont(name: "Oswald-Regular", size: 15)
+    static let oswaldRegular14 = UIFont(name: "Oswald-Regular", size: 14)
+    static let oswaldRegular13 = UIFont(name: "Oswald-Regular", size: 13)
+    
+    static let oswaldLight17 = UIFont(name: "Oswald-Light", size: 17)
+    static let oswaldLight16 = UIFont(name: "Oswald-Light", size: 16)
+    static let oswaldLight15 = UIFont(name: "Oswald-Light", size: 15)
+    static let oswaldLight14 = UIFont(name: "Oswald-Light", size: 14)
+    static let oswaldLight13 = UIFont(name: "Oswald-Light", size: 13)
+    
+    static let helveticaNeueLight17 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 17)
+    static let helveticaNeueLight16 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 16)
+    static let helveticaNeueLight15 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 15)
+    static let helveticaNeueLight14 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 14)
+    static let helveticaNeueLight13 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 13)
+    
     //MARK: Colors
     static let gradientCellStartColor = UIColor(red: 120.0/255.0, green: 51.0/255.0, blue: 83.0/255.0, alpha: 1.0)
     static let gradientCellEndColor = UIColor(red: 146.0/255.0, green: 60.0/255.0, blue: 87.0/255.0, alpha: 1.0)
@@ -61,6 +79,7 @@ struct AppThemes {
     //--- UI Colors - Haena
     static let navigationBackgroundColor = UIColor(red: 248.0/255.0, green: 233.0/255.0, blue: 210.0/255.0, alpha: 1.0) //was 88 180 164
     static let backgroundColor = UIColor(red: 248.0/255.0, green: 233.0/255.0, blue: 210.0/255.0, alpha: 1.0)
+    static let backgroundColorGray = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0)
     static let appColorTheme = UIColor(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 1.0)
     static let appColorText = UIColor(red: 100.0/255.0, green: 180.0/255.0, blue: 200.0/255.0, alpha: 1.0)
     

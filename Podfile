@@ -10,4 +10,5 @@ target 'PinGo' do
   pod 'GooglePlaces'
   pod 'Alamofire', '~> 3.4'
   pod 'AFNetworking', '3.0.0'
+  pod 'JTCalendar'
 end

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21008E7F1D71A08F008332EC /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */; };
+		21008E861D71C4AD008332EC /* HelveticaNeueLTStd-Lt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E821D71C366008332EC /* HelveticaNeueLTStd-Lt.ttf */; };
+		21008E871D71C4AD008332EC /* HelveticaNeueLTStd-LtEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E831D71C366008332EC /* HelveticaNeueLTStd-LtEx.ttf */; };
+		21008E881D71C4AD008332EC /* Oswald.light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E841D71C366008332EC /* Oswald.light.ttf */; };
+		21008E891D71C4AD008332EC /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E851D71C366008332EC /* Oswald-Regular.ttf */; };
 		210981251D6D6A8800F6189A /* PhotoSlidePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */; };
 		210EF8C51D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */; };
 		210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */; };
@@ -113,6 +118,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
+		21008E821D71C366008332EC /* HelveticaNeueLTStd-Lt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-Lt.ttf"; sourceTree = "<group>"; };
+		21008E831D71C366008332EC /* HelveticaNeueLTStd-LtEx.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-LtEx.ttf"; sourceTree = "<group>"; };
+		21008E841D71C366008332EC /* Oswald.light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Oswald.light.ttf; sourceTree = "<group>"; };
+		21008E851D71C366008332EC /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSlidePageViewController.swift; sourceTree = "<group>"; };
 		210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HTextViewWithPlaceHolder.swift; sourceTree = "<group>"; };
 		210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HGradientUIView.swift; sourceTree = "<group>"; };
@@ -248,6 +258,25 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		21008E801D71C321008332EC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				21008E811D71C32A008332EC /* Fonts */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		21008E811D71C32A008332EC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				21008E821D71C366008332EC /* HelveticaNeueLTStd-Lt.ttf */,
+				21008E831D71C366008332EC /* HelveticaNeueLTStd-LtEx.ttf */,
+				21008E841D71C366008332EC /* Oswald.light.ttf */,
+				21008E851D71C366008332EC /* Oswald-Regular.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		21250A751D648E62009C9A78 /* SkyFloatingLabelTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +306,7 @@
 				21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */,
 				21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */,
 				210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */,
+				21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -333,6 +363,7 @@
 		219D49DD1D50B62E006B5ADE /* PinGo */ = {
 			isa = PBXGroup;
 			children = (
+				21008E801D71C321008332EC /* Resources */,
 				21FD0FA21D604695005A7421 /* API */,
 				B0B3A8A31D5FAC8E009A177D /* Utils */,
 				B0B3A8A01D5FAA9F009A177D /* SocketIOManager */,
@@ -540,6 +571,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21008E861D71C4AD008332EC /* HelveticaNeueLTStd-Lt.ttf in Resources */,
+				21008E871D71C4AD008332EC /* HelveticaNeueLTStd-LtEx.ttf in Resources */,
+				21008E881D71C4AD008332EC /* Oswald.light.ttf in Resources */,
+				21008E891D71C4AD008332EC /* Oswald-Regular.ttf in Resources */,
 				E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */,
 				B04E73FC1D6968FA00751D4C /* UserAndWorkerProfile.storyboard in Resources */,
 				E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */,
@@ -712,6 +747,7 @@
 				21FAD06B1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
 				21FAD0751D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				21FAD0781D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
+				21008E7F1D71A08F008332EC /* DateTimePickerViewController.swift in Sources */,
 				E71389DC1D6B0D0F00FA84D0 /* forfacebook.m in Sources */,
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
