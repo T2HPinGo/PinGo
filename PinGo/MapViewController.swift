@@ -72,6 +72,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        newTicket = Ticket()
+        
         location = Location()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -123,7 +125,19 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             if let chosenDate = dateTimePickerViewController.chosenDate {
                 self.dateLabel.text = getStringFromDate(chosenDate, withFormat: DateStringFormat.DD_MMM_YYYY)
                 self.dateLabel.sizeToFit()
+                
+                newTicket?.dateCreated = chosenDate
+            } else {
+                self.dateLabel.text = "Today"
             }
+        }
+    }
+    
+    @IBAction func unwindFromAddingDetail(segue: UIStoryboardSegue) {
+        if let addDetailViewController = segue.sourceViewController as? AddTicketDetailViewController {
+//            if let chosenDate = addDetailViewController.chosenDate {
+//                
+//            }
         }
     }
     
@@ -366,6 +380,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     func pickTime(gestureRecognizer: UIGestureRecognizer) {
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
+        
+        calendarPopupViewController.chosenDate = newTicket?.dateCreated
         
         self.presentViewController(calendarPopupViewController, animated: true, completion: nil)
         

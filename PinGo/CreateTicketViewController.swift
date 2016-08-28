@@ -55,12 +55,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
     
     var newTicket: Ticket?
     
-    var ticketTitle = ""
-    let descriptionText = ""
-    
     var activityIndicatorView: NVActivityIndicatorView! = nil
-    
-    
+
     struct TextFieldColorThemes {
         static let textFieldTintColor = AppThemes.appColorTheme
         static let placeholderColor = UIColor.lightGrayColor()

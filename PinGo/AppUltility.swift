@@ -23,6 +23,7 @@ public enum DateStringFormat : String {
     case DD_MMM_YYYY_HH_mm = "dd MMM yyyy, hh:mm"
     case MMM_yyyy = "MMM yyyy"
     case MMM = "MMM"
+    case HH_mm = "hh:mm"
     
 }
 

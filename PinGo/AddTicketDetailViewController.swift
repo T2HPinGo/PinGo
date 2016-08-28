@@ -105,7 +105,7 @@ class AddTicketDetailViewController: UIViewController {
         titleTextField.layer.cornerRadius = 5
         titleTextField.layer.borderWidth = 1.0
         titleTextField.layer.borderColor = AppThemes.appColorTheme.CGColor
-        
+        titleTextField.tintColor = AppThemes.appColorTheme
         
         //descriptionTextField
         descriptionTextView.placeholder = "Enter Description (Optional)"
@@ -114,6 +114,7 @@ class AddTicketDetailViewController: UIViewController {
         descriptionTextView.layer.cornerRadius = 10
         descriptionTextView.layer.borderWidth = 1.0
         descriptionTextView.layer.borderColor = AppThemes.appColorTheme.CGColor
+        descriptionTextView.tintColor = AppThemes.appColorTheme
         
         //close button
         closeButton.layer.cornerRadius = closeButton.frame.size.width / 2
@@ -148,7 +149,7 @@ class AddTicketDetailViewController: UIViewController {
     }
     
     func keyboardWillShow(sender: NSNotification) {
-        self.view.frame.origin.y = -100
+        self.view.frame.origin.y = -120
     }
     
     func keyboardWillHide(sender: NSNotification) {
