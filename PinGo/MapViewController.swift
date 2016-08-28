@@ -19,7 +19,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var labelAddress: UILabel!
     
-    @IBOutlet weak var okButton: UIButton!
+    @IBOutlet weak var findButton: UIButton!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var newTicket: Ticket?
     
@@ -28,7 +30,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     //get search results
     var resultsViewController: GMSAutocompleteResultsViewController?
-    var searchController: UISearchController?
+    var searchController: UISearchController!
     var resultView: UITextView?
     
     var didFindMyLocation = false
@@ -40,10 +42,31 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     var flagCount = 0
     var location :Location?
     
+    var currentCategoryIndex = -1 //store current selected category index, set to -1 to avoid crash no cell has been sellected
+    
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
-    var date: NSDate?
+    //MARK: - Outlets for subview
+    var subViews: UIView!
+    
+    var categoryView: UIView!
+    var categoryLabel: UILabel!
+    var categoryIconImageView: UIImageView!
+    
+    var dateView: UIView!
+    var dateLabel: UILabel!
+    var timeLabel: UILabel!
+    var calendarIconImageView: UIImageView!
+    var clockIconImageView: UIImageView!
+    
+    var paymentView: UIView!
+    var paymentLabel: UILabel!
+    var paymentIconImageView: UIImageView!
+    
+    var addDetailView: UIView!
+    var detailLabel: UILabel!
+    var detailIconImageView: UIImageView!
     
     //MARK: - Load Views
     override func viewDidLoad() {
@@ -65,9 +88,17 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         searchController?.hidesNavigationBarDuringPresentation = false
-        // When UISearchController presents the results view, present it in
+        searchController.delegate = self
+        self.definesPresentationContext = true //// When UISearchController presents the results view, present it in
         // this view controller, not one further up the chain.
-        self.definesPresentationContext = true
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        //add the start stage for collection View
+        collectionView.transform = CGAffineTransformMakeTranslation(0, view.frame.height)
 
         locationView.hidden = true
 //        locationViewStyle ()
@@ -78,7 +109,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     }
     
     override func viewWillAppear(animated: Bool) {
-         testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+        testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -86,43 +117,23 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
-    //MARK: - Actions
-    @IBAction func okButtonAction(sender: AnyObject) {
-
-    }
-    
-    @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
-        // Absolute (x,y) coordinates in parent view (parentView should be
-        // the parent view of the tray)
-        let point = sender.locationInView(testView)
-        
-        if sender.state == UIGestureRecognizerState.Began {
-            print("Gesture began at: \(point)")
-        } else if sender.state == UIGestureRecognizerState.Changed {
-            print("Gesture changed at: \(point)")
-        } else if sender.state == UIGestureRecognizerState.Ended {
-            print("Gesture ended at: \(point)")
-        }
-    }
-    
     //MARK: - Navigations
     @IBAction func unwindFromDateTimePicker(segue: UIStoryboardSegue) {
         if let dateTimePickerViewController = segue.sourceViewController as? DateTimePickerViewController {
             if let chosenDate = dateTimePickerViewController.chosenDate {
-                print(chosenDate)
-                date = chosenDate
-                setupSubView()
+                self.dateLabel.text = getStringFromDate(chosenDate, withFormat: DateStringFormat.DD_MMM_YYYY)
+                self.dateLabel.sizeToFit()
             }
         }
     }
     
-    //MARK: - Helpers & Gestures
+    //MARK: - Helpers
     func okButtonStyle(){
-        self.okButton.backgroundColor = AppThemes.appColorTheme
-        self.okButton.layer.masksToBounds = true
+        self.findButton.backgroundColor = AppThemes.appColorTheme
+        self.findButton.layer.masksToBounds = true
 //        self.okButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        self.okButton.layer.cornerRadius = okButton.frame.size.width/2
-        self.okButton.clipsToBounds = true
+        self.findButton.layer.cornerRadius = findButton.frame.size.width/2
+        self.findButton.clipsToBounds = true
     }
     
 //    func locationViewStyle (){
@@ -182,12 +193,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     }
     
     func setupSubView(){
-        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        let subViews = UIView(frame: CGRectMake(10, 75, view.bounds.width - 20, 134.0))
-        //subViews.layer.shadowOffset = CGSizeMake(0, 3); //default is (0.0, -3.0)
-        //subViews.layer.shadowColor = UIColor.blackColor().CGColor//default is black
-        //subViews.layer.shadowRadius = 1.0 //default is 3.0
-        //subViews.layer.shadowOpacity = 0.5 //default is 0.0
+        subViews = UIView(frame: CGRectMake(10, 75, view.bounds.width - 20, 134.0))
+        subViews.clipsToBounds = true
         
         //customize search bar
         let searchBar = searchController?.searchBar
@@ -201,7 +208,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         searchController?.searchBar.tintColor = AppThemes.appColorTheme
         subViews.addSubview(searchBar!)
         
-        
         let spaceBetweenViews: CGFloat = 1.0
         let viewHeight: CGFloat = 44
         let viewWidthSmall: CGFloat = (view.frame.width - 20 - 2*spaceBetweenViews) / 3
@@ -212,75 +218,84 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         let iconHeight: CGFloat = 13
         
         //Category
-        let categoryView = UIView(frame: CGRect(x: 0, y: 45, width: viewWidthSmall, height: viewHeight))
-        let categoryLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: labelMargin, width: labelWidth, height: categoryView.frame.height - 2*labelMargin))
+        categoryView = UIView(frame: CGRect(x: 0, y: 45, width: viewWidthSmall, height: viewHeight))
+        categoryView.backgroundColor = UIColor.whiteColor()
+        let pickCategoryGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickCategory(_:)))
+        categoryView.addGestureRecognizer(pickCategoryGestureRecognizer)
+        
+        categoryLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: labelMargin, width: labelWidth, height: categoryView.frame.height - 2*labelMargin))
         categoryLabel.text = "Choose Category"
         categoryLabel.numberOfLines = 2
         categoryLabel.font = AppThemes.helveticaNeueLight13
         
-        let categoryIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: categoryView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
+        categoryIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: categoryView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
         categoryIconImageView.image = UIImage(named: "category")
         
         categoryView.addSubview(categoryIconImageView)
         categoryView.addSubview(categoryLabel)
-        categoryView.backgroundColor = UIColor.whiteColor()
         subViews.addSubview(categoryView)
         
-        
         //Date & Time picker
-        let dateView = UIView(frame: CGRect(x: viewWidthSmall + spaceBetweenViews, y: 45 , width: viewWidthSmall, height: viewHeight))
+        dateView = UIView(frame: CGRect(x: viewWidthSmall + spaceBetweenViews, y: 45 , width: viewWidthSmall, height: viewHeight))
         dateView.backgroundColor = UIColor.whiteColor()
         let pickTimeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickTime(_:)))
-        subViews.addGestureRecognizer(pickTimeGestureRecognizer)
+        dateView.addGestureRecognizer(pickTimeGestureRecognizer)
         
-        let dateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: labelMargin, width: labelWidth, height: labelHeight))
-        if let date = self.date{
-            dateLabel.text = getStringFromDate(date, withFormat: DateStringFormat.DD_MMM_YYYY)
-        } else {
-            dateLabel.text = "Today"
-        }
+        dateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: labelMargin, width: labelWidth, height: labelHeight))
+        dateLabel.text = "Today"
         dateLabel.font = AppThemes.helveticaNeueLight13
         dateLabel.sizeToFit()
         
         
-        let timeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: dateView.frame.height - labelMargin - dateLabel.frame.height, width: labelWidth, height: labelHeight))
-        timeLabel.text = "19:00"
+        timeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: dateView.frame.height - labelMargin - dateLabel.frame.height, width: labelWidth, height: labelHeight))
+        timeLabel.text = "ASAP"
         timeLabel.font = AppThemes.helveticaNeueLight13
         timeLabel.sizeToFit()
         
-        let calendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: 3, width: iconHeight, height: iconHeight))
+        calendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: 3, width: iconHeight, height: iconHeight))
         calendarIconImageView.image = UIImage(named: "calendar")
         
-        let clockIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: timeLabel.center.y - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
+        clockIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: timeLabel.center.y - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
         clockIconImageView.image = UIImage(named: "clock")
         
-        dateView.addSubview(calendarIconImageView)
-        dateView.addSubview(clockIconImageView)
-        dateView.addSubview(dateLabel)
-        dateView.addSubview(timeLabel)
-        subViews.addSubview(dateView)
+        dateView.addSubview(self.calendarIconImageView)
+        dateView.addSubview(self.clockIconImageView)
+        dateView.addSubview(self.dateLabel)
+        dateView.addSubview(self.timeLabel)
+        subViews.addSubview(self.dateView)
         
         
         //Payment
-        let paymentView = UIView(frame: CGRect(x: 2*viewWidthSmall + 2*spaceBetweenViews, y: 45, width: viewWidthSmall, height: viewHeight))
+        paymentView = UIView(frame: CGRect(x: 2*viewWidthSmall + 2*spaceBetweenViews, y: 45, width: viewWidthSmall, height: viewHeight))
         paymentView.backgroundColor = UIColor.whiteColor()
         
-        let paymentLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: categoryView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
+        paymentLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: categoryView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
         paymentLabel.text = "Cash"
         paymentLabel.font = AppThemes.helveticaNeueLight13
         paymentLabel.sizeToFit()
         
-        let paymentIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: categoryView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
+        paymentIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: categoryView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
         paymentIconImageView.image = UIImage(named: "cash")
         
-        paymentView.addSubview(paymentIconImageView)
-        paymentView.addSubview(paymentLabel)
-        subViews.addSubview(paymentView)
+        paymentView.addSubview(self.paymentIconImageView)
+        paymentView.addSubview(self.paymentLabel)
+        subViews.addSubview(self.paymentView)
         
         //Title + Description + photos
-        let addDetailView = UIView(frame: CGRect(x: 0, y: 44 + 1 + 44 + 1, width: view.frame.width - 20, height: viewHeight))
+        addDetailView = UIView(frame: CGRect(x: 0, y: 2*viewHeight + 2*spaceBetweenViews, width: view.frame.width - 20, height: viewHeight))
         addDetailView.backgroundColor = UIColor.whiteColor()
-        subViews.addSubview(addDetailView)
+        
+        detailIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: addDetailView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
+        detailIconImageView.image = UIImage(named: "compose")
+        
+        detailLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: addDetailView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
+        detailLabel.text = "Ticket Title"
+        detailLabel.font = AppThemes.helveticaNeueLight13
+        detailLabel.sizeToFit()
+        
+        addDetailView.addSubview(detailIconImageView)
+        addDetailView.addSubview(detailLabel)
+        subViews.addSubview(self.addDetailView)
         
         //shadow
         shadowForViews([categoryView, dateView], withHorizontalOffset: 1, withVerticleOffset: -1)
@@ -298,16 +313,67 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         }
     }
     
+    func adjustViewsWhenChoosingCategory() {
+        //move the category collectionview up so it's visible
+        UIView.animateWithDuration(0.3, animations: {
+            self.collectionView.transform = CGAffineTransformIdentity
+            }, completion: nil)
+        
+        //move the map up so the collectionview doesn't block the map
+        UIView.animateWithDuration(0.3, animations: {
+            self.testView.transform = CGAffineTransformMakeTranslation(0, -self.collectionView.frame.height)
+            }, completion: nil)
+        
+        //move the findButton up so it doesn't block the current location button
+        UIView.animateWithDuration(0.3, animations: {
+            self.findButton.transform = CGAffineTransformMakeTranslation(0, -self.collectionView.frame.height)
+            }, completion: nil)
+    }
+    
+    func adjustViewsWhenFinishChoosingCategory() {
+        //make the category collection view and the map go back to originnal position while picking time and date
+        UIView.animateWithDuration(0.3, animations: {
+            self.collectionView.transform = CGAffineTransformMakeTranslation(0, self.view.frame.height)
+            }, completion: nil)
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.testView.transform = CGAffineTransformIdentity
+            }, completion: nil)
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.findButton.transform = CGAffineTransformIdentity
+            }, completion: nil)
+    }
+    
+    //MARK: - Actions & Gestures
+    @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
+        // Absolute (x,y) coordinates in parent view (parentView should be
+        // the parent view of the tray)
+        let point = sender.locationInView(testView)
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            print("Gesture began at: \(point)")
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            print("Gesture changed at: \(point)")
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            print("Gesture ended at: \(point)")
+        }
+    }
+    
     func pickTime(gestureRecognizer: UIGestureRecognizer) {
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
         
-        //self.navigationController?.pushViewController(calendarPopupViewController, animated: true)
-        self.presentViewController(calendarPopupViewController, animated: true, completion: nil)//pushViewController(mapViewController, animated: true)
+        self.presentViewController(calendarPopupViewController, animated: true, completion: nil)
+        
+        adjustViewsWhenFinishChoosingCategory()
+    }
+    
+    func pickCategory(gestureRecognizer: UIGestureRecognizer) {
+        adjustViewsWhenChoosingCategory()
     }
     
     //MARK: - Google Map API
-    
     func currentLocation(){
 //            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
 //            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
@@ -319,7 +385,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
         if (userMarker != nil && flagCount > 0) {
-            //print("hei")
             flagCount = 2
             let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
             Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
@@ -350,9 +415,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                     }
                 }
             }
-            
         }
-        
     }
     
     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
@@ -515,4 +578,47 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
+}
+
+//MARK: - EXTENSION: UICollectionView
+extension MapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
+        cell.categoryLabel.text = TicketCategory.categoryNames[indexPath.item]
+        cell.categoryIconImageView.image =  UIImage(named: TicketCategory.categoryIcons[indexPath.item])
+        cell.isChosen = indexPath.row == currentCategoryIndex ? true : false
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        currentCategoryIndex = indexPath.row
+        self.categoryLabel.text = TicketCategory.categoryNames[currentCategoryIndex]
+        self.categoryIconImageView.image = UIImage(named: TicketCategory.categoryIcons[currentCategoryIndex])
+        collectionView.reloadData()
+    }
+    
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        
+        if let isSelected = cell?.selected where isSelected {
+            //perform any custom deselect logic
+            
+            return false
+        }
+        
+        return true
+    }
+}
+
+//MARK: - EXTENSION: UISearchControllerDelegate
+extension MapViewController: UISearchControllerDelegate {
+    func willPresentSearchController(searchController: UISearchController) {
+        adjustViewsWhenFinishChoosingCategory()
+    }
 }

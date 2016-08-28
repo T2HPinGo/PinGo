@@ -25,11 +25,9 @@ class CategoryCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        categoryLabel.font = AppThemes.helveticaNeueRegular15
-        categoryLabel.textAlignment = .Left
+        categoryLabel.font = AppThemes.helveticaNeueLight13
+        categoryLabel.textAlignment = .Center
         
         self.layer.cornerRadius = 10.0
-        
-        self.backgroundColor = UIColor.blueColor()
     }
 }

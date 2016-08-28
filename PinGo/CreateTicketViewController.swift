@@ -70,7 +70,7 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         static let selectedBottomLineColor = AppThemes.appColorTheme
     }
     
-     //MARK: - Load view
+    //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,8 +89,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         
         addGesture()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
     }
     
     //keyboard disapear with return

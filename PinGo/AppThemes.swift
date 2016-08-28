@@ -49,6 +49,7 @@ struct AppThemes {
     static let helveticaNeueLight15 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 15)
     static let helveticaNeueLight14 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 14)
     static let helveticaNeueLight13 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 13)
+    static let helveticaNeueLight12 = UIFont(name: "HelveticaNeueLTStd-Lt", size: 12)
     
     //MARK: Colors
     static let gradientCellStartColor = UIColor(red: 120.0/255.0, green: 51.0/255.0, blue: 83.0/255.0, alpha: 1.0)
