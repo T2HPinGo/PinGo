@@ -237,7 +237,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="70" height="68"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Electricity" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xci-u9-FXy">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Electricity" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xci-u9-FXy">
                                                     <rect key="frame" x="5" y="39" width="61" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="IEf-fF-ju5"/>
@@ -246,7 +246,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Electricity" translatesAutoresizingMaskIntoConstraints="NO" id="A9k-lS-66m">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Electricity" translatesAutoresizingMaskIntoConstraints="NO" id="A9k-lS-66m">
                                                     <rect key="frame" x="23" y="9" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="9tG-PQ-lok"/>
@@ -259,6 +259,7 @@
                                         <color key="backgroundColor" red="0.34509803919999998" green="0.70588235290000001" blue="0.64313725489999995" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="A9k-lS-66m" firstAttribute="top" secondItem="n2G-Zi-out" secondAttribute="topMargin" constant="3" id="6IH-8q-RzI"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Xci-u9-FXy" secondAttribute="bottom" constant="1" id="9KY-Gj-7tD"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xci-u9-FXy" secondAttribute="trailing" constant="3" id="LjY-gA-QsZ"/>
                                             <constraint firstItem="Xci-u9-FXy" firstAttribute="centerX" secondItem="n2G-Zi-out" secondAttribute="centerX" id="Umx-wG-gSh"/>
                                             <constraint firstItem="Xci-u9-FXy" firstAttribute="top" secondItem="A9k-lS-66m" secondAttribute="bottom" constant="5" id="VfY-VY-ppZ"/>
@@ -271,6 +272,7 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="6IH-8q-RzI"/>
+                                                <exclude reference="sOZ-vD-Rd8"/>
                                                 <exclude reference="szK-SD-0El"/>
                                             </mask>
                                         </variation>
