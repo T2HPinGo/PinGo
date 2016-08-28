@@ -208,14 +208,15 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         searchController?.searchBar.tintColor = AppThemes.appColorTheme
         subViews.addSubview(searchBar!)
         
+        let iconHeight: CGFloat = 13
+        
         let spaceBetweenViews: CGFloat = 1.0
         let viewHeight: CGFloat = 44
         let viewWidthSmall: CGFloat = (view.frame.width - 20 - 2*spaceBetweenViews) / 3
         let labelMargin: CGFloat = 5
         let labelHeight:CGFloat = 20
-        let labelWidth: CGFloat = viewWidthSmall - 2*labelMargin
+        let labelWidth: CGFloat = viewWidthSmall - 2*labelMargin - iconHeight - 3
         
-        let iconHeight: CGFloat = 13
         
         //Category
         categoryView = UIView(frame: CGRect(x: 0, y: 45, width: viewWidthSmall, height: viewHeight))
@@ -284,6 +285,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         //Title + Description + photos
         addDetailView = UIView(frame: CGRect(x: 0, y: 2*viewHeight + 2*spaceBetweenViews, width: view.frame.width - 20, height: viewHeight))
         addDetailView.backgroundColor = UIColor.whiteColor()
+        let addDetailGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addTicketDetail(_:)))
+        addDetailView.addGestureRecognizer(addDetailGestureRecognizer)
         
         detailIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: addDetailView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
         detailIconImageView.image = UIImage(named: "compose")
@@ -371,6 +374,15 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     func pickCategory(gestureRecognizer: UIGestureRecognizer) {
         adjustViewsWhenChoosingCategory()
+    }
+    
+    func addTicketDetail(gestureRecognizer: UIGestureRecognizer) {
+        let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
+        let detailPopupViewController = storyboard.instantiateViewControllerWithIdentifier("AddTicketDetailViewController") as! AddTicketDetailViewController
+        
+        self.presentViewController(detailPopupViewController, animated: true, completion: nil)
+        
+        adjustViewsWhenFinishChoosingCategory()
     }
     
     //MARK: - Google Map API

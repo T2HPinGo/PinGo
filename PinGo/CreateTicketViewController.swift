@@ -250,7 +250,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         
         //add gesture that go to the Map
         let chooseLocationGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseLocation(_:)))
-        chooseLocationView.addGestureRecognizer(chooseLocationGestureRecognizer)    }
+        chooseLocationView.addGestureRecognizer(chooseLocationGestureRecognizer)
+    }
     
     //make flipping effect for chooseCategoryView when selected
     func presentCategoryUpdateAnimation() {
