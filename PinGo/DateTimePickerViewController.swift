@@ -28,8 +28,8 @@ class DateTimePickerViewController: UIViewController {
     
     var todayDate = NSDate()
     var datesSelected: [NSDate] = []
-    var chosenDate = NSDate()
-    var chosenTime = NSDate()
+    var chosenDate: NSDate? //save the chosen date
+    var chosenTime: NSDate? //save the chosen time
     var months: [NSDate] = [] //this is use to display the value of next month and previous month in the menu bar
     
     required init?(coder aDecoder: NSCoder) {
@@ -98,6 +98,11 @@ class DateTimePickerViewController: UIViewController {
         nextMonthLabel.textAlignment = .Right
     }
     
+    //MARK: - Actions
+    
+    @IBAction func onClose(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 //MARK: - JTCalendarDelegate
@@ -174,10 +179,17 @@ extension DateTimePickerViewController: JTCalendarDelegate {
         //make the time picker visible when at least one date has been selected
         if datesSelected.count == 0 {
             timePicker.hidden = true
+            confirmButton.hidden = true
         } else {
             timePicker.hidden = false
+            confirmButton.hidden = false
         }
         
+        //asign selected date for chosenDate
+        if let date = datesSelected.first {
+            chosenDate = date
+            print(chosenDate)
+        }
         //update the numberofDatesSelectedLabel
         //updateNumbersOfDatesSelected()
     }

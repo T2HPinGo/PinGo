@@ -12,7 +12,6 @@ import GoogleMaps
 import Alamofire
 import CoreLocation
 
-
 class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate {
     //MARK: - Outlets and Variables
     @IBOutlet weak var testView: GMSMapView!
@@ -21,6 +20,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     @IBOutlet weak var labelAddress: UILabel!
     
     @IBOutlet weak var okButton: UIButton!
+    
+    var newTicket: Ticket?
+    
     //get location
     var locationManager = CLLocationManager()
     
@@ -41,7 +43,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
-//    var address: String = ""
+    var date: NSDate?
     
     //MARK: - Load Views
     override func viewDidLoad() {
@@ -105,7 +107,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     //MARK: - Navigations
     @IBAction func unwindFromDateTimePicker(segue: UIStoryboardSegue) {
-        
+        if let dateTimePickerViewController = segue.sourceViewController as? DateTimePickerViewController {
+            if let chosenDate = dateTimePickerViewController.chosenDate {
+                print(chosenDate)
+                date = chosenDate
+                setupSubView()
+            }
+        }
     }
     
     //MARK: - Helpers & Gestures
@@ -164,7 +172,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.testView.selectedMarker = self.userMarker
             self.userMarker!.icon = UIImage(named:"Marker50")
             
-//            
 //            var imgView = UIImageView(frame: CGRectMake(0, 0, 100, 100))
 //            imgView.image = UIImage(named: "Pingo")!
 //            self.userMarker!.icon = UIImage(named: "Pingo")!
@@ -198,56 +205,100 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         let spaceBetweenViews: CGFloat = 1.0
         let viewHeight: CGFloat = 44
         let viewWidthSmall: CGFloat = (view.frame.width - 20 - 2*spaceBetweenViews) / 3
-        let labelMargin: CGFloat = 3
+        let labelMargin: CGFloat = 5
         let labelHeight:CGFloat = 20
         let labelWidth: CGFloat = viewWidthSmall - 2*labelMargin
         
+        let iconHeight: CGFloat = 13
+        
         //Category
         let categoryView = UIView(frame: CGRect(x: 0, y: 45, width: viewWidthSmall, height: viewHeight))
-        let categoryLabel = UILabel(frame: CGRect(x: labelMargin, y: labelMargin, width: labelWidth, height: labelHeight))
-        categoryLabel.text = "Electricity"
+        let categoryLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: labelMargin, width: labelWidth, height: categoryView.frame.height - 2*labelMargin))
+        categoryLabel.text = "Choose Category"
+        categoryLabel.numberOfLines = 2
         categoryLabel.font = AppThemes.helveticaNeueLight13
+        
+        let categoryIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: categoryView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
+        categoryIconImageView.image = UIImage(named: "category")
+        
+        categoryView.addSubview(categoryIconImageView)
         categoryView.addSubview(categoryLabel)
-        categoryView.backgroundColor = UIColor.yellowColor()
+        categoryView.backgroundColor = UIColor.whiteColor()
         subViews.addSubview(categoryView)
         
         
         //Date & Time picker
         let dateView = UIView(frame: CGRect(x: viewWidthSmall + spaceBetweenViews, y: 45 , width: viewWidthSmall, height: viewHeight))
-        dateView.backgroundColor = UIColor.greenColor()
+        dateView.backgroundColor = UIColor.whiteColor()
         let pickTimeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickTime(_:)))
         subViews.addGestureRecognizer(pickTimeGestureRecognizer)
-        let dateLabel = UILabel(frame: CGRect(x: labelMargin, y: labelMargin, width: labelWidth, height: labelHeight))
-        dateLabel.text = "28 JUL 2016"
+        
+        let dateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: labelMargin, width: labelWidth, height: labelHeight))
+        if let date = self.date{
+            dateLabel.text = getStringFromDate(date, withFormat: DateStringFormat.DD_MMM_YYYY)
+        } else {
+            dateLabel.text = "Today"
+        }
         dateLabel.font = AppThemes.helveticaNeueLight13
         dateLabel.sizeToFit()
         
-        let timeLabel = UILabel(frame: CGRect(x: labelMargin, y: viewHeight - labelMargin - labelHeight, width: labelWidth, height: labelHeight))
+        
+        let timeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: dateView.frame.height - labelMargin - dateLabel.frame.height, width: labelWidth, height: labelHeight))
         timeLabel.text = "19:00"
         timeLabel.font = AppThemes.helveticaNeueLight13
+        timeLabel.sizeToFit()
+        
+        let calendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: 3, width: iconHeight, height: iconHeight))
+        calendarIconImageView.image = UIImage(named: "calendar")
+        
+        let clockIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: timeLabel.center.y - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
+        clockIconImageView.image = UIImage(named: "clock")
+        
+        dateView.addSubview(calendarIconImageView)
+        dateView.addSubview(clockIconImageView)
         dateView.addSubview(dateLabel)
         dateView.addSubview(timeLabel)
         subViews.addSubview(dateView)
         
+        
+        //Payment
         let paymentView = UIView(frame: CGRect(x: 2*viewWidthSmall + 2*spaceBetweenViews, y: 45, width: viewWidthSmall, height: viewHeight))
-        paymentView.backgroundColor = UIColor.cyanColor()
-        let paymentLabel = UILabel(frame: CGRect(x: labelMargin, y: labelMargin, width: labelWidth, height: labelHeight))
-        paymentLabel.text = "CASH"
+        paymentView.backgroundColor = UIColor.whiteColor()
+        
+        let paymentLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: categoryView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
+        paymentLabel.text = "Cash"
         paymentLabel.font = AppThemes.helveticaNeueLight13
         paymentLabel.sizeToFit()
+        
+        let paymentIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: categoryView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
+        paymentIconImageView.image = UIImage(named: "cash")
+        
+        paymentView.addSubview(paymentIconImageView)
         paymentView.addSubview(paymentLabel)
         subViews.addSubview(paymentView)
         
+        //Title + Description + photos
         let addDetailView = UIView(frame: CGRect(x: 0, y: 44 + 1 + 44 + 1, width: view.frame.width - 20, height: viewHeight))
-        addDetailView.backgroundColor = UIColor.blueColor()
+        addDetailView.backgroundColor = UIColor.whiteColor()
         subViews.addSubview(addDetailView)
+        
+        //shadow
+        shadowForViews([categoryView, dateView], withHorizontalOffset: 1, withVerticleOffset: -1)
+        shadowForViews([paymentView, addDetailView], withHorizontalOffset: 0, withVerticleOffset: -1)
         
         self.view.addSubview(subViews)
     }
     
+    func shadowForViews(views: [UIView], withHorizontalOffset offsetX: CGFloat, withVerticleOffset offsetY: CGFloat) {
+        for view in views {
+            view.layer.shadowOffset = CGSizeMake(offsetX, offsetY); //default is (0.0, -3.0)
+            view.layer.shadowColor = UIColor.lightGrayColor().CGColor//default is black
+            view.layer.shadowRadius = 1.0 //default is 3.0
+            view.layer.shadowOpacity = 1.0 //default is 0.0
+        }
+    }
+    
     func pickTime(gestureRecognizer: UIGestureRecognizer) {
-        
-        print("helooooooo")
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
         
@@ -255,7 +306,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         self.presentViewController(calendarPopupViewController, animated: true, completion: nil)//pushViewController(mapViewController, animated: true)
     }
     
-    //---------------Google Map AP
+    //MARK: - Google Map API
     
     func currentLocation(){
 //            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")

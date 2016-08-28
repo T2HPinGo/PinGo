@@ -78,6 +78,9 @@
                                             <constraint firstAttribute="height" constant="30" id="vZT-m8-fJ4"/>
                                         </constraints>
                                         <state key="normal" title="Confirm"/>
+                                        <connections>
+                                            <segue destination="Svi-pX-Hxm" kind="unwind" identifier="UnwindFromDateTimePicker" unwindAction="unwindFromDateTimePicker:" id="ZFB-1B-kAx"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,7 +113,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Svi-pX-Hxm" kind="unwind" unwindAction="unwindFromDateTimePicker:" id="uIk-f8-fVN"/>
+                                    <action selector="onClose:" destination="Wam-Mn-aoh" eventType="touchUpInside" id="oAP-dT-2fu"/>
                                 </connections>
                             </button>
                         </subviews>
