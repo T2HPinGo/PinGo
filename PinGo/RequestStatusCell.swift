@@ -15,12 +15,12 @@ enum RequestHeight {
 
 class RequestStatusCell: UITableViewCell {
     //MARK: - Outlets and Variables
-    @IBOutlet weak var categoryIconContainerView: UIView!
-    @IBOutlet weak var categoryIconImageView: UIImageView!
+//    @IBOutlet weak var categoryIconContainerView: UIView!
+//    @IBOutlet weak var categoryIconImageView: UIImageView!
     
     @IBOutlet weak var buttonAction: UIButton!
     
-    @IBOutlet weak var connectionLineView: UIView!
+//    @IBOutlet weak var connectionLineView: UIView!
     
     @IBOutlet weak var workerProfileImageView: UIImageView!
     @IBOutlet weak var workerNameLabel: UILabel!
@@ -28,7 +28,7 @@ class RequestStatusCell: UITableViewCell {
     
     @IBOutlet weak var ticketDetailView: UIView!
     @IBOutlet weak var requestTitleLabel: UILabel!
-    @IBOutlet weak var dateCreatedLabel: UILabel!
+    
     @IBOutlet weak var ratingButton: UIButton!
     @IBOutlet weak var ticketImageView: UIImageView!
     
@@ -56,9 +56,9 @@ class RequestStatusCell: UITableViewCell {
     var themeColor: UIColor! {
         didSet {
             UIView.animateWithDuration(0.6) {
-                self.categoryIconContainerView.backgroundColor = self.themeColor
+               // self.categoryIconContainerView.backgroundColor = self.themeColor
                 self.ticketDetailView.backgroundColor = self.themeColor
-                self.connectionLineView.backgroundColor = self.themeColor
+//                self.connectionLineView.backgroundColor = self.themeColor
                 self.callWorkerView.backgroundColor = self.themeColor
             }
         }
@@ -70,7 +70,6 @@ class RequestStatusCell: UITableViewCell {
             imageViewFinished.hidden = true
             approveButton.hidden = false
             requestTitleLabel.text = ticket.title ?? ticket.category
-            dateCreatedLabel.text = HandleUtil.changeUnixDateToNSDate(ticket.createdAt!)
             if ticket.status! == Status.Done {
                 approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
             } else {
@@ -137,7 +136,7 @@ class RequestStatusCell: UITableViewCell {
 //        dateCreatedLabel.textColor = UIColor.whiteColor()
         
         //frames
-        categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
+//        categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
         workerProfileImageView.layer.cornerRadius = 5
         workerProfileImageView.layer.masksToBounds = true
         callWorkerView.layer.cornerRadius = 5

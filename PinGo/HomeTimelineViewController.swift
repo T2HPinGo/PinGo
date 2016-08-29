@@ -14,10 +14,30 @@ class HomeTimelineViewController: BaseViewController {
     
     @IBOutlet weak var createNewTicketButton: UIButton!
     
-    @IBOutlet weak var countLabelTickets: UILabel!
-    
     @IBOutlet weak var greetingLabel: UILabel!
 
+    // New Views 
+    
+    @IBOutlet weak var ImageViewProfile: UIImageView!
+    
+    @IBOutlet weak var labelUserName: UILabel!
+    
+    @IBOutlet weak var viewInservice: UIView!
+    
+    
+    @IBOutlet weak var viewHistory: UIView!
+    @IBOutlet weak var labelCountInservice: UILabel!
+    
+    @IBOutlet weak var labelEmail: UILabel!
+    @IBOutlet weak var buttonEdit: UIButton!
+    @IBOutlet weak var labelCountHistory: UILabel!
+    
+    @IBOutlet weak var labelInservice: UILabel!
+    
+    
+    @IBOutlet weak var labelHistory: UILabel!
+    
+    // -----
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
     
     var rating: String!
@@ -27,11 +47,7 @@ class HomeTimelineViewController: BaseViewController {
     //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let logo = UIImage(named: "fix")
-        let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
-        
+        initViewActionOfButton()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 150
@@ -87,12 +103,36 @@ class HomeTimelineViewController: BaseViewController {
         
         
         //create ticket button
-        greetingLabel.text = "Hello \((UserProfile.currentUser?.firstName)!) !"
+        labelUserName.text = "\((UserProfile.currentUser?.getFullName())!)"
+        if UserProfile.currentUser?.profileImage?.imageUrl! != "" {
+            let profileUser = UserProfile.currentUser?.profileImage?.imageUrl!
+            HandleUtil.loadImageViewWithUrl(profileUser!, imageView: ImageViewProfile)
+            ImageViewProfile.layer.cornerRadius = ImageViewProfile.frame.width / 2
+            ImageViewProfile.clipsToBounds = true
+            ImageViewProfile.layer.borderColor = UIColor.whiteColor().CGColor
+            ImageViewProfile.layer.borderWidth = 1
+        }else {
+            ImageViewProfile.image = UIImage(named: "profile_default")
+        }
+        
         createNewTicketButton.layer.cornerRadius = createNewTicketButton.frame.size.width / 2
         createNewTicketButton.layer.masksToBounds = true
         createNewTicketButton.layer.borderColor = UIColor.whiteColor().CGColor
-        createNewTicketButton.layer.borderWidth = 2
+        createNewTicketButton.layer.borderWidth = 1
+        
+        buttonEdit.layer.cornerRadius = buttonEdit.frame.size.width / 2
+        buttonEdit.layer.masksToBounds = true
+        buttonEdit.layer.borderColor = UIColor.whiteColor().CGColor
+        buttonEdit.layer.borderWidth = 1
+        
+        labelEmail.text = UserProfile.currentUser?.email!
+        initOpacityBarView()
        
+    }
+    func initOpacityBarView(){
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.translucent = true
     }
     
 }
@@ -109,16 +149,13 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         let ticket = ticketList[indexPath.row]
          cell.ticket = ticket
         
-//        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
         if ticket.status == Status.InService {
-            cell.themeColor = AppThemes.cellColors[0]
+            //cell.themeColor = AppThemes.cellColors[0]
             cell.ratingButton.hidden = true
             
         } else {
             cell.themeColor = AppThemes.cellColors[1]
         }
-        //cell.backgroundColor = AppThemes.cellColors[colorIndex]
-        
         
         //fake
         if rating != nil {
@@ -132,9 +169,6 @@ extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 90
-//    }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
@@ -180,7 +214,7 @@ extension HomeTimelineViewController {
                     }
                 }
                 self.tableView.reloadData()
-                self.countLabelTickets.text = "\(self.ticketList.count)"
+               // self.countLabelTickets.text = "\(self.ticketList.count)"
             }
 //        else {
 //                let alert = UIAlertController(title: "Network Error", message: "Cannot load data due to no internet connection. Please check your connection", preferredStyle: .Alert)
@@ -208,6 +242,41 @@ extension HomeTimelineViewController {
             self.tableView.reloadData()
         })
 
+    }
+}
+
+extension HomeTimelineViewController {
+    func initViewActionOfButton(){
+        
+        let gestureInservice = UITapGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.viewInserviceAction(_:)))
+        viewInservice.addGestureRecognizer(gestureInservice)
+        
+        let gestureHistory = UITapGestureRecognizer(target: self, action: #selector(HomeTimelineViewController.viewHistoryAction(_:)))
+        viewHistory.addGestureRecognizer(gestureHistory)
+    }
+    
+    func viewInserviceAction(sender: AnyObject){
+        clearAllViewButtons()
+        choosenViewButton(viewInservice, labelTitle: labelCountInservice)
+        
+    }
+    
+    func viewHistoryAction(sender: AnyObject){
+        clearAllViewButtons()
+        choosenViewButton(viewHistory, labelTitle: labelCountHistory)
+    }
+    
+    func clearAllViewButtons(){
+        clearViewButton(viewInservice, labelTitle: labelCountInservice)
+        clearViewButton(viewHistory, labelTitle: labelCountHistory)
+    }
+    func clearViewButton(view: UIView, labelTitle: UILabel) {
+        view.backgroundColor = UIColor.clearColor()
+        labelTitle.textColor = UIColor.redColor()
+    }
+    func choosenViewButton(view: UIView, labelTitle: UILabel){
+        view.backgroundColor = AppThemes.redSpeacialColor
+        labelTitle.textColor = UIColor.whiteColor()
     }
 }
 
