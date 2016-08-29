@@ -70,11 +70,13 @@ class RequestStatusCell: UITableViewCell {
             imageViewFinished.hidden = true
             approveButton.hidden = false
             requestTitleLabel.text = ticket.title ?? ticket.category
-            if ticket.status! == Status.Done {
-                approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
-            } else {
-                 approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
-            }
+//
+//            if ticket.status! == Status.Done {
+//                approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
+//            } else {
+//                 approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
+//            }
+            updateUIButtonByStatus((ticket.status?.rawValue)!)
             
             //load ticket image
             if ticket?.imageOne?.imageUrl! != "" {
@@ -162,10 +164,7 @@ class RequestStatusCell: UITableViewCell {
             let JSON = response.result.value!["data"] as! [String: AnyObject]
             print(JSON)
             self.ticket = Ticket(data: JSON)
-            self.ratingButton.hidden = false
-            self.themeColor = AppThemes.cellColors[2]
-            self.imageViewFinished.hidden = false
-            self.approveButton.hidden  = true
+            self.updateUIWhenStatusIsApproved()
             SocketManager.sharedInstance.pushCategory(JSON)
         }
     }
@@ -183,6 +182,26 @@ class RequestStatusCell: UITableViewCell {
             alert.addAction(cancelAction)
             UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
             
+        }
+    }
+    func updateUIWhenStatusIsApproved(){
+        self.ratingButton.hidden = false
+        self.themeColor = AppThemes.cellColors[2]
+        self.imageViewFinished.hidden = false
+        self.approveButton.hidden  = true
+
+    }
+    func updateUIButtonByStatus(status: String){
+        switch status {
+        case Status.Done.rawValue:
+            approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
+            break
+        case Status.Approved.rawValue:
+            updateUIWhenStatusIsApproved()
+            break
+        default:
+            approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
+            break
         }
     }
 }
