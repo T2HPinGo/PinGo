@@ -55,12 +55,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
     
     var newTicket: Ticket?
     
-    var ticketTitle = ""
-    let descriptionText = ""
-    
     var activityIndicatorView: NVActivityIndicatorView! = nil
-    
-    
+
     struct TextFieldColorThemes {
         static let textFieldTintColor = AppThemes.appColorTheme
         static let placeholderColor = UIColor.lightGrayColor()
@@ -250,7 +246,8 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         
         //add gesture that go to the Map
         let chooseLocationGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseLocation(_:)))
-        chooseLocationView.addGestureRecognizer(chooseLocationGestureRecognizer)    }
+        chooseLocationView.addGestureRecognizer(chooseLocationGestureRecognizer)
+    }
     
     //make flipping effect for chooseCategoryView when selected
     func presentCategoryUpdateAnimation() {

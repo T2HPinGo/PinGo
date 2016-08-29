@@ -13,21 +13,23 @@ class DateTimePickerViewController: UIViewController {
     //MARK: - Outlets and Variables
     
     @IBOutlet weak var popupView: UIView!
+    
     @IBOutlet weak var calendarMenuView: JTCalendarMenuView!
     @IBOutlet weak var calendarContentView: JTHorizontalCalendarView!
+    
     @IBOutlet weak var displayView: UIView!
+    @IBOutlet weak var displayedDateLabel: UILabel!
+    @IBOutlet weak var displayedTimeLabel: UILabel!
+    
     @IBOutlet weak var previousMonthLabel: UILabel!
     @IBOutlet weak var nextMonthLabel: UILabel!
     @IBOutlet weak var timePicker: UIDatePicker!
     
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
-    
-    
     var calendarManager = JTCalendarManager()
     
     var todayDate = NSDate()
-    var datesSelected: [NSDate] = []
     var chosenDate: NSDate? //save the chosen date
     var chosenTime: NSDate? //save the chosen time
     var months: [NSDate] = [] //this is use to display the value of next month and previous month in the menu bar
@@ -42,11 +44,22 @@ class DateTimePickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //calendar
         calendarManager.delegate = self
-        
         calendarManager.menuView = calendarMenuView
         calendarManager.contentView = calendarContentView
-        calendarManager.setDate(todayDate)
+        //if there is no chosen date, switch view to current date, otherwise switch view to chosen date
+        if chosenDate != nil {
+            calendarManager.setDate(chosenDate)
+        } else {
+            calendarManager.setDate(todayDate)
+        }
+        
+        //timepicker
+        timePicker.date = NSDate()
+        
+        updateDisplayedDateLabel()
+        updateDisplayedTimeLabel()
         
         setupAppearance()
         
@@ -57,8 +70,8 @@ class DateTimePickerViewController: UIViewController {
         view.addGestureRecognizer(gestureRecognizer)
         
         //initially make the time picker invisible and confirmButton
-        timePicker.hidden = true
-        confirmButton.hidden = true
+//        timePicker.hidden = true
+//        confirmButton.hidden = true
     }
     
     func close() {
@@ -96,6 +109,23 @@ class DateTimePickerViewController: UIViewController {
         nextMonthLabel.textColor = UIColor.lightGrayColor()
         nextMonthLabel.font = AppThemes.oswaldRegular14
         nextMonthLabel.textAlignment = .Right
+        
+        //displayed labels
+        displayedDateLabel.textColor = UIColor.whiteColor()
+        displayedDateLabel.font = AppThemes.oswaldLight14
+        displayedDateLabel.sizeToFit()
+        
+        displayedTimeLabel.textColor = UIColor.darkGrayColor()
+        displayedTimeLabel.font = AppThemes.oswaldLight14
+        displayedTimeLabel.sizeToFit()
+    }
+    
+    func updateDisplayedDateLabel() {
+        displayedDateLabel.text = chosenDate != nil ? getStringFromDate(chosenDate!, withFormat: DateStringFormat.DD_MMM_YYYY) : "Any Date"
+    }
+    
+    func updateDisplayedTimeLabel() {
+        displayedTimeLabel.text = chosenTime != nil ? getStringFromDate(chosenTime!, withFormat: DateStringFormat.HH_mm) : "ASAP"
     }
     
     //MARK: - Actions
@@ -103,6 +133,11 @@ class DateTimePickerViewController: UIViewController {
     @IBAction func onClose(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func onTimePicker(sender: UIDatePicker) {
+        
+    }
+    
 }
 
 //MARK: - JTCalendarDelegate
@@ -116,9 +151,9 @@ extension DateTimePickerViewController: JTCalendarDelegate {
         //appearance for today date
         if calendarManager.dateHelper.date(todayDate, isTheSameDayThan: dayViewJT.date) {
             dayViewJT.circleView.hidden = false
-            dayViewJT.circleView.backgroundColor = isInDatesSelected(todayDate) ? AppThemes.appColorTheme : AppThemes.backgroundColorGray
-            dayViewJT.textLabel.textColor = isInDatesSelected(todayDate) ? selectedDateTextColor : normalDateTextColor
-        } else if isInDatesSelected(dayViewJT.date) {
+            dayViewJT.circleView.backgroundColor = calendarManager.dateHelper.date(todayDate, isTheSameDayThan: chosenDate) ? AppThemes.appColorTheme : AppThemes.backgroundColorGray
+            dayViewJT.textLabel.textColor = calendarManager.dateHelper.date(todayDate, isTheSameDayThan: chosenDate) ? selectedDateTextColor : normalDateTextColor
+        } else if calendarManager.dateHelper.date(chosenDate, isTheSameDayThan: dayViewJT.date) {
             //appearance for selected dates
             dayViewJT.circleView.hidden = false
             dayViewJT.circleView.backgroundColor =  AppThemes.appColorTheme
@@ -136,35 +171,23 @@ extension DateTimePickerViewController: JTCalendarDelegate {
         }
     }
     
-    
-    
     func calendar(calendar: JTCalendarManager!, didTouchDayView dayView: UIView!) {
         let dayViewJT = dayView as! JTCalendarDayView
         
-        //if the currently selected date is already in the datesSelected array, then remove it from the array
-        if isInDatesSelected(dayViewJT.date) {
-            let index = datesSelected.indexOf(dayViewJT.date)
-            datesSelected.removeAtIndex(index!)
-            calendarManager.reload()
-            
-            //also remove it from the eventTimeArrays
-//            let dateString = getStringFromDateMonthDayYear(dayViewJT.date)
-//            eventTimes.removeValueForKey(dateString)
-            
-            //remove the circle view from the deseleted date
-            dayViewJT.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1)
-            UIView.animateWithDuration(0.3, animations: {
-                dayViewJT.circleView.transform = CGAffineTransformIdentity
-            })
+        //if user tap on the date that is already selected, remove the selection
+        if !calendarManager.dateHelper.date(chosenDate, isTheSameDayThan: dayViewJT.date) {
+            chosenDate = dayViewJT.date
         } else {
-            datesSelected.append(dayViewJT.date)
-            
-            calendarManager.reload()
-            dayViewJT.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1)
-            UIView.animateWithDuration(0.3, animations: {
-                dayViewJT.circleView.transform = CGAffineTransformIdentity
-            })
+            chosenDate = nil
         }
+        updateDisplayedDateLabel()
+        
+        // Animation for the circleView
+        dayViewJT.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1)
+        UIView.animateWithDuration(0.3, animations: {
+            dayViewJT.circleView.transform = CGAffineTransformIdentity
+            self.calendarManager.reload()
+        })
         
         //load the previous/next page if touch a day from another month
         if !calendarManager.dateHelper.date(calendarContentView.date, isTheSameMonthThan: dayViewJT.date) {
@@ -177,21 +200,8 @@ extension DateTimePickerViewController: JTCalendarDelegate {
         }
         
         //make the time picker visible when at least one date has been selected
-        if datesSelected.count == 0 {
-            timePicker.hidden = true
-            confirmButton.hidden = true
-        } else {
-            timePicker.hidden = false
-            confirmButton.hidden = false
-        }
-        
-        //asign selected date for chosenDate
-        if let date = datesSelected.first {
-            chosenDate = date
-            print(chosenDate)
-        }
-        //update the numberofDatesSelectedLabel
-        //updateNumbersOfDatesSelected()
+        //timePicker.hidden = false
+        //confirmButton.hidden = false
     }
     
     //format the month label of menu view
@@ -243,18 +253,6 @@ extension DateTimePickerViewController: JTCalendarDelegate {
             months.removeAll() //remove everything from this array so when user swipe to a different month, this does not add up
             break
         }
-    }
-    
-    //MARK: - Helpers
-    
-    //check if a selected dats is in the datesSelected array
-    func isInDatesSelected(date: NSDate) -> Bool {
-        for dateSelected in datesSelected {
-            if calendarManager.dateHelper.date(dateSelected, isTheSameDayThan: date) {
-                return true
-            }
-        }
-        return false
     }
 }
 

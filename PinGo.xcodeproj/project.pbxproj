@@ -10,12 +10,12 @@
 		21008E7F1D71A08F008332EC /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */; };
 		21008E861D71C4AD008332EC /* HelveticaNeueLTStd-Lt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E821D71C366008332EC /* HelveticaNeueLTStd-Lt.ttf */; };
 		21008E871D71C4AD008332EC /* HelveticaNeueLTStd-LtEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E831D71C366008332EC /* HelveticaNeueLTStd-LtEx.ttf */; };
-		21008E881D71C4AD008332EC /* Oswald.light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E841D71C366008332EC /* Oswald.light.ttf */; };
-		21008E891D71C4AD008332EC /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E851D71C366008332EC /* Oswald-Regular.ttf */; };
 		210981251D6D6A8800F6189A /* PhotoSlidePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */; };
 		210EF8C51D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */; };
 		210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */; };
 		2130A14E1D51191C00B37C98 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2130A14D1D51191C00B37C98 /* HomeTimelineViewController.swift */; };
+		213286931D735BD100F983A5 /* Oswald.light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E841D71C366008332EC /* Oswald.light.ttf */; };
+		213286941D735BD100F983A5 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E851D71C366008332EC /* Oswald-Regular.ttf */; };
 		213D284B1D64D941009A06D8 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 213D284A1D64D941009A06D8 /* NothingFoundCell.xib */; };
 		21434C331D559EAD00B31122 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C321D559EAD00B31122 /* BaseViewController.swift */; };
 		21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C361D55AA5F00B31122 /* RequestStatusCell.swift */; };
@@ -30,6 +30,7 @@
 		219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E21D50B62E006B5ADE /* Main.storyboard */; };
 		219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E51D50B62E006B5ADE /* Assets.xcassets */; };
 		219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E71D50B62E006B5ADE /* LaunchScreen.storyboard */; };
+		21A3018D1D73052B0073459E /* AddTicketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A3018C1D73052B0073459E /* AddTicketDetailViewController.swift */; };
 		21A6F9801D69792800AA2EBF /* SetPricePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */; };
 		21A6F9821D69971900AA2EBF /* TicketPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */; };
 		21A6F9841D699EFC00AA2EBF /* TicketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */; };
@@ -144,6 +145,7 @@
 		219D49E51D50B62E006B5ADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		219D49E81D50B62E006B5ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		219D49EA1D50B62E006B5ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21A3018C1D73052B0073459E /* AddTicketDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTicketDetailViewController.swift; sourceTree = "<group>"; };
 		21A6F97F1D69792800AA2EBF /* SetPricePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPricePopUpViewController.swift; sourceTree = "<group>"; };
 		21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPhotoViewController.swift; sourceTree = "<group>"; };
 		21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */,
 				210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */,
 				21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */,
+				21A3018C1D73052B0073459E /* AddTicketDetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				TargetAttributes = {
 					219D49DA1D50B62E006B5ADE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = PZ96SBWHN3;
 					};
 				};
 			};
@@ -571,10 +575,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213286931D735BD100F983A5 /* Oswald.light.ttf in Resources */,
+				213286941D735BD100F983A5 /* Oswald-Regular.ttf in Resources */,
 				21008E861D71C4AD008332EC /* HelveticaNeueLTStd-Lt.ttf in Resources */,
 				21008E871D71C4AD008332EC /* HelveticaNeueLTStd-LtEx.ttf in Resources */,
-				21008E881D71C4AD008332EC /* Oswald.light.ttf in Resources */,
-				21008E891D71C4AD008332EC /* Oswald-Regular.ttf in Resources */,
 				E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */,
 				B04E73FC1D6968FA00751D4C /* UserAndWorkerProfile.storyboard in Resources */,
 				E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */,
@@ -768,6 +772,7 @@
 				21FAD06E1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
 				21A6F9861D69A78400AA2EBF /* TicketImageCell.swift in Sources */,
 				B0F0A5F91D683669003C8DAD /* HomeTimeLineWorker.swift in Sources */,
+				21A3018D1D73052B0073459E /* AddTicketDetailViewController.swift in Sources */,
 				21FAD0801D5EFEFC000ED89F /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				21FAD0681D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
 				B0FC11B71D62276400F34FDC /* WorkerProfileController.swift in Sources */,
