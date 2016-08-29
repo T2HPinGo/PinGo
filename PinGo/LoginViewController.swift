@@ -190,7 +190,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
                     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     
                     let resultViewController =
-                        storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                        storyBoard.instantiateViewControllerWithIdentifier("HomeTimelineViewController") as! HomeTimelineViewController
                     
                     self.presentViewController(resultViewController, animated: true, completion: nil)
                 } else {

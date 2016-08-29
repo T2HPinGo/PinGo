@@ -15,6 +15,8 @@ class HomeTimelineViewController: BaseViewController {
     @IBOutlet weak var createNewTicketButton: UIButton!
     
     @IBOutlet weak var greetingLabel: UILabel!
+    
+    @IBOutlet weak var buttonLogout: UIButton!
 
     // New Views 
     
@@ -74,6 +76,12 @@ class HomeTimelineViewController: BaseViewController {
         }
     }
     
+    @IBAction func logOutAction(sender: AnyObject) {
+        UserProfile.currentUser = nil
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.logout()
+    }
+    
     @IBAction func onRatingAction(sender: UIButton) {
 
     }
@@ -124,6 +132,12 @@ class HomeTimelineViewController: BaseViewController {
         buttonEdit.layer.masksToBounds = true
         buttonEdit.layer.borderColor = UIColor.whiteColor().CGColor
         buttonEdit.layer.borderWidth = 1
+        
+        
+        buttonLogout.layer.cornerRadius = buttonLogout.frame.size.width / 2
+        buttonLogout.layer.masksToBounds = true
+        buttonLogout.layer.borderColor = UIColor.whiteColor().CGColor
+        buttonLogout.layer.borderWidth = 1
         
         labelEmail.text = UserProfile.currentUser?.email!
         initOpacityBarView()
@@ -210,10 +224,8 @@ extension HomeTimelineViewController {
                 }
                 for JSONItem in JSONArrays {
                     let ticket = Ticket(data: JSONItem)
-                    if ticket.status != Status.Pending  && ticket.status != Status.Approved{
+                    if ticket.status != Status.Pending{
                         self.ticketList.append(ticket)
-                        
-                        
                     }
                 }
                 self.tableView.reloadData()
@@ -282,6 +294,10 @@ extension HomeTimelineViewController {
         view.backgroundColor = AppThemes.redSpeacialColor
         labelTitle.textColor = UIColor.whiteColor()
     }
+}
+// MARK: Filer list
+extension HomeTimelineViewController {
+    
 }
 
 

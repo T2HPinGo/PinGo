@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 
                 let resultViewController =
-                    storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                    storyBoard.instantiateViewControllerWithIdentifier("HomeTimelineViewController") as! HomeTimelineViewController
                 window?.rootViewController = resultViewController
                 window?.makeKeyAndVisible()
             }
