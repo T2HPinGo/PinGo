@@ -103,6 +103,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         okButtonStyle()
         
 //        currentLocation()
+        self.flagCount = 1
         setupSubView()
     }
     
@@ -170,7 +171,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             self.userMarker!.icon = UIImage(named:"marker")
             
             didFindMyLocation = true
-            flagCount = 1
         }
         
     }
@@ -376,7 +376,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 ////            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
 //            
 ////            self.labelAddress.text = self.location!.address
-//            self.flagCount = 1
+//        
 //    }
     
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
@@ -404,7 +404,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                             //                        self.userMarker!.title = "Setup Location"
                             //                            self.userMarker!.snippet = "\(self.address)"
                             //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-                            self.userMarker!.icon = UIImage(named: "Marker50")
+                            self.userMarker!.icon = UIImage(named: "marker")
                             self.userMarker!.tracksInfoWindowChanges = true
                             self.userMarker!.map = self.testView
                             self.testView.selectedMarker = self.userMarker
@@ -423,7 +423,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
-            self.userMarker!.icon = UIImage(named: "Marker50")
+            self.userMarker!.icon = UIImage(named: "marker")
             self.testView.selectedMarker = nil
 //            self.userMarker?.snippet = "\(self.address)"
             flagCount += 1
