@@ -205,27 +205,6 @@
                                     <outletCollection property="gestureRecognizers" destination="WfM-Q7-UEd" appends="YES" id="VSi-Za-kjw"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqr-3h-AjO">
-                                <rect key="frame" x="10" y="79" width="300" height="45"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EC-sE-gBI">
-                                        <rect key="frame" x="10" y="0.0" width="280" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="lc9-ZR-PBx"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="9fY-xK-DW3"/>
-                                    <constraint firstItem="7EC-sE-gBI" firstAttribute="leading" secondItem="Uqr-3h-AjO" secondAttribute="leading" constant="10" id="GOf-4b-dXW"/>
-                                    <constraint firstAttribute="trailing" secondItem="7EC-sE-gBI" secondAttribute="trailing" constant="10" id="Tdh-w9-9xd"/>
-                                    <constraint firstItem="7EC-sE-gBI" firstAttribute="top" secondItem="Uqr-3h-AjO" secondAttribute="top" id="n2r-2R-gBi"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz9-Z6-dWJ">
                                 <rect key="frame" x="252" y="438" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.93333333330000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -309,16 +288,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" id="5DT-jp-GoX"/>
-                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="centerX" secondItem="43k-ks-D0N" secondAttribute="centerX" id="EGA-jd-fNx"/>
-                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" constant="10" id="PFY-ZE-lJW"/>
                             <constraint firstAttribute="trailing" secondItem="Rl2-xk-tsr" secondAttribute="trailing" id="TOX-hm-Uaw"/>
                             <constraint firstAttribute="trailing" secondItem="Tz9-Z6-dWJ" secondAttribute="trailing" constant="8" id="a0s-Tu-ALS"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Tz9-Z6-dWJ" secondAttribute="bottom" constant="70" id="cCe-vQ-bug"/>
-                            <constraint firstAttribute="trailing" secondItem="Uqr-3h-AjO" secondAttribute="trailing" constant="10" id="hxW-2c-SDI"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Xbk-z3-E2M" secondAttribute="bottom" id="kj1-bj-cmt"/>
                             <constraint firstAttribute="trailing" secondItem="Xbk-z3-E2M" secondAttribute="trailing" id="nGX-NF-z2h"/>
                             <constraint firstItem="Rl2-xk-tsr" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="o88-r7-6L5"/>
-                            <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="15" id="suO-pm-Ats"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Rl2-xk-tsr" secondAttribute="bottom" id="x72-VE-e4S"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="zCK-kV-YNc"/>
                         </constraints>
@@ -328,8 +303,6 @@
                     <connections>
                         <outlet property="collectionView" destination="Rl2-xk-tsr" id="WK2-dq-Wmj"/>
                         <outlet property="findButton" destination="Tz9-Z6-dWJ" id="xVw-p3-GQ8"/>
-                        <outlet property="labelAddress" destination="7EC-sE-gBI" id="pwm-LZ-U6Q"/>
-                        <outlet property="locationView" destination="Uqr-3h-AjO" id="R4K-Uf-3n7"/>
                         <outlet property="testView" destination="Xbk-z3-E2M" id="Mla-Bi-AGr"/>
                     </connections>
                 </viewController>
