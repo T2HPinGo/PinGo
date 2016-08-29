@@ -37,13 +37,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08 SEP 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXM-eT-MJ3">
                                                         <rect key="frame" x="0.0" y="0.0" width="83" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFI-CP-P08">
                                                         <rect key="frame" x="88" y="0.0" width="37" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -198,7 +198,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbk-z3-E2M" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -308,6 +308,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" id="5DT-jp-GoX"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="centerX" secondItem="43k-ks-D0N" secondAttribute="centerX" id="EGA-jd-fNx"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" constant="10" id="PFY-ZE-lJW"/>
                             <constraint firstAttribute="trailing" secondItem="Rl2-xk-tsr" secondAttribute="trailing" id="TOX-hm-Uaw"/>
@@ -318,7 +319,6 @@
                             <constraint firstAttribute="trailing" secondItem="Xbk-z3-E2M" secondAttribute="trailing" id="nGX-NF-z2h"/>
                             <constraint firstItem="Rl2-xk-tsr" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="o88-r7-6L5"/>
                             <constraint firstItem="Uqr-3h-AjO" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" constant="15" id="suO-pm-Ats"/>
-                            <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="43k-ks-D0N" secondAttribute="top" id="wk8-Dx-wrO"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Rl2-xk-tsr" secondAttribute="bottom" id="x72-VE-e4S"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="zCK-kV-YNc"/>
                         </constraints>

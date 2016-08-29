@@ -167,7 +167,10 @@ extension HomeTimelineViewController {
         parameters["statusTicket"] = "InService"
         parameters["idUser"] = UserProfile.currentUser?.id!
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/userTickets", parameters: parameters).responseJSON { response  in
-           let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]] //{
+            
+            if response.response != nil{
+                
+                let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]] //{
                 if self.ticketList.count > 0 {
                     self.ticketList.removeAll()
                 }
@@ -175,13 +178,14 @@ extension HomeTimelineViewController {
                     let ticket = Ticket(data: JSONItem)
                     if ticket.status != Status.Pending  && ticket.status != Status.Approved{
                         self.ticketList.append(ticket)
-                       
+                        
                         
                     }
                 }
                 self.tableView.reloadData()
                 self.countLabelTickets.text = "\(self.ticketList.count)"
             }
+        }
 //        else {
 //                let alert = UIAlertController(title: "Network Error", message: "Cannot load data due to no internet connection. Please check your connection", preferredStyle: .Alert)
 //                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)

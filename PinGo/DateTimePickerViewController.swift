@@ -112,11 +112,11 @@ class DateTimePickerViewController: UIViewController {
         
         //displayed labels
         displayedDateLabel.textColor = UIColor.whiteColor()
-        displayedDateLabel.font = AppThemes.oswaldLight14
+        displayedDateLabel.font = AppThemes.oswaldRegular14
         displayedDateLabel.sizeToFit()
         
         displayedTimeLabel.textColor = UIColor.darkGrayColor()
-        displayedTimeLabel.font = AppThemes.oswaldLight14
+        displayedTimeLabel.font = AppThemes.oswaldRegular14
         displayedTimeLabel.sizeToFit()
     }
     

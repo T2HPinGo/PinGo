@@ -183,6 +183,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
             testView.settings.myLocationButton = true
             
+            
             self.location!.longitute = myLocation.coordinate.longitude
             self.location!.latitude = myLocation.coordinate.latitude
             
@@ -194,6 +195,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
             self.userMarker!.tracksInfoWindowChanges = true
             self.userMarker!.map = self.testView
+            
             self.testView.selectedMarker = self.userMarker
             self.userMarker!.icon = UIImage(named:"Marker50")
             
@@ -416,30 +418,32 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             flagCount = 2
             let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
             Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
-                let json = response.result.value as! NSDictionary
-                if let result = json["results"] as? NSArray {
-                    self.userMarker?.map = nil
-                    if let address = result[0]["address_components"] as? NSArray {
-                        let number = address[0]["short_name"] as! String
-                        let street = address[1]["short_name"] as! String
-                        let city = address[2]["short_name"] as! String
-                        let state = address[4]["short_name"] as! String
-                        //let zip = address[6]["short_name"] as! String
-                        print("\n\(number) \(street), \(city), \(state)")
-                        self.location!.address = "\(number) \(street), \(city), \(state)"
-//                        self.labelAddress.text = self.address
-                        let locationAddressShort = "\(number) \(street), \(city)"
-                        self.searchController!.searchBar.placeholder = locationAddressShort
-//                        self.labelAddress.text = self.location!.address
-                        self.userMarker = GMSMarker(position: position.target)
-//                        self.userMarker!.title = "Setup Location"
-//                            self.userMarker!.snippet = "\(self.address)"
-//                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-                        self.userMarker!.icon = UIImage(named: "Marker50")
-                        self.userMarker!.tracksInfoWindowChanges = true
-                        self.userMarker!.map = self.testView
-                        self.testView.selectedMarker = self.userMarker
-                        
+                if response.response != nil {
+                    let json = response.result.value as! NSDictionary
+                    if let result = json["results"] as? NSArray {
+                        self.userMarker?.map = nil
+                        if let address = result[0]["address_components"] as? NSArray {
+                            let number = address[0]["short_name"] as! String
+                            let street = address[1]["short_name"] as! String
+                            let city = address[2]["short_name"] as! String
+                            let state = address[4]["short_name"] as! String
+                            //let zip = address[6]["short_name"] as! String
+                            print("\n\(number) \(street), \(city), \(state)")
+                            self.location!.address = "\(number) \(street), \(city), \(state)"
+                            //                        self.labelAddress.text = self.address
+                            let locationAddressShort = "\(number) \(street), \(city)"
+                            self.searchController!.searchBar.placeholder = locationAddressShort
+                            //                        self.labelAddress.text = self.location!.address
+                            self.userMarker = GMSMarker(position: position.target)
+                            //                        self.userMarker!.title = "Setup Location"
+                            //                            self.userMarker!.snippet = "\(self.address)"
+                            //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+                            self.userMarker!.icon = UIImage(named: "Marker50")
+                            self.userMarker!.tracksInfoWindowChanges = true
+                            self.userMarker!.map = self.testView
+                            self.testView.selectedMarker = self.userMarker
+                            
+                        }
                     }
                 }
             }
@@ -466,6 +470,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
             let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
+            
             self.testView.camera = camera
         }
     }
