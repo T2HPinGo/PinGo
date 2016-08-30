@@ -13,14 +13,18 @@ enum RequestHeight {
     case expandedHeight
 }
 
+protocol RequestStatusCellDelegate{
+    func requestStatusCellDelegate(homeTimeLineUser: HomeTimelineViewController,indexCell: NSIndexPath, statusTicket: Status)
+}
+
 class RequestStatusCell: UITableViewCell {
     //MARK: - Outlets and Variables
-//    @IBOutlet weak var categoryIconContainerView: UIView!
-//    @IBOutlet weak var categoryIconImageView: UIImageView!
+    //    @IBOutlet weak var categoryIconContainerView: UIView!
+    //    @IBOutlet weak var categoryIconImageView: UIImageView!
     
     @IBOutlet weak var buttonAction: UIButton!
     
-//    @IBOutlet weak var connectionLineView: UIView!
+    //    @IBOutlet weak var connectionLineView: UIView!
     
     @IBOutlet weak var workerProfileImageView: UIImageView!
     @IBOutlet weak var workerNameLabel: UILabel!
@@ -39,26 +43,19 @@ class RequestStatusCell: UITableViewCell {
     @IBOutlet weak var labelPrice: UILabel!
     
     @IBOutlet weak var imageViewFinished: UIImageView!
-//    var rating: String! {
-//        didSet {
-//            if rating != nil {
-//                ratingButton.setImage(UIImage(named: rating), forState: .Normal)
-//                ratingButton.tintColor = UIColor.whiteColor()
-//                ratingButton.backgroundColor = UIColor(red: 255.0/255.0, green: 217.0/255.0, blue: 25.0/255.0, alpha: 1.0)
-//            } else {
-//                ratingButton.setImage(UIImage(named: "rating"), forState: .Normal)
-//                ratingButton.tintColor = UIColor.lightGrayColor()
-//                ratingButton.backgroundColor = UIColor.clearColor()
-//            }
-//        }
-//    }
+    
+    var homeTimeLineUser : HomeTimelineViewController?
+    
+    var delegate: RequestStatusCellDelegate?
+    
+    var indexPath: NSIndexPath?
     
     var themeColor: UIColor! {
         didSet {
             UIView.animateWithDuration(0.6) {
-               // self.categoryIconContainerView.backgroundColor = self.themeColor
+                // self.categoryIconContainerView.backgroundColor = self.themeColor
                 self.ticketDetailView.backgroundColor = self.themeColor
-//                self.connectionLineView.backgroundColor = self.themeColor
+                //                self.connectionLineView.backgroundColor = self.themeColor
                 self.callWorkerView.backgroundColor = self.themeColor
             }
         }
@@ -70,12 +67,6 @@ class RequestStatusCell: UITableViewCell {
             imageViewFinished.hidden = true
             approveButton.hidden = false
             requestTitleLabel.text = ticket.title ?? ticket.category
-//
-//            if ticket.status! == Status.Done {
-//                approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
-//            } else {
-//                 approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
-//            }
             updateUIButtonByStatus((ticket.status?.rawValue)!)
             
             //load ticket image
@@ -115,10 +106,10 @@ class RequestStatusCell: UITableViewCell {
         let callWorkerGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(makePhoneCall(_:)))
         callWorkerView.addGestureRecognizer(callWorkerGestureRecognizer)
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -126,24 +117,24 @@ class RequestStatusCell: UITableViewCell {
     func setupAppearance(){
         
         //font
-//        requestTitleLabel.font = AppThemes.helveticaNeueRegular15
-//        dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
+        //        requestTitleLabel.font = AppThemes.helveticaNeueRegular15
+        //        dateCreatedLabel.font = AppThemes.helveticaNeueRegular14
         
         //allignment
-//        requestTitleLabel.textAlignment = .Left
-//        dateCreatedLabel.textAlignment = .Center
+        //        requestTitleLabel.textAlignment = .Left
+        //        dateCreatedLabel.textAlignment = .Center
         
         //colors
-//        requestTitleLabel.textColor = UIColor.whiteColor()
-//        dateCreatedLabel.textColor = UIColor.whiteColor()
+        //        requestTitleLabel.textColor = UIColor.whiteColor()
+        //        dateCreatedLabel.textColor = UIColor.whiteColor()
         
         //frames
-//        categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
+        //        categoryIconContainerView.layer.cornerRadius = categoryIconContainerView.frame.width / 2
         workerProfileImageView.layer.cornerRadius = 5
         workerProfileImageView.layer.masksToBounds = true
         callWorkerView.layer.cornerRadius = 5
         
-        // button 
+        // button
         buttonAction.layer.cornerRadius = 5
         buttonAction.layer.borderColor = UIColor.whiteColor().CGColor
         buttonAction.layer.borderWidth = 1
@@ -154,19 +145,23 @@ class RequestStatusCell: UITableViewCell {
     //MARK: - Actions
     @IBAction func onApprove(sender: UIButton) {
         // Change Status of the ticket to Approve
-        let parameters: [String: AnyObject] = [
-            "statusTicket": Status.Approved.rawValue,
-            "idTicket": (ticket?.id!)!
-        ]
-        let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
-        Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
-            print(response.result.value!)
-            let JSON = response.result.value!["data"] as! [String: AnyObject]
-            print(JSON)
-            self.ticket = Ticket(data: JSON)
-            self.updateUIWhenStatusIsApproved()
-            SocketManager.sharedInstance.pushCategory(JSON)
+        if approveButton.titleLabel?.text == Status.Approved.rawValue {
+            let parameters: [String: AnyObject] = [
+                "statusTicket": Status.Approved.rawValue,
+                "idTicket": (ticket?.id!)!
+            ]
+            let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
+            Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
+                print(response.result.value!)
+                let JSON = response.result.value!["data"] as! [String: AnyObject]
+                print(JSON)
+                self.ticket = Ticket(data: JSON)
+                self.updateUIWhenStatusIsApproved()
+                self.delegate?.requestStatusCellDelegate(self.homeTimeLineUser!,indexCell: self.indexPath!, statusTicket: self.ticket.status!)
+                SocketManager.sharedInstance.pushCategory(JSON)
+            }
         }
+        
     }
     
     func makePhoneCall(gestureRecognizer: UIGestureRecognizer) {
@@ -186,10 +181,10 @@ class RequestStatusCell: UITableViewCell {
     }
     func updateUIWhenStatusIsApproved(){
         self.ratingButton.hidden = false
-        self.themeColor = AppThemes.cellColors[2]
+        //        self.themeColor = AppThemes.cellColors[2]
         self.imageViewFinished.hidden = false
         self.approveButton.hidden  = true
-
+        
     }
     func updateUIButtonByStatus(status: String){
         switch status {
