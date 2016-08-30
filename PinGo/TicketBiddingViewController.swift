@@ -222,7 +222,7 @@ extension TicketBiddingViewController: UITableViewDataSource, UITableViewDelegat
         cell.backgroundColor = AppThemes.cellColors[colorIndex]
         cell.worker = workerList[indexPath.row]
         cell.ticket = newTicket!
-        cell.ticketBiddingController = self
+        //cell.ticketBiddingController = self
         return cell
     }
     

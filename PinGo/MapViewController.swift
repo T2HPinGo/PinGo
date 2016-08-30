@@ -16,14 +16,18 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     //MARK: - Outlets and Variables
     @IBOutlet weak var testView: GMSMapView!
     
-    @IBOutlet weak var locationView: UIView!
-    @IBOutlet weak var labelAddress: UILabel!
-    
     @IBOutlet weak var findButton: UIButton!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableSlideUpButton: UIButton!
+    @IBOutlet weak var tableHeaderView: UIView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    
     var newTicket: Ticket?
+    
+    var workerList: [Worker] = []
     
     //get location
     var locationManager = CLLocationManager()
@@ -96,11 +100,34 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.whiteColor()
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.transform = CGAffineTransformMakeTranslation(0, view.frame.height) //add the start stage for collection View
         
-        //add the start stage for collection View
-        collectionView.transform = CGAffineTransformMakeTranslation(0, view.frame.height)
-
-        okButtonStyle()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableViewHeightConstraint.constant = (view.frame.height - 69) / 2
+        tableView.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) //add the start stage for table View
+        tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) ////add the start stage for tableViewSlideUpButton
+        
+        //tableView.backgroundColor =  UIColor.clearColor()
+        
+//        tableSlideUpButton = UIButton(frame: CGRect(x: view.frame.width / 2, y: 50, width: 50, height: 50))
+//        tableSlideUpButton.userInteractionEnabled = true
+//        tableSlideUpButton.backgroundColor = AppThemes.appColorTheme
+//        tableSlideUpButton.setImage(UIImage(named: "up"), forState: .Normal)
+//        tableSlideUpButton.addTarget(self, action: #selector(onTableSlideUp(_:)), forControlEvents: .TouchUpInside)
+        
+        //testView.bringSubviewToFront(tableView)
+//        tableView.addSubview(tableSlideUpButton)
+//        testView.addSubview(tableView)
+        
+        //testView.settings.consumesGesturesInView = false
+        
+        
+        
+        roundedButton(findButton)
+        roundedButton(tableSlideUpButton)
         
 //        currentLocation()
         self.flagCount = 1
@@ -139,12 +166,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     }
     
     //MARK: - Helpers
-    func okButtonStyle(){
-        self.findButton.backgroundColor = AppThemes.appColorTheme
-        self.findButton.layer.masksToBounds = true
-//        self.okButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        self.findButton.layer.cornerRadius = findButton.frame.size.width/2
-        self.findButton.clipsToBounds = true
+    func roundedButton(button: UIButton){
+        button.backgroundColor = AppThemes.appColorTheme
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = button.frame.size.width/2
+        button.clipsToBounds = true
     }
     
     //
@@ -303,32 +329,68 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         //move the category collectionview up so it's visible
         UIView.animateWithDuration(0.3, animations: {
             self.collectionView.transform = CGAffineTransformIdentity
-            }, completion: nil)
+        }, completion: nil)
         
         //move the map up so the collectionview doesn't block the map
         UIView.animateWithDuration(0.3, animations: {
             self.testView.transform = CGAffineTransformMakeTranslation(0, -self.collectionView.frame.height)
-            }, completion: nil)
+        }, completion: nil)
         
         //move the findButton up so it doesn't block the current location button
         UIView.animateWithDuration(0.3, animations: {
             self.findButton.transform = CGAffineTransformMakeTranslation(0, -self.collectionView.frame.height)
-            }, completion: nil)
+        }, completion: nil)
     }
     
     func adjustViewsWhenFinishChoosingCategory() {
         //make the category collection view and the map go back to originnal position while picking time and date
         UIView.animateWithDuration(0.3, animations: {
             self.collectionView.transform = CGAffineTransformMakeTranslation(0, self.view.frame.height)
-            }, completion: nil)
+        }, completion: nil)
         
         UIView.animateWithDuration(0.3, animations: {
             self.testView.transform = CGAffineTransformIdentity
-            }, completion: nil)
+        }, completion: nil)
         
         UIView.animateWithDuration(0.3, animations: {
             self.findButton.transform = CGAffineTransformIdentity
-            }, completion: nil)
+        }, completion: nil)
+    }
+    
+    // TODO: refractor this. put into model
+    func parametersTicket(ticket: Ticket) -> [String: AnyObject]{
+        
+        var parameters = [String : AnyObject]()
+        parameters["title"] = (ticket.title)!
+        parameters["category"] = (ticket.category)!
+        parameters["imageOneUrl"] = (ticket.imageOne?.imageUrl)!
+        parameters["imageTwoUrl"] = (ticket.imageTwo?.imageUrl)!
+        parameters["imageThreeUrl"] = (ticket.imageThree?.imageUrl)!
+        parameters["status"] = "\((ticket.status)!)"
+        parameters["idUser"] = (ticket.user!.id)!
+        parameters["nameOfUser"] = (ticket.user?.username)!
+        parameters["phoneOfUser"] =  (ticket.user!.phoneNumber)!
+        parameters["imageUserUrl"] = (ticket.user!.profileImage!.imageUrl)!
+        parameters["address"] =  (ticket.location!.address)!
+        parameters["city"] =  (ticket.location!.city)!
+        parameters["latitude"] =  (ticket.location!.latitude)!
+        parameters["longtitude"] = (ticket.location!.longitute)!
+        parameters["idWorker"] = (ticket.worker?.id)!
+        parameters["nameOfWorker"] = (ticket.worker?.username)!
+        parameters["phoneOfWorker"] = (ticket.worker?.phoneNumber)!
+        parameters["imageWorkerUrl"] = (ticket.worker?.profileImage!.imageUrl)!
+        //parameters["urgent"] = (ticket.urgent)!
+        parameters["width"] = 400
+        parameters["height"] = 300
+        parameters["widthOfProfile"] = 60
+        parameters["heightOfProfile"] = 60
+        parameters["descriptions"] = ticket.descriptions
+        parameters["firstnameOfUser"] = ticket.user?.firstName
+        parameters["lastnameOfUser"] = ticket.user?.lastName
+        parameters["firstnameOfWorker"] = ticket.worker?.firstName
+        parameters["lastnameOfWorker"] = ticket.worker?.lastName
+        
+        return parameters
     }
     
     //MARK: - Actions & Gestures
@@ -370,6 +432,32 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         adjustViewsWhenFinishChoosingCategory()
     }
     
+    @IBAction func onTableSlideUp(sender: UIButton) {
+        //move the tableView up            
+        let offset: CGFloat = self.tableSlideUpButton.frame.height * 2
+        
+        UIView.animateKeyframesWithDuration(0.6, delay: 0, options: .CalculationModeCubic, animations: {
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.33, animations: {
+                self.tableView.transform = CGAffineTransformIdentity
+                self.tableSlideUpButton.transform = CGAffineTransformIdentity
+            })
+            
+            UIView.addKeyframeWithRelativeStartTime(0.33, relativeDuration: 0.63, animations: {
+                self.tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, -offset)
+                self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 0.1)
+                self.tableSlideUpButton.setImage(UIImage(named: "down"), forState: .Normal)
+            })
+            
+            UIView.addKeyframeWithRelativeStartTime(0.67, relativeDuration: 0.33, animations: {
+                self.tableSlideUpButton.transform = CGAffineTransformIdentity
+            })
+            }, completion: { finished in
+        })
+        
+        
+        
+        
+    }
     //MARK: - Google Map API
 //    func currentLocation(){
 ////            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
@@ -543,6 +631,28 @@ extension MapViewController: UICollectionViewDataSource, UICollectionViewDelegat
         
         return true
     }
+}
+
+// MARK: - TableView data source and delegate
+extension MapViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5//workerList.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("WorkerDetailCell", forIndexPath: indexPath) as! WorkerDetailCell
+        
+//        cell.worker = workerList[indexPath.row]
+//        cell.ticket = newTicket!
+//        cell.mapViewController = self
+        
+        cell.workerNameLabel.text = "Puppy Ass"
+        cell.workerRatingLabel.text = "4.5/5.0"
+        cell.workerHourlyRateLabel.text = "$8000"
+        return cell
+    }
+    
 }
 
 //MARK: - EXTENSION: UISearchControllerDelegate

@@ -67,9 +67,6 @@ class AddTicketDetailViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
     }
     
-    func close() {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
     
     //MARK: - Helpers
     func setupAppearance() {
@@ -170,6 +167,10 @@ class AddTicketDetailViewController: UIViewController {
     }
     
     @IBAction func onClose(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func close() {
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

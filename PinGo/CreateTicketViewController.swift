@@ -78,7 +78,6 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
         
         titleTextField.delegate = self
         descriptionTextView.delegate = self
-        
 
         setupAppearance()
         //setupLoadingIndicator()
