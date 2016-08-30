@@ -8,7 +8,10 @@
 
 import UIKit
 import Alamofire
-class HomeTimelineViewController: BaseViewController {
+
+
+
+class HomeTimelineViewController: BaseViewController , RequestStatusCellDelegate{
     //MARK: - Outlets and variables
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,8 +20,8 @@ class HomeTimelineViewController: BaseViewController {
     @IBOutlet weak var greetingLabel: UILabel!
     
     @IBOutlet weak var buttonLogout: UIButton!
-
-    // New Views 
+    
+    // New Views
     
     @IBOutlet weak var ImageViewProfile: UIImageView!
     
@@ -35,9 +38,9 @@ class HomeTimelineViewController: BaseViewController {
     @IBOutlet weak var labelCountHistory: UILabel!
     
     @IBOutlet weak var labelInservice: UILabel!
-    
-    
+
     @IBOutlet weak var labelHistory: UILabel!
+    
     
     // -----
     var selectedIndexPath: NSIndexPath?//(forRow: -1, inSection: 0)
@@ -45,7 +48,11 @@ class HomeTimelineViewController: BaseViewController {
     var rating: String!
     
     var ticketList: [Ticket] = []
-    
+    var ticketsFilter: [Ticket] = []
+    var indexButton = 0
+    var countInservice = 0
+    var countHistory = 0
+    var statusChange = true
     //MARK: - Load view
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +90,7 @@ class HomeTimelineViewController: BaseViewController {
     }
     
     @IBAction func onRatingAction(sender: UIButton) {
-
+        
     }
     
     @IBAction func quitAfterPickWorker(segue: UIStoryboardSegue) {
@@ -100,16 +107,13 @@ class HomeTimelineViewController: BaseViewController {
                 ticketRatingController.nameWorker = (choosenCell.ticket.worker?.getFullName())!
                 ticketRatingController.idTicket = (choosenCell.ticket.id)!
             }
-
+            
         }
     }
     
     
     //MARK: Helpers
     func setupAppearance() {
-        tableView.separatorStyle = .None
-        
-        
         //create ticket button
         labelUserName.text = "\((UserProfile.currentUser?.getFullName())!)"
         if UserProfile.currentUser?.profileImage?.imageUrl! != "" {
@@ -141,7 +145,7 @@ class HomeTimelineViewController: BaseViewController {
         
         labelEmail.text = UserProfile.currentUser?.email!
         initOpacityBarView()
-       
+        
     }
     func initOpacityBarView(){
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
@@ -155,21 +159,22 @@ class HomeTimelineViewController: BaseViewController {
 //MARK: - EXTENSION UITableViewDataSource, UITableViewDelegate
 extension HomeTimelineViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ticketList.count
+        return ticketsFilter.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RequestStatusCell", forIndexPath: indexPath) as! RequestStatusCell
-        let ticket = ticketList[indexPath.row]
-         cell.ticket = ticket
-        
+        let ticket = ticketsFilter[indexPath.row]
+        cell.ticket = ticket
+        cell.homeTimeLineUser = self
+        cell.delegate = self
+        cell.indexPath = indexPath
         if ticket.status == Status.InService {
             //cell.themeColor = AppThemes.cellColors[0]
             cell.ratingButton.hidden = true
             
-        } else {
-            cell.themeColor = AppThemes.cellColors[1]
         }
+     
         
         //fake
         if rating != nil {
@@ -215,26 +220,23 @@ extension HomeTimelineViewController {
         parameters["statusTicket"] = "InService"
         parameters["idUser"] = UserProfile.currentUser?.id!
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/userTickets", parameters: parameters).responseJSON { response  in
-           let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]] //{
-                if self.ticketList.count > 0 {
-                    self.ticketList.removeAll()
-                }
-                for JSONItem in JSONArrays {
-                    let ticket = Ticket(data: JSONItem)
-                    if ticket.status != Status.Pending{
-                        self.ticketList.append(ticket)
-                    }
-                }
-                self.tableView.reloadData()
-               // self.countLabelTickets.text = "\(self.ticketList.count)"
+            let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]] //{
+            if self.ticketList.count > 0 {
+                self.ticketList.removeAll()
             }
-//        else {
-//                let alert = UIAlertController(title: "Network Error", message: "Cannot load data due to no internet connection. Please check your connection", preferredStyle: .Alert)
-//                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-//                alert.addAction(okAction)
-//                self.presentViewController(alert, animated: true, completion: nil)
-//            }
-//        }
+            for JSONItem in JSONArrays {
+                let ticket = Ticket(data: JSONItem)
+                if ticket.status != Status.Pending{
+                    self.ticketList.append(ticket)
+                    self.countLabelWithStatus((ticket.status?.rawValue)!)
+                }
+            }
+            
+            self.indexAtTab(self.indexButton)
+            self.updateUILabelCountStatus()
+            // self.countLabelTickets.text = "\(self.ticketList.count)"
+        }
+        
     }
     func initSocketTicketOfUser(){
         //change status for ticket when worker has mark this ticket as "Done"
@@ -253,7 +255,7 @@ extension HomeTimelineViewController {
             
             self.tableView.reloadData()
         })
-
+        
     }
 }
 
@@ -270,12 +272,15 @@ extension HomeTimelineViewController {
     func viewInserviceAction(sender: AnyObject){
         clearAllViewButtons()
         choosenViewButton(viewInservice, labelTitle: labelCountInservice)
-        
+        indexButton = 0
+        indexAtTab(indexButton)
     }
     
     func viewHistoryAction(sender: AnyObject){
         clearAllViewButtons()
         choosenViewButton(viewHistory, labelTitle: labelCountHistory)
+        indexButton = 1
+        indexAtTab(indexButton)
     }
     
     func clearAllViewButtons(){
@@ -284,16 +289,78 @@ extension HomeTimelineViewController {
     }
     func clearViewButton(view: UIView, labelTitle: UILabel) {
         view.backgroundColor = UIColor.clearColor()
-        labelTitle.textColor = UIColor.redColor()
+        labelTitle.textColor = AppThemes.appColorTheme
     }
     func choosenViewButton(view: UIView, labelTitle: UILabel){
-        view.backgroundColor = AppThemes.redSpeacialColor
+        view.backgroundColor = AppThemes.appColorTheme
         labelTitle.textColor = UIColor.whiteColor()
     }
 }
 // MARK: Filer list
 extension HomeTimelineViewController {
+    func filterListByStatusApproved(){
+        if ticketsFilter.count > 0 {
+            ticketsFilter.removeAll()
+        }
+        for ticket in ticketList {
+            if ticket.status?.rawValue == Status.Approved.rawValue {
+                ticketsFilter.append(ticket)
+            }
+        }
+    }
+    func filterListByStatusInserviceAndDone(){
+        if ticketsFilter.count > 0 {
+            ticketsFilter.removeAll()
+        }
+        for ticket in ticketList {
+            if ticket.status?.rawValue != Status.Approved.rawValue {
+                ticketsFilter.append(ticket)
+            }
+        }
+    }
+    func indexAtTab(index: Int){
+        switch index
+        {
+        case 1:
+            filterListByStatusApproved()
+            break
+        default:
+            filterListByStatusInserviceAndDone()
+            break;
+        }
+        tableView.reloadData()
+    }
     
+    // MARK: count with status
+    func countLabelWithStatus(status : String){
+        switch status {
+        case Status.InService.rawValue:
+            countInservice += 1
+            break
+        case Status.Done.rawValue:
+            countInservice += 1
+            break
+        case Status.Approved.rawValue:
+            countHistory += 1
+        default:
+            break
+        }
+    }
+    func updateUILabelCountStatus(){
+        labelCountInservice.text = "(\(countInservice))"
+        labelCountHistory.text = "(\(countHistory))"
+    }
+}
+
+// MARK: RequestStatucell delegate
+extension HomeTimelineViewController {
+    func requestStatusCellDelegate(homeTimeLineUser: HomeTimelineViewController, indexCell: NSIndexPath, statusTicket: Status) {
+        ticketsFilter.removeAtIndex(indexCell.row)
+        tableView.deleteRowsAtIndexPaths([indexCell], withRowAnimation: .Fade)
+        countInservice -= 1
+        countHistory = 0 
+        getTicketsOfUser()
+    }
 }
 
 
