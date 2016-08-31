@@ -22,7 +22,6 @@
 		21434C391D55AB1B00B31122 /* AppUltility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C381D55AB1B00B31122 /* AppUltility.swift */; };
 		21434C3B1D55AB9C00B31122 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C3A1D55AB9C00B31122 /* UserProfile.swift */; };
 		21434C3E1D55AC4700B31122 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C3D1D55AC4700B31122 /* Location.swift */; };
-		21434C401D55ACAC00B31122 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C3F1D55ACAC00B31122 /* User.swift */; };
 		21434C421D55ACE300B31122 /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C411D55ACE300B31122 /* Worker.swift */; };
 		21434C441D55AEE600B31122 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C431D55AEE600B31122 /* Ticket.swift */; };
 		21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C451D55AF2F00B31122 /* TicketCategory.swift */; };
@@ -96,7 +95,6 @@
 		B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */; };
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
 		B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A41D5FACAB009A177D /* Constants.swift */; };
-		B0B3A8A71D5FAD26009A177D /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A61D5FAD26009A177D /* Rating.swift */; };
 		B0F0A5F91D683669003C8DAD /* HomeTimeLineWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0A5F81D683669003C8DAD /* HomeTimeLineWorker.swift */; };
 		B0F0A5FB1D6836C3003C8DAD /* WorkerTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0A5FA1D6836C3003C8DAD /* WorkerTicketCell.swift */; };
 		B0F0A5FD1D683704003C8DAD /* HandleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0A5FC1D683704003C8DAD /* HandleUtil.swift */; };
@@ -107,7 +105,6 @@
 		E71389DA1D6B0A3400FA84D0 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71389D81D6B0A3300FA84D0 /* FBSDKLoginKit.framework */; };
 		E71389DC1D6B0D0F00FA84D0 /* forfacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = E71389DB1D6B0D0F00FA84D0 /* forfacebook.m */; };
 		E725C8391D69638D0061A6AB /* WorkerMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */; };
-		E725C8411D697F560061A6AB /* MapWorkerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */; };
 		E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */; };
 		E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */; };
 		E7CB13811D5DEECD00BA5AA4 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */; };
@@ -135,7 +132,6 @@
 		21434C381D55AB1B00B31122 /* AppUltility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUltility.swift; sourceTree = "<group>"; };
 		21434C3A1D55AB9C00B31122 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		21434C3D1D55AC4700B31122 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		21434C3F1D55ACAC00B31122 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		21434C411D55ACE300B31122 /* Worker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
 		21434C431D55AEE600B31122 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		21434C451D55AF2F00B31122 /* TicketCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategory.swift; sourceTree = "<group>"; };
@@ -213,7 +209,6 @@
 		B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		B0B3A8A41D5FACAB009A177D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		B0B3A8A61D5FAD26009A177D /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		B0F0A5F81D683669003C8DAD /* HomeTimeLineWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTimeLineWorker.swift; sourceTree = "<group>"; };
 		B0F0A5FA1D6836C3003C8DAD /* WorkerTicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerTicketCell.swift; sourceTree = "<group>"; };
 		B0F0A5FC1D683704003C8DAD /* HandleUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleUtil.swift; sourceTree = "<group>"; };
@@ -224,7 +219,6 @@
 		E71389D81D6B0A3300FA84D0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E71389DB1D6B0D0F00FA84D0 /* forfacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = forfacebook.m; sourceTree = "<group>"; };
 		E725C8381D69638D0061A6AB /* WorkerMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerMapViewController.swift; sourceTree = "<group>"; };
-		E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MapWorkerStoryboard.storyboard; sourceTree = "<group>"; };
 		E7CB13781D5DC51500BA5AA4 /* EditUserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditUserProfile.storyboard; sourceTree = "<group>"; };
 		E7CB137A1D5DC69700BA5AA4 /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
 		E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
@@ -332,14 +326,12 @@
 		21434C351D55AA3400B31122 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				21434C3F1D55ACAC00B31122 /* User.swift */,
 				21434C411D55ACE300B31122 /* Worker.swift */,
 				21434C3A1D55AB9C00B31122 /* UserProfile.swift */,
 				21434C3D1D55AC4700B31122 /* Location.swift */,
 				21434C431D55AEE600B31122 /* Ticket.swift */,
 				21434C451D55AF2F00B31122 /* TicketCategory.swift */,
 				B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */,
-				B0B3A8A61D5FAD26009A177D /* Rating.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -376,7 +368,6 @@
 				21434C311D559E4C00B31122 /* ViewControllers */,
 				219D49DE1D50B62E006B5ADE /* AppDelegate.swift */,
 				B0FC11B01D618CBB00F34FDC /* Worker.storyboard */,
-				E725C8401D697F560061A6AB /* MapWorkerStoryboard.storyboard */,
 				B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */,
 				219D49E21D50B62E006B5ADE /* Main.storyboard */,
 				E7EBFA031D5C597700C1FEB8 /* LoginStoryboard.storyboard */,
@@ -586,7 +577,6 @@
 				219D49E91D50B62E006B5ADE /* LaunchScreen.storyboard in Resources */,
 				E7EBFA041D5C597700C1FEB8 /* LoginStoryboard.storyboard in Resources */,
 				E7EBFA0F1D5CE97200C1FEB8 /* UserProfile.storyboard in Resources */,
-				E725C8411D697F560061A6AB /* MapWorkerStoryboard.storyboard in Resources */,
 				219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */,
 				219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */,
 				213D284B1D64D941009A06D8 /* NothingFoundCell.xib in Resources */,
@@ -780,10 +770,8 @@
 				21FAD0771D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZag.swift in Sources */,
 				21F8FE571D5A0E8600DD150D /* DimmingPresentationController.swift in Sources */,
 				21FAD0691D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotatePulse.swift in Sources */,
-				21434C401D55ACAC00B31122 /* User.swift in Sources */,
 				219D49DF1D50B62E006B5ADE /* AppDelegate.swift in Sources */,
 				21434C391D55AB1B00B31122 /* AppUltility.swift in Sources */,
-				B0B3A8A71D5FAD26009A177D /* Rating.swift in Sources */,
 				21434C3B1D55AB9C00B31122 /* UserProfile.swift in Sources */,
 				B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */,
 				21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */,

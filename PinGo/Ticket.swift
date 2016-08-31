@@ -36,9 +36,12 @@ class Ticket: NSObject {
     var createdAt: String?
     var dataJson: [String: AnyObject]?
     var comment: String = ""
+    var dateBegin: String = ""
+    var timeBegin: String = ""
     // Hien Code 
     var issueImageVideoPath: String?
     var dateCreated: NSDate?
+    
     override init() {
         category = ""
         title = ""
@@ -51,26 +54,6 @@ class Ticket: NSObject {
         imageTwo =  ImageResource()
         imageThree = ImageResource()
         location = Location()
-    }
-    
-//    init(data: [String: AnyObject]){
-//        id = data["_id"] as? String
-//        category = data["category"] as? String
-//        title = data["title"] as? String
-//        urgent  = data["urgent"] as? Bool
-//        let createBy = data["createBy"] as? [String: AnyObject]
-//        user = UserProfile(data: createBy!)
-//    }
-    
-    init(user: User, worker: Worker, id: String, category: String, title: String, status: Status, issueImageVideoPath: String?, dateCreated: NSDate) {
-        self.user = user
-        self.worker = worker
-        self.id = id
-        self.category = category
-        self.title = title
-        self.status = status
-        self.issueImageVideoPath = issueImageVideoPath
-        self.dateCreated = dateCreated
     }
     
     init(data: [String: AnyObject]){
@@ -133,6 +116,13 @@ class Ticket: NSObject {
         
         if let comment = data["comment"] as? String {
             self.comment = comment
+        }
+        
+        if let timeBegin = data["timeBegin"] as? String {
+            self.timeBegin = timeBegin
+        }
+        if let dateBegin = data["dateBegin"] as? String {
+            self.dateBegin = dateBegin
         }
     }
     

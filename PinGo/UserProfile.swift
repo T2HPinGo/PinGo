@@ -18,11 +18,8 @@ class UserProfile: NSObject {
     var profileImage: ImageResource?
    
     var averageRating: Double = 0
-    // Hien code
     var firstName: String = ""
     var lastName: String = ""
-    var name: String?
-    var profileImagePath: String?
     var dataJson: [String: AnyObject]?
     var category: String = ""
     var price: String = ""
