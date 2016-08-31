@@ -46,6 +46,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     var currentCategoryIndex = -1 //store current selected category index, set to -1 to avoid crash no cell has been sellected
     
+    var isShowingTableView = false //check if worker list in table view is shown or not
+    
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
     
@@ -110,28 +112,27 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         tableView.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) //add the start stage for table View
         tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) ////add the start stage for tableViewSlideUpButton
         
-        //tableView.backgroundColor =  UIColor.clearColor()
-        
-//        tableSlideUpButton = UIButton(frame: CGRect(x: view.frame.width / 2, y: 50, width: 50, height: 50))
-//        tableSlideUpButton.userInteractionEnabled = true
-//        tableSlideUpButton.backgroundColor = AppThemes.appColorTheme
-//        tableSlideUpButton.setImage(UIImage(named: "up"), forState: .Normal)
-//        tableSlideUpButton.addTarget(self, action: #selector(onTableSlideUp(_:)), forControlEvents: .TouchUpInside)
-        
-        //testView.bringSubviewToFront(tableView)
-//        tableView.addSubview(tableSlideUpButton)
-//        testView.addSubview(tableView)
-        
-        //testView.settings.consumesGesturesInView = false
-        
-        
-        
         roundedButton(findButton)
         roundedButton(tableSlideUpButton)
         
 //        currentLocation()
         self.flagCount = 1
         setupSubView()
+        
+        
+        
+        //load worker list
+        SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
+            if self.newTicket!.id != idTicket {
+                return
+            }
+            self.workerList.append(worker)
+            self.tableView.reloadData()
+            if self.workerList.count > 1 {
+                self.stopActivityAnimating()
+            }
+            //self.updateNumberOfWorkersFound()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -159,9 +160,36 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     @IBAction func unwindFromAddingDetail(segue: UIStoryboardSegue) {
         if let addDetailViewController = segue.sourceViewController as? AddTicketDetailViewController {
-//            if let chosenDate = addDetailViewController.chosenDate {
-//                
-//            }
+            if let title = addDetailViewController.titleTextField.text {
+                newTicket!.title = title
+                self.detailLabel.text = title != "" ? title : "Ticket Title"
+            }
+            
+            if let ticketDescription = addDetailViewController.descriptionTextView.text {
+                if ticketDescription == "Enter Description (Optional)" {
+                    newTicket!.descriptions = ""
+                } else {
+                    newTicket!.descriptions = ticketDescription
+                }
+                print(description)
+            }
+            
+            let pickedImages = addDetailViewController.images
+            
+            //load image to server depending on how many pictures that user chose before
+            switch pickedImages.count {
+            case 1:
+                PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: pickedImages[0], uploadType: "ticket") //upload image to server to save it on server
+            case 2:
+                PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: pickedImages[0], uploadType: "ticket")
+                PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: pickedImages[1], uploadType: "ticket")
+            case 3:
+                PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: pickedImages[0], uploadType: "ticket")
+                PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: pickedImages[1], uploadType: "ticket")
+                PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: pickedImages[2], uploadType: "ticket")
+            default:
+                break
+            }
         }
     }
     
@@ -393,6 +421,15 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         return parameters
     }
     
+    //check if user enter enough information
+    func didEnterRequiredInformation() -> Bool {
+        //if the category hasn/t been chosen OR no photo has been chosen OR no tile has been entered
+        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" {
+            return false
+        }
+        return true
+    }
+    
     //MARK: - Actions & Gestures
     @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
         // Absolute (x,y) coordinates in parent view (parentView should be
@@ -412,6 +449,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
         
+        //nextTime user tap on this, the calendar will appear exactly what user chose before
         calendarPopupViewController.chosenDate = newTicket?.dateCreated
         
         self.presentViewController(calendarPopupViewController, animated: true, completion: nil)
@@ -427,36 +465,99 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
         let detailPopupViewController = storyboard.instantiateViewControllerWithIdentifier("AddTicketDetailViewController") as! AddTicketDetailViewController
         
+        //nextTime user tap on this, the calendar will appear exactly what user chose before
+        detailPopupViewController.titleString = newTicket!.title!
+        detailPopupViewController.descriptionString = newTicket!.descriptions
+        
         self.presentViewController(detailPopupViewController, animated: true, completion: nil)
         
         adjustViewsWhenFinishChoosingCategory()
     }
     
     @IBAction func onTableSlideUp(sender: UIButton) {
-        //move the tableView up            
-        let offset: CGFloat = self.tableSlideUpButton.frame.height * 2
         
-        UIView.animateKeyframesWithDuration(0.6, delay: 0, options: .CalculationModeCubic, animations: {
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.33, animations: {
-                self.tableView.transform = CGAffineTransformIdentity
-                self.tableSlideUpButton.transform = CGAffineTransformIdentity
+        //if tableview is hidden, slide it up, if it is shown then slide it down
+        if !isShowingTableView {
+            UIView.animateKeyframesWithDuration(0.6, delay: 0, options: .CalculationModeCubic, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.33, animations: {
+                    self.tableView.transform = CGAffineTransformIdentity
+                    self.tableSlideUpButton.transform = CGAffineTransformIdentity
+                })
+                
+                //fliping effect for tableSlideUpButton
+                UIView.addKeyframeWithRelativeStartTime(0.33, relativeDuration: 0.63, animations: {
+                    self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 0.1)
+                    self.tableSlideUpButton.setImage(UIImage(named: "down"), forState: .Normal)
+                })
+                
+                UIView.addKeyframeWithRelativeStartTime(0.67, relativeDuration: 0.33, animations: {
+                    self.tableSlideUpButton.transform = CGAffineTransformIdentity
+                })
+                }, completion: { finished in
+                    self.isShowingTableView = !self.isShowingTableView
             })
+        } else {
+            UIView.animateKeyframesWithDuration(0.6, delay: 0, options: .CalculationModeCubic, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.33, animations: {
+                    self.tableView.transform = CGAffineTransformMakeTranslation(0, self.tableViewHeightConstraint.constant)
+                    self.tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, self.tableViewHeightConstraint.constant)
+                })
+                
+                //fliping effect for tableSlideUpButton
+                UIView.addKeyframeWithRelativeStartTime(0.33, relativeDuration: 0.63, animations: {
+                    //self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 0.1)
+                    self.tableSlideUpButton.setImage(UIImage(named: "up"), forState: .Normal)
+                })
+                
+                UIView.addKeyframeWithRelativeStartTime(0.67, relativeDuration: 0.33, animations: {
+                    //self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 1)
+                })
+                }, completion: { finished in
+                    self.isShowingTableView = !self.isShowingTableView
+            })
+        }
+    }
+    
+    @IBAction func onFindWorker(sender: UIButton) {
+        if !didEnterRequiredInformation() {
+            let alert = UIAlertController(title: "Ticket Invalid", message: "All required information must be entered before proceding to the next step", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(action)
+            presentViewController(alert, animated: true, completion: nil)
+        } else {
             
-            UIView.addKeyframeWithRelativeStartTime(0.33, relativeDuration: 0.63, animations: {
-                self.tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, -offset)
-                self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 0.1)
-                self.tableSlideUpButton.setImage(UIImage(named: "down"), forState: .Normal)
-            })
+            self.startLoadingAnimation()
             
-            UIView.addKeyframeWithRelativeStartTime(0.67, relativeDuration: 0.33, animations: {
-                self.tableSlideUpButton.transform = CGAffineTransformIdentity
-            })
-            }, completion: { finished in
-        })
-        
-        
-        
-        
+            newTicket?.category = categoryLabel.text!
+            newTicket?.user = UserProfile.currentUser
+            newTicket?.location = self.location
+            newTicket?.status = Status.Pending
+            newTicket?.worker = Worker()
+            
+            let parameters = parametersTicket(newTicket!)
+            
+            Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticket", parameters: parameters).responseJSON { response  in
+                
+                if response.result.value != nil {
+                    let JSON = response.result.value as? [String:AnyObject]
+                    let JSONobj = JSON!["data"]! as! [String : AnyObject]
+                    self.newTicket = Ticket(data: JSONobj)
+                    SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
+                    
+                    
+                    
+
+                    //self.stopActivityAnimating()
+                } else {
+                    //return an error message if cannot send request to server
+                    self.stopActivityAnimating()
+                    let alertController = UIAlertController(title: "Error", message: "Cannot push data to server. This could be due to internet connection. Please try again later", preferredStyle: .Alert)
+                    let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alertController.addAction(action)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+            }
+        }
     }
     //MARK: - Google Map API
 //    func currentLocation(){
@@ -637,19 +738,19 @@ extension MapViewController: UICollectionViewDataSource, UICollectionViewDelegat
 extension MapViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5//workerList.count
+        return workerList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WorkerDetailCell", forIndexPath: indexPath) as! WorkerDetailCell
         
-//        cell.worker = workerList[indexPath.row]
-//        cell.ticket = newTicket!
-//        cell.mapViewController = self
+        cell.worker = workerList[indexPath.row]
+        cell.ticket = newTicket!
+        cell.mapViewController = self
         
-        cell.workerNameLabel.text = "Puppy Ass"
-        cell.workerRatingLabel.text = "4.5/5.0"
-        cell.workerHourlyRateLabel.text = "$8000"
+//        cell.workerNameLabel.text = "Puppy Ass"
+//        cell.workerRatingLabel.text = "4.5/5.0"
+//        cell.workerHourlyRateLabel.text = "$8000"
         return cell
     }
     
@@ -659,5 +760,14 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate {
 extension MapViewController: UISearchControllerDelegate {
     func willPresentSearchController(searchController: UISearchController) {
         adjustViewsWhenFinishChoosingCategory()
+    }
+}
+
+//MARK: EXTENSION: NVActivityIndicator - Loading Wheel Effect
+extension MapViewController: NVActivityIndicatorViewable {
+    func startLoadingAnimation() {
+        let size = CGSize(width: 30, height:30)
+        
+        startActivityAnimating(size, message: nil, type: .BallTrianglePath)
     }
 }

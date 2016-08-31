@@ -42,6 +42,10 @@ class AddTicketDetailViewController: UIViewController {
     
     var image: UIImage?  //store image that picked
     var currentImage: Int! //store the index of current image picker
+    var images: [UIImage] = [] //store all images that is picked
+    
+    var titleString = ""
+    var descriptionString = ""
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -69,6 +73,10 @@ class AddTicketDetailViewController: UIViewController {
     
     
     //MARK: - Helpers
+    func loadImagesIfAvailable() {
+        
+    }
+    
     func setupAppearance() {
         
         //photos container view
@@ -97,6 +105,7 @@ class AddTicketDetailViewController: UIViewController {
         takePhotoView3.hidden = true
         
         //titleTextField
+        titleTextField.text = titleString
         titleTextField.placeholder = "Title"
         titleTextField.font = AppThemes.helveticaNeueLight14
         titleTextField.layer.cornerRadius = 5
@@ -105,7 +114,11 @@ class AddTicketDetailViewController: UIViewController {
         titleTextField.tintColor = AppThemes.appColorTheme
         
         //descriptionTextField
-        descriptionTextView.placeholder = "Enter Description (Optional)"
+        if descriptionString == "" {
+            descriptionTextView.placeholder = "Enter Description (Optional)"            
+        } else {
+            descriptionTextView.text = descriptionString
+        }
         descriptionTextView.backgroundColor = UIColor.clearColor()
         descriptionTextView.font = AppThemes.helveticaNeueLight14
         descriptionTextView.layer.cornerRadius = 10
@@ -228,8 +241,6 @@ extension AddTicketDetailViewController: UIImagePickerControllerDelegate, UINavi
         if let image = image {
             showImage(image)
         }
-        
-        
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -241,18 +252,21 @@ extension AddTicketDetailViewController: UIImagePickerControllerDelegate, UINavi
         switch currentImage {
         case 1:
             pickedImageView1.image = image
+            self.images.append(image)
             //PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image, uploadType: "ticket") ////upload image to server to save it on server
             pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             takePhotoView2.hidden = false //make the second photo picker visible when the first one is already picked
             break
         case 2:
             pickedImageView2.image = image
+            self.images.append(image)
             //PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image, uploadType: "ticket")  ////upload image to server to save it on server
             takePhotoView3.hidden = false //make the third photo picker visible when the second one is already picked
             pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 3:
             pickedImageView3.image = image
+            self.images.append(image)
             //PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image, uploadType: "ticket") //upload image to server to save it on server
             pickedImageView3HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break

@@ -228,6 +228,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onFindWorker:" destination="NYf-HS-S9A" eventType="touchUpInside" id="PFb-uD-uOt"/>
                                     <segue destination="PRW-58-cFu" kind="unwind" identifier="UnwindToCreateTicket" unwindAction="unwindFromMap:" id="BaR-a4-UY7"/>
                                 </connections>
                             </button>
@@ -599,6 +600,9 @@
                                             <constraint firstAttribute="height" constant="30" id="e2D-D6-t1E"/>
                                         </constraints>
                                         <state key="normal" title="Confirm"/>
+                                        <connections>
+                                            <segue destination="92S-iq-slT" kind="unwind" identifier="UnwindFromAddingDetail" unwindAction="unwindFromAddingDetail:" id="W18-eN-ISa"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l9a-hR-ubO">
                                         <rect key="frame" x="5" y="136" width="240" height="36"/>
@@ -685,6 +689,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7BS-oQ-fGR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="92S-iq-slT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2257" y="-417"/>
         </scene>

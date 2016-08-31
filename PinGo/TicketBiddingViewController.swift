@@ -70,10 +70,6 @@ class TicketBiddingViewController: UIViewController {
             self.tableView.reloadData()
             self.updateNumberOfWorkersFound()
         }
-        
-        print(newTicket.location?.latitude)
-        print(newTicket.location?.longitute)
-        print(newTicket.location?.address)
     }
     
     /*
@@ -95,8 +91,6 @@ class TicketBiddingViewController: UIViewController {
 //                editUserProfileViewController.userProfile = workerList[indexPath.row]
 //            }
 //        }
-    }
-    @IBAction func filterTapped(sender: UIBarButtonItem) {
     }
 
     @IBAction func cancelTicketTapped(sender: UIButton) {
