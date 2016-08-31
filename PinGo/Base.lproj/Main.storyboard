@@ -947,7 +947,6 @@
                                                             </variation>
                                                             <connections>
                                                                 <action selector="cancelTapped:" destination="ZeO-Id-CS6" eventType="touchUpInside" id="hZS-WT-Lxt"/>
-                                                                <action selector="cancelTicketTapped:" destination="ZeO-Id-CS6" eventType="touchUpInside" id="34m-Hg-fVr"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>

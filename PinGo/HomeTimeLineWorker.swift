@@ -133,6 +133,7 @@ extension HomeTimeLineWorker {
             self.updateUIOfCountLabel()
         }
     }
+    
     func initSocket() {
         SocketManager.sharedInstance.getTicket { (ticket) in
             // Check category of ticket
@@ -147,7 +148,7 @@ extension HomeTimeLineWorker {
                         if itemTicket.id == ticket.id {
                             
                             if ticket.worker!.id != Worker.currentUser?.id && ticket.worker!.id != ""{
-                                print("Not choose you")
+                                //print("Not choose you")
 //                                self.tickets.removeAtIndex(index)
 //                                self.countPending -= 1
                                 itemTicket.status = Status.ChoosenAnother
@@ -197,11 +198,11 @@ extension HomeTimeLineWorker {
             }
             
         }
-        
     }
 }
 extension HomeTimeLineWorker {
-    func filterTicketList(status: String){
+    //filter tickets based on their status
+    func filterTicketList(status: String) {
         if ticketsFilter.count > 0 {
             ticketsFilter.removeAll()
         }
@@ -211,6 +212,8 @@ extension HomeTimeLineWorker {
             }
         }
     }
+    
+    //
     func filterTicketListForInserviceAndDone(){
         if ticketsFilter.count > 0 {
             ticketsFilter.removeAll()
@@ -221,20 +224,23 @@ extension HomeTimeLineWorker {
             }
         }
     }
+    
     func indexAtTab(index: Int){
-        switch index
-        {
+        switch index {
         case 0:
+            //all tickets
             ticketsFilter = tickets
             break
         case 1:
+            //ticket pending
             filterTicketList(Status.Pending.rawValue)
             break
         case 2:
+            //ticket inservice and done
             filterTicketListForInserviceAndDone()
             break
         default:
-            break;
+            break
         }
         tableView.reloadData()
     }
@@ -264,7 +270,8 @@ extension HomeTimeLineWorker {
     func initViewAndActionForViewButtons (){
         labelMessageHello.text = "Hello \((Worker.currentUser?.getFullName())!) !"
         
-        clearAllViewButtons()
+        clearAllViewButtons() //change the background colors of allView, pendingView, inServiceView to clear, and their label text to white
+        
         //View All
         viewAll.layer.borderColor = UIColor.whiteColor().CGColor
         viewAll.layer.borderWidth = 1
