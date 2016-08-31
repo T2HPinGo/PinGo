@@ -427,9 +427,24 @@
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="zCK-kV-YNc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ubb-1N-7cg"/>
+                    <navigationItem key="navigationItem" id="ubb-1N-7cg">
+                        <barButtonItem key="leftBarButtonItem" image="delete_ticket" id="3jY-RL-X1c">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="onCancelTicket:" destination="NYf-HS-S9A" id="ddO-lK-330"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="filter" id="4mV-md-aNy">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="onFilter:" destination="NYf-HS-S9A" id="lLJ-gY-upx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="cancelTicketBarButtonItem" destination="3jY-RL-X1c" id="ghb-F6-Jc4"/>
                         <outlet property="collectionView" destination="Rl2-xk-tsr" id="WK2-dq-Wmj"/>
+                        <outlet property="filterBatButtonItem" destination="4mV-md-aNy" id="ZfG-CR-LdJ"/>
                         <outlet property="findButton" destination="Tz9-Z6-dWJ" id="xVw-p3-GQ8"/>
                         <outlet property="tableSlideUpButton" destination="MQp-HZ-4j5" id="bJf-Wo-bld"/>
                         <outlet property="tableView" destination="sdT-T7-6h0" id="qR6-mH-uGT"/>
@@ -697,7 +712,9 @@
     <resources>
         <image name="Electricity" width="12" height="12"/>
         <image name="camera" width="25" height="25"/>
+        <image name="delete_ticket" width="25" height="25"/>
         <image name="dog" width="500" height="501"/>
+        <image name="filter" width="24" height="24"/>
         <image name="plus" width="25" height="25"/>
         <image name="up" width="25" height="25"/>
     </resources>

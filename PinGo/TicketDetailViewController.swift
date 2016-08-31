@@ -124,7 +124,7 @@ extension TicketDetailViewController: UICollectionViewDataSource, UICollectionVi
 
 
 
-//MARK: - ///////////EXTENSION: CLLocationManagerDelegate
+//MARK: - EXTENSION: CLLocationManagerDelegate
 extension TicketDetailViewController: CLLocationManagerDelegate{
     //when user grants or revokes location permission
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

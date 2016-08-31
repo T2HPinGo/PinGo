@@ -25,7 +25,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
-    var newTicket: Ticket?
+    @IBOutlet weak var cancelTicketBarButtonItem: UIBarButtonItem!
+    
+    @IBOutlet weak var filterBatButtonItem: UIBarButtonItem!
+    
+    var newTicket: Ticket!
     
     var workerList: [Worker] = []
     
@@ -47,6 +51,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     var currentCategoryIndex = -1 //store current selected category index, set to -1 to avoid crash no cell has been sellected
     
     var isShowingTableView = false //check if worker list in table view is shown or not
+    
+    var activityIndicatorView: NVActivityIndicatorView! = nil
     
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
@@ -114,11 +120,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         roundedButton(findButton)
         roundedButton(tableSlideUpButton)
-        
-//        currentLocation()
+
         self.flagCount = 1
         setupSubView()
         
+        cancelTicketBarButtonItem.enabled = false
         
         
         //load worker list
@@ -128,7 +134,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             }
             self.workerList.append(worker)
             self.tableView.reloadData()
-            if self.workerList.count > 1 {
+            if self.workerList.count > 0 {
                 self.stopActivityAnimating()
             }
             //self.updateNumberOfWorkersFound()
@@ -163,6 +169,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             if let title = addDetailViewController.titleTextField.text {
                 newTicket!.title = title
                 self.detailLabel.text = title != "" ? title : "Ticket Title"
+                self.detailLabel.sizeToFit()
             }
             
             if let ticketDescription = addDetailViewController.descriptionTextView.text {
@@ -328,7 +335,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         detailIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: addDetailView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
         detailIconImageView.image = UIImage(named: "compose")
         
-        detailLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: addDetailView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
+        detailLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: addDetailView.frame.height/2 - iconHeight/2, width: addDetailView.frame.width - 2*labelMargin - iconHeight - 3, height: labelHeight))
         detailLabel.text = "Ticket Title"
         detailLabel.font = AppThemes.helveticaNeueLight13
         detailLabel.sizeToFit()
@@ -424,11 +431,136 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     //check if user enter enough information
     func didEnterRequiredInformation() -> Bool {
         //if the category hasn/t been chosen OR no photo has been chosen OR no tile has been entered
-        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" {
-            return false
-        }
+//        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" {
+//            return false
+//        }
         return true
     }
+    
+    func startLoadingIndicator() {
+        let transparentView = UIView(frame: UIScreen.mainScreen().bounds)
+        transparentView.backgroundColor = UIColor(red: 248.0/255.0, green: 193.0/255.0, blue: 133.0/255.0, alpha: 0.95)
+        
+        //set up positin & size for the indicator
+        let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.whiteColor(), padding: 80)
+        activityIndicatorView.transform = CGAffineTransformMakeScale(1, 0.3)
+        activityIndicatorView.center = transparentView.center
+        activityIndicatorView.hidesWhenStopped = true
+        
+        //marker
+        let markerIconImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        markerIconImageView.center = CGPoint(x: activityIndicatorView.center.x, y: activityIndicatorView.center.y - 25)
+        markerIconImageView.image = UIImage(named: "marker")
+        
+        //shadow for the marker
+        let shadowVIew = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        shadowVIew.layer.cornerRadius = shadowVIew.frame.width / 2
+        shadowVIew.backgroundColor = UIColor.darkGrayColor()
+        shadowVIew.center = CGPoint(x: markerIconImageView.center.x, y: markerIconImageView.center.y + 25)
+        shadowVIew.transform = CGAffineTransformMakeScale(1, 0.3)
+        
+        transparentView.addSubview(activityIndicatorView)
+        transparentView.addSubview(shadowVIew)
+        transparentView.addSubview(markerIconImageView)
+        UIApplication.sharedApplication().keyWindow!.addSubview(transparentView)
+        activityIndicatorView.startAnimation()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //
+        let containerViews = UIView(frame: CGRectMake(0, 0, view.bounds.width - 20, 134.0))
+        containerViews.center = CGPoint(x: transparentView.center.x, y: 200)
+        containerViews.clipsToBounds = true
+        
+        let iconHeight: CGFloat = 13
+        
+        let spaceBetweenViews: CGFloat = 1.0
+        let viewHeight: CGFloat = 44
+        let viewWidthSmall: CGFloat = (view.frame.width - 20 - 2*spaceBetweenViews) / 3
+        let labelMargin: CGFloat = 5
+        let labelHeight:CGFloat = 20
+        let labelWidth: CGFloat = viewWidthSmall - 2*labelMargin - iconHeight - 3
+        
+        //Date label
+        let loadingDateView = UIView(frame: CGRect(x: 0, y: viewHeight + 1, width: viewWidthSmall, height: viewHeight))
+        dateView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingDateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingDateView.frame.height/2 - labelHeight/2, width: labelWidth, height: labelHeight))
+        loadingDateLabel.text = "Today"
+        loadingDateLabel.font = AppThemes.helveticaNeueLight13
+        loadingDateLabel.sizeToFit()
+        let loadingCalendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: 3, width: iconHeight, height: iconHeight))
+        loadingCalendarIconImageView.image = UIImage(named: "calendar")
+        
+        loadingDateView.addSubview(self.calendarIconImageView)
+        loadingDateView.addSubview(self.dateLabel)
+        
+        //time label
+        let loadingTimeView = UIView(frame: CGRect(x: viewWidthSmall + 1, y: viewHeight + 1, width: viewWidthSmall, height: viewHeight))
+        loadingTimeView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingTimeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingTimeView.frame.height/2 - labelHeight/2, width: labelWidth, height: labelHeight))
+        loadingTimeLabel.text = "ASAP"
+        loadingTimeLabel.font = AppThemes.helveticaNeueLight13
+        loadingTimeLabel.sizeToFit()
+        let loadingClockIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingTimeLabel.center.y - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
+        loadingClockIconImageView.image = UIImage(named: "clock")
+        
+        loadingTimeView.addSubview(loadingClockIconImageView)
+        loadingTimeView.addSubview(loadingTimeLabel)
+        containerViews.addSubview(loadingTimeView)
+        
+        //Payment
+        let loadingPaymentView = UIView(frame: CGRect(x: 2*viewWidthSmall + 2*spaceBetweenViews, y: viewHeight + 1, width: viewWidthSmall, height: viewHeight))
+        loadingPaymentView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingPaymentLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: loadingPaymentView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
+        loadingPaymentLabel.text = "Cash"
+        loadingPaymentLabel.font = AppThemes.helveticaNeueLight13
+        loadingPaymentLabel.sizeToFit()
+        
+        let loadingPaymentIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingPaymentView.frame.height/2 - iconHeight/2, width: iconHeight, height: iconHeight))
+        loadingPaymentIconImageView.image = UIImage(named: "cash")
+        
+        loadingPaymentView.addSubview(loadingPaymentIconImageView)
+        loadingPaymentView.addSubview(loadingPaymentLabel)
+        containerViews.addSubview(loadingPaymentView)
+        
+        //Title
+        let loadingTitleView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width - 20, height: viewHeight))
+        loadingTitleView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingTitleIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingTitleView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
+        loadingTitleIconImageView.image = UIImage(named: "compose")
+        
+        let loadingTitleLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: loadingTitleView.frame.height/2 - iconHeight/2, width: loadingTitleView.frame.width - 2*labelMargin - iconHeight - 3, height: labelHeight))
+        loadingTitleLabel.text = "Ticket Title"
+        loadingTitleLabel.font = AppThemes.helveticaNeueLight13
+        loadingTitleLabel.sizeToFit()
+        
+        loadingTitleView.addSubview(loadingTitleIconImageView)
+        loadingTitleView.addSubview(loadingTitleLabel)
+        containerViews.addSubview(loadingTitleView)
+        
+        transparentView.addSubview(containerViews)
+    }
+    
+    func buttonTapped(sender: UIButton) {
+        if activityIndicatorView.animating {
+            activityIndicatorView.stopAnimation()
+        } else {
+            activityIndicatorView.startAnimation()
+        }
+    }
+    
     
     //MARK: - Actions & Gestures
     @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
@@ -525,8 +657,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             alert.addAction(action)
             presentViewController(alert, animated: true, completion: nil)
         } else {
-            
-            self.startLoadingAnimation()
+            //cancelTicketBarButtonItem.enabled = false //enable the cancel ticket button when the ticket is already push to server
+            //self.startLoadingAnimation()
+            startLoadingIndicator()
             
             newTicket?.category = categoryLabel.text!
             newTicket?.user = UserProfile.currentUser
@@ -559,6 +692,35 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
             }
         }
     }
+    
+    @IBAction func onCancelTicket(sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Cancel This Ticket", message: "This process can not be undone. Tap OK to proceed", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
+            
+            // Delete this ticket to database and remove it to socket chanel
+            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
+            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                print(response.result)
+                var JSON = self.newTicket.dataJson
+                JSON!["status"] = Status.Cancel.rawValue
+                SocketManager.sharedInstance.pushCategory(JSON!)
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                //self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func onFilter(sender: UIBarButtonItem) {
+    }
+    
+    
     //MARK: - Google Map API
 //    func currentLocation(){
 ////            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
@@ -593,7 +755,31 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                             //                        self.userMarker!.title = "Setup Location"
                             //                            self.userMarker!.snippet = "\(self.address)"
                             //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-                            self.userMarker!.icon = UIImage(named: "marker")
+                            
+                            
+                            let imageV = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+                            imageV.image = UIImage(named: "dog")
+                            
+                            let mask = CALayer()
+                            mask.contents = UIImage(named: "marker")!.CGImage
+                            mask.contentsGravity = kCAGravityResizeAspect
+                            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+                            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
+                            mask.position = CGPoint(x: imageV.frame.size.width/2, y: 0)
+                            
+                            imageV.layer.mask = mask
+                            imageV.layer.borderWidth = 5
+                            imageV.layer.borderColor = AppThemes.appColorTheme.CGColor
+                            
+                            
+                            
+                            
+                            
+                            self.userMarker!.iconView = imageV
+                            
+                            
+                            
+
                             self.userMarker!.tracksInfoWindowChanges = true
                             self.userMarker!.map = self.testView
                             self.testView.selectedMarker = self.userMarker
@@ -662,8 +848,6 @@ extension MapViewController: CLLocationManagerDelegate {
 //        print(location!)
     
         locationManager.stopUpdatingLocation()
-        
-        
     }
 }
 
@@ -747,10 +931,6 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate {
         cell.worker = workerList[indexPath.row]
         cell.ticket = newTicket!
         cell.mapViewController = self
-        
-//        cell.workerNameLabel.text = "Puppy Ass"
-//        cell.workerRatingLabel.text = "4.5/5.0"
-//        cell.workerHourlyRateLabel.text = "$8000"
         return cell
     }
     
@@ -765,6 +945,7 @@ extension MapViewController: UISearchControllerDelegate {
 
 //MARK: EXTENSION: NVActivityIndicator - Loading Wheel Effect
 extension MapViewController: NVActivityIndicatorViewable {
+    
     func startLoadingAnimation() {
         let size = CGSize(width: 30, height:30)
         

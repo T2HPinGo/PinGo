@@ -39,6 +39,7 @@
 		21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1061D56379C00C1CE9E /* CategoryCell.swift */; };
 		21B3A1091D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */; };
 		21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */; };
+		21F7B03F1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7B03E1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift */; };
 		21F8FE571D5A0E8600DD150D /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */; };
 		21F9E6F81D58F27B002D9DF6 /* WorkerDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */; };
 		21F9E6FA1D58F2B6002D9DF6 /* TicketBiddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */; };
@@ -151,6 +152,7 @@
 		21B3A1061D56379C00C1CE9E /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		21B3A1081D56DC2D00C1CE9E /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextField.swift; sourceTree = "<group>"; };
 		21B3A10A1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+fixCaretPosition.swift"; sourceTree = "<group>"; };
+		21F7B03E1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerHomeMapViewController.swift; sourceTree = "<group>"; };
 		21F8FE561D5A0E8600DD150D /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		21F9E6F71D58F27B002D9DF6 /* WorkerDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerDetailCell.swift; sourceTree = "<group>"; };
 		21F9E6F91D58F2B6002D9DF6 /* TicketBiddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketBiddingViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */,
 				21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */,
 				21A3018C1D73052B0073459E /* AddTicketDetailViewController.swift */,
+				21F7B03E1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				21FAD0651D5EFEFC000ED89F /* NVActivityIndicatorAnimationAudioEqualizer.swift in Sources */,
 				21FAD0721D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallScaleMultiple.swift in Sources */,
 				21434C441D55AEE600B31122 /* Ticket.swift in Sources */,
+				21F7B03F1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift in Sources */,
 				21FAD07B1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScale.swift in Sources */,
 				E7120D341D61C19100193061 /* MapViewController.swift in Sources */,
 				21FAD07D1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
