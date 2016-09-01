@@ -68,10 +68,10 @@ class HomeTimeLineWorker: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "TicketDetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let ticketDetailViewController = segue.destinationViewController as! TicketDetailViewController
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
+                let ticketDetailViewController = segue.destinationViewController as! DetailTicketViewController
+                //let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
                 ticketDetailViewController.ticket = ticketsFilter[indexPath.row]
-                ticketDetailViewController.colorTheme = cell.themeColor
+                //ticketDetailViewController.colorTheme = cell.themeColor
                 
             }
         }

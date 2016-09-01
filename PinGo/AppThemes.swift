@@ -102,5 +102,13 @@ struct AppThemes {
     static let  orangeColor = UIColor(red: 209.0/255.0, green: 111.0/255.0, blue: 43.0/255.0, alpha: 1.0)
     static let blueColor = UIColor(red: 77.0/255.0, green: 145.0/255.0, blue: 192.0/255.0, alpha: 1.0)
     
+    static func configViewGradientAppBarColor(view: UIView) -> UIView{
+        let gradientView = view
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = gradientView.bounds
+        gradient.colors = [UIColor.init(red: 255, green: 255, blue: 255, alpha: 1).CGColor,UIColor.init(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 0.3).CGColor]
+        gradientView.layer.insertSublayer(gradient, atIndex: 0)
+        return gradientView
+    }
     
 }

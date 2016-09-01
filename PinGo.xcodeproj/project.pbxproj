@@ -93,6 +93,7 @@
 		B04E73FC1D6968FA00751D4C /* UserAndWorkerProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */; };
 		B04E73FE1D6991E800751D4C /* HistoryTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */; };
 		B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */; };
+		B093A68A1D77F1CE00AE6925 /* DetailTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */; };
 		B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */; };
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
 		B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A41D5FACAB009A177D /* Constants.swift */; };
@@ -208,6 +209,7 @@
 		B04E73FB1D6968FA00751D4C /* UserAndWorkerProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserAndWorkerProfile.storyboard; sourceTree = "<group>"; };
 		B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTicketCell.swift; sourceTree = "<group>"; };
 		B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTicketViewController.swift; sourceTree = "<group>"; };
 		B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		B0B3A8A41D5FACAB009A177D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */,
 				21A3018C1D73052B0073459E /* AddTicketDetailViewController.swift */,
 				21F7B03E1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift */,
+				B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				21FAD07D1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */,
 				21FD0FA41D6046C4005A7421 /* PinGoClient.swift in Sources */,
 				21F9E7001D58F95D002D9DF6 /* WorkerHistoryCell.swift in Sources */,
+				B093A68A1D77F1CE00AE6925 /* DetailTicketViewController.swift in Sources */,
 				21FAD0761D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */,
 				21FAD0661D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
