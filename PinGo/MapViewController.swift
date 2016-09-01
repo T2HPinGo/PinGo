@@ -29,6 +29,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     @IBOutlet weak var filterBatButtonItem: UIBarButtonItem!
     
+    
+    var locations:[CLLocation] = [CLLocation]()
+    
     var newTicket: Ticket!
     
     var workerList: [Worker] = []
@@ -78,9 +81,26 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     var detailLabel: UILabel!
     var detailIconImageView: UIImageView!
     
+//    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//        view.backgroundColor = UIColor.redColor()
+//        
+//        return view
+//    }
+    
     //MARK: - Load Views
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Fake locations
+        
+        let fakeLocation = CLLocation(latitude: 51.507351, longitude: -0.127758)
+        let fakeLocation2 = CLLocation(latitude: 51.499737, longitude: -0.141792)
+        let fakeLocation3 = CLLocation(latitude: 51.506789, longitude: -0.163593)
+        let fakeLocation4 = CLLocation(latitude: 51.512879, longitude: -0.129433)
+        
+        locations = [fakeLocation, fakeLocation2, fakeLocation3, fakeLocation4]
+        
         
         newTicket = Ticket()
         
@@ -93,6 +113,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         testView.myLocationEnabled = true
         testView.delegate = self
+        
+        //Fake markers
+        for location in locations {
+            let marker = GMSMarker(position: location.coordinate)
+            
+            marker.title = location.description
+            marker.map = testView
+        }
         
         resultsViewController = GMSAutocompleteResultsViewController()
         resultsViewController?.delegate = self
@@ -166,36 +194,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     @IBAction func unwindFromAddingDetail(segue: UIStoryboardSegue) {
         if let addDetailViewController = segue.sourceViewController as? AddTicketDetailViewController {
-            if let title = addDetailViewController.titleTextField.text {
-                newTicket!.title = title
-                self.detailLabel.text = title != "" ? title : "Ticket Title"
-                self.detailLabel.sizeToFit()
-            }
+            self.newTicket = addDetailViewController.newTicket
             
-            if let ticketDescription = addDetailViewController.descriptionTextView.text {
-                if ticketDescription == "Enter Description (Optional)" {
+            let title = newTicket.title
+            self.detailLabel.text = title != "" ? title  : "Ticket Title"
+            self.detailLabel.sizeToFit()
+            
+            if newTicket.descriptions == "Enter Description (Optional)" {
                     newTicket!.descriptions = ""
-                } else {
-                    newTicket!.descriptions = ticketDescription
-                }
-                print(description)
-            }
-            
-            let pickedImages = addDetailViewController.images
-            
-            //load image to server depending on how many pictures that user chose before
-            switch pickedImages.count {
-            case 1:
-                PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: pickedImages[0], uploadType: "ticket") //upload image to server to save it on server
-            case 2:
-                PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: pickedImages[0], uploadType: "ticket")
-                PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: pickedImages[1], uploadType: "ticket")
-            case 3:
-                PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: pickedImages[0], uploadType: "ticket")
-                PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: pickedImages[1], uploadType: "ticket")
-                PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: pickedImages[2], uploadType: "ticket")
-            default:
-                break
             }
         }
     }
@@ -616,8 +622,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         let detailPopupViewController = storyboard.instantiateViewControllerWithIdentifier("AddTicketDetailViewController") as! AddTicketDetailViewController
         
         //nextTime user tap on this, the calendar will appear exactly what user chose before
-        detailPopupViewController.titleString = newTicket!.title!
-        detailPopupViewController.descriptionString = newTicket!.descriptions
+        detailPopupViewController.newTicket = self.newTicket
         
         self.presentViewController(detailPopupViewController, animated: true, completion: nil)
         
@@ -748,6 +753,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //        
 //    }
     
+    /*
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
         if (userMarker != nil && flagCount > 0) {
             flagCount = 2
@@ -809,8 +815,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                 }
             }
         }
-    }
+    }*/
     
+    /*
     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
         if (flagCount != 1) {
             self.userMarker!.map = nil
@@ -825,7 +832,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 //            self.labelAddress.text = self.location!.address
 //            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
         }
-    }
+    }*/
 
     func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
