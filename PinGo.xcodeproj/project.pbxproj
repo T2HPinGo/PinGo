@@ -34,6 +34,9 @@
 		21A6F9821D69971900AA2EBF /* TicketPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */; };
 		21A6F9841D699EFC00AA2EBF /* TicketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */; };
 		21A6F9861D69A78400AA2EBF /* TicketImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A6F9851D69A78400AA2EBF /* TicketImageCell.swift */; };
+		21AF8B181D77CD6A0003E29A /* UserFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF8B171D77CD6A0003E29A /* UserFilterViewController.swift */; };
+		21AF8B1A1D77D7270003E29A /* T2HSlideUpAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF8B191D77D7270003E29A /* T2HSlideUpAnimationController.swift */; };
+		21AF8B1C1D77E0A20003E29A /* T2HSlideDownAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF8B1B1D77E0A20003E29A /* T2HSlideDownAnimationController.swift */; };
 		21B3A1031D561CC700C1CE9E /* AppThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1021D561CC700C1CE9E /* AppThemes.swift */; };
 		21B3A1051D562C3800C1CE9E /* CreateTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */; };
 		21B3A1071D56379C00C1CE9E /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3A1061D56379C00C1CE9E /* CategoryCell.swift */; };
@@ -148,6 +151,9 @@
 		21A6F9811D69971900AA2EBF /* TicketPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPhotoViewController.swift; sourceTree = "<group>"; };
 		21A6F9831D699EFC00AA2EBF /* TicketDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailViewController.swift; sourceTree = "<group>"; };
 		21A6F9851D69A78400AA2EBF /* TicketImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketImageCell.swift; sourceTree = "<group>"; };
+		21AF8B171D77CD6A0003E29A /* UserFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFilterViewController.swift; sourceTree = "<group>"; };
+		21AF8B191D77D7270003E29A /* T2HSlideUpAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HSlideUpAnimationController.swift; sourceTree = "<group>"; };
+		21AF8B1B1D77E0A20003E29A /* T2HSlideDownAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HSlideDownAnimationController.swift; sourceTree = "<group>"; };
 		21B3A1021D561CC700C1CE9E /* AppThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemes.swift; sourceTree = "<group>"; };
 		21B3A1041D562C3800C1CE9E /* CreateTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTicketViewController.swift; sourceTree = "<group>"; };
 		21B3A1061D56379C00C1CE9E /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -310,6 +316,7 @@
 				21A3018C1D73052B0073459E /* AddTicketDetailViewController.swift */,
 				21F7B03E1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift */,
 				B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */,
+				21AF8B171D77CD6A0003E29A /* UserFilterViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -457,6 +464,8 @@
 				21FC6A7A1D5A6EA900819090 /* T2HRotateOutAnimationController.swift */,
 				210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */,
 				210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */,
+				21AF8B191D77D7270003E29A /* T2HSlideUpAnimationController.swift */,
+				21AF8B1B1D77E0A20003E29A /* T2HSlideDownAnimationController.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -746,10 +755,12 @@
 				21FAD0881D5EFEFC000ED89F /* NVActivityIndicatorView.swift in Sources */,
 				21434C3E1D55AC4700B31122 /* Location.swift in Sources */,
 				B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */,
+				21AF8B181D77CD6A0003E29A /* UserFilterViewController.swift in Sources */,
 				21FAD06B1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
 				21FAD0751D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */,
 				21FAD0781D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallZigZagDeflect.swift in Sources */,
 				21008E7F1D71A08F008332EC /* DateTimePickerViewController.swift in Sources */,
+				21AF8B1A1D77D7270003E29A /* T2HSlideUpAnimationController.swift in Sources */,
 				E71389DC1D6B0D0F00FA84D0 /* forfacebook.m in Sources */,
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
@@ -766,6 +777,7 @@
 				21FAD0791D5EFEFC000ED89F /* NVActivityIndicatorAnimationBlank.swift in Sources */,
 				21FAD0701D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
 				21F9E6F81D58F27B002D9DF6 /* WorkerDetailCell.swift in Sources */,
+				21AF8B1C1D77E0A20003E29A /* T2HSlideDownAnimationController.swift in Sources */,
 				21FAD06D1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallPulseRise.swift in Sources */,
 				21FAD06E1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallPulseSync.swift in Sources */,
 				21A6F9861D69A78400AA2EBF /* TicketImageCell.swift in Sources */,

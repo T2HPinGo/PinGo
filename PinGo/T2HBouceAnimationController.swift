@@ -16,8 +16,9 @@ class T2HBounceAnimationController: NSObject, UIViewControllerAnimatedTransition
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {        
         if let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey),
-        let containerView = transitionContext.containerView() {
+            let toView = transitionContext.viewForKey(UITransitionContextToViewKey),
+            let containerView = transitionContext.containerView() {
+            
             toView.frame = transitionContext.finalFrameForViewController(toViewController)
             containerView.addSubview(toView)
             toView.transform = CGAffineTransformMakeScale(0.6, 0.6)

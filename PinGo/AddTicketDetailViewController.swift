@@ -42,10 +42,8 @@ class AddTicketDetailViewController: UIViewController {
     
     var image: UIImage?  //store image that picked
     var currentImage: Int! //store the index of current image picker
-    var images: [UIImage] = [] //store all images that is picked
     
-    var titleString = ""
-    var descriptionString = ""
+    var newTicket: Ticket!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -59,6 +57,7 @@ class AddTicketDetailViewController: UIViewController {
         
         setupAppearance()
         addGesture()
+        loadImagesIfAvailable()
         
         //add gesture so user can close the popup by tapping out side the popup view
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
@@ -74,6 +73,21 @@ class AddTicketDetailViewController: UIViewController {
     
     //MARK: - Helpers
     func loadImagesIfAvailable() {
+        if newTicket.imageOne?.imageUrl != "" {
+            HandleUtil.loadImageViewWithUrl((newTicket.imageOne?.imageUrl)!, imageView: pickedImageView1)
+            pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
+        }
+        
+        if newTicket.imageTwo?.imageUrl != "" {
+            HandleUtil.loadImageViewWithUrl((newTicket.imageTwo?.imageUrl)!, imageView: pickedImageView2)
+            pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
+        }
+        
+        if newTicket.imageThree?.imageUrl != "" {
+            HandleUtil.loadImageViewWithUrl((newTicket.imageThree?.imageUrl)!, imageView: pickedImageView3)
+            pickedImageView3HeightConstraint.constant = takePhotoView2HeightConstraint.constant
+        }
+        
         
     }
     
@@ -101,11 +115,14 @@ class AddTicketDetailViewController: UIViewController {
         setupPhotoView(takePhotoView1)
         setupPhotoView(takePhotoView2)
         setupPhotoView(takePhotoView3)
-        takePhotoView2.hidden = true
-        takePhotoView3.hidden = true
+        
+        //if takePhotoView1 is not selected then hide takePhotoView 2
+        takePhotoView2.hidden = newTicket.imageOne?.imageUrl == "" ? true : false
+        //if takePhotoView2 is not selected then hide takePhotoView3
+        takePhotoView3.hidden = newTicket.imageTwo?.imageUrl == "" ? true : false
         
         //titleTextField
-        titleTextField.text = titleString
+        titleTextField.text = newTicket.title
         titleTextField.placeholder = "Title"
         titleTextField.font = AppThemes.helveticaNeueLight14
         titleTextField.layer.cornerRadius = 5
@@ -114,10 +131,10 @@ class AddTicketDetailViewController: UIViewController {
         titleTextField.tintColor = AppThemes.appColorTheme
         
         //descriptionTextField
-        if descriptionString == "" {
+        if newTicket.descriptions == "" {
             descriptionTextView.placeholder = "Enter Description (Optional)"            
         } else {
-            descriptionTextView.text = descriptionString
+            descriptionTextView.text = newTicket.descriptions
         }
         descriptionTextView.backgroundColor = UIColor.clearColor()
         descriptionTextView.font = AppThemes.helveticaNeueLight14
@@ -186,6 +203,11 @@ class AddTicketDetailViewController: UIViewController {
     func close() {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func onConfirm(sender: UIButton) {
+        newTicket.title = titleTextField.text
+        newTicket.descriptions = descriptionTextView.text
+    }
 }
 
 //MARK: - EXTENSION: Image Picker
@@ -252,22 +274,19 @@ extension AddTicketDetailViewController: UIImagePickerControllerDelegate, UINavi
         switch currentImage {
         case 1:
             pickedImageView1.image = image
-            self.images.append(image)
-            //PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image, uploadType: "ticket") ////upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageOne)!, image: image, uploadType: "ticket") ////upload image to server to save it on server
             pickedImageView1HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             takePhotoView2.hidden = false //make the second photo picker visible when the first one is already picked
             break
         case 2:
             pickedImageView2.image = image
-            self.images.append(image)
-            //PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image, uploadType: "ticket")  ////upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageTwo)!, image: image, uploadType: "ticket")  ////upload image to server to save it on server
             takePhotoView3.hidden = false //make the third photo picker visible when the second one is already picked
             pickedImageView2HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         case 3:
             pickedImageView3.image = image
-            self.images.append(image)
-            //PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image, uploadType: "ticket") //upload image to server to save it on server
+            PinGoClient.uploadImage((self.newTicket?.imageThree)!, image: image, uploadType: "ticket") //upload image to server to save it on server
             pickedImageView3HeightConstraint.constant = takePhotoView2HeightConstraint.constant
             break
         default:
