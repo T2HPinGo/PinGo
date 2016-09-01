@@ -177,41 +177,49 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
 
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/login", parameters: parameters).responseJSON { response  in
             
-
-            let JSON = response.result.value as? [String:AnyObject]
-            let status = JSON!["status"] as? NSNumber
-            
-            if status == 200{
-                let JSONobj = JSON!["data"] as? [String: AnyObject]
-                let isWorker = JSONobj!["isWorker"] as! Bool
-                if !isWorker {
-                    let user = UserProfile(data: JSONobj!)
-                    UserProfile.currentUser = user
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    
-                    let resultViewController =
-                        storyBoard.instantiateViewControllerWithIdentifier("HomeTimelineViewController") as! HomeTimelineViewController
-                    
-                    self.presentViewController(resultViewController, animated: true, completion: nil)
-                } else {
-                    print("Worker")
-                    let worker = Worker(data: JSONobj!)
-                    Worker.currentUser = worker
-                    let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
-                    
-                    let resultViewController =
-                        storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
-                    
-                    self.presentViewController(resultViewController, animated: true, completion:nil)
-                }
+            if response.response != nil {
+                //if there is internet connection
+                let JSON = response.result.value as? [String:AnyObject]
+                let status = JSON!["status"] as? NSNumber
                 
-            }else {
-                let errorMessage = JSON!["message"] as! String
-                print(errorMessage)
-                self.errorLabel.hidden = false
-                self.errorLabel.text = errorMessage
+                if status == 200{
+                    let JSONobj = JSON!["data"] as? [String: AnyObject]
+                    let isWorker = JSONobj!["isWorker"] as! Bool
+                    if !isWorker {
+                        let user = UserProfile(data: JSONobj!)
+                        UserProfile.currentUser = user
+                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        
+                        let resultViewController =
+                            storyBoard.instantiateViewControllerWithIdentifier("HomeTimelineViewController") as! HomeTimelineViewController
+                        
+                        self.presentViewController(resultViewController, animated: true, completion: nil)
+                    } else {
+                        print("Worker")
+                        let worker = Worker(data: JSONobj!)
+                        Worker.currentUser = worker
+                        let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
+                        
+                        let resultViewController =
+                            storyBoard.instantiateViewControllerWithIdentifier("MainViewController") as! UITabBarController
+                        
+                        self.presentViewController(resultViewController, animated: true, completion:nil)
+                    }
+                    
+                }else {
+                    let errorMessage = JSON!["message"] as! String
+                    print(errorMessage)
+                    self.errorLabel.hidden = false
+                    self.errorLabel.text = errorMessage
+                }
+            } else {
+                //if there is no internet connection then print this message
+                let alert = UIAlertController(title: "Login Failed", message: "We could not log you in. Please check you internet connection and try again.", preferredStyle: .Alert)
+                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(action)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
-        }        
+        }
     }
     
     /*

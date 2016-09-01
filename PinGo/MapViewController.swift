@@ -483,7 +483,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         let iconHeight: CGFloat = 13
         
         let spaceBetweenViews: CGFloat = 1.0
-        let viewHeight: CGFloat = 44
+        let viewHeight: CGFloat = 30
         let viewWidthSmall: CGFloat = (view.frame.width - 20 - 2*spaceBetweenViews) / 3
         let labelMargin: CGFloat = 5
         let labelHeight:CGFloat = 20
@@ -491,23 +491,24 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         //Date label
         let loadingDateView = UIView(frame: CGRect(x: 0, y: viewHeight + 1, width: viewWidthSmall, height: viewHeight))
-        dateView.backgroundColor = UIColor.whiteColor()
+        loadingDateView.backgroundColor = UIColor.whiteColor()
         
-        let loadingDateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingDateView.frame.height/2 - labelHeight/2, width: labelWidth, height: labelHeight))
+        let loadingDateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingDateView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
         loadingDateLabel.text = "Today"
         loadingDateLabel.font = AppThemes.helveticaNeueLight13
         loadingDateLabel.sizeToFit()
-        let loadingCalendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: 3, width: iconHeight, height: iconHeight))
+        let loadingCalendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingDateView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
         loadingCalendarIconImageView.image = UIImage(named: "calendar")
         
-        loadingDateView.addSubview(self.calendarIconImageView)
-        loadingDateView.addSubview(self.dateLabel)
+        loadingDateView.addSubview(loadingCalendarIconImageView)
+        loadingDateView.addSubview(loadingDateLabel)
+        containerViews.addSubview(loadingDateView)
         
         //time label
         let loadingTimeView = UIView(frame: CGRect(x: viewWidthSmall + 1, y: viewHeight + 1, width: viewWidthSmall, height: viewHeight))
         loadingTimeView.backgroundColor = UIColor.whiteColor()
         
-        let loadingTimeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingTimeView.frame.height/2 - labelHeight/2, width: labelWidth, height: labelHeight))
+        let loadingTimeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingTimeView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
         loadingTimeLabel.text = "ASAP"
         loadingTimeLabel.font = AppThemes.helveticaNeueLight13
         loadingTimeLabel.sizeToFit()
@@ -550,6 +551,23 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         loadingTitleView.addSubview(loadingTitleLabel)
         containerViews.addSubview(loadingTitleView)
         
+        //address
+        let loadingAddressView = UIView(frame: CGRect(x: 0, y: viewHeight*2 + 2, width: view.frame.width - 20, height: 44))
+        loadingAddressView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingAddressIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingAddressView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
+        loadingAddressIconImageView.image = UIImage(named: "home")
+        
+        let loadingAddressLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: labelMargin, width: loadingAddressView.frame.width - 2*labelMargin - iconHeight - 3, height: loadingAddressView.frame.height - 2*labelMargin))
+        loadingAddressLabel.text = "569/13 Nguyen An Ninh, Nguyen An Ninh Wd., Vung Tau"
+        loadingAddressLabel.numberOfLines = 2
+        loadingAddressLabel.font = AppThemes.helveticaNeueLight13
+        
+        loadingAddressView.addSubview(loadingAddressIconImageView)
+        loadingAddressView.addSubview(loadingAddressLabel)
+        containerViews.addSubview(loadingAddressView)
+        
+        //add everything to the transparent view
         transparentView.addSubview(containerViews)
     }
     
@@ -776,6 +794,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
                             
                             
                             self.userMarker!.iconView = imageV
+                            self.userMarker?.layer.borderWidth = 10
+                            self.userMarker?.layer.borderColor = UIColor.whiteColor().CGColor
                             
                             
                             

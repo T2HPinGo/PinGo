@@ -5,6 +5,12 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Oswald-Regular.ttf">
+            <string>Oswald-Regular</string>
+            <string>Oswald-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Date Time Picker View Controller-->
         <scene sceneID="KYG-O5-eWL">
@@ -438,6 +444,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="onFilter:" destination="NYf-HS-S9A" id="lLJ-gY-upx"/>
+                                <segue destination="QR3-Rh-Xdb" kind="presentation" id="WHb-WM-dbn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -707,6 +714,129 @@
                 <exit id="92S-iq-slT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2257" y="-417"/>
+        </scene>
+        <!--User Filter View Controller-->
+        <scene sceneID="f4R-M1-C9z">
+            <objects>
+                <viewController storyboardIdentifier="UserFilterViewController" id="QR3-Rh-Xdb" customClass="UserFilterViewController" customModule="PinGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lSc-fx-lM4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fie-ek-aav"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wr4-IC-04z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OvY-Cy-Nyy">
+                                <rect key="frame" x="0.0" y="188" width="320" height="380"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0WH-y7-Kdx">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGc-LE-lsw">
+                                                <rect key="frame" x="80" y="0.0" width="160" height="44"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workers Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZF-fE-deq">
+                                                        <rect key="frame" x="44" y="11" width="116" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBE-fr-DgW">
+                                                        <rect key="frame" x="0.0" y="11" width="39" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="kZF-fE-deq" firstAttribute="leading" secondItem="VBE-fr-DgW" secondAttribute="trailing" constant="5" id="LzM-wV-DVl"/>
+                                                    <constraint firstItem="VBE-fr-DgW" firstAttribute="centerY" secondItem="fGc-LE-lsw" secondAttribute="centerY" id="QxV-O8-i0w"/>
+                                                    <constraint firstItem="VBE-fr-DgW" firstAttribute="leading" secondItem="fGc-LE-lsw" secondAttribute="leading" id="U01-bT-ETh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kZF-fE-deq" secondAttribute="trailing" id="lSu-s3-bci"/>
+                                                    <constraint firstItem="kZF-fE-deq" firstAttribute="centerY" secondItem="fGc-LE-lsw" secondAttribute="centerY" id="zPM-yd-XhT"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbe-wZ-FJd">
+                                                <rect key="frame" x="10" y="3" width="38" height="38"/>
+                                                <fontDescription key="fontDescription" name="Oswald-Regular" family="Oswald" pointSize="17"/>
+                                                <state key="normal" title="Reset">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j41-Pt-pwZ">
+                                                <rect key="frame" x="277" y="4.5" width="33" height="35"/>
+                                                <fontDescription key="fontDescription" name="Oswald-Regular" family="Oswald" pointSize="15"/>
+                                                <state key="normal" title="Apply">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.34509803919999998" green="0.70588235290000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="nbe-wZ-FJd" firstAttribute="leading" secondItem="0WH-y7-Kdx" secondAttribute="leading" constant="10" id="4bO-P3-IAq"/>
+                                            <constraint firstItem="nbe-wZ-FJd" firstAttribute="centerY" secondItem="0WH-y7-Kdx" secondAttribute="centerY" id="Atr-DH-32I"/>
+                                            <constraint firstAttribute="trailing" secondItem="j41-Pt-pwZ" secondAttribute="trailing" constant="10" id="RjF-7h-7L3"/>
+                                            <constraint firstAttribute="height" constant="44" id="don-ct-E2J"/>
+                                            <constraint firstAttribute="bottom" secondItem="fGc-LE-lsw" secondAttribute="bottom" id="e2m-iI-B2X"/>
+                                            <constraint firstItem="j41-Pt-pwZ" firstAttribute="centerY" secondItem="0WH-y7-Kdx" secondAttribute="centerY" id="fvf-Fw-eUu"/>
+                                            <constraint firstItem="fGc-LE-lsw" firstAttribute="top" secondItem="0WH-y7-Kdx" secondAttribute="top" id="q5d-Hw-V5N"/>
+                                            <constraint firstItem="fGc-LE-lsw" firstAttribute="centerX" secondItem="0WH-y7-Kdx" secondAttribute="centerX" id="xgy-pd-0Xg"/>
+                                        </constraints>
+                                    </view>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IU1-Br-EdN">
+                                        <rect key="frame" x="8" y="85" width="304" height="29"/>
+                                        <segments>
+                                            <segment title="&lt; 5 km"/>
+                                            <segment title="&lt; 10 km"/>
+                                            <segment title="&lt; 15 km"/>
+                                            <segment title="&lt; 20 km"/>
+                                            <segment title="Any"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.34509803919999998" green="0.70588235290000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </segmentedControl>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WvH-mT-9re">
+                                        <rect key="frame" x="215" y="136" width="97" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Sb-4d-9dM">
+                                        <rect key="frame" x="15" y="136" width="97" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="0WH-y7-Kdx" firstAttribute="leading" secondItem="OvY-Cy-Nyy" secondAttribute="leading" id="AiR-Rv-fiZ"/>
+                                    <constraint firstAttribute="height" constant="380" id="TZ4-h6-8OS"/>
+                                    <constraint firstAttribute="trailing" secondItem="0WH-y7-Kdx" secondAttribute="trailing" id="UT0-11-egQ"/>
+                                    <constraint firstItem="0WH-y7-Kdx" firstAttribute="top" secondItem="OvY-Cy-Nyy" secondAttribute="top" id="dj0-3w-GOw"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fie-ek-aav" firstAttribute="top" secondItem="OvY-Cy-Nyy" secondAttribute="bottom" id="Nre-Xn-f5z"/>
+                            <constraint firstAttribute="trailing" secondItem="OvY-Cy-Nyy" secondAttribute="trailing" id="bTE-3S-vdS"/>
+                            <constraint firstItem="OvY-Cy-Nyy" firstAttribute="leading" secondItem="Wr4-IC-04z" secondAttribute="leading" id="c4E-d9-22a"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="applyButton" destination="j41-Pt-pwZ" id="5oO-9o-exi"/>
+                        <outlet property="displayView" destination="0WH-y7-Kdx" id="kMu-a1-Rcx"/>
+                        <outlet property="numberOfWorkersFoundLabel" destination="VBE-fr-DgW" id="Git-9j-vLn"/>
+                        <outlet property="popupView" destination="OvY-Cy-Nyy" id="fu9-q8-ZLf"/>
+                        <outlet property="popupViewHeightConstraint" destination="TZ4-h6-8OS" id="whm-GS-i1F"/>
+                        <outlet property="resetButton" destination="nbe-wZ-FJd" id="KEz-wN-kAn"/>
+                        <outlet property="workersFoundLabel" destination="kZF-fE-deq" id="s33-Oc-lwy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Au-Qy-Ce0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2269" y="275"/>
         </scene>
     </scenes>
     <resources>
