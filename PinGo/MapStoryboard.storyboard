@@ -201,9 +201,6 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="WfM-Q7-UEd" appends="YES" id="VSi-Za-kjw"/>
-                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQp-HZ-4j5">
                                 <rect key="frame" x="147" y="238" width="25" height="25"/>
@@ -428,7 +425,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ubb-1N-7cg">
-                        <barButtonItem key="leftBarButtonItem" image="delete_ticket" id="3jY-RL-X1c">
+                        <barButtonItem key="leftBarButtonItem" image="left_arrow" id="3jY-RL-X1c">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="onCancelTicket:" destination="NYf-HS-S9A" id="ddO-lK-330"/>
@@ -455,11 +452,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vC1-Sp-Gzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="PRW-58-cFu" userLabel="Exit" sceneMemberID="exit"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="WfM-Q7-UEd">
-                    <connections>
-                        <action selector="panGestureMap:" destination="NYf-HS-S9A" id="UDo-G9-g7U"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1868" y="275"/>
         </scene>
@@ -967,12 +959,12 @@
     <resources>
         <image name="Electricity" width="12" height="12"/>
         <image name="camera" width="25" height="25"/>
-        <image name="delete_ticket" width="25" height="25"/>
         <image name="dislike" width="84" height="84"/>
         <image name="dog" width="500" height="501"/>
         <image name="filter" width="24" height="24"/>
         <image name="good" width="256" height="256"/>
         <image name="great" width="256" height="256"/>
+        <image name="left_arrow" width="25" height="25"/>
         <image name="plus" width="25" height="25"/>
         <image name="rating" width="256" height="256"/>
         <image name="up" width="25" height="25"/>

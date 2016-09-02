@@ -38,6 +38,7 @@
                     </state>
                     <connections>
                         <action selector="onPick:" destination="tZn-Ns-KGY" eventType="touchUpInside" id="ka9-7x-Ptl"/>
+                        <action selector="onPicked:" destination="tZn-Ns-KGY" eventType="touchUpInside" id="prm-r8-0aJ"/>
                     </connections>
                 </button>
             </subviews>

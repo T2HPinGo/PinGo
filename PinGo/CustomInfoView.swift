@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol CustomInfoViewDelegate {
+    func didPickWorker(string: String)
+}
+
 class CustomInfoView: UIView {
     @IBOutlet weak var workerNameLabel: UILabel!
     
@@ -15,4 +19,7 @@ class CustomInfoView: UIView {
     
     @IBOutlet weak var pickButton: UIButton!
 
+    @IBAction func onPicked(sender: UIButton) {
+        
+    }
 }

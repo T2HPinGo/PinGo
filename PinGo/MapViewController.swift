@@ -42,13 +42,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     //get search results
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController!
-    var resultView: UITextView?
     
     var didFindMyLocation = false
     var placesClient = GMSPlacesClient()
-    var userMarker: GMSMarker?
-    var isFirstTimeUseMap = true
-    var flagCount = 0
+    var userMarker = GMSMarker()
+    //var isFirstTimeUseMap = true
+    //var flagCount = 0
     var location :Location?
     
     var currentCategoryIndex = -1 //store current selected category index, set to -1 to avoid crash no cell has been sellected
@@ -56,6 +55,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var isShowingTableView = false //check if worker list in table view is shown or not
     
     var activityIndicatorView: NVActivityIndicatorView! = nil
+    
+    let randomMessages = ["Being nice to workers makes them work three time as effective",
+                         "Always ask for the worker's ID before let them enter your house",
+                         "The more details you give us, the faster we can help you",
+                         "Be aware that we never ask for your PIN number or any online banking passwords over the phone or via email"]
     
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
@@ -116,12 +120,18 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         
         newTicket = Ticket()
         
+        //check if users have allowed this app to access their current location
+        let authStatus = CLLocationManager.authorizationStatus()
+        if authStatus == CLAuthorizationStatus.NotDetermined {
+            locationManager.requestWhenInUseAuthorization()
+            return
+        } else if authStatus == CLAuthorizationStatus.Denied || authStatus == CLAuthorizationStatus.Restricted {
+            showLocationServicesDeniedAlert()
+            return
+        }
+        
         location = Location()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        //locationManager.distanceFilter = 200
+        startLocationManager() //update location
         
         testView.myLocationEnabled = true
         testView.delegate = self
@@ -132,7 +142,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         searchController?.hidesNavigationBarDuringPresentation = false
-        searchController.delegate = self
+        //searchController.delegate = self
         self.definesPresentationContext = true //// When UISearchController presents the results view, present it in
         // this view controller, not one further up the chain.
         
@@ -153,11 +163,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         roundedButton(findButton)
         roundedButton(tableSlideUpButton)
 
-        self.flagCount = 1
         setupSubView()
-        
-        cancelTicketBarButtonItem.enabled = false
-        
         
         //load worker list
         SocketManager.sharedInstance.getWorkers { (worker, idTicket) in
@@ -171,15 +177,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             }
             //self.updateNumberOfWorkersFound()
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        testView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-//        removeObserver:fromObjectsAtIndexes:forKeyPath:context:
-        testView.removeObserver(self, forKeyPath: "myLocation")
     }
     
     //MARK: - Navigations
@@ -218,32 +215,15 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         button.clipsToBounds = true
     }
     
-    //
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if !didFindMyLocation {
-            //if user hasn't find any location, show current location
-            let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as! CLLocation //find current location
-            
-            testView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 13.0)
-            testView.settings.myLocationButton = true
-            
-            self.location!.longitute = myLocation.coordinate.longitude
-            self.location!.latitude = myLocation.coordinate.latitude
-            
-
-            let position = CLLocationCoordinate2DMake(self.location?.longitute as! Double, self.location?.latitude as! Double)
-            self.userMarker = GMSMarker(position: position)
-            //            self.userMarker!.snippet = "\(self.address)"
-            //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-            self.userMarker!.tracksInfoWindowChanges = true
-            self.userMarker!.map = self.testView
-            
-            self.testView.selectedMarker = self.userMarker
-            self.userMarker!.icon = UIImage(named:"marker")
-            
-            didFindMyLocation = true
-        }
-        
+    func showLocationServicesDeniedAlert() {
+        let alert = UIAlertController(title: "Location Services Disabled",
+                                      message:
+            "Please enable location services for this app in Settings.",
+                                      preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default,
+                                     handler: nil)
+        presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(okAction)
     }
     
     func setupSubView(){
@@ -251,16 +231,15 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         subViews.clipsToBounds = true
         
         //customize search bar
-        let searchBar = searchController?.searchBar
-        let locationAddress = location!.address!
-        searchBar?.placeholder = "\(locationAddress)"
-        searchBar!.sizeToFit()
-        let searchTextField = searchBar!.valueForKey("_searchField") as? UITextField
+        //let searchBar = searchController?.searchBar
+        
+        //searchController?.searchBar.sizeToFit()
+        let searchTextField = searchController.searchBar.valueForKey("_searchField") as? UITextField
         searchTextField?.backgroundColor = UIColor.whiteColor()
         searchTextField?.textColor = AppThemes.appColorTheme
         searchController?.searchBar.barTintColor = UIColor.whiteColor()
         searchController?.searchBar.tintColor = AppThemes.appColorTheme
-        subViews.addSubview(searchBar!)
+        subViews.addSubview(searchController.searchBar)
         
         let iconHeight: CGFloat = 13
         
@@ -447,10 +426,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     func startLoadingIndicator() {
         let transparentView = UIView(frame: UIScreen.mainScreen().bounds)
         transparentView.backgroundColor = UIColor(red: 248.0/255.0, green: 193.0/255.0, blue: 133.0/255.0, alpha: 0.95)
+        //UIColor(red: 88.0/255.0, green: 180.0/255.0, blue: 164.0/255.0, alpha: 0.85)
+        transparentView.restorationIdentifier = "TransparentActivityIndicatorViewContainer"
+        
         
         //set up positin & size for the indicator
         let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.whiteColor(), padding: 80)
+        activityIndicatorView = NVActivityIndicatorView(frame: frame, type: NVActivityIndicatorType.BallScaleMultiple, color: UIColor.whiteColor(), padding: 100)
         activityIndicatorView.transform = CGAffineTransformMakeScale(1, 0.3)
         activityIndicatorView.center = transparentView.center
         activityIndicatorView.hidesWhenStopped = true
@@ -474,8 +456,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         activityIndicatorView.startAnimation()
         
         //add a view that summarize all the ticket information
-        let containerViews = UIView(frame: CGRectMake(0, 0, view.bounds.width - 20, 134.0))
-        containerViews.center = CGPoint(x: transparentView.center.x, y: 200)
+        let containerViews = UIView(frame: CGRectMake(0, 0, view.bounds.width - 20, 106.0))
+        containerViews.center = CGPoint(x: transparentView.center.x, y: view.frame.height - 30 - 35 - 8 - 106/2)
+        //30 is the verticle distance between bottom of the screen and the cancelButotn
+        //35 is the height of cancelButton
+        //8 is the verticle distance of cancelButton and the containerViews
         containerViews.clipsToBounds = true
         
         let iconHeight: CGFloat = 13
@@ -565,33 +550,89 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         loadingAddressView.addSubview(loadingAddressLabel)
         containerViews.addSubview(loadingAddressView)
         
+        //random message label
+        let index = Int(arc4random_uniform(UInt32(randomMessages.count)))
+        let randomMessageLabel = UILabel(frame: CGRect(x: 0, y: 70, width: view.frame.width - 40, height: 30))
+        randomMessageLabel.center.x = transparentView.center.x
+        randomMessageLabel.textAlignment = .Center
+        randomMessageLabel.font = AppThemes.helveticaNeueLight16
+        randomMessageLabel.textColor = UIColor.whiteColor()
+        randomMessageLabel.backgroundColor = UIColor.clearColor()
+        randomMessageLabel.text = randomMessages[index]
+        randomMessageLabel.numberOfLines = 0
+        randomMessageLabel.sizeToFit()
+        transparentView.addSubview(randomMessageLabel)
+        
+        //cancel button
+        let cancelButton = UIButton(frame: CGRect(x: 0, y: view.frame.height - 30 - 35, width: containerViews.frame.width, height: 35))
+        cancelButton.center.x = transparentView.center.x
+        cancelButton.layer.cornerRadius = 5
+        cancelButton.layer.borderWidth = 1
+        cancelButton.layer.borderColor = UIColor.whiteColor().CGColor
+        cancelButton.titleLabel?.textColor = UIColor.whiteColor()
+        cancelButton.setTitle("Cancel", forState: .Normal)
+        cancelButton.addTarget(self, action: #selector(cancelTicket), forControlEvents: .TouchUpInside)
+        transparentView.addSubview(cancelButton)
+        
         //add everything to the transparent view
         transparentView.addSubview(containerViews)
     }
     
-    func buttonTapped(sender: UIButton) {
-        if activityIndicatorView.animating {
-            activityIndicatorView.stopAnimation()
-        } else {
-            activityIndicatorView.startAnimation()
+    func stopLoadingIndicator() {
+        for item in UIApplication.sharedApplication().keyWindow!.subviews
+            where item.restorationIdentifier == "TransparentActivityIndicatorViewContainer" {
+                UIView.animateWithDuration(0.3, animations: {
+                    item.transform = CGAffineTransformMakeScale(0.01, 0.01)
+                    }, completion: { finished in
+                        item.removeFromSuperview()
+                })
         }
     }
     
+    func cancelTicket() {
+        let alert = UIAlertController(title: "Cancel This Ticket", message: "This process can not be undone. Tap OK to proceed", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
+            
+            // Delete this ticket to database and remove it to socket chanel
+            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
+            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                print(response.result)
+                var JSON = self.newTicket.dataJson
+                JSON!["status"] = Status.Cancel.rawValue
+                SocketManager.sharedInstance.pushCategory(JSON!)
+            }
+            
+            self.stopLoadingIndicator()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func stopLocationManager() {
+        locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
+    }
+    
+    func startLocationManager() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locatewithCoordinate(longitude long: NSNumber, latitude lat: NSNumber){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            
+            let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 14)
+            self.testView.camera = camera
+        }
+    }
     
     //MARK: - Actions & Gestures
-    @IBAction func panGestureMap(sender: UIPanGestureRecognizer) {
-        // Absolute (x,y) coordinates in parent view (parentView should be
-        // the parent view of the tray)
-        let point = sender.locationInView(testView)
-        
-        if sender.state == UIGestureRecognizerState.Began {
-            print("Gesture began at: \(point)")
-        } else if sender.state == UIGestureRecognizerState.Changed {
-            print("Gesture changed at: \(point)")
-        } else if sender.state == UIGestureRecognizerState.Ended {
-            print("Gesture ended at: \(point)")
-        }
-    }
     
     func pickTime(gestureRecognizer: UIGestureRecognizer) {
         let storyboard = UIStoryboard(name: "MapStoryboard", bundle: nil)
@@ -713,18 +754,10 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
             
             // Delete this ticket to database and remove it to socket chanel
-            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
-            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
-                print(response.result)
-                var JSON = self.newTicket.dataJson
-                JSON!["status"] = Status.Cancel.rawValue
-                SocketManager.sharedInstance.pushCategory(JSON!)
-                
-                self.dismissViewControllerAnimated(true, completion: nil)
-                //self.navigationController?.popToRootViewControllerAnimated(true)
-            }
-            
+            //self.cancelTicket()
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alert.addAction(okAction)
         alert.addAction(cancelAction)
@@ -733,24 +766,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     }
     
     @IBAction func onFilter(sender: UIBarButtonItem) {
-    }
-    
-    
-    //MARK: - Google Map API
-//    func currentLocation(){
-////            self.locatewithCoordinate(self.currentlocation_long, Latitude: self.currentlocation_latitude, Title: "current location")
-////            let position = CLLocationCoordinate2DMake(self.currentlocation_latitude, self.currentlocation_long)
-//            
-////            self.labelAddress.text = self.location!.address
-//        
-//    }
-
-    func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            
-            let camera = GMSCameraPosition.cameraWithLatitude(lat as Double, longitude: long as Double, zoom: 16)
-            self.testView.camera = camera
-        }
     }
 }
 
@@ -767,17 +782,6 @@ extension MapViewController: GMSMapViewDelegate {
         
         customInfoWindow.pickButton.layer.cornerRadius = 5
         
-        
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 25))
-        button.center.y = customInfoWindow.hourlyRateLabel.center.y
-        button.center.x = customInfoWindow.center.x + 50
-        button.backgroundColor = UIColor.yellowColor()
-        button.setTitle("Tap", forState: .Normal)
-        
-        button.addTarget(self, action: #selector(fakeFunction), forControlEvents: .TouchUpInside)
-        
-        customInfoWindow.addSubview(button)
-        
         return customInfoWindow
     }
     
@@ -785,125 +789,69 @@ extension MapViewController: GMSMapViewDelegate {
         print("I have picked this worker")
     }
     
-    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
-        fakeFunction()
-    }
-    
-    /*
-     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
-     if (flagCount != 1) {
-     self.userMarker!.map = nil
-     self.userMarker = GMSMarker(position: position.target)
-     //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-     self.userMarker!.tracksInfoWindowChanges = true
-     self.userMarker!.map = self.testView
-     self.userMarker!.icon = UIImage(named: "marker")
-     self.testView.selectedMarker = nil
-     //            self.userMarker?.snippet = "\(self.address)"
-     flagCount += 1
-     //            self.labelAddress.text = self.location!.address
-     //            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
-     }
-     }*/
-    
-    
-//    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
-//        if (userMarker != nil && flagCount > 0) {
-//            flagCount = 2
-//            let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
-//            Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
-//                if response.response != nil {
-//                    let json = response.result.value as! NSDictionary
-//                    if let result = json["results"] as? NSArray {
-//                        self.userMarker?.map = nil
-//                        if let address = result[0]["address_components"] as? NSArray {
-//                            let number = address[0]["short_name"] as! String
-//                            let street = address[1]["short_name"] as! String
-//                            let city = address[2]["short_name"] as! String
-//                            let state = address[4]["short_name"] as! String
-//                            //let zip = address[6]["short_name"] as! String
-//                            print("\n\(number) \(street), \(city), \(state)")
-//                            self.location!.address = "\(number) \(street), \(city), \(state)"
-//                            //                        self.labelAddress.text = self.address
-//                            let locationAddressShort = "\(number) \(street), \(city)"
-//                            self.searchController!.searchBar.placeholder = locationAddressShort
-//                            //                        self.labelAddress.text = self.location!.address
-//                            self.userMarker = GMSMarker(position: position.target)
-//                            //                        self.userMarker!.title = "Setup Location"
-//                            //                            self.userMarker!.snippet = "\(self.address)"
-//                            //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-//                            
-//                            
-//                            let imageV = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-//                            imageV.image = UIImage(named: "dog")
-//                            
-//                            let mask = CALayer()
-//                            mask.contents = UIImage(named: "marker")!.CGImage
-//                            mask.contentsGravity = kCAGravityResizeAspect
-//                            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
-//                            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
-//                            mask.position = CGPoint(x: imageV.frame.size.width/2, y: 0)
-//                            
-//                            imageV.layer.mask = mask
-//                            imageV.layer.borderWidth = 5
-//                            imageV.layer.borderColor = AppThemes.appColorTheme.CGColor
-//                            
-//                            
-//                            
-//                            
-//                            
-//                            self.userMarker!.iconView = imageV
-//                            self.userMarker?.layer.borderWidth = 10
-//                            self.userMarker?.layer.borderColor = UIColor.whiteColor().CGColor
-//                            
-//                            
-//                            
-//                            
-//                            self.userMarker!.tracksInfoWindowChanges = true
-//                            self.userMarker!.map = self.testView
-//                            self.testView.selectedMarker = self.userMarker
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
 }
-
-
 
 // MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-//            testView.myLocationEnabled = true
-//            locationManager.startUpdatingLocation()
+            testView.myLocationEnabled = true
+            testView.settings.myLocationButton = true
+            startLocationManager()
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) {
-        print("error location Manager")
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("didFailWithError \(error)")
+        
+        //some core location error
+        //CLError.LocationUnknown - The location is currently unknown, but Core Location will keep trying.
+        //CLError.Denied - The user declined the app to use location services.
+        //CLError.Network - There was a network-related error.
+        
+        if error.code == CLError.LocationUnknown.rawValue {
+            //When get this error, you will simply keep trying until you do find a location or receive a more serious error
+            return
+        }
     }
     
-//    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
-//        print("error location Manager")
-//    }
-    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let userLocation = locations[0]
-//
-//        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-////        currentlocation_latitude = location.latitude
-////        currentlocation_long = location.longitude
-//        location!.latitude = location_default.latitude
-//        location!.longitute = location_default.longitude
-//        
-//        print(location_default)
-//        print(location!)
-    
-        locationManager.stopUpdatingLocation()
+        if let location = locations.last {
+            //use this to get the address of the current location and present it on the search bar
+            let url = NSURL(string: "\(baseUrl)latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(apiKey)")
+            Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
+                if response.response != nil {
+                    let json = response.result.value as! NSDictionary
+                    if let result = json["results"] as? NSArray {
+                        if let address = result[0]["address_components"] as? NSArray {
+                            let number = address[0]["short_name"] as! String
+                            let street = address[1]["short_name"] as! String
+                            let city = address[2]["short_name"] as! String
+                            let state = address[4]["short_name"] as! String
+                            print("\n\(number) \(street), \(city), \(state)")
+                            
+                            //center camera aroung the user current location fisnish updating user/s current location
+                            self.locatewithCoordinate(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
+                            
+                            self.newTicket.location?.address = "\(number) \(street), \(city), \(state)"
+                            self.newTicket.location?.latitude = location.coordinate.latitude
+                            self.newTicket.location?.longitute = location.coordinate.longitude
+                            
+                            //present the current address on the search bar
+                            self.searchController!.searchBar.text = self.newTicket.location?.address
+                            
+                            let position = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+                            self.userMarker = GMSMarker(position: position)
+                            self.userMarker.icon = UIImage(named: "marker_small")
+                            self.userMarker.map = self.testView
+                        }
+                    }
+                }
+            }
+        }
+        
+        stopLocationManager()
     }
 }
 
@@ -911,14 +859,43 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWithPlace place: GMSPlace) {
-        searchController?.active = false
-        // Do something with the selected place.
-        print("Place name: ", place.name)
-        print("Place address: ", place.formattedAddress!)
-        print("Place attributions: ", place.attributions)
+        testView.clear() //clear all previous marker before adding new marker
         
-        locatewithCoordinate(place.coordinate.longitude, Latitude: place.coordinate.latitude, Title: place.formattedAddress!)
-        self.searchController?.searchBar.placeholder = place.name
+        //fake data
+        for location in locations {
+            let marker = GMSMarker(position: location.coordinate)
+            marker.map = testView
+            //marker.icon = UIImage(named: "marker")
+            marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
+            //marker.accessibilityLabel = "\(i)" //tag the marker with a referrence for later use
+            
+            let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            croppedImageView.image = UIImage(named: "dog")
+            let mask = CALayer()
+            mask.contents = UIImage(named: "ic_marker_b")!.CGImage
+            mask.contentsGravity = kCAGravityResizeAspect
+            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
+            mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
+            
+            croppedImageView.layer.mask = mask
+            marker.iconView = croppedImageView
+        }
+        searchController?.active = false
+        
+        locatewithCoordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
+        self.searchController?.searchBar.text = place.formattedAddress
+        
+        //add marker
+        let position = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+        userMarker = GMSMarker(position: position)
+        userMarker.icon = UIImage(named: "marker_small")
+        userMarker.map = testView
+        
+        //assign the ticket location to the address found
+        newTicket.location?.address = place.formattedAddress
+        newTicket.location?.latitude = place.coordinate.latitude
+        newTicket.location?.longitute = place.coordinate.longitude
     }
     
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
