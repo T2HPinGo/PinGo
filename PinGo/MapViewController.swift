@@ -117,6 +117,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             marker.iconView = croppedImageView
         }
         
+        //logo Pingo on the navigation bar
+        let logo = UIImage(named: "PinGo_text")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+        imageView.contentMode = .ScaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.image = logo
+        self.navigationItem.titleView = imageView
+        
         
         newTicket = Ticket()
         
@@ -173,7 +181,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             self.workerList.append(worker)
             self.tableView.reloadData()
             if self.workerList.count > 0 {
-                self.stopActivityAnimating()
+                self.stopLoadingIndicator()
             }
             //self.updateNumberOfWorkersFound()
         }
@@ -182,6 +190,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     //MARK: - Navigations
     @IBAction func unwindFromDateTimePicker(segue: UIStoryboardSegue) {
         if let dateTimePickerViewController = segue.sourceViewController as? DateTimePickerViewController {
+            //chosen date
             if let chosenDate = dateTimePickerViewController.chosenDate {
                 self.dateLabel.text = getStringFromDate(chosenDate, withFormat: DateStringFormat.DD_MMM_YYYY)
                 self.dateLabel.sizeToFit()
@@ -189,6 +198,16 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 newTicket?.dateCreated = chosenDate
             } else {
                 self.dateLabel.text = "Today"
+            }
+            
+            //chosen time
+            if let chosenTime = dateTimePickerViewController.chosenTime {
+                self.timeLabel.text = getStringFromDate(chosenTime, withFormat: DateStringFormat.HH_mm)
+                self.timeLabel.sizeToFit()
+                
+                //newTicket?.dateCreated = chosenDate
+            } else {
+                self.dateLabel.text = "ASAP"
             }
         }
     }
@@ -713,8 +732,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             alert.addAction(action)
             presentViewController(alert, animated: true, completion: nil)
         } else {
-            //cancelTicketBarButtonItem.enabled = false //enable the cancel ticket button when the ticket is already push to server
-            //self.startLoadingAnimation()
             startLoadingIndicator()
             
             newTicket?.category = categoryLabel.text!
@@ -732,14 +749,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                     let JSONobj = JSON!["data"]! as! [String : AnyObject]
                     self.newTicket = Ticket(data: JSONobj)
                     SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
-                    
-                    
-                    
 
-                    //self.stopActivityAnimating()
+                    self.stopLoadingIndicator()
                 } else {
                     //return an error message if cannot send request to server
-                    self.stopActivityAnimating()
+                    self.stopLoadingIndicator()
                     let alertController = UIAlertController(title: "Error", message: "Cannot push data to server. This could be due to internet connection. Please try again later", preferredStyle: .Alert)
                     let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
                     alertController.addAction(action)
@@ -974,15 +988,5 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate {
 extension MapViewController: UISearchControllerDelegate {
     func willPresentSearchController(searchController: UISearchController) {
         adjustViewsWhenFinishChoosingCategory()
-    }
-}
-
-//MARK: EXTENSION: NVActivityIndicator - Loading Wheel Effect
-extension MapViewController: NVActivityIndicatorViewable {
-    
-    func startLoadingAnimation() {
-        let size = CGSize(width: 30, height:30)
-        
-        startActivityAnimating(size, message: nil, type: .BallTrianglePath)
     }
 }
