@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class WorkerHomeMapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     
@@ -20,26 +20,18 @@ class WorkerHomeMapViewController: UIViewController {
     var tickets: [Ticket] = []
     
     var isShowingTableView = false //check if user list in table view is shown or not
-
+    
     @IBOutlet weak var tableSlideUpButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //location = Location()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableViewHeightConstraint.constant = (view.frame.height - 69 - 49) / 2
-        tableView.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) //add the start stage for table View
-        tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) ////add the start stage for tableViewSlideUpButton
-        
+        initLocation()
+        initTableView()
         setupSubAppearance()
+        initOpacityBarView()
+        loadDataFromAPI()
         initSocket()
+        
     }
     
     //MARK: - Actions
@@ -85,7 +77,7 @@ class WorkerHomeMapViewController: UIViewController {
                     self.isShowingTableView = !self.isShowingTableView
             })
         }
-
+        
     }
     
     
@@ -94,6 +86,91 @@ class WorkerHomeMapViewController: UIViewController {
         
     }
     
+    // MARK: - Navigation
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "TicketDetailSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let ticketDetailViewController = segue.destinationViewController as! DetailTicketViewController
+                //let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
+                ticketDetailViewController.ticket = tickets[indexPath.row]
+                
+            }
+        }
+        
+    }
+    // MARK: initOpacityBarView
+    func initOpacityBarView(){
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.translucent = true
+    }
+    
+}
+//MARK: - UITableViewDataSource, UITableViewDelegate
+extension WorkerHomeMapViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tickets.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TicketWorkerCell", forIndexPath: indexPath) as! TicketWorkerCell
+        let ticket = tickets[indexPath.row]
+        cell.ticket = ticket
+        return cell
+    }
+    
+    func initTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 162
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableViewHeightConstraint.constant = (view.frame.height - 69 - 49) / 2
+        tableView.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) //add the start stage for table View
+        tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) ////add the start stage for tableViewSlideUpButton
+        
+    }
+}
+
+
+// MARK: Location Manager
+extension WorkerHomeMapViewController: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            mapView.myLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error location Manager")
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        locationManager.stopUpdatingLocation()
+        
+        //center camera around
+        let camera = GMSCameraPosition.cameraWithTarget(locations[0].coordinate, zoom: 14)
+        self.mapView.camera = camera
+        
+        //add marker
+        marker = GMSMarker(position: locations[0].coordinate)
+        marker?.icon = UIImage(named: "marker")
+        marker?.map = self.mapView
+    }
+    func initLocation() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+}
+// MARK - Socket
+extension WorkerHomeMapViewController {
     func initSocket() {
         SocketManager.sharedInstance.getTicket { (ticket) in
             // Check category of ticket
@@ -154,68 +231,26 @@ class WorkerHomeMapViewController: UIViewController {
             
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
-//MARK: - UITableViewDataSource, UITableViewDelegate
-extension WorkerHomeMapViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5//workerList.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("WorkerDetailCell", forIndexPath: indexPath) as! WorkerDetailCell
-        
-//        cell.worker = workerList[indexPath.row]
-//        cell.ticket = newTicket!
-//        cell.mapViewController = self
-        
-        cell.workerNameLabel.text = "Puppy Ass"
-        cell.workerRatingLabel.text = "4.5/5.0"
-        cell.workerHourlyRateLabel.text = "$8000"
-        return cell
-    }
-    
-}
-
-
-
-
-extension WorkerHomeMapViewController: CLLocationManagerDelegate {
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-            mapView.myLocationEnabled = true
-            mapView.settings.myLocationButton = true
+// MARK: Load data from API
+extension WorkerHomeMapViewController {
+    func loadDataFromAPI(){
+        var parameters = [String : AnyObject]()
+        parameters["status"] = "Pending"
+        parameters["category"] = Worker.currentUser?.category
+        parameters["idWorker"] = Worker.currentUser?.id
+        Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticketOnCategory", parameters: parameters).responseJSON { response  in
+            print("ListTicketController ---")
+            print("\(response.result.value)")
+            let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
+            for JSONItem in JSONArrays {
+                let ticket = Ticket(data: JSONItem)
+                if ticket.status != Status.Approved {
+                    self.tickets.append(ticket)
+                }
+                
+            }
+            self.tableView.reloadData()
         }
-    }
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("error location Manager")
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        locationManager.stopUpdatingLocation()
-        
-        //center camera around
-        let camera = GMSCameraPosition.cameraWithTarget(locations[0].coordinate, zoom: 14)
-        self.mapView.camera = camera
-        
-        //add marker
-        marker = GMSMarker(position: locations[0].coordinate)
-        marker?.icon = UIImage(named: "marker")
-        marker?.map = self.mapView
-        
     }
 }

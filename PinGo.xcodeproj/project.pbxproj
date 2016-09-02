@@ -97,6 +97,7 @@
 		B04E73FE1D6991E800751D4C /* HistoryTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */; };
 		B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */; };
 		B093A68A1D77F1CE00AE6925 /* DetailTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */; };
+		B093A68C1D7946EA00AE6925 /* TicketWorkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B093A68B1D7946EA00AE6925 /* TicketWorkerCell.swift */; };
 		B0B3A89F1D5FAA0C009A177D /* ImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */; };
 		B0B3A8A21D5FAAC3009A177D /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */; };
 		B0B3A8A51D5FACAB009A177D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3A8A41D5FACAB009A177D /* Constants.swift */; };
@@ -216,6 +217,7 @@
 		B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTicketCell.swift; sourceTree = "<group>"; };
 		B0861E8C1D66D9C1002B2C7D /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTicketViewController.swift; sourceTree = "<group>"; };
+		B093A68B1D7946EA00AE6925 /* TicketWorkerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketWorkerCell.swift; sourceTree = "<group>"; };
 		B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResource.swift; sourceTree = "<group>"; };
 		B0B3A8A11D5FAAC3009A177D /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		B0B3A8A41D5FACAB009A177D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				E7CB13801D5DEECD00BA5AA4 /* PaymentCell.swift */,
 				21A6F9851D69A78400AA2EBF /* TicketImageCell.swift */,
 				B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */,
+				B093A68B1D7946EA00AE6925 /* TicketWorkerCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -765,6 +768,7 @@
 				21FEDDD51D526F7A00AF58EF /* UserProfileViewController.swift in Sources */,
 				21F9E6FC1D58F2D2002D9DF6 /* Notes.swift in Sources */,
 				21F9E7041D5901F3002D9DF6 /* TicketRatingViewController.swift in Sources */,
+				B093A68C1D7946EA00AE6925 /* TicketWorkerCell.swift in Sources */,
 				21B3A10B1D56DF1700C1CE9E /* UITextField+fixCaretPosition.swift in Sources */,
 				B04E73FE1D6991E800751D4C /* HistoryTicketCell.swift in Sources */,
 				21FAD0671D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallClipRotate.swift in Sources */,
