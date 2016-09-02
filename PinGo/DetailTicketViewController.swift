@@ -46,11 +46,16 @@ class DetailTicketViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         uploadDataToView()
-        initOpacityBarView()
-        AppThemes.configViewGradientAppBarColor(viewImageOne)
-        initViewImageActions()
+        viewImageOne.layer.cornerRadius = 5
+        viewImageTwo.layer.cornerRadius = 5
+        viewImageThree.layer.cornerRadius = 5
+       
     }
-    
+    override func viewDidAppear(animated: Bool) {
+        initOpacityBarView()
+        initViewImageActions()
+        AppThemes.configViewGradientAppBarColor(viewImageOne)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -100,27 +105,33 @@ extension DetailTicketViewController {
             let imageTicket = ticket?.imageOne?.imageUrl!
             HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewOne)
             imageViewOne.layer.cornerRadius = 5
+            imageViewOne.clipsToBounds = true
         } else {
             imageViewOne.image = UIImage(named: "no_image")
             imageViewOne.layer.cornerRadius = 5
+            imageViewOne.clipsToBounds = true
         }
         
         if ticket?.imageTwo?.imageUrl! != "" {
             let imageTicket = ticket?.imageOne?.imageUrl!
             HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewTwo)
             imageViewTwo.layer.cornerRadius = 5
+            imageViewTwo.clipsToBounds = true
         } else {
             imageViewTwo.image = UIImage(named: "no_image")
             imageViewTwo.layer.cornerRadius = 5
+            imageViewTwo.clipsToBounds = true
         }
         
         if ticket?.imageThree?.imageUrl! != "" {
             let imageTicket = ticket?.imageOne?.imageUrl!
             HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewThree)
             imageViewThree.layer.cornerRadius = 5
+            imageViewThree.clipsToBounds = true
         } else {
             imageViewThree.image = UIImage(named: "no_image")
             imageViewThree.layer.cornerRadius = 5
+            imageViewThree.clipsToBounds = true
         }
         
         
@@ -130,12 +141,6 @@ extension DetailTicketViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = true
-    }
-    // MARK: initgradientChoosenView
-    func initGradientViewButtons() {
-        AppThemes.configViewGradientAppBarColor(viewImageOne)
-        AppThemes.configViewGradientAppBarColor(viewImageTwo)
-        AppThemes.configViewGradientAppBarColor(viewImageThree)
     }
     // MARK: declare ViewActions
     func viewImageOneAction(sender: AnyObject){
