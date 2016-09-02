@@ -15,15 +15,28 @@ class UserFilterViewController: UIViewController {
     @IBOutlet weak var popupViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var displayView: UIView!
-    @IBOutlet weak var displayedDateLabel: UILabel!
-    @IBOutlet weak var displayedTimeLabel: UILabel!
+    @IBOutlet weak var workersFoundLabel: UILabel!
+    @IBOutlet weak var numberOfWorkersFoundLabel: UILabel!
     
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     
-    @IBOutlet weak var workersFoundLabel: UILabel!
+    @IBOutlet weak var distanceSegmentControll: UISegmentedControl!
     
-    @IBOutlet weak var numberOfWorkersFoundLabel: UILabel!
+    @IBOutlet weak var priceFromTextField: UITextField!
+    @IBOutlet weak var priceToTextField: UITextField!
+    
+    @IBOutlet weak var ratingStackView: UIStackView!
+    @IBOutlet weak var badButton: UIButton!
+    @IBOutlet weak var normalButton: UIButton!
+    @IBOutlet weak var goodButton: UIButton!
+    @IBOutlet weak var greatBUtton: UIButton!
+    
+    var workerList: [Worker] = []
+    
+    struct NSUserDefaultKeys {
+        static let tipControlSegmentIndex = "TipControlSegmentIndex"
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -36,14 +49,43 @@ class UserFilterViewController: UIViewController {
         super.viewDidLoad()
         
         setupAppearance()
+        updateDisplayedLabels()
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        
+        
+        distanceSegmentControll.selectedSegmentIndex = userDefaults.integerForKey(NSUserDefaultKeys.tipControlSegmentIndex)
         
         //add gesture so user can close the popup by tapping out side the popup view
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
-        gestureRecognizer.cancelsTouchesInView = false
-        gestureRecognizer.delegate = self //if dont add this line, it's just going to dismiss the popup anywhere user taps
-        view.addGestureRecognizer(gestureRecognizer)
+        let closePopupGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
+        closePopupGestureRecognizer.cancelsTouchesInView = false
+        closePopupGestureRecognizer.delegate = self //if dont add this line, it's just going to dismiss the popup anywhere user taps
+        view.addGestureRecognizer(closePopupGestureRecognizer)
         
+        //dismiss keyboard when user tap anywhere inside the popup view
+        let dismissKeyboardGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        popupView.addGestureRecognizer(dismissKeyboardGestureRecognizer)
         
+        //add a button on top of the keyboard to dismiss the keyboard when tapped
+        let customView = UIView(frame: CGRectMake(0, 0, view.frame.width, 30))
+        let dismissKeyboardButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        dismissKeyboardButton.center = customView.center
+        dismissKeyboardButton.setImage(UIImage(named: "keyboard"), forState: .Normal)
+        dismissKeyboardButton.addTarget(self, action: #selector(dismissKeyboard), forControlEvents: .TouchUpInside)
+        customView.addSubview(dismissKeyboardButton)
+        customView.backgroundColor = UIColor.lightGrayColor()
+        priceFromTextField.inputAccessoryView = customView
+        priceToTextField.inputAccessoryView = customView
+        
+        //make the view slide up/down when keyboard presents
+        let notification = NSNotificationCenter.defaultCenter()
+        notification.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        notification.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func close() {
@@ -63,11 +105,63 @@ class UserFilterViewController: UIViewController {
         
         workersFoundLabel.textColor = UIColor.grayColor()
         workersFoundLabel.font = AppThemes.oswaldRegular17
-        
-        
     }
     
+    //MARK: - Helpers
+    func updateDisplayedLabels() {
+        switch workerList.count {
+        case 0:
+            numberOfWorkersFoundLabel.text = "No"
+            workersFoundLabel.text = "Worker Found"
+        case 1:
+            numberOfWorkersFoundLabel.text = "1"
+            workersFoundLabel.text = "Worker Found"
+        default:
+            numberOfWorkersFoundLabel.text = "\(workerList.count)"
+        }
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        print(keyboardSize.height)
+        
+        
+        
+        //add this if statement to avoid the view slide up twice when user tap on one textField when another is still active
+        if self.view.frame.origin.y == 0 {
+            if keyboardSize.height > popupViewHeightConstraint.constant - 206 {
+                //if the board obstructs the textfield the move the view up, otherwise do nothing
+                UIView.animateWithDuration(0.4, animations: {
+                    self.view.frame.origin.y -= (keyboardSize.height - (self.popupViewHeightConstraint.constant - 206)) //206 is the distance from the top of the popupView to the bottom of the container view that contains two textfield
+                })
+            }
+            
+        } else {
+            return
+        }
+    }
+    
+    func keyboardWillHide(sender: NSNotification) {
+        UIView.animateWithDuration(0.4, animations: {
+            self.view.frame.origin.y = 0
+        })
+
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
     //MARK: - Actions
+    @IBAction func onDistanceSegmentControl(sender: UISegmentedControl) {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setInteger(sender.selectedSegmentIndex, forKey: NSUserDefaultKeys.tipControlSegmentIndex)
+        userDefaults.synchronize()
+    }
+    
+    
+    
 }
 
 
