@@ -25,6 +25,8 @@
 		21434C421D55ACE300B31122 /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C411D55ACE300B31122 /* Worker.swift */; };
 		21434C441D55AEE600B31122 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C431D55AEE600B31122 /* Ticket.swift */; };
 		21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C451D55AF2F00B31122 /* TicketCategory.swift */; };
+		21568A481D793400001B6D34 /* CustomInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21568A471D793400001B6D34 /* CustomInfoView.xib */; };
+		21568A4A1D794899001B6D34 /* CustomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21568A491D794899001B6D34 /* CustomInfoView.swift */; };
 		219D49DF1D50B62E006B5ADE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219D49DE1D50B62E006B5ADE /* AppDelegate.swift */; };
 		219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E21D50B62E006B5ADE /* Main.storyboard */; };
 		219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E51D50B62E006B5ADE /* Assets.xcassets */; };
@@ -140,6 +142,8 @@
 		21434C411D55ACE300B31122 /* Worker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
 		21434C431D55AEE600B31122 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		21434C451D55AF2F00B31122 /* TicketCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategory.swift; sourceTree = "<group>"; };
+		21568A471D793400001B6D34 /* CustomInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomInfoView.xib; sourceTree = "<group>"; };
+		21568A491D794899001B6D34 /* CustomInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoView.swift; sourceTree = "<group>"; };
 		219D49DB1D50B62E006B5ADE /* PinGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		219D49DE1D50B62E006B5ADE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		219D49E31D50B62E006B5ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -394,6 +398,8 @@
 				21434C381D55AB1B00B31122 /* AppUltility.swift */,
 				21B3A1021D561CC700C1CE9E /* AppThemes.swift */,
 				21F9E6FB1D58F2D2002D9DF6 /* Notes.swift */,
+				21568A471D793400001B6D34 /* CustomInfoView.xib */,
+				21568A491D794899001B6D34 /* CustomInfoView.swift */,
 				213D284A1D64D941009A06D8 /* NothingFoundCell.xib */,
 				E71389DB1D6B0D0F00FA84D0 /* forfacebook.m */,
 			);
@@ -586,6 +592,7 @@
 				21008E861D71C4AD008332EC /* HelveticaNeueLTStd-Lt.ttf in Resources */,
 				21008E871D71C4AD008332EC /* HelveticaNeueLTStd-LtEx.ttf in Resources */,
 				E7EBFA081D5C8F8400C1FEB8 /* MapStoryboard.storyboard in Resources */,
+				21568A481D793400001B6D34 /* CustomInfoView.xib in Resources */,
 				B04E73FC1D6968FA00751D4C /* UserAndWorkerProfile.storyboard in Resources */,
 				E7CB13791D5DC51500BA5AA4 /* EditUserProfile.storyboard in Resources */,
 				B0FC11B11D618CBB00F34FDC /* Worker.storyboard in Resources */,
@@ -747,6 +754,7 @@
 				21FAD0661D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				21FAD07C1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				21FC6A771D5A5C5700819090 /* T2HGradientView.swift in Sources */,
+				21568A4A1D794899001B6D34 /* CustomInfoView.swift in Sources */,
 				21B3A1051D562C3800C1CE9E /* CreateTicketViewController.swift in Sources */,
 				21FAD06C1D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallPulse.swift in Sources */,
 				2130A14E1D51191C00B37C98 /* HomeTimelineViewController.swift in Sources */,

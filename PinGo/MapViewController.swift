@@ -12,7 +12,7 @@ import GoogleMaps
 import Alamofire
 import CoreLocation
 
-class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDelegate {
+class MapViewController: UIViewController, UISearchDisplayDelegate {
     //MARK: - Outlets and Variables
     @IBOutlet weak var testView: GMSMapView!
     
@@ -29,7 +29,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     
     @IBOutlet weak var filterBatButtonItem: UIBarButtonItem!
     
-    
+    //Fake
     var locations:[CLLocation] = [CLLocation]()
     
     var newTicket: Ticket!
@@ -81,25 +81,37 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
     var detailLabel: UILabel!
     var detailIconImageView: UIImageView!
     
-//    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//        view.backgroundColor = UIColor.redColor()
-//        
-//        return view
-//    }
-    
     //MARK: - Load Views
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Fake locations
-        
         let fakeLocation = CLLocation(latitude: 51.507351, longitude: -0.127758)
         let fakeLocation2 = CLLocation(latitude: 51.499737, longitude: -0.141792)
         let fakeLocation3 = CLLocation(latitude: 51.506789, longitude: -0.163593)
         let fakeLocation4 = CLLocation(latitude: 51.512879, longitude: -0.129433)
-        
         locations = [fakeLocation, fakeLocation2, fakeLocation3, fakeLocation4]
+        
+        //MARK: - Fake markers
+        for location in locations {
+            let marker = GMSMarker(position: location.coordinate)
+            marker.map = testView
+            //marker.icon = UIImage(named: "marker")
+            marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
+            //marker.accessibilityLabel = "\(i)" //tag the marker with a referrence for later use
+            
+            let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            croppedImageView.image = UIImage(named: "dog")
+            let mask = CALayer()
+            mask.contents = UIImage(named: "ic_marker_b")!.CGImage
+            mask.contentsGravity = kCAGravityResizeAspect
+            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
+            mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
+            
+            croppedImageView.layer.mask = mask
+            marker.iconView = croppedImageView
+        }
         
         
         newTicket = Ticket()
@@ -113,14 +125,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         
         testView.myLocationEnabled = true
         testView.delegate = self
-        
-        //Fake markers
-        for location in locations {
-            let marker = GMSMarker(position: location.coordinate)
-            
-            marker.title = location.description
-            marker.map = testView
-        }
         
         resultsViewController = GMSAutocompleteResultsViewController()
         resultsViewController?.delegate = self
@@ -297,7 +301,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         dateLabel.font = AppThemes.helveticaNeueLight13
         dateLabel.sizeToFit()
         
-        
         timeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: dateView.frame.height - labelMargin - dateLabel.frame.height, width: labelWidth, height: labelHeight))
         timeLabel.text = "ASAP"
         timeLabel.font = AppThemes.helveticaNeueLight13
@@ -314,7 +317,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         dateView.addSubview(self.dateLabel)
         dateView.addSubview(self.timeLabel)
         subViews.addSubview(self.dateView)
-        
         
         //Payment
         paymentView = UIView(frame: CGRect(x: 2*viewWidthSmall + 2*spaceBetweenViews, y: 45, width: viewWidthSmall, height: viewHeight))
@@ -420,7 +422,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         parameters["nameOfWorker"] = (ticket.worker?.username)!
         parameters["phoneOfWorker"] = (ticket.worker?.phoneNumber)!
         parameters["imageWorkerUrl"] = (ticket.worker?.profileImage!.imageUrl)!
-        //parameters["urgent"] = (ticket.urgent)!
         parameters["width"] = 400
         parameters["height"] = 300
         parameters["widthOfProfile"] = 60
@@ -472,16 +473,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         UIApplication.sharedApplication().keyWindow!.addSubview(transparentView)
         activityIndicatorView.startAnimation()
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //
+        //add a view that summarize all the ticket information
         let containerViews = UIView(frame: CGRectMake(0, 0, view.bounds.width - 20, 134.0))
         containerViews.center = CGPoint(x: transparentView.center.x, y: 200)
         containerViews.clipsToBounds = true
@@ -752,87 +744,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
 ////            self.labelAddress.text = self.location!.address
 //        
 //    }
-    
-    /*
-    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
-        if (userMarker != nil && flagCount > 0) {
-            flagCount = 2
-            let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
-            Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
-                if response.response != nil {
-                    let json = response.result.value as! NSDictionary
-                    if let result = json["results"] as? NSArray {
-                        self.userMarker?.map = nil
-                        if let address = result[0]["address_components"] as? NSArray {
-                            let number = address[0]["short_name"] as! String
-                            let street = address[1]["short_name"] as! String
-                            let city = address[2]["short_name"] as! String
-                            let state = address[4]["short_name"] as! String
-                            //let zip = address[6]["short_name"] as! String
-                            print("\n\(number) \(street), \(city), \(state)")
-                            self.location!.address = "\(number) \(street), \(city), \(state)"
-                            //                        self.labelAddress.text = self.address
-                            let locationAddressShort = "\(number) \(street), \(city)"
-                            self.searchController!.searchBar.placeholder = locationAddressShort
-                            //                        self.labelAddress.text = self.location!.address
-                            self.userMarker = GMSMarker(position: position.target)
-                            //                        self.userMarker!.title = "Setup Location"
-                            //                            self.userMarker!.snippet = "\(self.address)"
-                            //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-                            
-                            
-                            let imageV = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                            imageV.image = UIImage(named: "dog")
-                            
-                            let mask = CALayer()
-                            mask.contents = UIImage(named: "marker")!.CGImage
-                            mask.contentsGravity = kCAGravityResizeAspect
-                            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
-                            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
-                            mask.position = CGPoint(x: imageV.frame.size.width/2, y: 0)
-                            
-                            imageV.layer.mask = mask
-                            imageV.layer.borderWidth = 5
-                            imageV.layer.borderColor = AppThemes.appColorTheme.CGColor
-                            
-                            
-                            
-                            
-                            
-                            self.userMarker!.iconView = imageV
-                            self.userMarker?.layer.borderWidth = 10
-                            self.userMarker?.layer.borderColor = UIColor.whiteColor().CGColor
-                            
-                            
-                            
-
-                            self.userMarker!.tracksInfoWindowChanges = true
-                            self.userMarker!.map = self.testView
-                            self.testView.selectedMarker = self.userMarker
-                            
-                        }
-                    }
-                }
-            }
-        }
-    }*/
-    
-    /*
-    func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
-        if (flagCount != 1) {
-            self.userMarker!.map = nil
-            self.userMarker = GMSMarker(position: position.target)
-//            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
-            self.userMarker!.tracksInfoWindowChanges = true
-            self.userMarker!.map = self.testView
-            self.userMarker!.icon = UIImage(named: "marker")
-            self.testView.selectedMarker = nil
-//            self.userMarker?.snippet = "\(self.address)"
-            flagCount += 1
-//            self.labelAddress.text = self.location!.address
-//            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
-        }
-    }*/
 
     func locatewithCoordinate (long: NSNumber, Latitude lat: NSNumber, Title title:String ){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -842,6 +753,124 @@ class MapViewController: UIViewController, UISearchDisplayDelegate, GMSMapViewDe
         }
     }
 }
+
+//MARK: - EXTENSION: GMSMapViewDelagate
+extension MapViewController: GMSMapViewDelegate {
+    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        //let index:Int! = Int(marker.accessibilityLabel!)
+
+        let customInfoWindow = NSBundle.mainBundle().loadNibNamed("CustomInfoView", owner: self, options: nil)[0] as! CustomInfoView
+        customInfoWindow.workerNameLabel.text = "Hien Tran"
+        customInfoWindow.hourlyRateLabel.text = "$10000"
+        customInfoWindow.layer.borderWidth = 1
+        customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor
+        
+        customInfoWindow.pickButton.layer.cornerRadius = 5
+        
+        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 25))
+        button.center.y = customInfoWindow.hourlyRateLabel.center.y
+        button.center.x = customInfoWindow.center.x + 50
+        button.backgroundColor = UIColor.yellowColor()
+        button.setTitle("Tap", forState: .Normal)
+        
+        button.addTarget(self, action: #selector(fakeFunction), forControlEvents: .TouchUpInside)
+        
+        customInfoWindow.addSubview(button)
+        
+        return customInfoWindow
+    }
+    
+    func fakeFunction() {
+        print("I have picked this worker")
+    }
+    
+    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
+        fakeFunction()
+    }
+    
+    /*
+     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
+     if (flagCount != 1) {
+     self.userMarker!.map = nil
+     self.userMarker = GMSMarker(position: position.target)
+     //            self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+     self.userMarker!.tracksInfoWindowChanges = true
+     self.userMarker!.map = self.testView
+     self.userMarker!.icon = UIImage(named: "marker")
+     self.testView.selectedMarker = nil
+     //            self.userMarker?.snippet = "\(self.address)"
+     flagCount += 1
+     //            self.labelAddress.text = self.location!.address
+     //            UINavigationBar.appearance().barTintColor = UIColor.clearColor()
+     }
+     }*/
+    
+    
+//    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
+//        if (userMarker != nil && flagCount > 0) {
+//            flagCount = 2
+//            let url = NSURL(string: "\(baseUrl)latlng=\(position.target.latitude),\(position.target.longitude)&key=\(apiKey)")
+//            Alamofire.request(.GET, url!, parameters: nil).responseJSON { response  in
+//                if response.response != nil {
+//                    let json = response.result.value as! NSDictionary
+//                    if let result = json["results"] as? NSArray {
+//                        self.userMarker?.map = nil
+//                        if let address = result[0]["address_components"] as? NSArray {
+//                            let number = address[0]["short_name"] as! String
+//                            let street = address[1]["short_name"] as! String
+//                            let city = address[2]["short_name"] as! String
+//                            let state = address[4]["short_name"] as! String
+//                            //let zip = address[6]["short_name"] as! String
+//                            print("\n\(number) \(street), \(city), \(state)")
+//                            self.location!.address = "\(number) \(street), \(city), \(state)"
+//                            //                        self.labelAddress.text = self.address
+//                            let locationAddressShort = "\(number) \(street), \(city)"
+//                            self.searchController!.searchBar.placeholder = locationAddressShort
+//                            //                        self.labelAddress.text = self.location!.address
+//                            self.userMarker = GMSMarker(position: position.target)
+//                            //                        self.userMarker!.title = "Setup Location"
+//                            //                            self.userMarker!.snippet = "\(self.address)"
+//                            //                        self.userMarker!.icon = GMSMarker.markerImageWithColor(UIColor.blueColor())
+//                            
+//                            
+//                            let imageV = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+//                            imageV.image = UIImage(named: "dog")
+//                            
+//                            let mask = CALayer()
+//                            mask.contents = UIImage(named: "marker")!.CGImage
+//                            mask.contentsGravity = kCAGravityResizeAspect
+//                            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+//                            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
+//                            mask.position = CGPoint(x: imageV.frame.size.width/2, y: 0)
+//                            
+//                            imageV.layer.mask = mask
+//                            imageV.layer.borderWidth = 5
+//                            imageV.layer.borderColor = AppThemes.appColorTheme.CGColor
+//                            
+//                            
+//                            
+//                            
+//                            
+//                            self.userMarker!.iconView = imageV
+//                            self.userMarker?.layer.borderWidth = 10
+//                            self.userMarker?.layer.borderColor = UIColor.whiteColor().CGColor
+//                            
+//                            
+//                            
+//                            
+//                            self.userMarker!.tracksInfoWindowChanges = true
+//                            self.userMarker!.map = self.testView
+//                            self.testView.selectedMarker = self.userMarker
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+}
+
 
 
 // MARK: - CLLocationManagerDelegate
@@ -864,7 +893,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        let userLocation = locations[0]
-//        
+//
 //        let location_default = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
 ////        currentlocation_latitude = location.latitude
 ////        currentlocation_long = location.longitude
@@ -878,6 +907,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
+//MARK: - EXTENSION: Auto Complete Delegate
 extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWithPlace place: GMSPlace) {
@@ -945,7 +975,7 @@ extension MapViewController: UICollectionViewDataSource, UICollectionViewDelegat
     }
 }
 
-// MARK: - TableView data source and delegate
+// MARK: - EXTENSION: TableView data source and delegate
 extension MapViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
