@@ -228,6 +228,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 self.dateLabel.sizeToFit()
             } else {
                 self.dateLabel.text = "Any Day"
+                self.dateLabel.sizeToFit()
             }
             
             newTicket.dateBegin = self.dateLabel.text!
@@ -239,7 +240,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 
                 //newTicket?.dateCreated = chosenDate
             } else {
-                self.dateLabel.text = "ASAP"
+                self.timeLabel.text = "ASAP"
             }
             
             newTicket.timeBegin = self.timeLabel.text!
@@ -335,7 +336,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         dateView.addGestureRecognizer(pickTimeGestureRecognizer)
         
         dateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: labelMargin, width: labelWidth, height: labelHeight))
-        dateLabel.text = "Today"
+        dateLabel.text = "Any Day"
         dateLabel.font = AppThemes.helveticaNeueLight13
         dateLabel.sizeToFit()
         
@@ -702,7 +703,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
         
         //nextTime user tap on this, the calendar will appear exactly what user chose before
-        calendarPopupViewController.chosenDate = newTicket?.dateCreated
+        //let chosenDateTimeString = newTicket.dateBegin + ", " + newTicket.timeBegin
+        calendarPopupViewController.chosenDate = getDateFromString(newTicket.dateBegin, withFormat: DateStringFormat.DD_MMM_YYYY)
+        calendarPopupViewController.chosenTime = getDateFromString(newTicket.timeBegin, withFormat: DateStringFormat.HH_mm)
         
         self.presentViewController(calendarPopupViewController, animated: true, completion: nil)
         
@@ -813,11 +816,18 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     }
     
     @IBAction func onCancelTicket(sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Cancel This Ticket", message: "This process can not be undone. Tap OK to proceed", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Warning", message: "This process can not be undone. Tap OK to go back to the Home Screen", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
             
             // Delete this ticket to database and remove it to socket chanel
-            //self.cancelTicket()
+            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
+            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                print(response.result)
+                var JSON = self.newTicket.dataJson
+                JSON!["status"] = Status.Cancel.rawValue
+                SocketManager.sharedInstance.pushCategory(JSON!)
+            }
+
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         

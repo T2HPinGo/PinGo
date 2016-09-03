@@ -226,7 +226,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onFindWorker:" destination="NYf-HS-S9A" eventType="touchUpInside" id="PFb-uD-uOt"/>
-                                    <segue destination="PRW-58-cFu" kind="unwind" identifier="UnwindToCreateTicket" unwindAction="unwindFromMap:" id="BaR-a4-UY7"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Rl2-xk-tsr">
@@ -349,6 +348,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="onPickWorker:" destination="xTf-o2-ehs" eventType="touchUpInside" id="iFg-ul-7TN"/>
+                                                        <segue destination="PRW-58-cFu" kind="unwind" identifier="QuitAfterPickWorker" unwindAction="quitAfterPickWorker:" id="k4u-1H-3Ux"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRY-3p-FkD" userLabel="btnTemp">
