@@ -57,6 +57,36 @@ class TicketWorkerCell: UITableViewCell {
             } else {
                 imageViewTicket.image = UIImage(named: "no_image")
             }
+            // Update ticket with status 
+            if ticket?.status == Status.InService {
+                buttonAction.setTitle("Done", forState: .Normal)
+                self.labelMessage.text = "wait for you"
+            } else {
+                if ticket?.status == Status.Pending{
+                    buttonAction.setTitle("Bid", forState: .Normal)
+                    self.labelMessage.text = "create new ticket"
+                } else {
+                    if ticket?.status == Status.Done {
+                        buttonAction.setTitle("Waiting ...", forState: .Normal)
+                    } else {
+                        if ticket?.status == Status.Approved {
+                            self.labelMessage.text = "has approved"
+                            self.buttonAction.hidden = true
+                           // self.imageFinish.hidden = false
+                        } else {
+                            if ticket?.status == Status.Cancel {
+                                //self.themeColor = UIColor.redColor()
+                                self.labelMessage.text = "cancel ticket"
+                            } else {
+                                if ticket?.status == Status.ChoosenAnother {
+                                   // self.themeColor = UIColor.redColor()
+                                    self.labelMessage.text = "choose another worker"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     override func awakeFromNib() {
