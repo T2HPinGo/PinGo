@@ -43,16 +43,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController!
     
-    var didFindMyLocation = false
     var placesClient = GMSPlacesClient()
     var userMarker = GMSMarker()
-    //var isFirstTimeUseMap = true
-    //var flagCount = 0
-    var location :Location?
     
     var currentCategoryIndex = -1 //store current selected category index, set to -1 to avoid crash no cell has been sellected
     
     var isShowingTableView = false //check if worker list in table view is shown or not
+    var isShowingCategoryList = false //check if the category list is shown or not
     
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
@@ -84,6 +81,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var addDetailView: UIView!
     var detailLabel: UILabel!
     var detailIconImageView: UIImageView!
+    
+    let latitudes = [48.8566667,41.8954656,51.5001524]
+    let longitudes = [2.3509871,12.4823243,-0.1262362]
     
     //MARK: - Load Views
     override func viewDidLoad() {
@@ -125,7 +125,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         imageView.image = logo
         self.navigationItem.titleView = imageView
         
-        
         newTicket = Ticket()
         
         //check if users have allowed this app to access their current location
@@ -138,7 +137,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             return
         }
         
-        location = Location()
         startLocationManager() //update location
         
         testView.myLocationEnabled = true
@@ -170,6 +168,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         
         roundedButton(findButton)
         roundedButton(tableSlideUpButton)
+        
+        //filterBatButtonItem.enabled = false //intially disble filter, when there is no ticket had been created
 
         setupSubView()
         
@@ -185,6 +185,38 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             }
             //self.updateNumberOfWorkersFound()
         }
+        
+        //getdistance()
+    }
+    
+    func getdistance(){
+        //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=
+        //|\(latitudes[2]),\(longitudes[2])
+        //create URL request
+        //let apiKey = "AIzaSyDG9inM2k5gtvsuBKTbwucCQepjS0dzLZc"
+        let url = NSURL(string: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(latitudes[0]),\(longitudes[0])&destinations=\(latitudes[1]),\(longitudes[1])%7C\(latitudes[2]),\(longitudes[2])&key=\(apiKey)")
+        let request = NSURLRequest(URL: url!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
+                                   timeoutInterval: 10)
+        print(url)
+        //configure session -> executed on main thread
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate: nil,
+            delegateQueue: NSOperationQueue.mainQueue()
+        )
+        
+        let task: NSURLSessionDataTask = session.dataTaskWithRequest(request, completionHandler: { (dataOrNil, response, error) in
+            if let data = dataOrNil {
+                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options:[]) as? NSDictionary{
+                    //                    let resultArray = responseDictionary["results"] as! [NSDictionary]
+                    print(responseDictionary)
+                    
+                }
+            } else {
+                print(error?.localizedDescription)
+            }
+        })
+        task.resume()
     }
     
     //MARK: - Navigations
@@ -194,11 +226,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             if let chosenDate = dateTimePickerViewController.chosenDate {
                 self.dateLabel.text = getStringFromDate(chosenDate, withFormat: DateStringFormat.DD_MMM_YYYY)
                 self.dateLabel.sizeToFit()
-                
-                newTicket?.dateCreated = chosenDate
             } else {
-                self.dateLabel.text = "Today"
+                self.dateLabel.text = "Any Day"
             }
+            
+            newTicket.dateBegin = self.dateLabel.text!
             
             //chosen time
             if let chosenTime = dateTimePickerViewController.chosenTime {
@@ -209,6 +241,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             } else {
                 self.dateLabel.text = "ASAP"
             }
+            
+            newTicket.timeBegin = self.timeLabel.text!
         }
     }
     
@@ -223,6 +257,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             if newTicket.descriptions == "Enter Description (Optional)" {
                     newTicket!.descriptions = ""
             }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "UserFilterSegue" {
+            let filterViewController = segue.destinationViewController as! UserFilterViewController
+            filterViewController.workerList = self.workerList
         }
     }
     
@@ -250,7 +291,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         subViews.clipsToBounds = true
         
         //customize search bar
-        //let searchBar = searchController?.searchBar
         
         //searchController?.searchBar.sizeToFit()
         let searchTextField = searchController.searchBar.valueForKey("_searchField") as? UITextField
@@ -436,9 +476,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     //check if user enter enough information
     func didEnterRequiredInformation() -> Bool {
         //if the category hasn/t been chosen OR no photo has been chosen OR no tile has been entered
-//        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" {
-//            return false
-//        }
+        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" {
+            return false
+        }
         return true
     }
     
@@ -496,7 +536,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         loadingDateView.backgroundColor = UIColor.whiteColor()
         
         let loadingDateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingDateView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
-        loadingDateLabel.text = "Today"
+        loadingDateLabel.text = newTicket.dateBegin
         loadingDateLabel.font = AppThemes.helveticaNeueLight13
         loadingDateLabel.sizeToFit()
         let loadingCalendarIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingDateView.frame.height/2 - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
@@ -511,7 +551,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         loadingTimeView.backgroundColor = UIColor.whiteColor()
         
         let loadingTimeLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: loadingTimeView.frame.height/2 - iconHeight/2, width: labelWidth, height: labelHeight))
-        loadingTimeLabel.text = "ASAP"
+        loadingTimeLabel.text = newTicket.timeBegin
         loadingTimeLabel.font = AppThemes.helveticaNeueLight13
         loadingTimeLabel.sizeToFit()
         let loadingClockIconImageView = UIImageView(frame: CGRect(x: labelMargin, y: loadingTimeLabel.center.y - iconHeight/2 - 2, width: iconHeight, height: iconHeight))
@@ -545,7 +585,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         loadingTitleIconImageView.image = UIImage(named: "compose")
         
         let loadingTitleLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: loadingTitleView.frame.height/2 - iconHeight/2, width: loadingTitleView.frame.width - 2*labelMargin - iconHeight - 3, height: labelHeight))
-        loadingTitleLabel.text = "Ticket Title"
+        loadingTitleLabel.text = newTicket.title
         loadingTitleLabel.font = AppThemes.helveticaNeueLight13
         loadingTitleLabel.sizeToFit()
         
@@ -561,7 +601,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         loadingAddressIconImageView.image = UIImage(named: "home")
         
         let loadingAddressLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3, y: labelMargin, width: loadingAddressView.frame.width - 2*labelMargin - iconHeight - 3, height: loadingAddressView.frame.height - 2*labelMargin))
-        loadingAddressLabel.text = "569/13 Nguyen An Ninh, Nguyen An Ninh Wd., Vung Tau"
+        loadingAddressLabel.text = newTicket.location?.address
         loadingAddressLabel.numberOfLines = 2
         loadingAddressLabel.font = AppThemes.helveticaNeueLight13
         
@@ -666,7 +706,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     }
     
     func pickCategory(gestureRecognizer: UIGestureRecognizer) {
-        adjustViewsWhenChoosingCategory()
+        if isShowingCategoryList {
+            adjustViewsWhenFinishChoosingCategory()
+        } else {
+            adjustViewsWhenChoosingCategory()
+        }
+        isShowingCategoryList = !isShowingCategoryList
     }
     
     func addTicketDetail(gestureRecognizer: UIGestureRecognizer) {
@@ -736,7 +781,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             
             newTicket?.category = categoryLabel.text!
             newTicket?.user = UserProfile.currentUser
-            newTicket?.location = self.location
+            //newTicket?.location = self.location
             newTicket?.status = Status.Pending
             newTicket?.worker = Worker()
             
@@ -750,7 +795,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                     self.newTicket = Ticket(data: JSONobj)
                     SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
 
-                    self.stopLoadingIndicator()
+                    //self.stopLoadingIndicator()
                 } else {
                     //return an error message if cannot send request to server
                     self.stopLoadingIndicator()
@@ -777,9 +822,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         alert.addAction(cancelAction)
         
         presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func onFilter(sender: UIBarButtonItem) {
     }
 }
 

@@ -434,7 +434,6 @@
                         <barButtonItem key="rightBarButtonItem" image="filter" id="4mV-md-aNy">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="onFilter:" destination="NYf-HS-S9A" id="lLJ-gY-upx"/>
                                 <segue destination="QR3-Rh-Xdb" kind="presentation" id="WHb-WM-dbn"/>
                             </connections>
                         </barButtonItem>
