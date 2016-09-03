@@ -258,6 +258,7 @@ extension WorkerHomeMapViewController {
                     self.calculateCountWithStatus((ticket.status?.rawValue)!)
                     self.tickets.insert(ticket, atIndex: 0)
                 }
+                self.indexAtViewTab(self.indexButton)
                 self.tableView.reloadData()
                 self.reloadLabelsCount()
                 self.reloadLabelCountTitle(self.indexButton)
@@ -343,6 +344,9 @@ extension WorkerHomeMapViewController {
         case Status.InService.rawValue:
             countAll += 1
             countInservice += 1
+            if countPending > 0 {
+                countPending -= 1
+            }
             break
         default:
             print("do nothing")
