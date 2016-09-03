@@ -202,18 +202,44 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQp-HZ-4j5">
-                                <rect key="frame" x="147" y="238" width="25" height="25"/>
-                                <color key="backgroundColor" red="0.34509803919999998" green="0.70588235290000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1g6-8m-6Ge" userLabel="TableSlideUpView">
+                                <rect key="frame" x="8" y="223" width="140" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Workers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ4-8E-In9">
+                                        <rect key="frame" x="5" y="11" width="70" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQp-HZ-4j5">
+                                        <rect key="frame" x="107" y="7" width="25" height="25"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="MQp-HZ-4j5" secondAttribute="height" multiplier="1:1" id="P7p-Mi-4yy"/>
+                                            <constraint firstAttribute="height" constant="25" id="g17-Bi-b02"/>
+                                        </constraints>
+                                        <state key="normal" image="upFilled"/>
+                                        <connections>
+                                            <action selector="onTableSlideUp:" destination="NYf-HS-S9A" eventType="touchUpInside" id="0mb-6Z-bRL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.93333333330000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="MQp-HZ-4j5" secondAttribute="height" multiplier="1:1" id="P7p-Mi-4yy"/>
-                                    <constraint firstAttribute="height" constant="25" id="g17-Bi-b02"/>
+                                    <constraint firstItem="GQ4-8E-In9" firstAttribute="centerY" secondItem="1g6-8m-6Ge" secondAttribute="centerY" id="5Nd-Mz-xkN"/>
+                                    <constraint firstItem="MQp-HZ-4j5" firstAttribute="centerY" secondItem="GQ4-8E-In9" secondAttribute="centerY" id="Eqk-BS-PH1"/>
+                                    <constraint firstItem="GQ4-8E-In9" firstAttribute="leading" secondItem="1g6-8m-6Ge" secondAttribute="leading" constant="5" id="MEe-uE-HvZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="Raa-gA-k2k"/>
+                                    <constraint firstAttribute="trailing" secondItem="MQp-HZ-4j5" secondAttribute="trailing" constant="8" id="Y4M-Gy-TEi"/>
+                                    <constraint firstAttribute="width" constant="140" id="j6J-ou-VSG"/>
+                                    <constraint firstItem="MQp-HZ-4j5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GQ4-8E-In9" secondAttribute="trailing" constant="5" id="p0E-oq-bZf"/>
                                 </constraints>
-                                <state key="normal" image="up"/>
-                                <connections>
-                                    <action selector="onTableSlideUp:" destination="NYf-HS-S9A" eventType="touchUpInside" id="0mb-6Z-bRL"/>
-                                </connections>
-                            </button>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz9-Z6-dWJ">
                                 <rect key="frame" x="252" y="350" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.93333333330000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -408,8 +434,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="1g6-8m-6Ge" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" constant="8" id="2UY-Y2-YlV"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="top" secondItem="QIu-hP-30J" secondAttribute="bottom" id="5DT-jp-GoX"/>
-                            <constraint firstItem="MQp-HZ-4j5" firstAttribute="centerX" secondItem="sdT-T7-6h0" secondAttribute="centerX" id="BoM-8E-4a3"/>
+                            <constraint firstItem="sdT-T7-6h0" firstAttribute="top" secondItem="1g6-8m-6Ge" secondAttribute="bottom" constant="5" id="Gxx-FF-HfV"/>
                             <constraint firstAttribute="trailing" secondItem="sdT-T7-6h0" secondAttribute="trailing" id="OTD-cH-VrQ"/>
                             <constraint firstItem="sdT-T7-6h0" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="S1q-zM-JTK"/>
                             <constraint firstAttribute="trailing" secondItem="Rl2-xk-tsr" secondAttribute="trailing" id="TOX-hm-Uaw"/>
@@ -419,7 +446,6 @@
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Xbk-z3-E2M" secondAttribute="bottom" id="kj1-bj-cmt"/>
                             <constraint firstAttribute="trailing" secondItem="Xbk-z3-E2M" secondAttribute="trailing" id="nGX-NF-z2h"/>
                             <constraint firstItem="Rl2-xk-tsr" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="o88-r7-6L5"/>
-                            <constraint firstItem="sdT-T7-6h0" firstAttribute="top" secondItem="MQp-HZ-4j5" secondAttribute="bottom" constant="5" id="p70-bd-eze"/>
                             <constraint firstItem="4Yh-gJ-QcU" firstAttribute="top" secondItem="Rl2-xk-tsr" secondAttribute="bottom" id="x72-VE-e4S"/>
                             <constraint firstItem="Xbk-z3-E2M" firstAttribute="leading" secondItem="43k-ks-D0N" secondAttribute="leading" id="zCK-kV-YNc"/>
                         </constraints>
@@ -443,7 +469,9 @@
                         <outlet property="collectionView" destination="Rl2-xk-tsr" id="WK2-dq-Wmj"/>
                         <outlet property="filterBatButtonItem" destination="4mV-md-aNy" id="ZfG-CR-LdJ"/>
                         <outlet property="findButton" destination="Tz9-Z6-dWJ" id="xVw-p3-GQ8"/>
+                        <outlet property="numberOfWorkersFoundLabel" destination="GQ4-8E-In9" id="gzt-oF-w8o"/>
                         <outlet property="tableSlideUpButton" destination="MQp-HZ-4j5" id="bJf-Wo-bld"/>
+                        <outlet property="tableSlideUpView" destination="1g6-8m-6Ge" id="wbi-xc-N0S"/>
                         <outlet property="tableView" destination="sdT-T7-6h0" id="qR6-mH-uGT"/>
                         <outlet property="tableViewHeightConstraint" destination="OsC-xC-irX" id="83h-za-eJ3"/>
                         <outlet property="testView" destination="Xbk-z3-E2M" id="Mla-Bi-AGr"/>
@@ -751,8 +779,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j41-Pt-pwZ">
-                                                <rect key="frame" x="276" y="6" width="34" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j41-Pt-pwZ">
+                                                <rect key="frame" x="276" y="7" width="34" height="30"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="15"/>
                                                 <state key="normal" title="Apply">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -966,6 +994,6 @@
         <image name="left_arrow" width="25" height="25"/>
         <image name="plus" width="25" height="25"/>
         <image name="rating" width="256" height="256"/>
-        <image name="up" width="25" height="25"/>
+        <image name="upFilled" width="50" height="50"/>
     </resources>
 </document>
