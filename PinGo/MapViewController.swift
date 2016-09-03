@@ -447,6 +447,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         parameters["imageOneUrl"] = (ticket.imageOne?.imageUrl)!
         parameters["imageTwoUrl"] = (ticket.imageTwo?.imageUrl)!
         parameters["imageThreeUrl"] = (ticket.imageThree?.imageUrl)!
+        parameters["dateBegin"] = ticket.dateBegin
+        parameters["timeBegin"] = ticket.timeBegin
         parameters["status"] = "\((ticket.status)!)"
         parameters["idUser"] = (ticket.user!.id)!
         parameters["nameOfUser"] = (ticket.user?.username)!
@@ -469,6 +471,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         parameters["lastnameOfUser"] = ticket.user?.lastName
         parameters["firstnameOfWorker"] = ticket.worker?.firstName
         parameters["lastnameOfWorker"] = ticket.worker?.lastName
+        
+        
         
         return parameters
     }
