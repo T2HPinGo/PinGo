@@ -21,9 +21,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableSlideUpButton: UIButton!
-    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableHeaderView: UIView!
+    
+    
+    
+    @IBOutlet weak var tableSlideUpView: UIView!
+    @IBOutlet weak var numberOfWorkersFoundLabel: UILabel!
+    @IBOutlet weak var tableSlideUpButton: UIButton!
     
     @IBOutlet weak var cancelTicketBarButtonItem: UIBarButtonItem!
     
@@ -164,10 +169,11 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableViewHeightConstraint.constant = (view.frame.height - 69) / 2
         tableView.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) //add the start stage for table View
-        tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) ////add the start stage for tableViewSlideUpButton
+        tableSlideUpView.transform = CGAffineTransformMakeTranslation(0, tableViewHeightConstraint.constant) ////add the start stage for tableViewSlideUpView
+        tableSlideUpView.backgroundColor = UIColor.whiteColor()
+        tableSlideUpView.hidden = true //initially hide this view when there is no ticket had been created
         
         roundedButton(findButton)
-        roundedButton(tableSlideUpButton)
         
         //filterBatButtonItem.enabled = false //intially disble filter, when there is no ticket had been created
 
@@ -179,6 +185,8 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 return
             }
             self.workerList.append(worker)
+            self.updateNumberOfWorkersFound()
+            self.tableSlideUpView.hidden = false
             self.tableView.reloadData()
             if self.workerList.count > 0 {
                 self.stopLoadingIndicator()
@@ -228,6 +236,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 self.dateLabel.sizeToFit()
             } else {
                 self.dateLabel.text = "Any Day"
+                self.dateLabel.sizeToFit()
             }
             
             newTicket.dateBegin = self.dateLabel.text!
@@ -239,7 +248,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 
                 //newTicket?.dateCreated = chosenDate
             } else {
-                self.dateLabel.text = "ASAP"
+                self.timeLabel.text = "ASAP"
             }
             
             newTicket.timeBegin = self.timeLabel.text!
@@ -268,6 +277,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     }
     
     //MARK: - Helpers
+    func updateNumberOfWorkersFound() {
+        if workerList.count == 1 {
+            numberOfWorkersFoundLabel.text = "1 Worker"
+        } else {
+            numberOfWorkersFoundLabel.text = "\(workerList.count) Workers"
+        }
+    }
+    
     func roundedButton(button: UIButton){
         button.backgroundColor = AppThemes.appColorTheme
         button.layer.masksToBounds = true
@@ -335,7 +352,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         dateView.addGestureRecognizer(pickTimeGestureRecognizer)
         
         dateLabel = UILabel(frame: CGRect(x: labelMargin + iconHeight + 3 , y: labelMargin, width: labelWidth, height: labelHeight))
-        dateLabel.text = "Today"
+        dateLabel.text = "Any Day"
         dateLabel.font = AppThemes.helveticaNeueLight13
         dateLabel.sizeToFit()
         
@@ -480,7 +497,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     //check if user enter enough information
     func didEnterRequiredInformation() -> Bool {
         //if the category hasn/t been chosen OR no photo has been chosen OR no tile has been entered
-        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" {
+        if newTicket!.title == "" || newTicket?.imageOne?.imageUrl == "" || newTicket.category == "" {
             return false
         }
         return true
@@ -702,7 +719,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         let calendarPopupViewController = storyboard.instantiateViewControllerWithIdentifier("DateTimePickerViewController") as! DateTimePickerViewController
         
         //nextTime user tap on this, the calendar will appear exactly what user chose before
-        calendarPopupViewController.chosenDate = newTicket?.dateCreated
+        //let chosenDateTimeString = newTicket.dateBegin + ", " + newTicket.timeBegin
+        calendarPopupViewController.chosenDate = getDateFromString(newTicket.dateBegin, withFormat: DateStringFormat.DD_MMM_YYYY)
+        calendarPopupViewController.chosenTime = getDateFromString(newTicket.timeBegin, withFormat: DateStringFormat.HH_mm)
         
         self.presentViewController(calendarPopupViewController, animated: true, completion: nil)
         
@@ -737,13 +756,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             UIView.animateKeyframesWithDuration(0.6, delay: 0, options: .CalculationModeCubic, animations: {
                 UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.33, animations: {
                     self.tableView.transform = CGAffineTransformIdentity
-                    self.tableSlideUpButton.transform = CGAffineTransformIdentity
+                    self.tableSlideUpView.transform = CGAffineTransformIdentity
                 })
                 
                 //fliping effect for tableSlideUpButton
                 UIView.addKeyframeWithRelativeStartTime(0.33, relativeDuration: 0.63, animations: {
                     self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 0.1)
-                    self.tableSlideUpButton.setImage(UIImage(named: "down"), forState: .Normal)
+                    self.tableSlideUpButton.setImage(UIImage(named: "downFilled"), forState: .Normal)
                 })
                 
                 UIView.addKeyframeWithRelativeStartTime(0.67, relativeDuration: 0.33, animations: {
@@ -756,13 +775,13 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             UIView.animateKeyframesWithDuration(0.6, delay: 0, options: .CalculationModeCubic, animations: {
                 UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.33, animations: {
                     self.tableView.transform = CGAffineTransformMakeTranslation(0, self.tableViewHeightConstraint.constant)
-                    self.tableSlideUpButton.transform = CGAffineTransformMakeTranslation(0, self.tableViewHeightConstraint.constant)
+                    self.tableSlideUpView.transform = CGAffineTransformMakeTranslation(0, self.tableViewHeightConstraint.constant)
                 })
                 
                 //fliping effect for tableSlideUpButton
                 UIView.addKeyframeWithRelativeStartTime(0.33, relativeDuration: 0.63, animations: {
                     //self.tableSlideUpButton.transform = CGAffineTransformMakeScale(1, 0.1)
-                    self.tableSlideUpButton.setImage(UIImage(named: "up"), forState: .Normal)
+                    self.tableSlideUpButton.setImage(UIImage(named: "upFilled"), forState: .Normal)
                 })
                 
                 UIView.addKeyframeWithRelativeStartTime(0.67, relativeDuration: 0.33, animations: {
@@ -783,7 +802,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         } else {
             startLoadingIndicator()
             
-            newTicket?.category = categoryLabel.text!
+            //newTicket?.category = categoryLabel.text!
             newTicket?.user = UserProfile.currentUser
             //newTicket?.location = self.location
             newTicket?.status = Status.Pending
@@ -813,11 +832,18 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     }
     
     @IBAction func onCancelTicket(sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Cancel This Ticket", message: "This process can not be undone. Tap OK to proceed", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Warning", message: "This process can not be undone. Tap OK to go back to the Home Screen", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
             
             // Delete this ticket to database and remove it to socket chanel
-            //self.cancelTicket()
+            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
+            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                print(response.result)
+                var JSON = self.newTicket.dataJson
+                JSON!["status"] = Status.Cancel.rawValue
+                SocketManager.sharedInstance.pushCategory(JSON!)
+            }
+
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
@@ -995,6 +1021,7 @@ extension MapViewController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         currentCategoryIndex = indexPath.row
         self.categoryLabel.text = TicketCategory.categoryNames[currentCategoryIndex]
+        newTicket.category = TicketCategory.categoryNames[currentCategoryIndex]
         self.categoryIconImageView.image = UIImage(named: TicketCategory.categoryIcons[currentCategoryIndex])
         collectionView.reloadData()
     }

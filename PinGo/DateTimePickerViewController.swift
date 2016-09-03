@@ -48,6 +48,10 @@ class DateTimePickerViewController: UIViewController {
         calendarManager.delegate = self
         calendarManager.menuView = calendarMenuView
         calendarManager.contentView = calendarContentView
+        
+        updateDisplayedDateLabel()
+        updateDisplayedTimeLabel()
+        
         //if there is no chosen date, switch view to current date, otherwise switch view to chosen date
         if chosenDate != nil {
             calendarManager.setDate(chosenDate)
@@ -55,11 +59,11 @@ class DateTimePickerViewController: UIViewController {
             calendarManager.setDate(todayDate)
         }
         
-        //timepicker
-        timePicker.date = NSDate()
-        
-        updateDisplayedDateLabel()
-        updateDisplayedTimeLabel()
+        if chosenTime != nil {
+            timePicker.date = chosenTime! //if there is a pre selected chosen time, show it on the time picker
+        } else {
+            timePicker.date = NSDate()
+        }
         
         setupAppearance()
         
