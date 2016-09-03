@@ -113,7 +113,7 @@ extension DetailTicketViewController {
         }
         
         if ticket?.imageTwo?.imageUrl! != "" {
-            let imageTicket = ticket?.imageOne?.imageUrl!
+            let imageTicket = ticket?.imageTwo?.imageUrl!
             HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewTwo)
             imageViewTwo.layer.cornerRadius = 5
             imageViewTwo.clipsToBounds = true
@@ -124,7 +124,7 @@ extension DetailTicketViewController {
         }
         
         if ticket?.imageThree?.imageUrl! != "" {
-            let imageTicket = ticket?.imageOne?.imageUrl!
+            let imageTicket = ticket?.imageThree?.imageUrl!
             HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewThree)
             imageViewThree.layer.cornerRadius = 5
             imageViewThree.clipsToBounds = true

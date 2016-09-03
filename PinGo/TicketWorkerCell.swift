@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+import Alamofire
 class TicketWorkerCell: UITableViewCell {
-
+    
     
     // Init UI View
     @IBOutlet weak var imageViewTicket: UIImageView!
@@ -27,15 +27,13 @@ class TicketWorkerCell: UITableViewCell {
     
     @IBOutlet weak var labelDate: UILabel!
     
+    var workerHomeMapViewController: WorkerHomeMapViewController?
     
     var ticket: Ticket? {
         didSet {
             labelTitle.text = ticket?.title
-            if ticket?.worker?.firstName != "" {
-                labelWorker.text = ticket?.worker?.firstName
-            } else {
-                labelWorker.text = "None worker"
-            }
+            labelWorker.text = ticket?.user?.firstName
+            
             if ticket?.worker?.price != "" {
                 labelPrice.text = ticket?.worker?.price
             } else {
@@ -50,7 +48,7 @@ class TicketWorkerCell: UITableViewCell {
             } else {
                 imageViewWorker.image = UIImage(named: "profile_default")
             }
-            // Load ticket image 
+            // Load ticket image
             if ticket?.imageOne?.imageUrl! != "" {
                 let imageTicket = ticket?.imageOne?.imageUrl!
                 HandleUtil.loadImageViewWithUrl(imageTicket!, imageView: imageViewTicket)
@@ -65,11 +63,41 @@ class TicketWorkerCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func onDoAction(sender: AnyObject) {
+        if ticket?.status?.rawValue == "Pending" {
+            
+            if buttonAction.titleLabel!.text != "Waiting" {
+                
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Worker", bundle: nil)
+                
+                let resultViewController =
+                    storyBoard.instantiateViewControllerWithIdentifier("SetPricePopUpViewController") as! SetPricePopUpViewController
+                resultViewController.ticket = self.ticket!
+                workerHomeMapViewController!.presentViewController(resultViewController, animated: true, completion:nil)
+                buttonAction.setTitle("Waiting", forState: .Normal)
+                
+            }
+        } else {
+            let parameters: [String: AnyObject] = [
+                "statusTicket": Status.Done.rawValue,
+                "idTicket": (ticket?.id!)!
+            ]
+            let url = "\(API_URL)\(PORT_API)/v1/updateStatusOfTicket"
+            Alamofire.request(.POST, url, parameters: parameters).responseJSON { response  in
+                print(response.result.value!)
+                let JSON = response.result.value!["data"] as! [String: AnyObject]
+                print(JSON)
+                self.ticket = Ticket(data: JSON)
+                SocketManager.sharedInstance.updateTicket(self.ticket!.id!, statusTicket: (self.ticket?.status?.rawValue)!, idUser: (self.ticket?.user?.id)!)
+            }
+        }
+    }
+    
 }

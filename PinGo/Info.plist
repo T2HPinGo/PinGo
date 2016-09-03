@@ -2,13 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>HelveticaNeueLTStd-Lt.ttf</string>
-		<string>HelveticaNeueLTStd-LtEx.ttf</string>
-		<string>Oswald-Light.ttf</string>
-		<string>Oswald-Regular.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -55,6 +48,13 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>By accessing your location, this app can find you the just right worker you need.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>HelveticaNeueLTStd-Lt.ttf</string>
+		<string>HelveticaNeueLTStd-LtEx.ttf</string>
+		<string>Oswald-Light.ttf</string>
+		<string>Oswald-Regular.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
