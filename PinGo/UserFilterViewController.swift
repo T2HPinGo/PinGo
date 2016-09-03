@@ -33,6 +33,7 @@ class UserFilterViewController: UIViewController {
     @IBOutlet weak var greatBUtton: UIButton!
     
     var workerList: [Worker] = []
+    var workerFilteredList: [Worker] = []
     
     struct NSUserDefaultKeys {
         static let tipControlSegmentIndex = "TipControlSegmentIndex"
@@ -123,9 +124,6 @@ class UserFilterViewController: UIViewController {
     
     func keyboardWillShow(notification: NSNotification) {
         let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        print(keyboardSize.height)
-        
-        
         
         //add this if statement to avoid the view slide up twice when user tap on one textField when another is still active
         if self.view.frame.origin.y == 0 {
@@ -151,7 +149,6 @@ class UserFilterViewController: UIViewController {
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    
     
     //MARK: - Actions
     @IBAction func onDistanceSegmentControl(sender: UISegmentedControl) {

@@ -135,7 +135,8 @@ class DateTimePickerViewController: UIViewController {
     }
     
     @IBAction func onTimePicker(sender: UIDatePicker) {
-        
+        chosenTime = sender.date
+        updateDisplayedTimeLabel()
     }
     
 }
@@ -234,8 +235,6 @@ extension DateTimePickerViewController: JTCalendarDelegate {
         //        return menuView
     }
     
-    
-    
     //format od the text of menuView
     func calendar(calendar: JTCalendarManager!, prepareMenuItemView menuItemView: UIView!, date: NSDate!) {
         guard let view = menuItemView as? UILabel else {
@@ -247,7 +246,6 @@ extension DateTimePickerViewController: JTCalendarDelegate {
         view.text = getStringFromDate(date, withFormat: DateStringFormat.MMM_yyyy).uppercaseString
         
         while months.count == 3 {
-            
             previousMonthLabel.text = getStringFromDate(months[0], withFormat: DateStringFormat.MMM).uppercaseString
             nextMonthLabel.text = getStringFromDate(months[2], withFormat: DateStringFormat.MMM).uppercaseString
             months.removeAll() //remove everything from this array so when user swipe to a different month, this does not add up

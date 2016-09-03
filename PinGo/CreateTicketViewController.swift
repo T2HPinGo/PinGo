@@ -145,12 +145,12 @@ class CreateTicketViewController: UIViewController, UITextFieldDelegate , UIText
     
     @IBAction func unwindFromMap(segue: UIStoryboardSegue) {
         //transfer date here
-        if let mapViewController = segue.sourceViewController as? MapViewController {
-            if let location = mapViewController.location {
-                newTicket?.location = location
-            }
-            locationLabel.text = newTicket!.location?.address
-        }
+//        if let mapViewController = segue.sourceViewController as? MapViewController {
+//            if let location = mapViewController.location {
+//                newTicket?.location = location
+//            }
+//            locationLabel.text = newTicket!.location?.address
+//        }
     }
     
     //MARK: - Helpers
