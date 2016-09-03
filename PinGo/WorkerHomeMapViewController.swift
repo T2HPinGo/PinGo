@@ -37,6 +37,8 @@ class WorkerHomeMapViewController: UIViewController {
     @IBOutlet weak var labelCountInservice: UILabel!
     
     @IBOutlet weak var viewControlTable: UIView!
+    
+    
     // Declare global variables
     var locationManager = CLLocationManager()
     var marker: GMSMarker?
@@ -52,6 +54,7 @@ class WorkerHomeMapViewController: UIViewController {
     var countPending = 0
     var countInservice = 0
     
+    var currentLocation: CLLocation?
     @IBOutlet weak var tableSlideUpButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,6 +158,7 @@ extension WorkerHomeMapViewController: UITableViewDataSource, UITableViewDelegat
         let ticket = ticketsFilter[indexPath.row]
         cell.ticket = ticket
         cell.workerHomeMapViewController = self
+        cell.location = currentLocation
         return cell
     }
     
@@ -190,9 +194,10 @@ extension WorkerHomeMapViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         
         //center camera around
+        currentLocation = locations[0]
         let camera = GMSCameraPosition.cameraWithTarget(locations[0].coordinate, zoom: 14)
         self.mapView.camera = camera
-        
+        currentLocation = locations[0]
         //add marker
         marker = GMSMarker(position: locations[0].coordinate)
         marker?.icon = UIImage(named: "marker")
@@ -257,6 +262,10 @@ extension WorkerHomeMapViewController {
                 if isNewTicket {
                     self.calculateCountWithStatus((ticket.status?.rawValue)!)
                     self.tickets.insert(ticket, atIndex: 0)
+                    let lat = ticket.location?.latitude as! Double
+                    let long = ticket.location?.longitute as! Double
+                    let location = CLLocation(latitude: lat, longitude: long)
+                    self.addUserMarker(location)
                 }
                 self.indexAtViewTab(self.indexButton)
                 self.tableView.reloadData()
@@ -451,5 +460,15 @@ extension WorkerHomeMapViewController {
             self.reloadLabelsCount()
             self.reloadLabelCountTitle(self.indexButton)
         }
+    }
+}
+
+// MARK: Add user marker
+extension WorkerHomeMapViewController {
+    func addUserMarker(location: CLLocation) {
+        var marker: GMSMarker?
+        marker = GMSMarker(position: location.coordinate)
+        marker?.icon = UIImage(named: "marker")
+        marker?.map = self.mapView
     }
 }

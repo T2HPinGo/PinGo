@@ -27,6 +27,8 @@ class TicketWorkerCell: UITableViewCell {
     
     @IBOutlet weak var labelDate: UILabel!
     
+    var location: CLLocation?
+    
     var workerHomeMapViewController: WorkerHomeMapViewController?
     
     var ticket: Ticket? {
@@ -110,6 +112,7 @@ class TicketWorkerCell: UITableViewCell {
                 let resultViewController =
                     storyBoard.instantiateViewControllerWithIdentifier("SetPricePopUpViewController") as! SetPricePopUpViewController
                 resultViewController.ticket = self.ticket!
+                resultViewController.location = self.location
                 workerHomeMapViewController!.presentViewController(resultViewController, animated: true, completion:nil)
                 buttonAction.setTitle("Waiting", forState: .Normal)
                 

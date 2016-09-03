@@ -18,6 +18,10 @@ class SetPricePopUpViewController: UIViewController {
     
     @IBOutlet weak var priceTextField: UITextField!
     
+    
+    // location
+    var location: CLLocation?
+    
     //locale currency
     let locale = NSLocale.currentLocale()
     
@@ -65,7 +69,10 @@ class SetPricePopUpViewController: UIViewController {
     
     @IBAction func okAction(sender: UIButton) {
         let jsonData = Worker.currentUser?.dataJson
-        SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: priceTextField.text!)
+        var locationJson = [String : AnyObject]()
+        locationJson["latitude"] = location?.coordinate.latitude
+        locationJson["longtitude"] = location?.coordinate.longitude
+        SocketManager.sharedInstance.applyTicket(jsonData!, ticketId: ticket!.id!, price: priceTextField.text!, location: locationJson)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -137,27 +144,27 @@ extension SetPricePopUpViewController: UITextFieldDelegate {
     }
     
     /*
-    func textFieldDidEndEditing(textField: UITextField) {
-        
-        let currencyFormatter = NSNumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .CurrencyStyle
-        currencyFormatter.minimumFractionDigits = 2
-        currencyFormatter.maximumFractionDigits = 2
-        currencyFormatter.locale = self.locale
-        
-        //get the currency symbol
-        let currencySymbol = self.locale.objectForKey(NSLocaleCurrencySymbol)! as! String
-        
-        //remove the unneccessary characters fromt the string textField
-        //eg: $1,234.00 -> 1234
-        //if you dont do this before calling stringFromNumber, the number will be nil -> crash
-        let stringFormat = textField.text?.stringByReplacingOccurrencesOfString(currencySymbol, withString: "").stringByReplacingOccurrencesOfString(",", withString: "")
-        let number = Double(stringFormat!)
-        
-        //if the stringFormat is empty put the textField back to tha place holder
-        priceTextField.text = number != nil ? currencyFormatter.stringFromNumber(number!) : nil
-    }*/
-
+     func textFieldDidEndEditing(textField: UITextField) {
+     
+     let currencyFormatter = NSNumberFormatter()
+     currencyFormatter.usesGroupingSeparator = true
+     currencyFormatter.numberStyle = .CurrencyStyle
+     currencyFormatter.minimumFractionDigits = 2
+     currencyFormatter.maximumFractionDigits = 2
+     currencyFormatter.locale = self.locale
+     
+     //get the currency symbol
+     let currencySymbol = self.locale.objectForKey(NSLocaleCurrencySymbol)! as! String
+     
+     //remove the unneccessary characters fromt the string textField
+     //eg: $1,234.00 -> 1234
+     //if you dont do this before calling stringFromNumber, the number will be nil -> crash
+     let stringFormat = textField.text?.stringByReplacingOccurrencesOfString(currencySymbol, withString: "").stringByReplacingOccurrencesOfString(",", withString: "")
+     let number = Double(stringFormat!)
+     
+     //if the stringFormat is empty put the textField back to tha place holder
+     priceTextField.text = number != nil ? currencyFormatter.stringFromNumber(number!) : nil
+     }*/
+    
 }
 

@@ -42,6 +42,15 @@ class SocketManager: NSObject {
                 let worker = Worker(data: item)
                 // Add price of worker
                 worker.price = price!
+               
+                if let location = dataArray[3] as? [String: AnyObject] {
+                    worker.location = Location()
+                    let lat = location["latitude"]! as? NSNumber
+                    let long = location["longtitude"]! as? NSNumber
+                    worker.location?.latitude = lat!
+                    worker.location?.longitute = long!
+                }
+               
                 let idTicket = dataArray[1] as? String
                
                 print("WorkerSocket: \(worker)")
@@ -50,9 +59,9 @@ class SocketManager: NSObject {
         }
     }
     
-    func applyTicket(worker: [String: AnyObject], ticketId: String, price: String){
+    func applyTicket(worker: [String: AnyObject], ticketId: String, price: String, location: [String: AnyObject]){
         print("workerBidTicket")
-        socket.emit("workerBidTicket", worker, ticketId, price)
+        socket.emit("workerBidTicket", worker, ticketId, price, location)
     }
     
     func getTicket(success: (ticket: Ticket)-> Void) {
