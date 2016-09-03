@@ -34,8 +34,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     
     @IBOutlet weak var filterBatButtonItem: UIBarButtonItem!
     
-    //Fake
-    var locations:[CLLocation] = [CLLocation]()
+    var workersLocations:[CLLocation] = []
     
     var newTicket: Ticket!
     
@@ -93,34 +92,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     //MARK: - Load Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Fake locations
-        let fakeLocation = CLLocation(latitude: 51.507351, longitude: -0.127758)
-        let fakeLocation2 = CLLocation(latitude: 51.499737, longitude: -0.141792)
-        let fakeLocation3 = CLLocation(latitude: 51.506789, longitude: -0.163593)
-        let fakeLocation4 = CLLocation(latitude: 51.512879, longitude: -0.129433)
-        locations = [fakeLocation, fakeLocation2, fakeLocation3, fakeLocation4]
-        
-        //MARK: - Fake markers
-        for location in locations {
-            let marker = GMSMarker(position: location.coordinate)
-            marker.map = testView
-            //marker.icon = UIImage(named: "marker")
-            marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
-            //marker.accessibilityLabel = "\(i)" //tag the marker with a referrence for later use
-            
-            let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            croppedImageView.image = UIImage(named: "dog")
-            let mask = CALayer()
-            mask.contents = UIImage(named: "ic_marker_b")!.CGImage
-            mask.contentsGravity = kCAGravityResizeAspect
-            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
-            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
-            mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
-            
-            croppedImageView.layer.mask = mask
-            marker.iconView = croppedImageView
-        }
         
         //logo Pingo on the navigation bar
         let logo = UIImage(named: "PinGo_text")
@@ -185,11 +156,12 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 return
             }
             self.workerList.append(worker)
-            self.updateNumberOfWorkersFound()
-            self.tableSlideUpView.hidden = false
+            self.getMarkerForWorker(worker)
             self.tableView.reloadData()
             if self.workerList.count > 0 {
                 self.stopLoadingIndicator()
+                self.updateNumberOfWorkersFound()
+                self.tableSlideUpView.hidden = false
             }
             //self.updateNumberOfWorkersFound()
         }
@@ -282,6 +254,34 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             numberOfWorkersFoundLabel.text = "1 Worker"
         } else {
             numberOfWorkersFoundLabel.text = "\(workerList.count) Workers"
+        }
+    }
+    
+    func getMarkerForWorker(worker: Worker) {
+        if let latitude = worker.location?.latitude, let longitude = worker.location?.longitute {
+            let workerCoordinate = CLLocationCoordinate2DMake(latitude as Double, longitude as Double)
+            
+            let marker = GMSMarker(position: workerCoordinate)
+            marker.map = testView
+            marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
+            //marker.accessibilityLabel = "\(i)" //tag the marker with a referrence for later use
+            
+            let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            croppedImageView.contentMode = .ScaleAspectFill
+            if let url = worker.profileImage?.imageUrl {
+                HandleUtil.loadImageViewWithUrl(url, imageView: croppedImageView)
+            } else {
+                croppedImageView.image = UIImage(named: "profile_default")
+            }
+            
+            let mask = CALayer()
+            mask.contents = UIImage(named: "ic_marker_b")!.CGImage
+            mask.contentsGravity = kCAGravityResizeAspect
+            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
+            mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
+            croppedImageView.layer.mask = mask
+            marker.iconView = croppedImageView
         }
     }
     
@@ -947,26 +947,10 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
                            didAutocompleteWithPlace place: GMSPlace) {
         testView.clear() //clear all previous marker before adding new marker
         
-        //fake data
-        for location in locations {
-            let marker = GMSMarker(position: location.coordinate)
-            marker.map = testView
-            //marker.icon = UIImage(named: "marker")
-            marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
-            //marker.accessibilityLabel = "\(i)" //tag the marker with a referrence for later use
-            
-            let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            croppedImageView.image = UIImage(named: "dog")
-            let mask = CALayer()
-            mask.contents = UIImage(named: "ic_marker_b")!.CGImage
-            mask.contentsGravity = kCAGravityResizeAspect
-            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
-            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
-            mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
-            
-            croppedImageView.layer.mask = mask
-            marker.iconView = croppedImageView
-        }
+//        //re put the marker for the worker list after ch
+//        for worker in workerList {
+//            getMarkerForWorker(worker)
+//        }
         searchController?.active = false
         
         locatewithCoordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
