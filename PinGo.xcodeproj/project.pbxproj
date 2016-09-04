@@ -27,6 +27,7 @@
 		21434C461D55AF2F00B31122 /* TicketCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21434C451D55AF2F00B31122 /* TicketCategory.swift */; };
 		21568A481D793400001B6D34 /* CustomInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21568A471D793400001B6D34 /* CustomInfoView.xib */; };
 		21568A4A1D794899001B6D34 /* CustomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21568A491D794899001B6D34 /* CustomInfoView.swift */; };
+		216C10EA1D7C582C004A161B /* PingoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216C10E91D7C582C004A161B /* PingoFilter.swift */; };
 		219D49DF1D50B62E006B5ADE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219D49DE1D50B62E006B5ADE /* AppDelegate.swift */; };
 		219D49E41D50B62E006B5ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E21D50B62E006B5ADE /* Main.storyboard */; };
 		219D49E61D50B62E006B5ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 219D49E51D50B62E006B5ADE /* Assets.xcassets */; };
@@ -145,6 +146,7 @@
 		21434C451D55AF2F00B31122 /* TicketCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategory.swift; sourceTree = "<group>"; };
 		21568A471D793400001B6D34 /* CustomInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomInfoView.xib; sourceTree = "<group>"; };
 		21568A491D794899001B6D34 /* CustomInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoView.swift; sourceTree = "<group>"; };
+		216C10E91D7C582C004A161B /* PingoFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingoFilter.swift; sourceTree = "<group>"; };
 		219D49DB1D50B62E006B5ADE /* PinGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		219D49DE1D50B62E006B5ADE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		219D49E31D50B62E006B5ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				21434C431D55AEE600B31122 /* Ticket.swift */,
 				21434C451D55AF2F00B31122 /* TicketCategory.swift */,
 				B0B3A89E1D5FAA0C009A177D /* ImageResource.swift */,
+				216C10E91D7C582C004A161B /* PingoFilter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */,
 				B0F0A5FB1D6836C3003C8DAD /* WorkerTicketCell.swift in Sources */,
 				21FAD0891D5EFEFC000ED89F /* NVActivityIndicatorViewable.swift in Sources */,
+				216C10EA1D7C582C004A161B /* PingoFilter.swift in Sources */,
 				21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */,
 				21F9E6FE1D58F930002D9DF6 /* WorkerHistoryViewController.swift in Sources */,
 				21FAD0791D5EFEFC000ED89F /* NVActivityIndicatorAnimationBlank.swift in Sources */,

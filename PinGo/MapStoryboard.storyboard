@@ -460,7 +460,7 @@
                         <barButtonItem key="rightBarButtonItem" image="filter" id="4mV-md-aNy">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="QR3-Rh-Xdb" kind="presentation" id="WHb-WM-dbn"/>
+                                <segue destination="QR3-Rh-Xdb" kind="presentation" identifier="UserFilterSegue" id="WHb-WM-dbn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -964,7 +964,7 @@
                         <outlet property="applyButton" destination="j41-Pt-pwZ" id="5oO-9o-exi"/>
                         <outlet property="badButton" destination="dkB-VL-kMH" id="54X-kV-esz"/>
                         <outlet property="displayView" destination="0WH-y7-Kdx" id="kMu-a1-Rcx"/>
-                        <outlet property="distanceSegmentControll" destination="IU1-Br-EdN" id="Y60-uM-Zwy"/>
+                        <outlet property="distanceSegmentControl" destination="IU1-Br-EdN" id="TtX-h0-10F"/>
                         <outlet property="goodButton" destination="uOI-xe-as5" id="IKX-TE-nQC"/>
                         <outlet property="greatBUtton" destination="wHx-Dy-S6h" id="a32-sZ-PC2"/>
                         <outlet property="normalButton" destination="I7P-c7-9AF" id="WZD-q6-cQI"/>

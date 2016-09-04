@@ -21,7 +21,7 @@ class UserFilterViewController: UIViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     
-    @IBOutlet weak var distanceSegmentControll: UISegmentedControl!
+    @IBOutlet weak var distanceSegmentControl: UISegmentedControl!
     
     @IBOutlet weak var priceFromTextField: UITextField!
     @IBOutlet weak var priceToTextField: UITextField!
@@ -34,6 +34,8 @@ class UserFilterViewController: UIViewController {
     
     var workerList: [Worker] = []
     var workerFilteredList: [Worker] = []
+    var distanceFromTicket: [Double] = [] //save distance of the worker to the ticket
+    var filter: PingoFilter?
     
     struct NSUserDefaultKeys {
         static let tipControlSegmentIndex = "TipControlSegmentIndex"
@@ -51,11 +53,10 @@ class UserFilterViewController: UIViewController {
         
         setupAppearance()
         updateDisplayedLabels()
+        filter = PingoFilter()
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        
-        
-        distanceSegmentControll.selectedSegmentIndex = userDefaults.integerForKey(NSUserDefaultKeys.tipControlSegmentIndex)
+        distanceSegmentControl.selectedSegmentIndex = userDefaults.integerForKey(NSUserDefaultKeys.tipControlSegmentIndex)
         
         //add gesture so user can close the popup by tapping out side the popup view
         let closePopupGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
@@ -108,9 +109,23 @@ class UserFilterViewController: UIViewController {
         workersFoundLabel.font = AppThemes.oswaldRegular17
     }
     
-    //MARK: - Helpers
+    //update workerlist when users chose their distance preference
+    func updateDistanceFilter(withSegmentIndex index: Int) {
+        let distanceOptions = [5.0, 10.0, 15.0, 0.0]
+        filter?.distanceFilter = distanceOptions[index]*1000
+        let filteredDistanceFromTicket = (filter?.filterFromDistance(distanceFromTicket))!
+        
+        workerFilteredList.removeAll() //remove all workers when making a new filter
+        for distance in filteredDistanceFromTicket {
+            if let index = distanceFromTicket.indexOf(distance) {
+                let correspodingWorker = workerList[index]
+                workerFilteredList.append(correspodingWorker)
+            }
+        }
+    }
+    
     func updateDisplayedLabels() {
-        switch workerList.count {
+        switch workerFilteredList.count {
         case 0:
             numberOfWorkersFoundLabel.text = "No"
             workersFoundLabel.text = "Worker Found"
@@ -118,7 +133,7 @@ class UserFilterViewController: UIViewController {
             numberOfWorkersFoundLabel.text = "1"
             workersFoundLabel.text = "Worker Found"
         default:
-            numberOfWorkersFoundLabel.text = "\(workerList.count)"
+            numberOfWorkersFoundLabel.text = "\(workerFilteredList.count)"
         }
     }
     
@@ -152,9 +167,8 @@ class UserFilterViewController: UIViewController {
     
     //MARK: - Actions
     @IBAction func onDistanceSegmentControl(sender: UISegmentedControl) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setInteger(sender.selectedSegmentIndex, forKey: NSUserDefaultKeys.tipControlSegmentIndex)
-        userDefaults.synchronize()
+        updateDistanceFilter(withSegmentIndex: sender.selectedSegmentIndex)
+        updateDisplayedLabels()
     }
     
     
