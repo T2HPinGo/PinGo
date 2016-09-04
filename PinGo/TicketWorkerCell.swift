@@ -8,9 +8,12 @@
 
 import UIKit
 import Alamofire
+
+@objc protocol TicketWorkerCellDelegate {
+    func ticketWorkerDelegate(marker: GMSMarker)
+}
+
 class TicketWorkerCell: UITableViewCell {
-    
-    
     // Init UI View
     @IBOutlet weak var imageViewTicket: UIImageView!
     
@@ -31,8 +34,13 @@ class TicketWorkerCell: UITableViewCell {
     
     var workerHomeMapViewController: WorkerHomeMapViewController?
     
+    var delegate: TicketWorkerCellDelegate?
+    
+    var marker: GMSMarker?
+    
     var ticket: Ticket? {
         didSet {
+            buttonAction.hidden = false
             labelTitle.text = ticket?.title
             labelWorker.text = ticket?.user?.firstName
             
@@ -59,7 +67,7 @@ class TicketWorkerCell: UITableViewCell {
             } else {
                 imageViewTicket.image = UIImage(named: "no_image")
             }
-            // Update ticket with status 
+            // Update ticket with status
             if ticket?.status == Status.InService {
                 buttonAction.setTitle("Done", forState: .Normal)
                 self.labelMessage.text = "wait for you"
@@ -67,6 +75,7 @@ class TicketWorkerCell: UITableViewCell {
                 if ticket?.status == Status.Pending{
                     buttonAction.setTitle("Bid", forState: .Normal)
                     self.labelMessage.text = "create new ticket"
+                   
                 } else {
                     if ticket?.status == Status.Done {
                         buttonAction.setTitle("Waiting ...", forState: .Normal)
@@ -74,14 +83,14 @@ class TicketWorkerCell: UITableViewCell {
                         if ticket?.status == Status.Approved {
                             self.labelMessage.text = "has approved"
                             self.buttonAction.hidden = true
-                           // self.imageFinish.hidden = false
+                            // self.imageFinish.hidden = false
                         } else {
                             if ticket?.status == Status.Cancel {
                                 //self.themeColor = UIColor.redColor()
                                 self.labelMessage.text = "cancel ticket"
                             } else {
                                 if ticket?.status == Status.ChoosenAnother {
-                                   // self.themeColor = UIColor.redColor()
+                                    // self.themeColor = UIColor.redColor()
                                     self.labelMessage.text = "choose another worker"
                                 }
                             }
@@ -131,6 +140,10 @@ class TicketWorkerCell: UITableViewCell {
                 SocketManager.sharedInstance.updateTicket(self.ticket!.id!, statusTicket: (self.ticket?.status?.rawValue)!, idUser: (self.ticket?.user?.id)!)
             }
         }
+    }
+    
+    @IBAction func getLocationAction(sender: UIButton) {
+        delegate?.ticketWorkerDelegate(marker!)
     }
     
 }
