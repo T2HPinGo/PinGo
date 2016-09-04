@@ -46,6 +46,9 @@ class WorkerHomeMapViewController: UIViewController {
     var tickets: [Ticket] = []
     var ticketsFilter: [Ticket] = []
     
+    var markers : [GMSMarker] = []
+    var markersFilter: [GMSMarker] = []
+    
     var isShowingTableView = false //check if user list in table view is shown or not
     
     var indexButton = 0
@@ -156,8 +159,11 @@ extension WorkerHomeMapViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TicketWorkerCell", forIndexPath: indexPath) as! TicketWorkerCell
         let ticket = ticketsFilter[indexPath.row]
+        let marker = markersFilter[indexPath.row]
+        cell.marker = marker
         cell.ticket = ticket
         cell.workerHomeMapViewController = self
+        cell.delegate = self
         cell.location = currentLocation
         return cell
     }
@@ -200,7 +206,7 @@ extension WorkerHomeMapViewController: CLLocationManagerDelegate {
         currentLocation = locations[0]
         //add marker
         marker = GMSMarker(position: locations[0].coordinate)
-        marker?.icon = UIImage(named: "marker")
+        //        marker?.icon = UIImage(named: "marker")
         marker?.map = self.mapView
     }
     func initLocation() {
@@ -247,7 +253,14 @@ extension WorkerHomeMapViewController {
                                         itemTicket.status = ticket.status
                                         itemTicket.worker = ticket.worker
                                         isNewTicket = false
-                                        self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                                        self.countInservice += 1
+                                        if self.countPending > 0 {
+                                            self.countPending -= 1
+                                        }
+                                        
+                                        //self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                                        self.updateUIOfMarker(index)
+                                        //                                        self.addUserNewMarker(ticket.location!, status: (ticket.status?.rawValue)!)
                                         break
                                     }
                                     // Change status Pending to Inservice
@@ -255,17 +268,14 @@ extension WorkerHomeMapViewController {
                             }
                             // Remove ticket to history if ticket has been approved by user
                         }
-                        
                         index += 1
                     }
+                    
                 }
                 if isNewTicket {
                     self.calculateCountWithStatus((ticket.status?.rawValue)!)
                     self.tickets.insert(ticket, atIndex: 0)
-                    let lat = ticket.location?.latitude as! Double
-                    let long = ticket.location?.longitute as! Double
-                    let location = CLLocation(latitude: lat, longitude: long)
-                    self.addUserMarker(location)
+                    self.addUserNewMarker(ticket.location!, status: (ticket.status?.rawValue)!)
                 }
                 self.indexAtViewTab(self.indexButton)
                 self.tableView.reloadData()
@@ -392,34 +402,52 @@ extension WorkerHomeMapViewController {
     }
     //MARK: filter tickets based on their status
     func filterTicketList(status: String) {
-        if ticketsFilter.count > 0 {
+        if ticketsFilter.count > 0 && markersFilter.count > 0{
             ticketsFilter.removeAll()
+            for marker in markersFilter {
+                marker.map = nil
+            }
         }
         for ticket in tickets {
             if ticket.status?.rawValue == status {
                 ticketsFilter.append(ticket)
+                self.addUserMarkerFilter(ticket.location!, status: (ticket.status?.rawValue)!)
             }
         }
     }
     
     //MARK: filter ticket inservice and done
     func filterTicketListForInserviceAndDone(){
-        if ticketsFilter.count > 0 {
+        if ticketsFilter.count > 0 && markersFilter.count > 0{
             ticketsFilter.removeAll()
+            for marker in markersFilter {
+                marker.map = nil
+            }
         }
         for ticket in tickets {
             if ticket.status == Status.InService || ticket.status == Status.Done || ticket.status == Status.Approved{
                 ticketsFilter.append(ticket)
+                self.addUserMarkerFilter(ticket.location!, status: (ticket.status?.rawValue)!)
             }
         }
     }
     
-    // MARK :
+    // MARK : index list ticket with filter
     func indexAtViewTab(index: Int){
         switch index {
         case 0:
             //all tickets
             ticketsFilter = tickets
+            if markersFilter.count > 0 {
+                for marker in markersFilter {
+                    marker.map = nil
+                }
+                markersFilter = markers
+                for marker in markersFilter {
+                    marker.map = self.mapView
+                }
+            }
+            markersFilter = markers
             break
         case 1:
             //ticket pending
@@ -453,6 +481,7 @@ extension WorkerHomeMapViewController {
                 self.calculateCountWithStatus((ticket.status?.rawValue)!)
                 if ticket.status != Status.Approved {
                     self.tickets.append(ticket)
+                    self.addUserMarker(ticket.location!, status: (ticket.status?.rawValue)!)
                 }
             }
             self.indexAtViewTab(self.indexButton)
@@ -465,10 +494,60 @@ extension WorkerHomeMapViewController {
 
 // MARK: Add user marker
 extension WorkerHomeMapViewController {
-    func addUserMarker(location: CLLocation) {
+    func addUserMarker(location: Location, status: String) {
+        let lat = location.latitude as! Double
+        let long = location.longitute as! Double
+        let newLocation = CLLocation(latitude: lat, longitude: long)
         var marker: GMSMarker?
-        marker = GMSMarker(position: location.coordinate)
-        marker?.icon = UIImage(named: "marker")
+        marker = GMSMarker(position: newLocation.coordinate)
+        marker?.icon = getMarkerImageWithStatus(status)
+        marker!.title = "\((location.address)!)"
         marker?.map = self.mapView
+        markers.append(marker!)
+    }
+    func addUserNewMarker(location: Location, status: String) {
+        let lat = location.latitude as! Double
+        let long = location.longitute as! Double
+        let newLocation = CLLocation(latitude: lat, longitude: long)
+        var marker: GMSMarker?
+        marker = GMSMarker(position: newLocation.coordinate)
+        marker?.icon = getMarkerImageWithStatus(status)
+        marker!.title = "\((location.address)!)"
+        marker?.map = self.mapView
+        markers.insert(marker!, atIndex: 0)
+    }
+    func addUserMarkerFilter(location: Location, status: String) {
+        let lat = location.latitude as! Double
+        let long = location.longitute as! Double
+        let newLocation = CLLocation(latitude: lat, longitude: long)
+        var marker: GMSMarker?
+        marker = GMSMarker(position: newLocation.coordinate)
+        marker?.icon = getMarkerImageWithStatus(status)
+        marker!.title = "\((location.address)!)"
+        marker?.map = self.mapView
+        markersFilter.append(marker!)
+    }
+    func updateUIOfMarker(index: Int){
+        //markers[index].map = nil
+        markers[index].icon = UIImage(named: "marker_small_orange")!
+    }
+    
+    func getMarkerImageWithStatus(status: String) -> UIImage {
+        switch status {
+        case Status.Pending.rawValue:
+            return UIImage(named: "marker_small")!
+        case Status.InService.rawValue:
+            return UIImage(named: "marker_small_orange")!
+        default:
+            return UIImage()
+        }
+    }
+}
+// MARK: TicketWorkerCellDelegate
+extension WorkerHomeMapViewController : TicketWorkerCellDelegate {
+    func ticketWorkerDelegate(marker: GMSMarker) {
+        self.mapView.selectedMarker = marker
+        let target = CLLocationCoordinate2D(latitude: marker.layer.latitude, longitude: marker.layer.longitude)
+        mapView.animateToLocation(target)
     }
 }
