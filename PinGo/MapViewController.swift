@@ -34,8 +34,6 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     
     @IBOutlet weak var filterBatButtonItem: UIBarButtonItem!
     
-    var workersLocations:[CLLocation] = []
-    
     var newTicket: Ticket!
     
     var workerList: [Worker] = []
@@ -156,14 +154,16 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 return
             }
             self.workerList.append(worker)
-            self.getMarkerForWorker(worker)
+            //add a marker for the worker found and tag that marker with the index of that worker in the worker list for date transfer purpose
+            if let index = self.workerList.indexOf(worker) {
+                self.getMarkerForWorker(worker, atIndex: index)
+            }
             self.tableView.reloadData()
             if self.workerList.count > 0 {
                 self.stopLoadingIndicator()
                 self.updateNumberOfWorkersFound()
                 self.tableSlideUpView.hidden = false
             }
-            //self.updateNumberOfWorkersFound()
         }
         
         //getdistance()
@@ -257,14 +257,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         }
     }
     
-    func getMarkerForWorker(worker: Worker) {
+    func getMarkerForWorker(worker: Worker, atIndex index: Int) {
         if let latitude = worker.location?.latitude, let longitude = worker.location?.longitute {
             let workerCoordinate = CLLocationCoordinate2DMake(latitude as Double, longitude as Double)
             
             let marker = GMSMarker(position: workerCoordinate)
             marker.map = testView
             marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
-            //marker.accessibilityLabel = "\(i)" //tag the marker with a referrence for later use
+            marker.accessibilityLabel = "\(index)" //tag the marker with a referrence so later you know where to get the data for this marker and show it on the info window
             
             let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             croppedImageView.contentMode = .ScaleAspectFill
@@ -832,37 +832,51 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     }
     
     @IBAction func onCancelTicket(sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Warning", message: "This process can not be undone. Tap OK to go back to the Home Screen", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
+        
+        //if user has already entered some information, show a message warning them. If not, then just dismiss the VC
+        if newTicket.title != "" || newTicket.dateBegin != "" || newTicket.timeBegin != "" || newTicket.descriptions != "" || newTicket.category != "" || newTicket.imageOne?.imageUrl != "" {
             
-            // Delete this ticket to database and remove it to socket chanel
-            let url = "\(API_URL)\(PORT_API)/v1/ticket/\(self.newTicket!.id!)"
-            Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
-                print(response.result)
-                var JSON = self.newTicket.dataJson
-                JSON!["status"] = Status.Cancel.rawValue
-                SocketManager.sharedInstance.pushCategory(JSON!)
+            let alert = UIAlertController(title: "Warning", message: "You will lose all the information entered. Tap OK to go back to the Home Screen", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
+                
+                //if = nil user hasn'r press findWorker button, so there is no need to delete the ticket from socket channel
+                if let id = self.newTicket.id {
+                    // Delete this ticket to database and remove it to socket chanel
+                    let url = "\(API_URL)\(PORT_API)/v1/ticket/\(id)"
+                    Alamofire.request(.DELETE, url, parameters: nil).responseJSON { response  in
+                        print(response.result)
+                        var JSON = self.newTicket.dataJson
+                        JSON!["status"] = Status.Cancel.rawValue
+                        SocketManager.sharedInstance.pushCategory(JSON!)
+                    }
+                }
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
-
-            self.dismissViewControllerAnimated(true, completion: nil)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            presentViewController(alert, animated: true, completion: nil)
+        } else {
+            dismissViewControllerAnimated(true, completion: nil)
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        
-        presentViewController(alert, animated: true, completion: nil)
     }
 }
 
 //MARK: - EXTENSION: GMSMapViewDelagate
 extension MapViewController: GMSMapViewDelegate {
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        //let index:Int! = Int(marker.accessibilityLabel!)
-
+        if marker == userMarker {
+            //user doesn't necessarily need a info window
+            return nil
+        }
+        
         let customInfoWindow = NSBundle.mainBundle().loadNibNamed("CustomInfoView", owner: self, options: nil)[0] as! CustomInfoView
-        customInfoWindow.workerNameLabel.text = "Hien Tran"
-        customInfoWindow.hourlyRateLabel.text = "$10000"
+        
+        if let index = Int(marker.accessibilityLabel!) {
+            customInfoWindow.workerNameLabel.text = workerList[index].firstName
+            customInfoWindow.hourlyRateLabel.text = workerList[index].price
+        }
         customInfoWindow.layer.borderWidth = 1
         customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor
         
