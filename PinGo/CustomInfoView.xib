@@ -41,16 +41,24 @@
                         <action selector="onPicked:" destination="tZn-Ns-KGY" eventType="touchUpInside" id="prm-r8-0aJ"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwx-Je-xmY">
+                    <rect key="frame" x="107" y="8" width="33" height="18"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Tfc-pP-axg" firstAttribute="leading" secondItem="tZn-Ns-KGY" secondAttribute="leading" constant="8" id="1kN-ye-ui5"/>
+                <constraint firstItem="Kwx-Je-xmY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tfc-pP-axg" secondAttribute="trailing" constant="10" id="Gxd-T6-ZVk"/>
+                <constraint firstItem="Kwx-Je-xmY" firstAttribute="centerY" secondItem="Tfc-pP-axg" secondAttribute="centerY" id="Njl-vd-zsF"/>
                 <constraint firstItem="ELp-we-M4Y" firstAttribute="leading" secondItem="Tfc-pP-axg" secondAttribute="leading" id="NvO-O7-gPR"/>
                 <constraint firstItem="aOM-uq-Fvq" firstAttribute="top" secondItem="tZn-Ns-KGY" secondAttribute="top" id="Q2P-Ou-xXl"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tfc-pP-axg" secondAttribute="trailing" constant="8" id="Ui8-9H-cNo"/>
                 <constraint firstItem="niQ-wN-tD8" firstAttribute="centerY" secondItem="ELp-we-M4Y" secondAttribute="centerY" id="XGX-od-EWN"/>
                 <constraint firstAttribute="bottom" secondItem="aOM-uq-Fvq" secondAttribute="bottom" id="blu-iT-1Em"/>
                 <constraint firstItem="niQ-wN-tD8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ELp-we-M4Y" secondAttribute="trailing" constant="8" id="efl-mV-4Mv"/>
+                <constraint firstItem="Kwx-Je-xmY" firstAttribute="trailing" secondItem="niQ-wN-tD8" secondAttribute="trailing" id="i3O-XL-oJZ"/>
                 <constraint firstAttribute="trailing" secondItem="niQ-wN-tD8" secondAttribute="trailing" constant="8" id="lVC-it-SAw"/>
                 <constraint firstAttribute="trailing" secondItem="aOM-uq-Fvq" secondAttribute="trailing" id="q8u-nI-BSI"/>
                 <constraint firstItem="aOM-uq-Fvq" firstAttribute="leading" secondItem="tZn-Ns-KGY" secondAttribute="leading" id="rsQ-4J-MFp"/>
@@ -70,6 +78,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="distanceFromTicketLabel" destination="Kwx-Je-xmY" id="c1c-xn-0CU"/>
                 <outlet property="hourlyRateLabel" destination="ELp-we-M4Y" id="aIo-RW-r6V"/>
                 <outlet property="pickButton" destination="niQ-wN-tD8" id="lQj-F5-363"/>
                 <outlet property="workerNameLabel" destination="Tfc-pP-axg" id="OOn-lb-3jz"/>

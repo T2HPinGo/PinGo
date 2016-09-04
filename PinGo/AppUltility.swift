@@ -43,3 +43,9 @@ func getDateFromString(string: String, withFormat format: DateStringFormat) -> N
         return nil
     }
 }
+
+func roundToBeutifulNumber(value: Double, devidedNumber number: Int) -> Int{
+    let fractionNum = value / Double(number)
+    let roundedNum = Int(ceil(fractionNum))
+    return roundedNum * number
+}

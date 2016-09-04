@@ -19,6 +19,8 @@ class CustomInfoView: UIView {
     
     @IBOutlet weak var pickButton: UIButton!
 
+    @IBOutlet weak var distanceFromTicketLabel: UILabel!
+    
     @IBAction func onPicked(sender: UIButton) {
         
     }

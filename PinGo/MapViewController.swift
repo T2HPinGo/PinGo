@@ -37,6 +37,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var newTicket: Ticket!
     
     var workerList: [Worker] = []
+    var distanceToTicket: [(distanceInMeters: Double, timeTravelInSeconds: Double)] = [] //save distance of the worker to the ticket
     
     //get location
     var locationManager = CLLocationManager()
@@ -154,10 +155,15 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                 return
             }
             self.workerList.append(worker)
+            
             //add a marker for the worker found and tag that marker with the index of that worker in the worker list for date transfer purpose
             if let index = self.workerList.indexOf(worker) {
                 self.getMarkerForWorker(worker, atIndex: index)
             }
+            
+            //get distance from worker position to the ticket location
+            self.getDistanceToTicket(fromWorker: worker)
+            
             self.tableView.reloadData()
             if self.workerList.count > 0 {
                 self.stopLoadingIndicator()
@@ -169,15 +175,29 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         //getdistance()
     }
     
-    func getdistance(){
-        //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=
-        //|\(latitudes[2]),\(longitudes[2])
+    func getDistanceToTicket(fromWorker worker: Worker){
+        //"https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(latitudes[0]),\(longitudes[0])&destinations=\(latitudes[1]),\(longitudes[1])%7C\(latitudes[2]),\(longitudes[2])&key=\(apiKey)"
+        
+        //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=51.51047800000001,-0.1300343&destinations=51.50998,-0.1337&key=AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw
+        
         //create URL request
-        //let apiKey = "AIzaSyDG9inM2k5gtvsuBKTbwucCQepjS0dzLZc"
-        let url = NSURL(string: "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(latitudes[0]),\(longitudes[0])&destinations=\(latitudes[1]),\(longitudes[1])%7C\(latitudes[2]),\(longitudes[2])&key=\(apiKey)")
+        let baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="
+        var urlString = ""
+        if let latitude = newTicket.location?.latitude,
+            let longitude = newTicket.location?.longitute,
+            let workerLatitude = worker.location?.latitude,
+            let workerLongitude = worker.location?.longitute {
+            
+            let originString = "\(latitude),\(longitude)"
+            let destinationString = "\(workerLatitude),\(workerLongitude)"
+            urlString = "\(baseUrl)\(originString)&destinations=\(destinationString)&key=\(apiKey)"
+        }
+        
+        let url = NSURL(string: urlString)
         let request = NSURLRequest(URL: url!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
                                    timeoutInterval: 10)
-        print(url)
+        //print(url) //TODO: - check distance matrix Url
+        
         //configure session -> executed on main thread
         let session = NSURLSession(
             configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
@@ -188,9 +208,30 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request, completionHandler: { (dataOrNil, response, error) in
             if let data = dataOrNil {
                 if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options:[]) as? NSDictionary{
-                    //                    let resultArray = responseDictionary["results"] as! [NSDictionary]
-                    print(responseDictionary)
+                    let status = responseDictionary["status"] as! String
                     
+                    //TODO: - Refeactor this, put in a new function
+
+                    //check the status of the request before processing
+                    if status == "INVALID_REQUEST" {
+                        print("Invalid request")
+                    } else if status == "OK" {
+                        //let element = responseDictionary["row"]![0]["elements"]!![0] as! NSDictionary
+                        let row = responseDictionary["rows"] as! NSArray
+                        let elements = row[0]["elements"] as! NSArray
+                        let element = elements[0] as! NSDictionary
+                        let elementStatus = element["status"] as! String
+                        
+                        //sometimes the url is valid but the longitude and latigude don't exist, the distance cannot be calculated
+                        if elementStatus == "NOT_FOUND" {
+                            print("Distance not found")
+                        } else if elementStatus == "OK" {
+                            let distance = element["distance"]!["value"] as! Double
+                            let time = element["duration"]!["value"] as! Double
+                            
+                            self.distanceToTicket.append((distance, time))
+                        }
+                    }
                 }
             } else {
                 print(error?.localizedDescription)
@@ -876,10 +917,18 @@ extension MapViewController: GMSMapViewDelegate {
         if let index = Int(marker.accessibilityLabel!) {
             customInfoWindow.workerNameLabel.text = workerList[index].firstName
             customInfoWindow.hourlyRateLabel.text = workerList[index].price
+            
+            //if the distance is less than 100 meter than show it in meter, other wise convert to km
+            if distanceToTicket[index].distanceInMeters < 1000 {
+                let distance = roundToBeutifulNumber(distanceToTicket[index].distanceInMeters, devidedNumber: 10)
+                customInfoWindow.distanceFromTicketLabel.text = "\(distance) m"
+            } else {
+                let distance = distanceToTicket[index].distanceInMeters / 1000
+                customInfoWindow.distanceFromTicketLabel.text = String(format: "%.1f km", distance)
+            }
         }
         customInfoWindow.layer.borderWidth = 1
-        customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor
-        
+        customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor        
         customInfoWindow.pickButton.layer.cornerRadius = 5
         
         return customInfoWindow
