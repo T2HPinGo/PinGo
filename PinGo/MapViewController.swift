@@ -57,7 +57,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
     let randomMessages = ["Being nice to workers makes them work three time as effective",
-                         "Always ask for the worker's ID before let them enter your house",
+                         "Always ask for the worker's ID before letting them enter your house",
                          "The more details you give us, the faster we can help you",
                          "Be aware that we never ask for your PIN number or any online banking passwords over the phone or via email"]
     

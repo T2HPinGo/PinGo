@@ -160,10 +160,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0V4-OT-5Yg" firstAttribute="centerY" secondItem="4ir-Da-2ba" secondAttribute="centerY" id="29k-xu-mdP"/>
+                            <constraint firstItem="0V4-OT-5Yg" firstAttribute="top" secondItem="ixz-UQ-iVN" secondAttribute="bottom" constant="-21" id="9E4-8E-bmd"/>
                             <constraint firstItem="0V4-OT-5Yg" firstAttribute="centerX" secondItem="4ir-Da-2ba" secondAttribute="centerX" id="9dU-wh-rrD"/>
                             <constraint firstItem="ixz-UQ-iVN" firstAttribute="top" secondItem="4ir-Da-2ba" secondAttribute="top" constant="19" id="HJF-C1-KiJ"/>
                             <constraint firstItem="ixz-UQ-iVN" firstAttribute="leading" secondItem="4ir-Da-2ba" secondAttribute="leading" constant="9" id="MRv-mg-hdL"/>
+                            <constraint firstItem="0V4-OT-5Yg" firstAttribute="leading" secondItem="ixz-UQ-iVN" secondAttribute="trailing" constant="-28" id="xbA-gk-Yyg"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="HJF-C1-KiJ"/>
+                                <exclude reference="MRv-mg-hdL"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
