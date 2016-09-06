@@ -14,13 +14,13 @@ class PingoFilter {
     var priceTo: Double?
     let distanceOptions = [5.0, 10.0, 15.0, 0.0]
     init() {
-        distanceFilter = 5.0
+        distanceFilter = 0.0
         priceFrom = 0.0
         priceTo = 0.0
     }
     
     func resetFilter() {
-        distanceFilter = 5.0
+        distanceFilter = 0.0
         priceFrom = 0.0
         priceTo = 0.0
     }
