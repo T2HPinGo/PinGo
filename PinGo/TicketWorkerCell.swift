@@ -15,6 +15,9 @@ import Alamofire
 
 class TicketWorkerCell: UITableViewCell {
     // Init UI View
+    
+    @IBOutlet weak var buttonDistance: UIButton!
+    
     @IBOutlet weak var imageViewTicket: UIImageView!
     
     @IBOutlet weak var buttonAction: UIButton!
@@ -38,12 +41,20 @@ class TicketWorkerCell: UITableViewCell {
     
     var marker: GMSMarker?
     
+   
+    
     var ticket: Ticket? {
         didSet {
+            defaultThemeColor()
             buttonAction.hidden = false
             labelTitle.text = ticket?.title
             labelWorker.text = ticket?.user?.firstName
-            
+            labelDate.text = (ticket?.dateBegin)! + " - " + (ticket?.timeBegin)!
+            // Distance
+            let targerLocation = ticket?.location?.convertToCllLocation()
+            let distance = (location?.distanceFromLocation(targerLocation!))! / 1000
+            let formartDistance = String(format:"%.2f km", distance)
+            buttonDistance.setTitle(formartDistance, forState: .Normal)
             if ticket?.worker?.price != "" {
                 labelPrice.text = ticket?.worker?.price
             } else {
@@ -71,6 +82,7 @@ class TicketWorkerCell: UITableViewCell {
             if ticket?.status == Status.InService {
                 buttonAction.setTitle("Done", forState: .Normal)
                 self.labelMessage.text = "wait for you"
+                updateInserviceThemeColor()
             } else {
                 if ticket?.status == Status.Pending{
                     buttonAction.setTitle("Bid", forState: .Normal)
@@ -146,4 +158,18 @@ class TicketWorkerCell: UITableViewCell {
         delegate?.ticketWorkerDelegate(marker!)
     }
     
+    // MARK: Update inservice Color
+    func updateInserviceThemeColor() {
+        labelPrice.backgroundColor = AppThemes.inserviceColor
+        labelWorker.textColor = AppThemes.inserviceColor
+        buttonAction.backgroundColor = AppThemes.inserviceColor
+        buttonDistance.backgroundColor = AppThemes.inserviceColor
+    }
+    // MARK: Update Pending Color
+    func defaultThemeColor(){
+        labelPrice.backgroundColor = AppThemes.appColorTheme
+        labelWorker.textColor = AppThemes.appColorTheme
+        buttonAction.backgroundColor = AppThemes.appColorTheme
+        buttonDistance.backgroundColor = AppThemes.appColorTheme
+    }
 }

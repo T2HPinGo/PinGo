@@ -12,15 +12,15 @@ class PingoFilter {
     var distanceFilter: Double?
     var priceFrom: Double?
     var priceTo: Double?
-    
+    let distanceOptions = [5.0, 10.0, 15.0, 0.0]
     init() {
-        distanceFilter = 0.0
+        distanceFilter = 5.0
         priceFrom = 0.0
         priceTo = 0.0
     }
     
     func resetFilter() {
-        distanceFilter = 0.0
+        distanceFilter = 5.0
         priceFrom = 0.0
         priceTo = 0.0
     }
@@ -46,6 +46,24 @@ class PingoFilter {
             return .OrderDescending
         }
     }
+    func isDistance(distance: Double) -> Bool {
+        if distance <= distanceFilter {
+            return true
+        }
+        return false
+    }
+    func checkDistance(currentLocation: CLLocation, targetLocation: CLLocation) -> Bool{
+        let distance = currentLocation.distanceFromLocation(targetLocation) / 1000
+        if distance <= distanceFilter {
+            return true
+        }
+        return false 
+    }
+    
+    func setDistanceFromSegment(indexSegment: Int){
+        distanceFilter = distanceOptions[indexSegment]
+    }
+    
 }
 
 enum CompareOrder {

@@ -39,6 +39,14 @@ class Location: NSObject {
         }
         
     }
+    
+    func convertToCllLocation() ->CLLocation {
+        let lat = self.latitude as! Double
+        let long = self.longitute as! Double
+        let newLocation = CLLocation(latitude: lat, longitude: long)
+        return newLocation
+
+    }
 }
 
 

@@ -250,8 +250,10 @@
                                             <outlet property="buttonAction" destination="cav-Ah-Tkt" id="h4n-X5-fF8"/>
                                             <outlet property="callWorkerView" destination="06o-8X-u2g" id="PlO-sN-1ZP"/>
                                             <outlet property="imageViewFinished" destination="mST-q8-bqz" id="h5W-U9-DfB"/>
+                                            <outlet property="labelDateBegin" destination="4bC-7b-1FI" id="Ekj-3M-dDk"/>
                                             <outlet property="labelMessage" destination="i7T-kU-lFI" id="zvY-HT-LlE"/>
                                             <outlet property="labelPrice" destination="fX2-4L-0e0" id="PUe-NX-PYm"/>
+                                            <outlet property="labelTimeBegin" destination="pkp-OI-J7Z" id="vOc-bf-PLu"/>
                                             <outlet property="ratingButton" destination="41u-jH-Imm" id="2R7-Wu-mw1"/>
                                             <outlet property="requestTitleLabel" destination="vCC-1E-xye" id="Vuj-7e-nw4"/>
                                             <outlet property="ticketDetailView" destination="NKC-QN-gle" id="ohm-wX-1nF"/>

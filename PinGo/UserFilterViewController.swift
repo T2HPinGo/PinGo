@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol UserFilterDelegate {
+    func userFilterDelegate(filter: PingoFilter)
+}
+
 class UserFilterViewController: UIViewController {
     //MARK: - Outlets and Variables
     
@@ -36,7 +40,7 @@ class UserFilterViewController: UIViewController {
     var workerFilteredList: [Worker] = []
     var distanceFromTicket: [Double] = [] //save distance of the worker to the ticket
     var filter: PingoFilter?
-    
+    var delegate: UserFilterDelegate?
     struct NSUserDefaultKeys {
         static let tipControlSegmentIndex = "TipControlSegmentIndex"
     }
@@ -167,8 +171,10 @@ class UserFilterViewController: UIViewController {
     
     //MARK: - Actions
     @IBAction func onDistanceSegmentControl(sender: UISegmentedControl) {
+        
         updateDistanceFilter(withSegmentIndex: sender.selectedSegmentIndex)
         updateDisplayedLabels()
+        filter?.setDistanceFromSegment(sender.selectedSegmentIndex)
     }
     
     
@@ -199,6 +205,15 @@ extension UserFilterViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         //return true if user touch any where but the popupView
         return touch.view === self.view
+    }
+}
+// MARK: Apply Button
+extension UserFilterViewController {
+    
+    @IBAction func applyAction(sender: AnyObject) {
+        delegate?.userFilterDelegate(filter!)
+        dismissViewControllerAnimated(true, completion: nil)
+        
     }
 }
 

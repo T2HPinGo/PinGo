@@ -57,10 +57,15 @@ class WorkerHomeMapViewController: UIViewController {
     var countPending = 0
     var countInservice = 0
     
+    var filter = PingoFilter()
+    
     var currentLocation: CLLocation?
+    
+    var isFirstTimeLoadData = true
     @IBOutlet weak var tableSlideUpButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         initLocation()
         initTableView()
@@ -68,8 +73,8 @@ class WorkerHomeMapViewController: UIViewController {
         clearAllViewButtons()
         choosenViewButton(viewAll, labelTitle: labelAll, labelCount: labelCountAll)
         initActionForViewFilter()
-        initOpacityBarView()
-        loadDataFromAPI()
+        
+        
         initSocket()
         
     }
@@ -138,6 +143,11 @@ class WorkerHomeMapViewController: UIViewController {
                 ticketDetailViewController.ticket = tickets[indexPath.row]
                 
             }
+        } else {
+            if segue.identifier == "FilterSegue" {
+                let filterViewController = segue.destinationViewController as! UserFilterViewController
+                filterViewController.delegate = self
+            }
         }
         
     }
@@ -160,11 +170,14 @@ extension WorkerHomeMapViewController: UITableViewDataSource, UITableViewDelegat
         let cell = tableView.dequeueReusableCellWithIdentifier("TicketWorkerCell", forIndexPath: indexPath) as! TicketWorkerCell
         let ticket = ticketsFilter[indexPath.row]
         let marker = markersFilter[indexPath.row]
+        
+        cell.location = currentLocation
         cell.marker = marker
         cell.ticket = ticket
         cell.workerHomeMapViewController = self
         cell.delegate = self
-        cell.location = currentLocation
+        
+        
         return cell
     }
     
@@ -200,10 +213,16 @@ extension WorkerHomeMapViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         
         //center camera around
-        currentLocation = locations[0]
+        
         let camera = GMSCameraPosition.cameraWithTarget(locations[0].coordinate, zoom: 14)
         self.mapView.camera = camera
         currentLocation = locations[0]
+        // Shoule load data if app have locatiion
+        if isFirstTimeLoadData {
+            loadDataFromAPI()
+            isFirstTimeLoadData = false
+        }
+        
         //add marker
         marker = GMSMarker(position: locations[0].coordinate)
         //        marker?.icon = UIImage(named: "marker")
@@ -273,9 +292,19 @@ extension WorkerHomeMapViewController {
                     
                 }
                 if isNewTicket {
-                    self.calculateCountWithStatus((ticket.status?.rawValue)!)
-                    self.tickets.insert(ticket, atIndex: 0)
-                    self.addUserNewMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                    if self.filter.distanceFilter != 0 {
+                        if self.filter.checkDistance(self.currentLocation!, targetLocation: (ticket.location?.convertToCllLocation())!){
+                            self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                            self.tickets.insert(ticket, atIndex: 0)
+                            self.addUserNewMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                        }
+                        
+                    } else {
+                        self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                        self.tickets.insert(ticket, atIndex: 0)
+                        self.addUserNewMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                    }
+                    
                 }
                 self.indexAtViewTab(self.indexButton)
                 self.tableView.reloadData()
@@ -472,22 +501,50 @@ extension WorkerHomeMapViewController {
         parameters["status"] = "Pending"
         parameters["category"] = Worker.currentUser?.category
         parameters["idWorker"] = Worker.currentUser?.id
+        var isChanged = false
         Alamofire.request(.POST, "\(API_URL)\(PORT_API)/v1/ticketOnCategory", parameters: parameters).responseJSON { response  in
             print("ListTicketController ---")
             print("\(response.result.value)")
             let JSONArrays  = response.result.value!["data"] as! [[String: AnyObject]]
             for JSONItem in JSONArrays {
                 let ticket = Ticket(data: JSONItem)
-                self.calculateCountWithStatus((ticket.status?.rawValue)!)
-                if ticket.status != Status.Approved {
-                    self.tickets.append(ticket)
-                    self.addUserMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                
+                if ticket.status == Status.Pending {
+                    // Check distance
+                    if self.filter.distanceFilter != 0 {
+                        // Range distance
+                        if self.filter.checkDistance(self.currentLocation!, targetLocation: (ticket.location?.convertToCllLocation())!){
+                            self.tickets.append(ticket)
+                            self.addUserMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                            self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                            isChanged = true
+                        }
+                        
+                    } else {
+                        // If distance is Any
+                        self.tickets.append(ticket)
+                        self.addUserMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                        self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                        isChanged = true
+                    }
+                    
+                } else {
+                    if ticket.status == Status.InService {
+                        self.tickets.append(ticket)
+                        self.addUserMarker(ticket.location!, status: (ticket.status?.rawValue)!)
+                        self.calculateCountWithStatus((ticket.status?.rawValue)!)
+                        isChanged = true
+                    }
                 }
             }
-            self.indexAtViewTab(self.indexButton)
-            self.tableView.reloadData()
-            self.reloadLabelsCount()
-            self.reloadLabelCountTitle(self.indexButton)
+            
+            if isChanged {
+                self.indexAtViewTab(self.indexButton)
+                self.tableView.reloadData()
+                self.reloadLabelsCount()
+                self.reloadLabelCountTitle(self.indexButton)
+            }
+            
         }
     }
 }
@@ -549,5 +606,30 @@ extension WorkerHomeMapViewController : TicketWorkerCellDelegate {
         self.mapView.selectedMarker = marker
         let target = CLLocationCoordinate2D(latitude: marker.layer.latitude, longitude: marker.layer.longitude)
         mapView.animateToLocation(target)
+    }
+}
+// MARK: UserFilterDelegate
+extension WorkerHomeMapViewController: UserFilterDelegate {
+    func userFilterDelegate(filter: PingoFilter) {
+        self.filter = filter
+        countAll = 0
+        countPending = 0
+        countInservice = 0
+        reloadLabelsCount()
+        reloadLabelCountTitle(indexButton)
+        tickets.removeAll()
+        ticketsFilter.removeAll()
+        markers.removeAll()
+        markersFilter.removeAll()
+        for marker in markersFilter {
+            marker.map = nil
+        }
+        for marker in markers {
+            marker.map = nil
+        }
+        mapView.clear()
+        loadDataFromAPI()
+        print("Filter: \(self.filter.distanceFilter)")
+        
     }
 }

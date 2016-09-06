@@ -42,6 +42,9 @@ class RequestStatusCell: UITableViewCell {
     
     @IBOutlet weak var labelPrice: UILabel!
     
+    @IBOutlet weak var labelDateBegin: UILabel!
+    
+    @IBOutlet weak var labelTimeBegin: UILabel!
     @IBOutlet weak var imageViewFinished: UIImageView!
     
     var homeTimeLineUser : HomeTimelineViewController?
@@ -88,11 +91,11 @@ class RequestStatusCell: UITableViewCell {
             if ticket.status == Status.InService {
                 labelMessage.text = "is working"
             } else {
-                if ticket.status == Status.Done {
-                    labelMessage.text = "has finished"
-                }
+                labelMessage.text = "has finished"
             }
             labelPrice.text = ticket.worker?.price
+            labelDateBegin.text = ticket.dateBegin
+            labelTimeBegin.text = ticket.timeBegin
         }
     }
     

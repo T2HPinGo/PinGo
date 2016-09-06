@@ -68,6 +68,9 @@ class HomeTimelineViewController: BaseViewController , RequestStatusCellDelegate
     
     override func viewDidAppear(animated: Bool) {
         //load ticket from server
+        countInservice = 0
+        countHistory = 0
+        updateUILabelCountStatus()
         getTicketsOfUser()
     }
     
