@@ -36,14 +36,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
         
         //facebook login
         view.addSubview(loginButton)
-        loginButton.center = view.center
-        loginButton.delegate = self
+//        loginButton.center = view.center
+//        loginButton.delegate = self
 
         if let token = FBSDKAccessToken.currentAccessToken(){
             fetchProfile()
         }
-        self.login.backgroundColor = AppThemes.redButtonColor
-        self.login.layer.cornerRadius = 5
+//        self.login.backgroundColor = AppThemes.redButtonColor
+//        self.login.layer.cornerRadius = 5
+        login.layer.borderColor = UIColor.whiteColor().CGColor
+        login.layer.borderWidth = 1
        
 //        self.logoImage.layer.masksToBounds = false
 //        self.logoImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)

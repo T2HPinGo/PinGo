@@ -64,6 +64,13 @@ class PingoFilter {
         distanceFilter = distanceOptions[indexSegment]
     }
     
+    func checkConditionPrice(targerPrice: Double) -> Bool{
+        if targerPrice < priceFrom! || targerPrice > priceTo! {
+            return false
+        }
+        return true
+    }
+    
 }
 
 enum CompareOrder {

@@ -37,6 +37,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var newTicket: Ticket!
     
     var workerList: [Worker] = []
+    var workersFilter: [Worker] = []
+    var markers: [GMSMarker] = []
+    var markersFilter: [GMSMarker] = []
     var distanceToTicket: [Double] = [] //distance in meters, and time travel in seconds
     
     //get location
@@ -57,9 +60,9 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     var activityIndicatorView: NVActivityIndicatorView! = nil
     
     let randomMessages = ["Being nice to workers makes them work three time as effective",
-                         "Always ask for the worker's ID before letting them enter your house",
-                         "The more details you give us, the faster we can help you",
-                         "Be aware that we never ask for your PIN number or any online banking passwords over the phone or via email"]
+                          "Always ask for the worker's ID before letting them enter your house",
+                          "The more details you give us, the faster we can help you",
+                          "Be aware that we never ask for your PIN number or any online banking passwords over the phone or via email"]
     
     let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     let apiKey = "AIzaSyBgEYM4Ho-0gCKypMP5qSfRoGCO1M1livw"
@@ -88,10 +91,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
     let latitudes = [48.8566667,41.8954656,51.5001524]
     let longitudes = [2.3509871,12.4823243,-0.1262362]
     
+    var filter: PingoFilter?
     //MARK: - Load Views
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Init Filter
+        filter = PingoFilter()
+        filter?.distanceFilter = 0.0
         //logo Pingo on the navigation bar
         let logo = UIImage(named: "PinGo_text")
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
@@ -99,7 +106,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         imageView.clipsToBounds = true
         imageView.image = logo
         self.navigationItem.titleView = imageView
-        
+
         newTicket = Ticket()
         
         //check if users have allowed this app to access their current location
@@ -146,7 +153,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         roundedButton(findButton)
         
         //filterBatButtonItem.enabled = false //intially disble filter, when there is no ticket had been created
-
+        
         setupSubView()
         
         //load worker list
@@ -163,13 +170,14 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             
             //get distance from worker position to the ticket location
             self.getDistanceToTicket(fromWorker: worker)
-            
+            self.filterWorkerList()
             self.tableView.reloadData()
-            if self.workerList.count > 0 {
+            if self.workersFilter.count > 0 {
                 self.stopLoadingIndicator()
                 self.updateNumberOfWorkersFound()
                 self.tableSlideUpView.hidden = false
             }
+            
         }
         
         //getdistance()
@@ -212,7 +220,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             self.detailLabel.sizeToFit()
             
             if newTicket.descriptions == "Enter Description (Optional)" {
-                    newTicket!.descriptions = ""
+                newTicket!.descriptions = ""
             }
         }
     }
@@ -222,15 +230,16 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             let filterViewController = segue.destinationViewController as! UserFilterViewController
             filterViewController.workerList = self.workerList
             filterViewController.distanceFromTicket = self.distanceToTicket
+            filterViewController.delegate = self
         }
     }
     
     //MARK: - Helpers
     func updateNumberOfWorkersFound() {
-        if workerList.count == 1 {
+        if workersFilter.count == 1 {
             numberOfWorkersFoundLabel.text = "1 Worker"
         } else {
-            numberOfWorkersFoundLabel.text = "\(workerList.count) Workers"
+            numberOfWorkersFoundLabel.text = "\(workersFilter.count) Workers"
         }
     }
     
@@ -259,6 +268,37 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
             mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
             croppedImageView.layer.mask = mask
             marker.iconView = croppedImageView
+            // Add to list markers
+            markers.append(marker)
+        }
+    }
+    func addMarkerToMap(worker: Worker, atIndex index: Int){
+        if let latitude = worker.location?.latitude, let longitude = worker.location?.longitute {
+            let workerCoordinate = CLLocationCoordinate2DMake(latitude as Double, longitude as Double)
+            
+            let marker = GMSMarker(position: workerCoordinate)
+            marker.map = testView
+            marker.infoWindowAnchor = CGPointMake(0.5, 0.5)
+            marker.accessibilityLabel = "\(index)" //tag the marker with a referrence so later you know where to get the data for this marker and show it on the info window
+            
+            let croppedImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            croppedImageView.contentMode = .ScaleAspectFill
+            if let url = worker.profileImage?.imageUrl {
+                HandleUtil.loadImageViewWithUrl(url, imageView: croppedImageView)
+            } else {
+                croppedImageView.image = UIImage(named: "profile_default")
+            }
+            
+            let mask = CALayer()
+            mask.contents = UIImage(named: "ic_marker_b")!.CGImage
+            mask.contentsGravity = kCAGravityResizeAspect
+            mask.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
+            mask.anchorPoint = CGPoint(x: 0.5, y: 0)
+            mask.position = CGPoint(x: croppedImageView.frame.size.width/2, y: 0)
+            croppedImageView.layer.mask = mask
+            marker.iconView = croppedImageView
+            // Add to list markers
+
         }
     }
     
@@ -318,6 +358,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                             //let time = element["duration"]!["value"] as! Double
                             
                             self.distanceToTicket.append(distance)
+                            self.tableView.reloadData()
                         }
                     }
                 }
@@ -471,32 +512,32 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
         //move the category collectionview up so it's visible
         UIView.animateWithDuration(0.3, animations: {
             self.collectionView.transform = CGAffineTransformIdentity
-        }, completion: nil)
+            }, completion: nil)
         
         //move the map up so the collectionview doesn't block the map
         UIView.animateWithDuration(0.3, animations: {
             self.testView.transform = CGAffineTransformMakeTranslation(0, -self.collectionView.frame.height)
-        }, completion: nil)
+            }, completion: nil)
         
         //move the findButton up so it doesn't block the current location button
         UIView.animateWithDuration(0.3, animations: {
             self.findButton.transform = CGAffineTransformMakeTranslation(0, -self.collectionView.frame.height)
-        }, completion: nil)
+            }, completion: nil)
     }
     
     func adjustViewsWhenFinishChoosingCategory() {
         //make the category collection view and the map go back to originnal position while picking time and date
         UIView.animateWithDuration(0.3, animations: {
             self.collectionView.transform = CGAffineTransformMakeTranslation(0, self.view.frame.height)
-        }, completion: nil)
+            }, completion: nil)
         
         UIView.animateWithDuration(0.3, animations: {
             self.testView.transform = CGAffineTransformIdentity
-        }, completion: nil)
+            }, completion: nil)
         
         UIView.animateWithDuration(0.3, animations: {
             self.findButton.transform = CGAffineTransformIdentity
-        }, completion: nil)
+            }, completion: nil)
     }
     
     // TODO: refractor this. put into model
@@ -861,7 +902,7 @@ class MapViewController: UIViewController, UISearchDisplayDelegate {
                     let JSONobj = JSON!["data"]! as! [String : AnyObject]
                     self.newTicket = Ticket(data: JSONobj)
                     SocketManager.sharedInstance.pushCategory(JSON!["data"]! as! [String : AnyObject])
-
+                    
                     //self.stopLoadingIndicator()
                 } else {
                     //return an error message if cannot send request to server
@@ -930,8 +971,8 @@ extension MapViewController: GMSMapViewDelegate {
                 customInfoWindow.distanceFromTicketLabel.text = String(format: "%.1f km", distance)
             }
         }
-        customInfoWindow.layer.borderWidth = 1
-        customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor        
+        //        customInfoWindow.layer.borderWidth = 1
+        //        customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor
         customInfoWindow.pickButton.layer.cornerRadius = 5
         
         return customInfoWindow
@@ -1009,10 +1050,10 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
                            didAutocompleteWithPlace place: GMSPlace) {
         testView.clear() //clear all previous marker before adding new marker
         
-//        //re put the marker for the worker list after ch
-//        for worker in workerList {
-//            getMarkerForWorker(worker)
-//        }
+        //        //re put the marker for the worker list after ch
+        //        for worker in workerList {
+        //            getMarkerForWorker(worker)
+        //        }
         searchController?.active = false
         
         locatewithCoordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
@@ -1089,15 +1130,21 @@ extension MapViewController: UICollectionViewDataSource, UICollectionViewDelegat
 extension MapViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workerList.count
+        return workersFilter.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("WorkerDetailCell", forIndexPath: indexPath) as! WorkerDetailCell
         
-        cell.worker = workerList[indexPath.row]
+        cell.worker = workersFilter[indexPath.row]
         cell.ticket = newTicket!
         cell.mapViewController = self
+        cell.marker = markersFilter[indexPath.row]
+        cell.delegate = self
+        if distanceToTicket.count != 0 {
+            cell.distance = distanceToTicket[indexPath.row] / 1000
+            
+        }
         return cell
     }
     
@@ -1107,5 +1154,76 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate {
 extension MapViewController: UISearchControllerDelegate {
     func willPresentSearchController(searchController: UISearchController) {
         adjustViewsWhenFinishChoosingCategory()
+    }
+}
+// MARK: WorkerDetailCellDelegate
+extension MapViewController: WorkerDetailCellDelegate {
+    func selectedMarker(marker: GMSMarker) {
+        testView.selectedMarker = marker
+        let target = CLLocationCoordinate2D(latitude: marker.layer.latitude, longitude: marker.layer.longitude)
+        testView.animateToLocation(target)
+    }
+}
+
+
+// MARK: UserFilterViewController
+extension MapViewController: UserFilterDelegate {
+    func userFilterDelegate(filter: PingoFilter) {
+        self.filter = filter
+        
+        // Clear marker
+        for marker in markers {
+            marker.map = nil
+        }
+        testView.clear()
+        filterWorkerList()
+        tableView.reloadData()
+        updateNumberOfWorkersFound()
+        
+    }
+    func filterWorkerList(){
+        for marker in markersFilter {
+            marker.map = nil
+        }
+        if workersFilter.count > 0 && markersFilter.count > 0{
+            workersFilter.removeAll()
+            markersFilter.removeAll()
+        }
+        for (index, worker) in workerList.enumerate() {
+            let distance = (newTicket.location?.convertToCllLocation().distanceFromLocation((worker.location?.convertToCllLocation())!))! / 1000
+            if filter?.distanceFilter == 0 {
+                if filter?.priceTo != 0 && filter?.priceFrom != 0 {
+                    let price = HandleUtil.convertCurrencyStringToNsNumber(worker.price)
+                    let checkConditionPrice = filter?.checkConditionPrice(price)
+                    if  checkConditionPrice! {
+                        workersFilter.append(worker)
+                        markersFilter.append(markers[index])
+                        addMarkerToMap(worker, atIndex: index)
+                    }
+                } else {
+                    workersFilter.append(worker)
+                    markersFilter.append(markers[index])
+                    addMarkerToMap(worker, atIndex: index)
+                   
+                }
+               
+            } else {
+                if distance <= filter?.distanceFilter {
+                    if filter?.priceTo != 0 && filter?.priceFrom != 0 {
+                        let price = HandleUtil.convertCurrencyStringToNsNumber(worker.price)
+                        let checkConditionPrice = filter?.checkConditionPrice(price)
+                        if  checkConditionPrice! {
+                            workersFilter.append(worker)
+                            markersFilter.append(markers[index])
+                            addMarkerToMap(worker, atIndex: index)
+                        }
+                    } else {
+                        workersFilter.append(worker)
+                        markersFilter.append(markers[index])
+                       
+                    }
+                }
+            }
+        }
     }
 }

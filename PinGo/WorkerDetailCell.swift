@@ -9,17 +9,32 @@
 import UIKit
 import Alamofire
 
+protocol WorkerDetailCellDelegate {
+    func selectedMarker(marker: GMSMarker)
+}
+
 class WorkerDetailCell: UITableViewCell {
     @IBOutlet weak var workerProfileImageView: UIImageView!
     @IBOutlet weak var workerNameLabel: UILabel!
     @IBOutlet weak var workerRatingLabel: UILabel!
+    
+    @IBOutlet weak var buttonDistance: UIButton!
+    
     @IBOutlet weak var workerHourlyRateLabel: UILabel!
     var mapViewController: MapViewController?
+    var distance: Double? {
+        didSet {
+          let formartDistance = String(format:"%.2f km", distance!)
+          buttonDistance.setTitle(formartDistance, forState: .Normal)
+        }
+    }
     var ticket: Ticket?
+    var marker: GMSMarker?
+    var delegate: WorkerDetailCellDelegate?
     var worker: Worker! {
         didSet {
             workerNameLabel.text =  worker.username
-            workerRatingLabel.text = String(format: "%.1f", worker.averageRating)
+            //workerRatingLabel.text = String(format: "%.1f", worker.averageRating)
             workerHourlyRateLabel.text = worker.price
             
             if worker?.profileImage?.imageUrl! != "" {
@@ -76,5 +91,8 @@ class WorkerDetailCell: UITableViewCell {
         editUserProfileViewController.userProfile = worker
         mapViewController?.presentViewController(navigationController, animated: true, completion:nil)
     }
-
+    
+    @IBAction func distanceAction(sender: UIButton) {
+        delegate?.selectedMarker(marker!)
+    }
 }
