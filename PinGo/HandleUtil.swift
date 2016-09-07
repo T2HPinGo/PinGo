@@ -84,6 +84,9 @@ struct HandleUtil {
     }
     
     static func convertStringToDouble(target: String) -> Double{
+        if target == "" {
+            return 0 
+        }
         let number = Int(target)
         return Double(number!)
     }
