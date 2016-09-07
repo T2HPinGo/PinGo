@@ -10,6 +10,8 @@
 		21008E7F1D71A08F008332EC /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21008E7E1D71A08F008332EC /* DateTimePickerViewController.swift */; };
 		21008E861D71C4AD008332EC /* HelveticaNeueLTStd-Lt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E821D71C366008332EC /* HelveticaNeueLTStd-Lt.ttf */; };
 		21008E871D71C4AD008332EC /* HelveticaNeueLTStd-LtEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21008E831D71C366008332EC /* HelveticaNeueLTStd-LtEx.ttf */; };
+		2102ED181D7EAD37000C17E2 /* WorkerScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2102ED171D7EAD37000C17E2 /* WorkerScheduleViewController.swift */; };
+		2102ED291D7ED6C4000C17E2 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2102ED281D7ED6C4000C17E2 /* ScheduleCell.swift */; };
 		210981251D6D6A8800F6189A /* PhotoSlidePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */; };
 		210EF8C51D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */; };
 		210EF8C71D5B7E3000889AAD /* T2HGradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */; };
@@ -130,6 +132,8 @@
 		21008E831D71C366008332EC /* HelveticaNeueLTStd-LtEx.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNeueLTStd-LtEx.ttf"; sourceTree = "<group>"; };
 		21008E841D71C366008332EC /* Oswald.light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Oswald.light.ttf; sourceTree = "<group>"; };
 		21008E851D71C366008332EC /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
+		2102ED171D7EAD37000C17E2 /* WorkerScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerScheduleViewController.swift; sourceTree = "<group>"; };
+		2102ED281D7ED6C4000C17E2 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		210981241D6D6A8800F6189A /* PhotoSlidePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSlidePageViewController.swift; sourceTree = "<group>"; };
 		210EF8C41D5AEEF800889AAD /* T2HTextViewWithPlaceHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HTextViewWithPlaceHolder.swift; sourceTree = "<group>"; };
 		210EF8C61D5B7E3000889AAD /* T2HGradientUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T2HGradientUIView.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 				21F7B03E1D76D0CE0089FB53 /* WorkerHomeMapViewController.swift */,
 				B093A6891D77F1CE00AE6925 /* DetailTicketViewController.swift */,
 				21AF8B171D77CD6A0003E29A /* UserFilterViewController.swift */,
+				2102ED171D7EAD37000C17E2 /* WorkerScheduleViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 				21A6F9851D69A78400AA2EBF /* TicketImageCell.swift */,
 				B04E73FD1D6991E800751D4C /* HistoryTicketCell.swift */,
 				B093A68B1D7946EA00AE6925 /* TicketWorkerCell.swift */,
+				2102ED281D7ED6C4000C17E2 /* ScheduleCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 				B093A68A1D77F1CE00AE6925 /* DetailTicketViewController.swift in Sources */,
 				21FAD0761D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallTrianglePath.swift in Sources */,
 				B0861E8D1D66D9C1002B2C7D /* CircleImageView.swift in Sources */,
+				2102ED181D7EAD37000C17E2 /* WorkerScheduleViewController.swift in Sources */,
 				21FAD0661D5EFEFC000ED89F /* NVActivityIndicatorAnimationBallBeat.swift in Sources */,
 				21FAD07C1D5EFEFC000ED89F /* NVActivityIndicatorAnimationLineScaleParty.swift in Sources */,
 				21FC6A771D5A5C5700819090 /* T2HGradientView.swift in Sources */,
@@ -785,6 +792,7 @@
 				E7EBFA061D5C6AE900C1FEB8 /* LoginViewController.swift in Sources */,
 				E7CB137B1D5DC69700BA5AA4 /* EditUserProfileViewController.swift in Sources */,
 				B0F0A5FB1D6836C3003C8DAD /* WorkerTicketCell.swift in Sources */,
+				2102ED291D7ED6C4000C17E2 /* ScheduleCell.swift in Sources */,
 				21FAD0891D5EFEFC000ED89F /* NVActivityIndicatorViewable.swift in Sources */,
 				216C10EA1D7C582C004A161B /* PingoFilter.swift in Sources */,
 				21434C371D55AA5F00B31122 /* RequestStatusCell.swift in Sources */,
