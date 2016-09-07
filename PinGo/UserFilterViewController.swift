@@ -211,6 +211,11 @@ extension UserFilterViewController: UIGestureRecognizerDelegate {
 extension UserFilterViewController {
     
     @IBAction func applyAction(sender: AnyObject) {
+        // Set Price from and to 
+        let priceTo = HandleUtil.convertStringToDouble(priceToTextField.text!)
+        let priceFrom = HandleUtil.convertStringToDouble(priceFromTextField.text!)
+        filter?.priceTo = priceTo
+        filter?.priceFrom = priceFrom
         delegate?.userFilterDelegate(filter!)
         dismissViewControllerAnimated(true, completion: nil)
         

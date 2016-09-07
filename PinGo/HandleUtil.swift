@@ -75,4 +75,19 @@ struct HandleUtil {
         result = tempDouble
         return result!
     }
+    static func convertCurrencyStringToNsNumber (data: String) -> Double {
+        let indexStartOfText = data.startIndex.advancedBy(1)
+        let subString = data.substringFromIndex(indexStartOfText)
+        let number = Int(subString)
+        return Double(number!)
+
+    }
+    
+    static func convertStringToDouble(target: String) -> Double{
+        if target == "" {
+            return 0 
+        }
+        let number = Int(target)
+        return Double(number!)
+    }
 }

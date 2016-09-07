@@ -213,8 +213,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1g6-8m-6Ge" userLabel="TableSlideUpView">
                                 <rect key="frame" x="8" y="223" width="140" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Workers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ4-8E-In9">
-                                        <rect key="frame" x="5" y="11" width="70" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Workers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ4-8E-In9">
+                                        <rect key="frame" x="5" y="11" width="71" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -354,11 +354,6 @@
                                                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.0/5.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULq-0h-InG">
-                                                    <rect key="frame" x="83" y="65" width="48.5" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$80" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGX-AU-lFA">
                                                     <rect key="frame" x="83" y="41" width="28.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -391,16 +386,35 @@
                                                         <action selector="onprofileAction:" destination="xTf-o2-ehs" eventType="touchUpInside" id="B8j-5b-HlB"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8B-kW-uWv">
+                                                    <rect key="frame" x="83" y="61" width="80" height="30"/>
+                                                    <color key="backgroundColor" red="0.30196078431372547" green="0.6470588235294118" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="A0G-aM-azN"/>
+                                                        <constraint firstAttribute="height" constant="30" id="sSk-6R-e3n"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <state key="normal" title="0 km" image="marker_white">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="distanceAction:" destination="xTf-o2-ehs" eventType="touchUpInside" id="EmW-d5-sow"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="LGX-AU-lFA" firstAttribute="centerY" secondItem="uhz-y8-hHy" secondAttribute="centerY" id="2n4-6B-xdE"/>
-                                                <constraint firstItem="ULq-0h-InG" firstAttribute="baseline" secondItem="uhz-y8-hHy" secondAttribute="baseline" id="3e8-px-LFC"/>
                                                 <constraint firstItem="LGX-AU-lFA" firstAttribute="top" secondItem="Z67-Qw-8Zd" secondAttribute="bottom" constant="2.5" id="5nX-QJ-qco"/>
                                                 <constraint firstItem="PRY-3p-FkD" firstAttribute="width" secondItem="uhz-y8-hHy" secondAttribute="width" id="7S4-Zh-zTI"/>
                                                 <constraint firstItem="uhz-y8-hHy" firstAttribute="top" secondItem="2OP-WX-F5V" secondAttribute="top" constant="20" id="7zu-ur-6Zj"/>
+                                                <constraint firstItem="T8B-kW-uWv" firstAttribute="leading" secondItem="LGX-AU-lFA" secondAttribute="leading" id="DAY-88-Do5"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="t0r-6B-tGi" secondAttribute="trailing" constant="2" id="E0c-sV-671"/>
                                                 <constraint firstAttribute="bottom" secondItem="uhz-y8-hHy" secondAttribute="bottom" constant="8" id="KHP-Zg-LLP"/>
-                                                <constraint firstItem="ULq-0h-InG" firstAttribute="leading" secondItem="Z67-Qw-8Zd" secondAttribute="leading" id="Kp8-hZ-cF9"/>
                                                 <constraint firstItem="uhz-y8-hHy" firstAttribute="centerY" secondItem="2OP-WX-F5V" secondAttribute="centerY" id="PcR-bJ-P7D"/>
                                                 <constraint firstItem="PRY-3p-FkD" firstAttribute="leading" secondItem="uhz-y8-hHy" secondAttribute="leading" id="UWa-Xw-zr3"/>
                                                 <constraint firstItem="LGX-AU-lFA" firstAttribute="top" secondItem="Z67-Qw-8Zd" secondAttribute="bottom" constant="-0.5" id="Yd5-70-53f"/>
@@ -411,6 +425,7 @@
                                                 <constraint firstItem="uhz-y8-hHy" firstAttribute="top" secondItem="2OP-WX-F5V" secondAttribute="top" constant="8" id="eqp-ii-kXo"/>
                                                 <constraint firstItem="Z67-Qw-8Zd" firstAttribute="top" secondItem="uhz-y8-hHy" secondAttribute="top" id="fVj-Od-RGq"/>
                                                 <constraint firstItem="Z67-Qw-8Zd" firstAttribute="leading" secondItem="uhz-y8-hHy" secondAttribute="trailing" constant="8" id="iUM-Yu-hT0"/>
+                                                <constraint firstItem="T8B-kW-uWv" firstAttribute="top" secondItem="LGX-AU-lFA" secondAttribute="bottom" constant="2" id="li0-vO-VfN"/>
                                                 <constraint firstAttribute="trailing" secondItem="t0r-6B-tGi" secondAttribute="trailing" constant="15" id="mop-Ux-Nxp"/>
                                                 <constraint firstItem="uhz-y8-hHy" firstAttribute="leading" secondItem="2OP-WX-F5V" secondAttribute="leading" constant="15" id="oXN-RR-c5w"/>
                                                 <constraint firstItem="t0r-6B-tGi" firstAttribute="centerY" secondItem="2OP-WX-F5V" secondAttribute="centerY" id="pTj-kg-a6s"/>
@@ -431,10 +446,10 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="buttonDistance" destination="T8B-kW-uWv" id="clq-KS-jc3"/>
                                             <outlet property="workerHourlyRateLabel" destination="LGX-AU-lFA" id="mq8-mW-s4U"/>
                                             <outlet property="workerNameLabel" destination="Z67-Qw-8Zd" id="YN1-5P-gaD"/>
                                             <outlet property="workerProfileImageView" destination="uhz-y8-hHy" id="JGW-Ng-Poa"/>
-                                            <outlet property="workerRatingLabel" destination="ULq-0h-InG" id="6IC-00-WDi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -793,6 +808,9 @@
                                                 <state key="normal" title="Apply">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="applyAction:" destination="QR3-Rh-Xdb" eventType="touchUpInside" id="Fxq-HI-ZfH"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.34509803919999998" green="0.70588235290000001" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1000,6 +1018,7 @@
         <image name="good" width="256" height="256"/>
         <image name="great" width="256" height="256"/>
         <image name="left_arrow" width="25" height="25"/>
+        <image name="marker_white" width="25" height="25"/>
         <image name="plus" width="25" height="25"/>
         <image name="rating" width="256" height="256"/>
         <image name="upFilled" width="50" height="50"/>
