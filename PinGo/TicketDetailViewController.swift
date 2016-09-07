@@ -61,10 +61,10 @@ class TicketDetailViewController: UIViewController {
     }
     
     func setupAppearance() {
-        bidButton.layer.cornerRadius = 5
-        bidButton.layer.borderColor = colorTheme.CGColor
-        bidButton.layer.borderWidth = 1.0
-        bidButton.tintColor = colorTheme
+//        bidButton.layer.cornerRadius = 5
+//        bidButton.layer.borderColor = colorTheme.CGColor
+//        bidButton.layer.borderWidth = 1.0
+//        bidButton.tintColor = colorTheme
         
         categoryIconView.layer.cornerRadius = categoryIconView.frame.width / 2
         categoryIconView.backgroundColor = colorTheme

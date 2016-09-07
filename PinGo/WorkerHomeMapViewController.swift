@@ -66,6 +66,16 @@ class WorkerHomeMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //logo Pingo on the navigation bar
+        let logo = UIImage(named: "PinGo_text")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 5, width: 50, height: 30))
+        imageView.center.x = view.center.x
+        imageView.contentMode = .ScaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.image = logo
+        
+        self.navigationController?.navigationBar.addSubview(imageView)
+//        self.navigationItem.titleView = imageView
         
         initLocation()
         initTableView()
@@ -138,7 +148,7 @@ class WorkerHomeMapViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "TicketDetailSegue" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let ticketDetailViewController = segue.destinationViewController as! DetailTicketViewController
+                let ticketDetailViewController = segue.destinationViewController as! TicketDetailViewController
                 //let cell = tableView.cellForRowAtIndexPath(indexPath) as! WorkerTicketCell
                 ticketDetailViewController.ticket = tickets[indexPath.row]
                 

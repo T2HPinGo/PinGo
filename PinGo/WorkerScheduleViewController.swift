@@ -29,7 +29,7 @@ class WorkerScheduleViewController: UIViewController {
     var months: [NSDate] = [] //this is use to display the value of next month and previous month in the menu bar
     
     var ticketList: [Ticket] = []
-    var schedule: [NSDate: [NSDate?]] = [:]
+    var schedule: [NSDate: [Ticket]] = [:]
     var datesScheduled: [NSDate] = []
     
     //MARK: Load Views
@@ -86,7 +86,6 @@ class WorkerScheduleViewController: UIViewController {
                         self.addDateScheduled(ticket)
                     }
                 }
-                //self.tableView.reloadData()
                 self.calendarManager.reload() //put here so the the dotViews show up on the calendar after receive data from server
                 
             } else {
@@ -98,26 +97,26 @@ class WorkerScheduleViewController: UIViewController {
         }
     }
     
+    //use this to present data on tableview
     func addSchedule(ticket: Ticket) {
         let date = getDateFromString(ticket.dateBegin, withFormat: DateStringFormat.DD_MMM_YYYY)
-        let time: NSDate?
-        
-        if ticket.timeBegin != "ASAP" {
-            time = getDateFromString(ticket.timeBegin, withFormat: DateStringFormat.HH_mm)
-        } else {
-            time = NSDate(timeIntervalSince1970: 0.0)
-        }
 
         if let dateValid = date {
+            //if the key:value pair doesn't exist, create a new one. Otherwise just simply append the ticket to the ticket array corresponding to that date
             if schedule[dateValid] == nil {
-                schedule[dateValid] = [time]
+                schedule[dateValid] = [ticket]
             } else {
-                schedule[dateValid]!.append(time)
+                schedule[dateValid]!.append(ticket)
             }
-            self.schedule[dateValid]?.sortInPlace({ $0!.compare($1!) == NSComparisonResult.OrderedAscending })
+            
+            //sort ticket array so time will be in ascending order
+            self.schedule[dateValid] = self.schedule[dateValid]?.sort({ (ticket1, ticket2) -> Bool in
+                ticket1.timeBegin < ticket2.timeBegin
+            })
         }
     }
     
+    //use this to show dot view in calendar
     func addDateScheduled(ticket: Ticket) {
         let date = getDateFromString(ticket.dateBegin, withFormat: DateStringFormat.DD_MMM_YYYY)
         
@@ -136,13 +135,17 @@ extension WorkerScheduleViewController: UITableViewDataSource, UITableViewDelega
         
         return 0
     }
-//
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCellWithIdentifier("ScheduleCell", forIndexPath: indexPath) as! ScheduleCell
         
         if let chosenDate = chosenDate {
-            let time = schedule[chosenDate]![indexPath.row]
-            cell.timeLabel.text = time?.compare(NSDate(timeIntervalSince1970: 0.0)) == NSComparisonResult.OrderedSame  ? "ASAP" : getStringFromDate(time!, withFormat: DateStringFormat.HH_mm)
+            let ticket = schedule[chosenDate]![indexPath.row]
+            cell.timeLabel.text = ticket.timeBegin
+            cell.ticketTitleLabel.text = ticket.title
+            
+            
+//            cell.timeLabel.text = ticket.timeBegin.compare(NSDate(timeIntervalSince1970: 0.0)) == NSComparisonResult.OrderedSame  ? "ASAP" : getStringFromDate(time!, withFormat: DateStringFormat.HH_mm)
             return cell
         }
         
