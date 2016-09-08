@@ -33,28 +33,36 @@ class TicketWorkerCell: UITableViewCell {
     
     @IBOutlet weak var labelDate: UILabel!
     
+    @IBOutlet weak var buttonCall: UIButton!
     var location: CLLocation?
     
+   
     var workerHomeMapViewController: WorkerHomeMapViewController?
     
     var delegate: TicketWorkerCellDelegate?
     
     var marker: GMSMarker?
     
-   
+    
     
     var ticket: Ticket? {
         didSet {
             defaultThemeColor()
             buttonAction.hidden = false
+            buttonCall.hidden = true 
             labelTitle.text = ticket?.title
             labelWorker.text = ticket?.user?.firstName
             labelDate.text = (ticket?.dateBegin)! + " - " + (ticket?.timeBegin)!
             // Distance
             let targerLocation = ticket?.location?.convertToCllLocation()
-            let distance = (location?.distanceFromLocation(targerLocation!))! / 1000
-            let formartDistance = String(format:"%.2f km", distance)
-            buttonDistance.setTitle(formartDistance, forState: .Normal)
+            if location != nil {
+                let distance = (location?.distanceFromLocation(targerLocation!))! / 1000
+                let formartDistance = String(format:"%.2f km", distance)
+                buttonDistance.setTitle(formartDistance, forState: .Normal)
+            }
+            
+            
+            
             if ticket?.worker?.price != "" {
                 labelPrice.text = ticket?.worker?.price
             } else {
@@ -87,7 +95,7 @@ class TicketWorkerCell: UITableViewCell {
                 if ticket?.status == Status.Pending{
                     buttonAction.setTitle("Bid", forState: .Normal)
                     self.labelMessage.text = "create new ticket"
-                   
+                    
                 } else {
                     if ticket?.status == Status.Done {
                         buttonAction.setTitle("Waiting ...", forState: .Normal)
@@ -153,6 +161,21 @@ class TicketWorkerCell: UITableViewCell {
             }
         }
     }
+    @IBAction func callAction(sender: UIButton) {
+        if let phoneNumber = ticket!.user?.phoneNumber {
+            let alert = UIAlertController(title: "", message: "Call " + phoneNumber, preferredStyle: .Alert)
+            let callAction = UIAlertAction(title: "OK", style: .Default, handler: { _ in
+                let url = NSURL(string: "tel://\(phoneNumber)")
+                UIApplication.sharedApplication().openURL(url!)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alert.addAction(callAction)
+            alert.addAction(cancelAction)
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            
+        }
+    }
     
     @IBAction func getLocationAction(sender: UIButton) {
         delegate?.ticketWorkerDelegate(marker!)
@@ -164,6 +187,8 @@ class TicketWorkerCell: UITableViewCell {
         labelWorker.textColor = AppThemes.inserviceColor
         buttonAction.backgroundColor = AppThemes.inserviceColor
         buttonDistance.backgroundColor = AppThemes.inserviceColor
+        buttonCall.hidden = false
+        buttonCall.backgroundColor = AppThemes.inserviceColor
     }
     // MARK: Update Pending Color
     func defaultThemeColor(){

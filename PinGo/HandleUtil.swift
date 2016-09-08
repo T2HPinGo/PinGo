@@ -87,7 +87,7 @@ struct HandleUtil {
         if target == "" {
             return 0 
         }
-        let number = Int(target)
-        return Double(number!)
+        
+        return Double(target)!
     }
 }

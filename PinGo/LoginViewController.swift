@@ -35,7 +35,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, FBSDKLoginButt
         super.viewDidLoad()
         
         //facebook login
-        view.addSubview(loginButton)
+       // view.addSubview(loginButton)
 //        loginButton.center = view.center
 //        loginButton.delegate = self
 

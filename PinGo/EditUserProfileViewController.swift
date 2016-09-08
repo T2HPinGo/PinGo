@@ -112,8 +112,8 @@ extension EditUserProfileViewController : UITableViewDelegate, UITableViewDataSo
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryTicketCell") as! HistoryTicketCell
         cell.ticket = tickets[indexPath.row]
-        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
-        cell.themeColor = AppThemes.cellColors[colorIndex]
+//        let colorIndex = indexPath.row < AppThemes.cellColors.count ? indexPath.row : getCorrespnsingColorForCell(indexPath.row)
+//        cell.themeColor = AppThemes.cellColors[colorIndex]
         return cell
     }
     func initTableView(){
@@ -135,7 +135,7 @@ extension EditUserProfileViewController {
             imageViewProfile.image = UIImage(named: "profile_default")
         }
         labelFullname.text = userProfile?.getFullName()
-        labelUsername.text = userProfile?.username!
+        labelUsername.text = "@\((userProfile?.username)!)"
         labelEmail.text = userProfile?.email!
         labelPhoneNumber.text = userProfile?.phoneNumber!
         headerPhoneNumber.text = userProfile?.phoneNumber!
@@ -177,8 +177,8 @@ extension EditUserProfileViewController {
         headerBackgroundBlurImageView.addSubview(blurEffectView)
         headerBackgroundBlurImageView?.alpha = 0.0
         
-        headerBackgroundImageView?.image = UIImage(named: "Pingobackground")
-        headerBackgroundBlurImageView?.image = UIImage(named: "Pingobackground")
+        headerBackgroundImageView?.image = UIImage(named: "home_office")
+        headerBackgroundBlurImageView?.image = UIImage(named: "home_office")
         headerBackgroundImageView?.contentMode = UIViewContentMode.ScaleAspectFill
         headerBackgroundBlurImageView?.contentMode = UIViewContentMode.ScaleAspectFill
         // Should add background view below SubView

@@ -41,6 +41,7 @@ class UserFilterViewController: UIViewController {
     var distanceFromTicket: [Double] = [] //save distance of the worker to the ticket
     var filter: PingoFilter?
     var delegate: UserFilterDelegate?
+    var isUserFilter = true
     struct NSUserDefaultKeys {
         static let tipControlSegmentIndex = "TipControlSegmentIndex"
     }
@@ -55,12 +56,27 @@ class UserFilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        // Check if user filter screen
+        if !isUserFilter {
+            workersFoundLabel.hidden = true
+            numberOfWorkersFoundLabel.hidden  = true
+            priceToTextField.hidden = true
+            priceFromTextField.hidden = true
+            ratingStackView.hidden = true
+            filter = getWorkerData()
+        } else {
+            filter = getUserData()
+        }
+        
+        
+        
         setupAppearance()
         updateDisplayedLabels()
-        filter = PingoFilter()
+        //        filter = PingoFilter()
         
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        distanceSegmentControl.selectedSegmentIndex = userDefaults.integerForKey(NSUserDefaultKeys.tipControlSegmentIndex)
+//        let userDefaults = NSUserDefaults.standardUserDefaults()
+//        distanceSegmentControl.selectedSegmentIndex = userDefaults.integerForKey(NSUserDefaultKeys.tipControlSegmentIndex)
         
         //add gesture so user can close the popup by tapping out side the popup view
         let closePopupGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
@@ -105,12 +121,19 @@ class UserFilterViewController: UIViewController {
         popupViewHeightConstraint.constant = view.bounds.height - 150 - 69 //69 is height of status bar and navigation bar, 150 is roughly the height of the subViews in MapViewController
         
         displayView.backgroundColor = AppThemes.appColorTheme
-        
+
         numberOfWorkersFoundLabel.textColor = UIColor.whiteColor()
         numberOfWorkersFoundLabel.font = AppThemes.oswaldRegular17
         
         workersFoundLabel.textColor = UIColor.grayColor()
         workersFoundLabel.font = AppThemes.oswaldRegular17
+        
+        distanceSegmentControl.selectedSegmentIndex = (filter?.getIndexFromDistances((filter?.distanceFilter)!))!
+        // set data for priceTo and priceFrom Label
+        if filter?.priceTo != 0 && filter?.priceFrom != 0 {
+            priceFromTextField.text = "\((filter?.priceFrom)!)"
+            priceToTextField.text = "\((filter?.priceTo)!)"
+        }
     }
     
     //update workerlist when users chose their distance preference
@@ -162,7 +185,7 @@ class UserFilterViewController: UIViewController {
         UIView.animateWithDuration(0.4, animations: {
             self.view.frame.origin.y = 0
         })
-
+        
     }
     
     func dismissKeyboard() {
@@ -211,14 +234,79 @@ extension UserFilterViewController: UIGestureRecognizerDelegate {
 extension UserFilterViewController {
     
     @IBAction func applyAction(sender: AnyObject) {
-        // Set Price from and to 
+        // Set Price from and to
         let priceTo = HandleUtil.convertStringToDouble(priceToTextField.text!)
         let priceFrom = HandleUtil.convertStringToDouble(priceFromTextField.text!)
         filter?.priceTo = priceTo
         filter?.priceFrom = priceFrom
         delegate?.userFilterDelegate(filter!)
+        if !isUserFilter {
+            saveWorkerData()
+        } else {
+            saveUserData()
+        }
         dismissViewControllerAnimated(true, completion: nil)
         
     }
+}
+// MARK: Save data and load data from NSUSer Default
+extension UserFilterViewController {
+    func saveWorkerData(){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let distanceArchiver = NSKeyedArchiver.archivedDataWithRootObject(filter!.distanceFilter!)
+        defaults.setObject(distanceArchiver, forKey: "workerDistance")
+        defaults.synchronize()
+    }
+    
+    func getWorkerData() -> PingoFilter {
+        let pingoFilter = PingoFilter()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let distances = defaults.objectForKey("workerDistance") as? NSData
+        if let distances = distances {
+            let distancesArchiver = NSKeyedUnarchiver.unarchiveObjectWithData(distances) as! Double
+            pingoFilter.distanceFilter = distancesArchiver
+        }
+       
+        return pingoFilter
+    }
+    func saveUserData() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        // distance
+        let distanceArchiver = NSKeyedArchiver.archivedDataWithRootObject(filter!.distanceFilter!)
+        defaults.setObject(distanceArchiver, forKey: "userDistance")
+        // priceFrom 
+        let priceFromArchiver = NSKeyedArchiver.archivedDataWithRootObject(filter!.priceFrom!)
+        defaults.setObject(priceFromArchiver, forKey: "priceFrom")
+        // priceTo
+        let priceToArchiver = NSKeyedArchiver.archivedDataWithRootObject(filter!.priceTo!)
+        defaults.setObject(priceToArchiver, forKey: "priceTo")
+        
+        defaults.synchronize()
+    }
+    func getUserData() -> PingoFilter {
+        let pingoFilter = PingoFilter()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        // distance
+        let distances = defaults.objectForKey("userDistance") as? NSData
+        if let distances = distances {
+            let distancesArchiver = NSKeyedUnarchiver.unarchiveObjectWithData(distances) as! Double
+            pingoFilter.distanceFilter = distancesArchiver
+        }
+        // priceFrom 
+        let priceFrom = defaults.objectForKey("priceFrom") as? NSData
+        if let priceFrom = priceFrom {
+            let priceFromArchiver = NSKeyedUnarchiver.unarchiveObjectWithData(priceFrom) as! Double
+            pingoFilter.priceFrom = priceFromArchiver
+        }
+        // priceTo 
+        let priceTo = defaults.objectForKey("priceTo") as? NSData
+        if let priceTo = priceTo {
+            let priceToArchiver = NSKeyedUnarchiver.unarchiveObjectWithData(priceTo) as! Double
+            pingoFilter.priceTo = priceToArchiver
+        }
+        
+        return pingoFilter
+    }
+    
 }
 

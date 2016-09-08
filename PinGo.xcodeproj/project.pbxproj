@@ -234,6 +234,7 @@
 		B0F0A5F81D683669003C8DAD /* HomeTimeLineWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTimeLineWorker.swift; sourceTree = "<group>"; };
 		B0F0A5FA1D6836C3003C8DAD /* WorkerTicketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerTicketCell.swift; sourceTree = "<group>"; };
 		B0F0A5FC1D683704003C8DAD /* HandleUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleUtil.swift; sourceTree = "<group>"; };
+		B0F6EF6B1D803767007246E6 /* MyLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MyLocation.gpx; sourceTree = "<group>"; };
 		B0FC11B01D618CBB00F34FDC /* Worker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Worker.storyboard; path = ../Worker.storyboard; sourceTree = "<group>"; };
 		B0FC11B61D62276400F34FDC /* WorkerProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkerProfileController.swift; sourceTree = "<group>"; };
 		E7120D331D61C19100193061 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -414,6 +415,7 @@
 				21568A491D794899001B6D34 /* CustomInfoView.swift */,
 				213D284A1D64D941009A06D8 /* NothingFoundCell.xib */,
 				E71389DB1D6B0D0F00FA84D0 /* forfacebook.m */,
+				B0F6EF6B1D803767007246E6 /* MyLocation.gpx */,
 			);
 			path = PinGo;
 			sourceTree = "<group>";

@@ -70,6 +70,18 @@ class PingoFilter {
         }
         return true
     }
+    func getIndexFromDistances(target: Double) -> Int{
+        switch target {
+        case 5.0:
+            return 0
+        case 10.0:
+            return 1
+        case 15.0:
+            return 2
+        default:
+            return 3
+        }
+    }
     
 }
 

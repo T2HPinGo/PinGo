@@ -187,18 +187,25 @@ class RequestStatusCell: UITableViewCell {
         //        self.themeColor = AppThemes.cellColors[2]
         self.imageViewFinished.hidden = false
         self.approveButton.hidden  = true
-        
+        labelPrice.backgroundColor = AppThemes.inserviceColor
+        callWorkerView.backgroundColor = AppThemes.inserviceColor
     }
     func updateUIButtonByStatus(status: String){
         switch status {
         case Status.Done.rawValue:
             approveButton.setTitle(Status.Approved.rawValue, forState: .Normal)
+            buttonAction.backgroundColor = AppThemes.inserviceColor
+            labelPrice.backgroundColor = AppThemes.inserviceColor
+            callWorkerView.backgroundColor = AppThemes.inserviceColor
             break
         case Status.Approved.rawValue:
             updateUIWhenStatusIsApproved()
             break
         default:
+            buttonAction.backgroundColor = AppThemes.appColorTheme
+            labelPrice.backgroundColor = AppThemes.appColorTheme
             approveButton.setTitle(ticket.status?.rawValue, forState: .Normal)
+            callWorkerView.backgroundColor = AppThemes.appColorTheme
             break
         }
     }

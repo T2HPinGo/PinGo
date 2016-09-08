@@ -75,6 +75,7 @@ class HistoryTicketCell: UITableViewCell {
             
             imageViewRaiting.layer.cornerRadius = imageViewRaiting.frame.width / 2
             imageViewRaiting.layer.backgroundColor = UIColor(red: 255.0/255.0, green: 217.0/255.0, blue: 25.0/255.0, alpha: 1.0).CGColor
+            ImageViewCategory.image = getImageWithCategory((ticket?.category)!)
             
         }
     }
@@ -88,5 +89,20 @@ class HistoryTicketCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
+    func getImageWithCategory(category: String) -> UIImage{
+        switch category {
+        case Category.Electricity.rawValue:
+            return UIImage(named: "Electricity")!
+        case Category.Cleanning.rawValue:
+            return UIImage(named: "Housekeeping")!
+        case Category.AutoRepair.rawValue:
+            return UIImage(named: "Maintenance")!
+        case Category.Gardening.rawValue:
+            return UIImage(named: "Garden")!
+        case Category.Plumbing.rawValue:
+            return UIImage(named: "Plumbing")!
+        default:
+            return UIImage()
+        }
+    }
 }

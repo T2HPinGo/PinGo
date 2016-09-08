@@ -157,6 +157,7 @@ class WorkerHomeMapViewController: UIViewController {
             if segue.identifier == "FilterSegue" {
                 let filterViewController = segue.destinationViewController as! UserFilterViewController
                 filterViewController.delegate = self
+                filterViewController.isUserFilter = false
             }
         }
         
@@ -643,3 +644,43 @@ extension WorkerHomeMapViewController: UserFilterDelegate {
         
     }
 }
+// MARK: GMSMapViewDelegate
+//extension WorkerHomeMapViewController: GMSMapViewDelegate {
+//    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+//        // 1
+//        let index:Int! = Int(marker.accessibilityLabel!)
+//        // 2
+//        let customInfoWindow = NSBundle.mainBundle().loadNibNamed("CustomInfoWindow", owner: self, options: nil)[0] as! CustomInfoWindow
+//        customInfoWindow.architectLbl.text = architectNames[index]
+//        customInfoWindow.completedYearLbl.text = completedYear[index]
+//        return customInfoWindow
+//    }
+//    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+//        if marker == userMarker {
+//            //user doesn't necessarily need a info window
+//            return nil
+//        }
+//        
+//        let customInfoWindow = NSBundle.mainBundle().loadNibNamed("CustomInfoView", owner: self, options: nil)[0] as! CustomInfoView
+//        
+//        if let index = Int(marker.accessibilityLabel!) {
+//            customInfoWindow.workerNameLabel.text = workerList[index].firstName
+//            customInfoWindow.hourlyRateLabel.text = workerList[index].price
+//            
+//            //if the distance is less than 100 meter than show it in meter, other wise convert to km
+//            if distanceToTicket[index] < 1000 {
+//                let distance = roundToBeutifulNumber(distanceToTicket[index], devidedNumber: 10)
+//                customInfoWindow.distanceFromTicketLabel.text = "\(distance) m"
+//            } else {
+//                let distance = distanceToTicket[index] / 1000
+//                customInfoWindow.distanceFromTicketLabel.text = String(format: "%.1f km", distance)
+//            }
+//        }
+//        //        customInfoWindow.layer.borderWidth = 1
+//        //        customInfoWindow.layer.borderColor = AppThemes.appColorTheme.CGColor
+//        customInfoWindow.pickButton.layer.cornerRadius = 5
+//        
+//        return customInfoWindow
+//    }
+//
+//}

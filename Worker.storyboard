@@ -67,13 +67,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFe-iA-Phk">
                                                     <rect key="frame" x="16" y="11" width="35.5" height="17"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Broken Toilet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="di4-Dc-evm">
                                                     <rect key="frame" x="89" y="10" width="93" height="19"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9uc-T7-neS">
@@ -126,7 +126,7 @@
                             <constraint firstItem="ux3-ZT-dgc" firstAttribute="leading" secondItem="LNP-W2-hFq" secondAttribute="leading" id="vsB-bU-0KP"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="BNM-Ym-Kth"/>
+                    <tabBarItem key="tabBarItem" title="" image="schedule" id="BNM-Ym-Kth"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="calendarContentView" destination="ux3-ZT-dgc" id="8Z1-a9-T84"/>
@@ -297,8 +297,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CAf-IT-pfM">
-                                <rect key="frame" x="0.0" y="323" width="375" height="295"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAf-IT-pfM">
+                                <rect key="frame" x="0.0" y="323" width="375" height="344"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AN9-Tp-QId" userLabel="ViewImages">
                                         <rect key="frame" x="10" y="10" width="355" height="100"/>
@@ -986,9 +986,28 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mh-7v-LYf">
+                                                            <rect key="frame" x="285" y="79" width="30" height="30"/>
+                                                            <color key="backgroundColor" red="0.34509803921568627" green="0.70588235294117641" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="fdH-Da-9bv"/>
+                                                                <constraint firstAttribute="height" constant="30" id="g1I-4B-YC7"/>
+                                                            </constraints>
+                                                            <state key="normal" image="icon_phone"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="callAction:" destination="XDz-dH-m32" eventType="touchUpInside" id="GDZ-yY-16B"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="jCb-ZK-tsZ" firstAttribute="leading" secondItem="5b7-gE-1jh" secondAttribute="trailing" constant="2" id="12i-Me-hFb"/>
+                                                        <constraint firstItem="8Mh-7v-LYf" firstAttribute="centerY" secondItem="hVo-hG-H16" secondAttribute="centerY" id="1jd-Iw-5TS"/>
+                                                        <constraint firstItem="8Mh-7v-LYf" firstAttribute="top" secondItem="fTS-Q2-1df" secondAttribute="bottom" constant="-6.5" id="48J-64-mnR"/>
                                                         <constraint firstItem="iKf-LC-ZNN" firstAttribute="top" secondItem="fV7-m2-xE7" secondAttribute="bottom" constant="6" id="6P4-gc-FNP"/>
                                                         <constraint firstItem="fV7-m2-xE7" firstAttribute="top" secondItem="UDR-Fb-lU6" secondAttribute="top" id="7Ze-7h-5Sr"/>
                                                         <constraint firstItem="5b7-gE-1jh" firstAttribute="top" secondItem="fV7-m2-xE7" secondAttribute="top" id="8Zm-3h-hW4"/>
@@ -996,6 +1015,7 @@
                                                         <constraint firstItem="5b7-gE-1jh" firstAttribute="centerY" secondItem="fV7-m2-xE7" secondAttribute="centerY" id="ElK-9f-aK2"/>
                                                         <constraint firstItem="5b7-gE-1jh" firstAttribute="leading" secondItem="fV7-m2-xE7" secondAttribute="trailing" constant="8" id="Hpd-O9-Ude"/>
                                                         <constraint firstItem="UDR-Fb-lU6" firstAttribute="bottom" secondItem="ICe-ID-iAl" secondAttribute="bottom" id="JpS-ly-BWK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8Mh-7v-LYf" secondAttribute="trailing" constant="5" id="K1u-Jm-wSm"/>
                                                         <constraint firstAttribute="trailing" secondItem="ICe-ID-iAl" secondAttribute="trailing" constant="8" id="Kvl-lf-fsj"/>
                                                         <constraint firstItem="iKf-LC-ZNN" firstAttribute="leading" secondItem="fV7-m2-xE7" secondAttribute="leading" id="MSa-qS-CIp"/>
                                                         <constraint firstItem="NUx-0k-XeN" firstAttribute="baseline" secondItem="ICe-ID-iAl" secondAttribute="baseline" id="N44-JE-Oxa"/>
@@ -1018,6 +1038,7 @@
                                                         <constraint firstItem="hVo-hG-H16" firstAttribute="leading" secondItem="ICe-ID-iAl" secondAttribute="trailing" constant="8" id="sMS-Q7-CBn"/>
                                                         <constraint firstItem="ICe-ID-iAl" firstAttribute="leading" secondItem="iKf-LC-ZNN" secondAttribute="leading" id="uKw-Yp-soL"/>
                                                         <constraint firstItem="jCb-ZK-tsZ" firstAttribute="baseline" secondItem="5b7-gE-1jh" secondAttribute="baseline" id="uX8-yN-5ci"/>
+                                                        <constraint firstItem="8Mh-7v-LYf" firstAttribute="centerY" secondItem="iKf-LC-ZNN" secondAttribute="centerY" id="us7-37-KQW"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iKf-LC-ZNN" secondAttribute="trailing" constant="5" id="w3S-3W-WAe"/>
                                                         <constraint firstAttribute="bottom" secondItem="NUx-0k-XeN" secondAttribute="bottom" constant="20" id="yiB-lU-uJe"/>
                                                     </constraints>
@@ -1034,6 +1055,8 @@
                                                             <exclude reference="NF7-V6-nga"/>
                                                             <exclude reference="fSd-kN-ziJ"/>
                                                             <exclude reference="ElK-9f-aK2"/>
+                                                            <exclude reference="48J-64-mnR"/>
+                                                            <exclude reference="us7-37-KQW"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -1048,6 +1071,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="buttonAction" destination="ICe-ID-iAl" id="Xpt-oW-y5h"/>
+                                            <outlet property="buttonCall" destination="8Mh-7v-LYf" id="clh-I8-4Yh"/>
                                             <outlet property="buttonDistance" destination="hVo-hG-H16" id="f9w-cR-1en"/>
                                             <outlet property="imageViewTicket" destination="UDR-Fb-lU6" id="rCe-V8-ATL"/>
                                             <outlet property="imageViewWorker" destination="fV7-m2-xE7" id="DF9-nc-Jl3"/>
@@ -1212,7 +1236,7 @@
         <scene sceneID="HxX-uA-dv4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Res-hy-bLh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="9zi-dY-jwy"/>
+                    <tabBarItem key="tabBarItem" title="" image="home" id="9zi-dY-jwy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ia3-m1-e7m">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1481,7 +1505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FD7-wL-PSp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1296" y="-1928"/>
+            <point key="canvasLocation" x="1275" y="-2064"/>
         </scene>
     </scenes>
     <resources>
@@ -1492,9 +1516,12 @@
         <image name="good" width="256" height="256"/>
         <image name="great" width="256" height="256"/>
         <image name="greentech" width="100" height="100"/>
+        <image name="home" width="24" height="24"/>
         <image name="icon_calendar" width="32" height="32"/>
+        <image name="icon_phone" width="48" height="48"/>
         <image name="marker_white" width="25" height="25"/>
         <image name="rating" width="256" height="256"/>
+        <image name="schedule" width="25" height="25"/>
         <image name="upFilled" width="50" height="50"/>
         <image name="user" width="25" height="25"/>
     </resources>

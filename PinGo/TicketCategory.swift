@@ -8,6 +8,15 @@
 
 import UIKit
 
+public enum Category: String {
+    case Electricity = "Electricity"
+    case Cleanning = "Cleanning"
+    case Plumbing = "Plumbing"
+    case AutoRepair = "Auto Repair"
+    case Gardening = "Gardening"
+}
+
+
 class TicketCategory: NSObject {
     var id: String?
     var title: String?
